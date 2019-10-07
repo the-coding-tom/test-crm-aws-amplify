@@ -5,7 +5,8 @@ const baseURL = 'https://shack15-staging.herokuapp.com/api/v1'
 module.exports = {
   mode: 'universal',
   router: {
-    middleware: ['auth']
+    middleware: ['auth'],
+    linkExactActiveClass: 'active'
   },
   /*
   ** Headers of the page
@@ -28,12 +29,29 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [],
+  css: [
+    'assets/css/nucleo/css/nucleo.css',
+    'assets/css/themify-icons/themify-icons.css',
+    'assets/css/ionicons/css/ionicons.css',
+    'assets/sass/argon.scss',
+    'assets/css/helpers.css',
+    'assets/css/custom.css'
+  ],
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [],
+  plugins: [
+    '~/plugins/dashboard/dashboard-plugin',
+    {
+      src: '~/plugins/dashboard/full-calendar',
+      ssr: false
+    },
+    '~/plugins/services/auth',
+    '~/plugins/services/wellness',
+    '~/plugins/services/event',
+    '~/plugins/services/resource'
+  ],
 
   /*
   ** Nuxt.js modules
@@ -68,11 +86,11 @@ module.exports = {
             propertyName: 'data.access_token'
           },
           logout: {
-            url: 'https://shack15-staging.herokuapp.com/api/v1/logout',
+            url: '/logout',
             method: 'get'
           },
           user: {
-            url: 'https://shack15-staging.herokuapp.com/api/v1/user',
+            url: '/user',
             method: 'get',
             propertyName: 'data'
           }
@@ -86,6 +104,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    transpile: ['vee-validate/dist/rules'],
     /*
     ** You can extend webpack config here
     */
@@ -99,8 +118,18 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    },
+    extractCSS: process.env.NODE_ENV === 'production',
+    babel: {
+      plugins: [
+        [
+          'component',
+          {
+            libraryName: 'element-ui',
+            styleLibraryName: 'theme-chalk'
+          }
+        ]
+      ]
     }
   }
 }
-
-console.log(process.env.baseUrl)

@@ -1,0 +1,72 @@
+<template>
+  <div class="sh-p-header">
+    <span class="label label-default sh-label">
+      <template v-if="status">
+        <i class="fa fa-lock" /> Private
+      </template>
+      <template v-else>
+        <i class="fa fa-unlock" /> Public
+      </template>
+    </span>
+    <div class="d-flex align-items-center pd-20 mr-5 mr-tb-20">
+      <img :src="img ? img : '/img/placeholder.jpg'" class="mr-r-20 rounded-circle avatar-xxl" />
+      <div>
+        <h1>{{ name }}</h1>
+        <h3 class="mr-b-10">{{ company }}</h3>
+        <i class="ti-location-pin" />
+        {{ address }}
+        <br />
+        <i class="ti-calendar" />
+        {{ date }}
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    status: {
+      type: Boolean,
+      default: null
+    },
+    img: {
+      type: String,
+      default: null
+    },
+    },
+    name: {
+      type: String,
+      default: null
+    },
+    company: {
+      type: String,
+      default: null
+    },
+    address: {
+      type: String,
+      default: null
+    },
+    date: {
+      type: String,
+      default: null
+    }
+  }
+}
+</script>
+
+<style scoped>
+.sh-p-header {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: #ed8100;
+}
+.sh-p-header * {
+  color: #fff;
+}
+.sh-p-header h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+</style>
