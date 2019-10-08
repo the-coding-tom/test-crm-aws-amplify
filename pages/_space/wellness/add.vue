@@ -10,6 +10,7 @@
           />
           <b-button
             type="submit"
+            style="color: white;"
             class="btn btn-primary">Add Wellness</b-button>
         </div>
       </base-header>
@@ -23,6 +24,7 @@
               <div class="col-md-6">
                 <div class="row pd-r-20">
                   <base-input
+                    v-model="name"
                     class="col-md-12"
                     label="Name"
                     required
@@ -30,124 +32,169 @@
                   <div class="form-group col-md-12">
                     <label>Description</label>
                     <textarea
+                      v-model="description"
                       required
                       placeholder="Add details about the wellness"
                       rows="4"
                       max-rows="6"
                       class="form-control"/>
                   </div>
-                  <base-input
+                  <b-form-group
+                    label="Start Date"
+                    class="col-md-6">
+                    <client-only>
+                      <date-picker
+                        id="time"
+                        v-model="start_date"
+                        width="100%"
+                        input-class="form-control"
+                        lang="en"
+                        format="YYYY-MM-DD HH:mm:ss"
+                        value-type="format"
+                        confirm
+                        type="datetime"
+                        placeholder="Start Date"
+                        @change="setEndDate"/>
+                    </client-only>
+                  </b-form-group>
+                  <!-- <base-input
                     class="col-md-6"
                     label="Start Date"
                     type="date"
-                    placeholder=""/>
-                  <base-input
+                    placeholder=""/> -->
+                  <!-- <base-input
                     class="col-md-6"
-                    label="Start Date"
+                    label="End Date"
                     type="date"
-                    placeholder=""/>
+                    placeholder=""/> -->
+                  <b-form-group
+                    label="End Date"
+                    class="col-md-6">
+                    <client-only>
+                      <date-picker
+                        id="time"
+                        v-model="end_date"
+                        width="100%"
+                        input-class="form-control"
+                        lang="en"
+                        format="YYYY-MM-DD HH:mm:ss"
+                        value-type="format"
+                        confirm
+                        type="datetime"
+                        placeholder="End Date"/>
+                    </client-only>
+                  </b-form-group>
                   <base-input
+                    v-model="price_per_session"
                     class="col-md-6"
-                    label="End Time"
-                    type="time"
-                    placeholder=""/>
-                  <base-input
-                    class="col-md-6"
-                    label="End Time"
-                    type="time"
-                    placeholder=""/>
-                  <base-input
-                    class="col-md-6"
-                    label="Price"
+                    label="Price Per Session"
                     type="number"
                     step="0.01"
                     placeholder="0.00"/>
-                  <div class="form-group col-md-3">
-                    <label>Currency:</label>
-                    <el-select
-                      v-model="currency"
-                      placeholder="USD ($)">
-                      <el-option
-                        v-for="item in options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"/>
-                    </el-select>
-                  </div>
+                  <base-input
+                    v-model="location"
+                    class="col-md-6"
+                    label="Location"
+                    type="text"
+                    placeholder="Open Lounge"/>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="row pd-l-20">
                   <div class="form-group col-md-6">
-                    <label>Event Category:</label>
+                    <label>Wellness Category:</label>
                     <el-select
-                      v-model="categories"
-                      placeholder="Select Category">
+                      v-model="wellness_category_id"
+                      placeholder="Select Category"
+                      required>
                       <el-option
-                        v-for="n in 6"
-                        :key="n"
-                        :label="'Category' + n"
-                        :value="n"/>
+                        v-for="category in categories"
+                        :key="category.id"
+                        :label="category.name"
+                        :value="category.id"/>
                     </el-select>
                   </div>
                   <div class="form-group col-md-6">
-                    <label>Organizer:</label>
-                    <el-select
-                      v-model="organisers"
-                      placeholder="Select Organizer">
-                      <el-option
-                        v-for="n in 6"
-                        :key="n"
-                        :label="'Organizer' + n"
-                        :value="n"/>
-                    </el-select>
+                    <label>Duration:</label>
+                    <b-form-input
+                      v-model="duration"
+                      type="number"
+                      placeholder="30"/>
+                    <b-form-text>Duration should be a number that denotes minutes. E.g. 30 is 30 mins</b-form-text>
                   </div>
-                  <div class="form-group col-md-12">
-                    <label>Resource</label>
-                    <b-form-checkbox-group>
-                      <b-form-checkbox>Neural Room</b-form-checkbox>
-                      <b-form-checkbox>Restaurant</b-form-checkbox>
-                    </b-form-checkbox-group>
-                  </div>
+                </div>
+                <div class="row pd-l-20"/>
 
-                  <div class="form-group col-md-12">
-                    <label>Attendee Email</label>
-                    <el-select
-                      v-model="selects"
-                      multiple
-                      filterable
-                      placeholder="Attendees will be sent emails as below if you fill out the fields below:">
-                      <el-option
-                        v-for="option in selectOptions"
-                        :key="option.label"
-                        :label="option.label"
-                        :value="option.value"/>
-                    </el-select>
+                <div
+                  class="row pd-l-20">
+                  <h5 class="col-md-12"><span style="text-decoration: underline;">Slots</span> <b-button
+                    variant="link"
+                    @click="addSlot()">Add Slot</b-button> </h5>
+                  <div
+                    v-for="(sl, i) in slots"
+                    :key="i"
+                    class="row pd-l-20">
+                    <b-form-group
+                      label="Day"
+                      label-for="date"
+                      class="col-md-4">
+                      <b-form-select
+                        v-model="sl.day"
+                        :options="selects"/>
+                    </b-form-group>
+                    <b-form-group
+                      label="Time"
+                      label-for="time"
+                      class="col-md-3">
+                      <!-- <b-form-input id="time" type="time" class="form-control" v-model="sl.time" /> -->
+                      <client-only>
+                        <date-picker
+                          id="time"
+                          v-model="sl.start"
+                          width="100%"
+                          input-class="form-control"
+                          lang="en"
+                          value-type="format"
+                          confirm
+                          type="time"
+                          format="HH:mm"
+                          placeholder="00:00"
+                        />
+                      </client-only>
+                    </b-form-group>
+                    <b-form-group
+                      label="Capacity"
+                      label-for="capacity"
+                      class="col-md-3">
+                      <b-form-input
+                        id="capacity"
+                        v-model="sl.capacity"
+                        type="number"
+                        class="form-control"
+                        placeholder="1" />
+                    </b-form-group>
+                    <b-form-group
+                      v-if="i !== 0"
+                      label="Remove"
+                      label-for="remove"
+                      class="col-md-2">
+                      <b-button
+                        id="remove"
+                        class="text-danger"
+                        variant="transparent"
+                        @click="removeSlot(i)"><i class="fa fa-times"/></b-button>
+                    </b-form-group>
                   </div>
-
-                  <base-input
-                    class="col-md-6"
-                    label="Email Subject"
-                    placeholder="Add subject of Email"/>
-
-                  <div class="form-group col-md-12">
-                    <label>Message</label>
-                    <textarea
-                      placeholder="Message body for attendees’ email"
-                      rows="4"
-                      max-rows="6"
-                      class="form-control"/>
-                  </div>
+                  <p class="text-mute pd-l-20">Note: Slots are key to how the retrieve wellness slots.</p>
                 </div>
               </div>
             </div>
 
-            <!-- <div class="bg-lgray pd-10 pd-l-20 col-md-12"> -->
             <UploadButton
-              name="Hello"
-              label="Upload File" />
-              <!-- </div> -->
+              v-model="banner_url"
+              service="wellness"
+              label="Upload File (<500KB & size 1125x582)" />
           </card>
         </div>
       </div>
@@ -175,26 +222,128 @@ export default {
     [Select.name]: Select,
     [Option.name]: Option
   },
+  async asyncData({ $wellness }) {
+    let categories
+
+    await $wellness.getWellnessCategories().then(({ data }) => {
+      categories = data.data
+    })
+
+    return {
+      categories,
+      wellness_category_id: categories[0].id
+    }
+  },
   data() {
     return {
-      options: [
-        { value: 'USD ($)', label: 'USD ($)' },
-        { value: 'GBP (£)', label: 'GBP (£)' },
-        { value: 'EUR (€)', label: 'EUR (€)' },
-        { value: 'CNY (¥)', label: 'CNY (¥)' }
+      name: '',
+      description: '',
+      price_per_session: 0,
+      start_date: '',
+      end_date: '',
+      location: '',
+      duration: 30,
+      wellness_category_id: null,
+      slots: [{ day: 0, start: '08:00', capacity: 1 }],
+      banner_url: null,
+      selects: [
+        {
+          text: 'Sunday',
+          value: 0
+        },
+        { text: 'Monday', value: 1 },
+        { text: 'Tuesday', value: 2 },
+        { text: 'Wednesday', value: 3 },
+        { text: 'Thursday', value: 4 },
+        { text: 'Friday', value: 5 },
+        { text: 'Saturday', value: 6 }
       ],
-      selectOptions: [
-        { label: 'Phelicia Drake ', value: 'info1@example.com' },
-        { label: 'Samuel Ekubona', value: 'info2@example.com' },
-        { label: 'Goku Justin', value: 'info3@example.com' },
-        { label: 'Kofi Pampaso', value: 'info4@example.com' },
-        { label: 'Tulasi Boni', value: 'info5@example.com' },
-        { label: 'Michael Smith', value: 'info6@example.com' }
-      ],
-      selects: [],
-      categories: [],
-      organisers: [],
-      currency: []
+      categories: []
+    }
+  },
+  mounted() {
+    this.start_date = this.$moment()
+      .add(1, 'hour')
+      .format('YYYY-MM-DD HH:00:00')
+    this.end_date = this.$moment(this.start_date)
+      .add(this.duration, 'minutes')
+      .format('YYYY-MM-DD HH:mm:ss')
+
+    this.slots[0].day = this.$moment().day()
+    this.slots[0].start = this.$moment(this.start_date).format('HH:mm')
+  },
+  methods: {
+    addSlot() {
+      const { start_date } = this
+      this.slots.push({
+        day: this.$moment(start_date).day(),
+        start: this.$moment(start_date).format('HH:mm'),
+        capacity: 1
+      })
+    },
+    removeSlot(i) {
+      this.slots.splice(i, 1)
+    },
+    setEndDate() {
+      const { duration, start_date } = this
+      this.slots[0].day = this.$moment(start_date).day()
+      this.slots[0].start = this.$moment(start_date).format('HH:mm')
+      this.end_date = this.$moment(start_date)
+        .add(duration, 'minutes')
+        .format('YYYY-MM-DD HH:mm:ss')
+    },
+    addWellness() {
+      const {
+        name,
+        description,
+        banner_url,
+        price_per_session,
+        duration,
+        slots,
+        location,
+        start_date,
+        end_date,
+        wellness_category_id
+      } = this
+
+      slots = _.map(slots, o => {
+        return {
+          ...o,
+          duration
+        }
+      })
+
+      const payload = {
+        name,
+        description,
+        banner_url,
+        location,
+        start_date,
+        end_date,
+        wellness_category_id,
+        price_per_session,
+        slots
+      }
+      console.log(payload)
+      return
+
+      if (!banner_url) {
+        this.$bvToast.toast('Please wait. Uploading image...')
+      }
+
+      this.$wellness
+        .addWellnessSession(payload)
+        .then(({ data }) => {
+          this.$bvToast.toast('Wellness added successfully', {
+            variant: 'sucess',
+            solid: true
+          })
+
+          this.$router.go(-1)
+        })
+        .catch(({ response }) => {
+          this.$bvToast.toast(JSON.stringify(response.data.errors))
+        })
     }
   }
 }

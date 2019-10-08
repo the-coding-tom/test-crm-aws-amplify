@@ -10,6 +10,9 @@ export default function(ctx, inject) {
 
       return ctx.$axios.get(link)
     },
+    addWellnessSession: payload => {
+      return ctx.$axios.post(`${baseUrl}`, payload)
+    },
     createWellnessSession: payload => {
       return ctx.$axios.post(`/${subdomain}/wellness-categories`, payload)
     },

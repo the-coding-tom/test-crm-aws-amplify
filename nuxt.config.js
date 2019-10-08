@@ -60,7 +60,9 @@ module.exports = {
     '~/plugins/services/auth',
     '~/plugins/services/wellness',
     '~/plugins/services/event',
-    '~/plugins/services/resource'
+    '~/plugins/services/images',
+    '~/plugins/services/resource',
+    { src: '~/plugins/vue2-datepicker', ssr: false }
   ],
 
   /*
