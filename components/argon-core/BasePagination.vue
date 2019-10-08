@@ -1,37 +1,37 @@
 <template>
-  <ul 
-    :class="[size && `pagination-${size}`, align && `justify-content-${align}`]" 
+  <ul
+    :class="[size && `pagination-${size}`, align && `justify-content-${align}`]"
     class="pagination">
-    <li 
-      :class="{disabled: value === 1}" 
+    <li
+      :class="{disabled: value === 1}"
       class="page-item prev-page">
-      <a 
-        class="page-link" 
-        aria-label="Previous" 
+      <a
+        class="page-link"
+        aria-label="Previous"
         @click="prevPage">
-        <span aria-hidden="true"><i 
-          class="fa fa-angle-left" 
+        <span aria-hidden="true"><i
+          class="fa fa-angle-left"
           aria-hidden="true"/></span>
       </a>
     </li>
-    <li 
-      v-for="item in range(minPage, maxPage)" 
+    <li
+      v-for="item in range(minPage, maxPage)"
       :class="{active: value === item}"
       :key="item"
       class="page-item">
-      <a 
-        class="page-link" 
+      <a
+        class="page-link"
         @click="changePage(item)">{{ item }}</a>
     </li>
-    <li 
-      :class="{disabled: value === totalPages}" 
+    <li
+      :class="{disabled: value === totalPages}"
       class="page-item next-page">
-      <a 
-        class="page-link" 
-        aria-label="Next" 
+      <a
+        class="page-link"
+        aria-label="Next"
         @click="nextPage">
-        <span aria-hidden="true"><i 
-          class="fa fa-angle-right" 
+        <span aria-hidden="true"><i
+          class="fa fa-angle-right"
           aria-hidden="true"/></span>
       </a>
     </li>
@@ -141,12 +141,14 @@ export default {
     },
     nextPage() {
       if (this.value < this.totalPages) {
-        this.$emit('input', this.value + 1)
+        // this.$emit('input', this.value + 1)
+        this.$emit('next', true)
       }
     },
     prevPage() {
       if (this.value > 1) {
-        this.$emit('input', this.value - 1)
+        // this.$emit('input', this.value - 1)
+        this.$emit('prev', true)
       }
     }
   }

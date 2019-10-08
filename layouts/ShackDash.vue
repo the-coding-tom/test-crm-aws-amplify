@@ -5,23 +5,30 @@
       <template
         slot-scope="props"
         slot="links">
-        <sidebar-item :link="{ name: 'Dashboard', icon: 'ni ni-archive-2', path: '/ui/dashboard'}" />
+        <sidebar-item :link="{ name: 'Dashboard', icon: 'ni ni-archive-2', path: `/${subdomain}`}" />
         <sidebar-item
           :link="{ name: 'Bookings', icon: 'ni ni-shop' }"
         >
           <sidebar-item
-            :link="{ name: 'Resources', path: '/ui/bookings/resources' }"
+            :link="{ name: 'Calendar', path: `/${subdomain}/calendar` }"
           />
           <sidebar-item
-            :link="{ name: 'Alternative', path: '/alternative' }"
+            :link="{ name: 'Resources', path: `/${subdomain}/resources` }"
           />
+        </sidebar-item>
+        <sidebar-item :link="{ name: 'Wellness', icon: 'ni ni-shop'}">
+          <sidebar-item :link="{name: 'Sessions', path: `/${subdomain}/wellness`}" />
+          <sidebar-item :link="{name: 'Categories'}">
+            <sidebar-item :link="{name: 'All Categories', path: `/${subdomain}/wellness/categories`}" />
+            <sidebar-item :link="{name: 'Add Categories', path: `/${subdomain}/wellness/categories/add`}" />
+          </sidebar-item>
         </sidebar-item>
         <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
           <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />
           <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
         </sidebar-item>
         <sidebar-item :link="{ name: 'Setup', icon: 'ni ni-shop', }">
-          <sidebar-item :link="{ name: 'Setup', path: '/setup' }" />
+          <sidebar-item :link="{ name: 'Setup', path: `/${subdomain}/setup` }" />
           <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
         </sidebar-item>
       </template>
@@ -59,12 +66,18 @@ function initScrollbar(className) {
 import DashboardNavbar from '~/components/layouts/argon/DashboardNavbar.vue'
 import ContentFooter from '~/components/layouts/argon/ContentFooter.vue'
 import DashboardContent from '~/components/layouts/argon/Content.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
     DashboardNavbar,
     ContentFooter,
     DashboardContent
+  },
+  computed: {
+    ...mapState({
+      subdomain: state => state.space.currentSpace.subdomain
+    })
   },
   mounted() {
     this.initScrollbar()
