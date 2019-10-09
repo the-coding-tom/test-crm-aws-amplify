@@ -47,9 +47,9 @@
                 <nuxt-link :to="{ name: 'space-resources-id', params: { id: rooms.id }}">
                   <i class="ti-pencil" /> Edit Resource
                 </nuxt-link>
-                <a 
-                  href="" 
-                  class="text-danger"><i class="ti-trash"/> Delete Resource</a>
+                <button  
+                  class="text-danger"
+                  @click="deleteRoom(rooms.id)"><i class="ti-trash"/> Delete Resource</button>
               </div>
             </div>
           </card>
@@ -87,6 +87,14 @@ export default {
   },
   created() {
     this.$store.dispatch('resources/getAllRooms', { vm: this })
+  },
+  methods: {
+    deleteRoom(room_id) {
+      this.$store.dispatch('resources/deleteRoom', {
+        vm: this,
+        payload: room_id
+      })
+    }
   }
 }
 </script>

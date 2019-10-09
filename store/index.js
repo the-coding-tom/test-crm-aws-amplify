@@ -1,3 +1,12 @@
+import { getField, updateField } from 'vuex-map-fields'
+
+export const getters = {
+  getField
+}
+export const mutations = {
+  updateField
+}
+
 export const actions = {
   nuxtServerInit({ commit, state }, { req, route, env, redirect }) {
     if (state.auth.user) {

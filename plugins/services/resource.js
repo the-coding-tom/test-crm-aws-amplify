@@ -15,7 +15,7 @@ export default function(ctx, inject) {
     updateRoom: (id, payload) => {
       return ctx.$axios.patch(`${baseUrl}/${id}`, payload)
     },
-    deleteRoom: () => {
+    deleteRoom: id => {
       return ctx.$axios.delete(`${baseUrl}/${id}`)
     }
   }
