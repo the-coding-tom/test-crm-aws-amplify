@@ -17,6 +17,7 @@
           />
         </sidebar-item>
         <sidebar-item :link="{ name: 'Wellness', icon: 'ni ni-shop'}">
+          <sidebar-item :link="{ name: 'Bookings', icon: 'fa fa-calendar', path: `/${subdomain}/wellness/bookings`}" />
           <sidebar-item :link="{name: 'Sessions', path: `/${subdomain}/wellness`}" />
           <sidebar-item :link="{name: 'Categories'}">
             <sidebar-item :link="{name: 'All Categories', path: `/${subdomain}/wellness/categories`}" />

@@ -10,6 +10,9 @@ export default function(ctx, inject) {
 
       return ctx.$axios.get(link)
     },
+    addWellnessSession: payload => {
+      return ctx.$axios.post(`${baseUrl}`, payload)
+    },
     createWellnessSession: payload => {
       return ctx.$axios.post(`/${subdomain}/wellness-categories`, payload)
     },
@@ -42,6 +45,22 @@ export default function(ctx, inject) {
     },
     deleteWellnessCategory: id => {
       return ctx.$axios.delete(`${baseUrl}-categories/${id}`)
+    },
+    updateWellnessSlots: (id, payload) => {
+      return ctx.$axios.patch(`${baseUrl}/${id}/slots`, payload)
+    },
+    getWellnessByDate: date => {
+      return ctx.$axios.get(`${baseUrl}?filter[start_date]=${date}`)
+    },
+    getAllBookings: (id, link = null) => {
+      if (link) {
+        return ctx.$axios.get(link)
+      }
+
+      return ctx.$axios.get(`${baseUrl}/${id}/bookings`)
+    },
+    cancelABooking: (wellnessId, bookingId) => {
+      return ctx.$axios.delete(`${baseUrl}/${wellnessId}/bookings/${bookingId}`)
     }
   }
   ;(ctx.$wellness = Wellness), inject('wellness', Wellness)
