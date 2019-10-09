@@ -42,11 +42,6 @@
             </div>
 
             <slots :data="session" />
-            <!-- <div class="mr-t-20">
-              <p>Available
-                from: Mondays - Fridays, 8:00AM - 5:00PM</p>
-              <slots :data="session.slots"/>
-            </div>-->
 
             <div slot="footer">
               <div class="d-flex justify-content-between">
@@ -54,8 +49,8 @@
                   <i class="ti-pencil" /> Edit Resource
                 </nuxt-link>
                 <a
-                  href
-                  class="text-danger">
+                  class="text-danger"
+                  @click="deleteWellness(session.id)">
                   <i class="ti-trash" /> Delete Resource
                 </a>
               </div>
@@ -116,6 +111,22 @@ export default {
     prev() {
       const { prev } = this.links
       this.$wellness.getAllWellnessSessions(prev)
+    },
+    deleteWellness(id) {
+      if (!confirm('Are you sure?')) return
+
+      this.$wellness
+        .deleteWellnessSession(id)
+        .then(res => {
+          location.reload()
+        })
+        .catch(({ response }) => {
+          this.$bvToast.toast(JSON.stringify(response.data.errors), {
+            title: 'Error',
+            variant: 'danger',
+            solid: true
+          })
+        })
     }
   }
 }

@@ -4,10 +4,12 @@
     :header="{
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      right: right
     }"
     :events="events"
-    default-view="dayGridMonth" />
+    :default-view="defaultView"
+    :dates-render="datesRender"
+    @eventClick="eventClick" />
 </template>
 
 <script>
@@ -20,7 +22,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import '@fullcalendar/core/main.css'
 import '@fullcalendar/daygrid/main.css'
 import '@fullcalendar/timegrid/main.css'
-// import '@fullcalendar/list/main.css'
+import '@fullcalendar/list/main.css'
 
 export default {
   components: {
@@ -30,6 +32,14 @@ export default {
     events: {
       type: Array,
       default: () => []
+    },
+    defaultView: {
+      type: String,
+      default: 'dayGridMonth'
+    },
+    right: {
+      type: String,
+      default: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     }
   },
   data() {
@@ -40,6 +50,17 @@ export default {
         interactionPlugin,
         listPlugin
       ]
+    }
+  },
+  methods: {
+    datesRender({ view }) {
+      this.$emit('dateChange', {
+        startDate: view.activeStart,
+        endDate: view.activeEnd
+      })
+    },
+    eventClick({ event }) {
+      this.$emit('eventClick', event)
     }
   }
 }

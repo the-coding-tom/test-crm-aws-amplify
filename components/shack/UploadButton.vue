@@ -34,11 +34,14 @@ export default {
     service: {
       type: String,
       default: 'images'
+    },
+    url: {
+      type: String,
+      default: null
     }
   },
   data() {
     return {
-      url: null,
       publicUrl: null
     }
   },

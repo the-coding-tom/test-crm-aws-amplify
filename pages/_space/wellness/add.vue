@@ -9,6 +9,7 @@
             title="Wellness"
           />
           <b-button
+            :disabled="loading"
             type="submit"
             style="color: white;"
             class="btn btn-primary">Add Wellness</b-button>
@@ -57,16 +58,6 @@
                         @change="setEndDate"/>
                     </client-only>
                   </b-form-group>
-                  <!-- <base-input
-                    class="col-md-6"
-                    label="Start Date"
-                    type="date"
-                    placeholder=""/> -->
-                  <!-- <base-input
-                    class="col-md-6"
-                    label="End Date"
-                    type="date"
-                    placeholder=""/> -->
                   <b-form-group
                     label="End Date"
                     class="col-md-6">
@@ -236,6 +227,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       name: '',
       description: '',
       price_per_session: 0,
@@ -243,6 +235,7 @@ export default {
       end_date: '',
       location: '',
       duration: 30,
+      weekly: true,
       wellness_category_id: null,
       slots: [{ day: 0, start: '08:00', capacity: 1 }],
       banner_url: null,
@@ -273,6 +266,9 @@ export default {
     this.slots[0].start = this.$moment(this.start_date).format('HH:mm')
   },
   methods: {
+    toggleLoading() {
+      this.loading = !this.loading
+    },
     addSlot() {
       const { start_date } = this
       this.slots.push({
@@ -303,15 +299,19 @@ export default {
         location,
         start_date,
         end_date,
+        weekly,
         wellness_category_id
       } = this
 
-      slots = _.map(slots, o => {
-        return {
-          ...o,
-          duration
-        }
-      })
+      let slotList = _.sortBy(
+        _.map(slots, o => {
+          return {
+            ...o,
+            duration
+          }
+        }),
+        ['day', 'start']
+      )
 
       const payload = {
         name,
@@ -320,16 +320,19 @@ export default {
         location,
         start_date,
         end_date,
+        weekly,
         wellness_category_id,
         price_per_session,
-        slots
+        slots: slotList
       }
-      console.log(payload)
-      return
 
       if (!banner_url) {
-        this.$bvToast.toast('Please wait. Uploading image...')
+        this.$bvToast.toast(
+          'No image provided or please wait for image to complete upload'
+        )
       }
+
+      this.toggleLoading()
 
       this.$wellness
         .addWellnessSession(payload)
@@ -342,6 +345,7 @@ export default {
           this.$router.go(-1)
         })
         .catch(({ response }) => {
+          this.toggleLoading()
           this.$bvToast.toast(JSON.stringify(response.data.errors))
         })
     }

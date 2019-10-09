@@ -84,8 +84,8 @@
           </a>
           <div class="dropdown-divider"/>
           <a
-            href="#!"
-            class="dropdown-item">
+            class="dropdown-item"
+            @click="logOut">
             <i class="ni ni-user-run"/>
             <span>Logout</span>
           </a>
@@ -143,6 +143,9 @@ export default {
     },
     hideSidebar() {
       this.$sidebar.displaySidebar(false)
+    },
+    logOut() {
+      this.$auth.logout('local')
     }
   }
 }
