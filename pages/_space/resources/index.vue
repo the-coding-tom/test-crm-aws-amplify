@@ -56,7 +56,15 @@
         </div>
       </div>
     </div>
-
+    <!-- <div>
+     <base-pagination
+        :total="meta.total"
+        :per-page="meta.per_page"
+        :value="meta.current_page"
+        align="center"
+        @next="next"
+        @prev="prev"/>
+    </div> -->
   </div>
 </template>
 <script>
@@ -82,7 +90,9 @@ export default {
   },
   computed: {
     ...mapState({
-      allRooms: state => state.resources.rooms.data
+      allRooms: state => state.resources.rooms.data,
+      meta: state => state.resources.rooms.meta,
+      links: state => state.resources.rooms.links
     })
   },
   created() {
@@ -94,6 +104,14 @@ export default {
         vm: this,
         payload: room_id
       })
+    },
+    next() {
+      const { next } = this.links
+      this.$store.dispatch('resources/getAllRooms', { vm: this, payload: next })
+    },
+    prev() {
+      const { prev } = this.links
+      this.$store.dispatch('resources/getAllRooms', { vm: this, payload: prev })
     }
   }
 }

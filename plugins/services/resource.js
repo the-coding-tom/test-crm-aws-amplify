@@ -3,8 +3,11 @@ export default function(ctx, inject) {
   const baseUrl = `/${subdomain}/admin/rooms`
 
   const Resource = {
-    getAllRooms: () => {
-      return ctx.$axios.get(`${baseUrl}`)
+    getAllRooms: (link = null) => {
+      if (!link) {
+        return ctx.$axios.get(`${baseUrl}`)
+      }
+      return ctx.$axios.get(link)
     },
     getARoom: id => {
       return ctx.$axios.get(`${baseUrl}/${id}`)
@@ -17,6 +20,21 @@ export default function(ctx, inject) {
     },
     deleteRoom: id => {
       return ctx.$axios.delete(`${baseUrl}/${id}`)
+    },
+    getAllCategories: () => {
+      return ctx.$axios.get(`${subdomain}/room-categories`)
+    },
+    createCategory: payload => {
+      return ctx.$axios.post(`${subdomain}/room-categories`, payload)
+    },
+    getOneCategory: id => {
+      return ctx.$axios.get(`${subdomain}/room-categories/${id}`)
+    },
+    updateCategory: (id, payload) => {
+      return ctx.$axios.patch(`${subdomain}/room-categories/${id}`, payload)
+    },
+    deleteCategory: id => {
+      return ctx.$axios.delete(`${subdomain}/room-categories/${id}`)
     }
   }
   ;(ctx.$resource = Resource), inject('resource', Resource)

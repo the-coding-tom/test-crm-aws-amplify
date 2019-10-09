@@ -28,11 +28,18 @@
                     class="col-md-6" 
                     label="Name" 
                     placeholder="Name of Resource"/>
-                  <base-input 
-                    v-model="color_code"
-                    class="col-md-3" 
-                    label="Color Tag" 
-                    placeholder="#4C4D4F"/>
+                  <div class="form-group col-md-6">
+                    <label>Category</label>
+                    <el-select 
+                      v-model="category" 
+                      name="category">
+                      <el-option
+                        v-for="item in categories"
+                        :key="item.id"
+                        :label="item.name"
+                        :value="item.id"/>
+                    </el-select>
+                  </div>
                   <base-input 
                     v-model="price_per_hour"
                     class="col-md-6" 
@@ -85,7 +92,7 @@
 
               <div class="col-md-6">
                 <div class="row pd-l-20">
-                  <base-input 
+                  <!-- <base-input 
                     v-model="cancellation_notice"
                     class="col-md-12" 
                     label="Cancellation Notice" 
@@ -93,8 +100,7 @@
                     placeholder="0">
                     <div slot="append">hrs</div>
                   </base-input>
-                  <b-form-text class="col-md-12">Prevent members from cancelling bookings within x hours before a booking starts.</b-form-text>
-
+                  <b-form-text class="col-md-12">Prevent members from cancelling bookings within x hours before a booking starts.</b-form-text> -->
                   <base-input 
                     v-model="capacity"
                     class="col-md-5" 
@@ -122,13 +128,11 @@
             </div>
 
             <!-- <div class=""> -->
-            <UploadButton 
-              name="Hello" 
-              label="Upload File" />
-            <img 
-              :src="photo"
-              class="img-fluid"
-              alt="">
+            <UploadButton
+              v-model="photo"
+              :url="photo"
+              service="resources"
+              label="Upload File (<500KB & size 1125x582)" />
               <!-- </div> -->
           </card>
         </div>
@@ -138,10 +142,12 @@
 </template>
 <script>
 import { mapFields } from 'vuex-map-fields'
+import { mapState } from 'vuex'
 import BaseHeader from '@/components/argon-core/BaseHeader'
 import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
 import UploadButton from '~/components/shack/UploadButton.vue'
+
 import { Select, Option } from 'element-ui'
 
 export default {
@@ -171,11 +177,13 @@ export default {
         { label: 'Michael Smith', value: 'info6@example.com' }
       ],
       selects: [],
-      categories: [],
       organisers: []
     }
   },
   computed: {
+    ...mapState({
+      categories: state => state.resources.categories.data
+    }),
     ...mapFields({
       name: 'resources.addRoom.name',
       price_per_hour: 'resources.addRoom.price_per_hour',
@@ -189,11 +197,13 @@ export default {
       admin_can_book: 'resources.addRoom.admin_can_book',
       cancellation_notice: 'resources.addRoom.cancellation_notice',
       available_booking_time: 'resources.addRoom.available_booking_time',
-      photo: 'resources.addRoom.photo'
+      photo: 'resources.addRoom.photo',
+      category: 'resources.addRoom.room_category_id'
     })
   },
   created() {
     this.getOneRoom()
+    this.$store.dispatch('resources/getAllCategories', { vm: this })
   },
   methods: {
     addNewRoom() {

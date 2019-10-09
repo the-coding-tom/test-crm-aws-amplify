@@ -15,6 +15,10 @@
           <sidebar-item
             :link="{ name: 'Resources', path: `/${subdomain}/resources` }"
           />
+          <sidebar-item :link="{name: 'Categories'}">
+            <sidebar-item :link="{name: 'All Categories', path: `/${subdomain}/resources/categories`}" />
+            <sidebar-item :link="{name: 'Add Categories', path: `/${subdomain}/resources/categories/add`}" />
+          </sidebar-item>
         </sidebar-item>
         <sidebar-item :link="{ name: 'Wellness', icon: 'ni ni-shop'}">
           <sidebar-item :link="{ name: 'Bookings', icon: 'fa fa-calendar', path: `/${subdomain}/wellness/bookings`}" />
