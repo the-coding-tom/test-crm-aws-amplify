@@ -1,5 +1,6 @@
 <template>
-  <div class="quill">
+  <div
+    class="quill">
     <div :id="toolbarId">
       <div class="ql-formats">
         <button class="ql-bold"/>
@@ -8,21 +9,21 @@
         <button class="ql-link"/>
         <button class="ql-blockquote"/>
         <button class="ql-code"/>
-        <button class="ql-image"/>
-        <button 
-          type="button" 
-          class="ql-list" 
+        <!-- <button class="ql-image"/> -->
+        <button
+          type="button"
+          class="ql-list"
           value="ordered"/>
-        <button 
-          type="button" 
-          class="ql-list" 
+        <button
+          type="button"
+          class="ql-list"
           value="bullet"/>
       </div>
     </div>
-    <div 
-      ref="editor" 
-      :id="editorId" 
-      :name="name" 
+    <div
+      ref="editor"
+      :id="editorId"
+      :name="name"
       class=""/>
   </div>
 </template>

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Add New Event" />
-        <b-button 
-          class="btn btn-primary text-white" 
+        <b-button
+          class="btn btn-primary text-white"
           @click="addEvent">Add Event</b-button>
       </div>
     </base-header>
@@ -42,8 +42,8 @@
                     class="form-control"
                   />
                 </div>
-                <b-form-group 
-                  label="Start Date" 
+                <b-form-group
+                  label="Start Date"
                   class="col-md-6">
                   <client-only>
                     <date-picker
@@ -57,11 +57,12 @@
                       confirm
                       type="datetime"
                       placeholder="Start Date"
+                      @change="startChange"
                     />
                   </client-only>
                 </b-form-group>
-                <b-form-group 
-                  label="End Date" 
+                <b-form-group
+                  label="End Date"
                   class="col-md-6">
                   <client-only>
                     <date-picker
@@ -93,8 +94,8 @@
               <div class="row pd-l-20">
                 <div class="form-group col-md-12">
                   <label>Event Category:</label>
-                  <el-select 
-                    v-model="category" 
+                  <el-select
+                    v-model="category"
                     placeholder="Select Category">
                     <el-option
                       v-for="category in categories"
@@ -117,31 +118,24 @@
                 </div>
 
                 <div class="form-group col-md-12">
-                  <b-form-checkbox 
-                    v-model="sendMail" 
+                  <b-form-checkbox
+                    v-model="sendMail"
                     value="true">Send email to attendees</b-form-checkbox>
                 </div>
 
-                <div 
-                  v-if="sendMail" 
+                <div
+                  v-if="sendMail"
                   class="form-group col-md-12">
                   <base-input
                     v-model="emailSubject"
-                    class="col-md-6"
                     label="Email Subject"
                     placeholder="Add subject of Email"
                   />
-
-                  <div class="form-group col-md-12">
-                    <label>Message</label>
-                    <textarea
+                  <b-form-group label="Email Content">
+                    <html-editor
                       v-model="emailMessage"
-                      placeholder="Message body for attendees’ email"
-                      rows="4"
-                      max-rows="6"
-                      class="form-control"
-                    />
-                  </div>
+                      placeholder="Message body for attendees email" />
+                  </b-form-group>
                 </div>
               </div>
             </div>
@@ -154,7 +148,7 @@
           <UploadButton
             v-model="hostLogo"
             service="event"
-            label="Upload Host Logo (<500KB & size 1125x582)"
+            label="Upload Host Logo (<500KB & size 500x500)"
           />
         </card>
       </div>
@@ -167,6 +161,7 @@ import BaseHeader from '@/components/argon-core/BaseHeader'
 import MainTitle from '@/components/shack/MainTitle.vue'
 import SectionTitle from '@/components/shack/SectionTitle.vue'
 import UploadButton from '@/components/shack/UploadButton.vue'
+import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
 import { mapState } from 'vuex'
 import { Select, Option } from 'element-ui'
 
@@ -177,6 +172,7 @@ export default {
     MainTitle,
     UploadButton,
     SectionTitle,
+    HtmlEditor,
     [Select.name]: Select,
     [Option.name]: Option
   },
@@ -203,8 +199,8 @@ export default {
       category: '',
       title: '',
       description: '',
-      capacity: 0,
-      price: 0,
+      capacity: 10,
+      price: 10,
       startTime: '',
       endTime: '',
       eventLogo: '',
@@ -222,7 +218,19 @@ export default {
       space: state => state.space.currentSpace.subdomain
     })
   },
+  mounted() {
+    this.startTime = this.$moment().format('YYYY-MM-DD HH:00:00')
+    this.endTime = this.$moment(this.startTime)
+      .add(1, 'hour')
+      .format('YYYY-MM-DD HH:mm:ss')
+    this.category = this.categories[0].id
+  },
   methods: {
+    startChange(e) {
+      this.endTime = this.$moment(e)
+        .add(1, 'hour')
+        .format('YYYY-MM-DD HH:mm:ss')
+    },
     async addEvent() {
       const start_time = this.$moment(this.startTime).format(
         'YYYY-MM-DD HH:mm:ss'

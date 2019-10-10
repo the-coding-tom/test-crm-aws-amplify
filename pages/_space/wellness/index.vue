@@ -2,11 +2,13 @@
   <div>
     <base-header class="pb-6">
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle title="Resources" />
+        <MainTitle
+          title="Wellness"
+          subtitle="All" />
         <nuxt-link
           :to="{ name: 'space-wellness-add'}"
           class="btn btn-primary"
-        >Add Resource</nuxt-link>
+        >Add Wellness</nuxt-link>
       </div>
     </base-header>
 

@@ -1,15 +1,16 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Preview Event" />
-        <a 
-          :href="`/${space}/events/${id}/edit`" 
-          class="btn btn-primary">
+        <b-button
+          :to="{name: 'space-events-id-edit', params: {id: event.id}}"
+          variant="primary"
+        >
           <i class="ti-pencil" /> Edit Event
-        </a>
+        </b-button>
       </div>
     </base-header>
     <div class="container-fluid mt--6">
@@ -17,9 +18,9 @@
         <div class="col-md-4">
           <card class="sh-eventpv">
             <div class="m-n25 img-wrap">
-              <img 
-                :src="event.banner_url" 
-                class="img-fluid" 
+              <img
+                :src="event.banner_url"
+                class="img-fluid"
                 alt >
             </div>
             <div class="pv-content">
@@ -29,19 +30,22 @@
             </div>
             <div class="pv-footer">
               <p>
-                Price: $ {{ event.price }} /
+                Price: {{ currentSpace.currency_symbol }}{{ event.price }} /
                 <span class="text-muted">ticket</span>
               </p>
-              <p>{{ event.start_time }}</p>
+              <p>{{ time }}</p>
               <div v-if="event.room">
                 <p>{{ event.room.name }}</p>
               </div>
             </div>
           </card>
           <div class="mr-b-30">
-            <a href="/ui/events">
+            <b-button
+              :to="{name: 'space-events'}"
+              variant="transparent"
+              class="text-primary">
               <i class="fa fa-angle-left mr-r-10" /> Back
-            </a>
+            </b-button>
           </div>
         </div>
       </div>
@@ -65,30 +69,35 @@ export default {
   },
   async asyncData({ store, error, params, $event }) {
     const { id } = params
-    await $event
+    return await $event
       .getEvent(id)
       .then(({ data }) => {
-        store.commit('events/setEvent', data)
+        return {
+          event: data
+        }
       })
-      .catch(({ response }) => {
-        error({ statusCode: 404, message: 'Not Found. Try Again' })
+      .catch(e => {
+        error({
+          statusCode: e.statusCode,
+          message: e.response
+            ? JSON.stringify(e.response.data.errors)
+            : e.message
+        })
       })
-
-    return {
-      id
-    }
   },
   computed: {
     ...mapState({
       space: state => state.space.currentSpace.subdomain,
-      event: state => state.events.currentEvent
-    })
-  },
-  mounted() {
-    if (this.event) {
-      this.event.start_time = this.$moment(this.event.start_time).format(
-        'YYYY-MM-DD HH:mm:ss'
-      )
+      currentSpace: state => state.space.currentSpace
+      // event: state => state.events.currentEvent
+    }),
+    time() {
+      const { start_time, end_time } = this.event
+      return `${this.$moment(start_time).format(
+        'MMMM DD YYYY'
+      )}, ${this.$moment(start_time).format('HH:mm')} - ${this.$moment(
+        end_time
+      ).format('HH:mm')} `
     }
   }
 }

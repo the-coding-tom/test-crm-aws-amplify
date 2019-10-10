@@ -2,16 +2,27 @@
   <div class="wrapper">
     <notifications />
     <side-bar>
-      <template 
-        slot-scope="props" 
+      <template
+        slot-scope="props"
         slot="links">
         <sidebar-item :link="{ name: 'Dashboard', icon: 'ni ni-archive-2', path: `/${subdomain}`}" />
         <sidebar-item :link="{ name: 'Bookings', icon: 'ni ni-shop' }">
           <sidebar-item :link="{ name: 'Calendar', path: `/${subdomain}/calendar` }" />
           <sidebar-item :link="{ name: 'Resources', path: `/${subdomain}/resources` }" />
         </sidebar-item>
-        <sidebar-item :link="{ name: 'Wellness', icon: 'ni ni-shop'}">
-          <sidebar-item :link="{ name: 'Bookings', icon: 'fa fa-calendar', path: `/${subdomain}/wellness/bookings`}" />
+        <sidebar-item :link="{ name: 'Events', icon: 'fa fa-calendar-alt'}">
+          <sidebar-item :link="{name: 'Calendar', path: `/${subdomain}/events`}" />
+          <sidebar-item :link="{name: 'Categories'}">
+            <sidebar-item
+              :link="{name: 'All Categories', path: `/${subdomain}/events/categories`}"
+            />
+            <sidebar-item
+              :link="{name: 'Add Categories', path: `/${subdomain}/events/categories/add`}"
+            />
+          </sidebar-item>
+        </sidebar-item>
+        <sidebar-item :link="{ name: 'Wellness', icon: 'fa fa-walking'}">
+          <sidebar-item :link="{ name: 'Bookings', path: `/${subdomain}/wellness/bookings`}" />
           <sidebar-item :link="{name: 'Sessions', path: `/${subdomain}/wellness`}" />
           <sidebar-item :link="{name: 'Categories'}">
             <sidebar-item
@@ -25,18 +36,6 @@
         <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
           <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />
           <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
-        </sidebar-item>
-        <sidebar-item :link="{ name: 'Events', icon: 'ni ni-shop'}">
-          <sidebar-item :link="{name: 'All', path: `/${subdomain}/events`}" />
-          <sidebar-item :link="{name: 'Add New Event', path: `/${subdomain}/events/add`}" />
-          <sidebar-item :link="{name: 'Categories'}">
-            <sidebar-item
-              :link="{name: 'All Categories', path: `/${subdomain}/events/categories`}"
-            />
-            <sidebar-item
-              :link="{name: 'Add Categories', path: `/${subdomain}/events/categories/add`}"
-            />
-          </sidebar-item>
         </sidebar-item>
       </template>
     </side-bar>

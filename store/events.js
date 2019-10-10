@@ -4,7 +4,6 @@ export const state = () => ({
   categories: [],
   currentEvent: {},
   rooms: [],
-  events: [],
   attendees: [],
   memberships: []
 })
@@ -22,9 +21,10 @@ export const mutations = {
         end: event.end_time,
         description: event.description,
         eventId: event.id,
-        backgroundColor: `${event.event_category.color}1A`,
-        borderColor: `${event.event_category.color}1A`,
-        id: event.id
+        backgroundColor: `${event.event_category.color}3A`,
+        borderColor: `${event.event_category.color}3A`,
+        id: event.id,
+        extendedProps: event
       }
     })
     state.calendarEvents = calendarEvents

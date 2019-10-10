@@ -1,12 +1,16 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle 
-          title="Events" 
+        <MainTitle
+          title="Events"
           subtitle="All" />
+        <nuxt-link
+          :to="{ name: 'space-events-add'}"
+          class="btn btn-primary"
+        >Add Event</nuxt-link>
       </div>
     </base-header>
 
@@ -14,44 +18,65 @@
       <div class="card-deck flex-column flex-xl-row">
         <card>
           <client-only>
-            <full-calendar 
-              :events="events" 
-              @eventClick="showEvent" 
+            <full-calendar
+              :events="events"
+              :right="calendarPlugin"
+              @eventClick="showEvent"
               @dateChange="dateChange" />
           </client-only>
         </card>
       </div>
-      <modal 
-        name="event" 
-        class="p-5" 
-        width="700" 
-        height="auto">
-        <b-card>
-          <h6 class="modal-title" />
-          <h4 class="txt-red">{{ currentEvent.title }}</h4>
-          <p class="mb-4">{{ currentEvent.description }}</p>
+      <b-modal
+        id="eventModal"
+        size="lg">
+        <template v-slot:modal-title>
+          <b-row>
+            <b-col md="12">
+              <h1>{{ currentEvent.title }}</h1>
+            </b-col>
+          </b-row>
+        </template>
+        <b-row>
+          <b-col
+            md="12">
 
-          <b-button 
-            squared 
-            variant="primary" 
-            @click="editEvent">Edit Event</b-button>
-
-          <b-button 
-            squared 
-            variant="transparent" 
-            class="text-primary" 
-            @click="viewAttendees">
-            <i class="fa fa-file" /> View Attendees
-          </b-button>
-          <b-button 
-            squared 
-            variant="transparent" 
-            class="text-danger" 
-            @click="deleteEvent">
-            <i class="fa fa-times" /> Cancel Event
-          </b-button>
-        </b-card>
-      </modal>
+            <p class="d-flex align-items-center text-muted">{{ $moment(currentEvent.start).format('MMMM DD YYYY') }}, {{ $moment(currentEvent.start).format('HH:mm') }} - {{ $moment(currentEvent.end).format('HH:mm') }} <i
+              class="fa fa-circle mx-2"
+              style="font-size: 5px;"/> {{ currentEvent.extendedProps && currentEvent.extendedProps.room.name }} </p>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="12">
+            <p>{{ currentEvent.extendedProps ? currentEvent.extendedProps.description: null }}</p>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="12">
+            <p>Price: {{ space.currency_symbol }} {{ currentEvent.extendedProps ? currentEvent.extendedProps.price : null }}</p>
+          </b-col>
+        </b-row>
+        <template v-slot:modal-footer>
+          <div class="w-100">
+            <b-button
+              :to="{name: 'space-events-id-edit', params: {id: currentEvent.id}}"
+              class="float-left"
+              variant="primary"
+            >Edit Event</b-button>
+            <b-button
+              :to="{name: 'space-events-id-attendees', params: {id: currentEvent.id}}"
+              variant="transparent"
+              class="text-primary float-left"
+            ><i class="fa fa-copy"/> View Attendees</b-button>
+            <b-button
+              variant="transparent"
+              class="text-danger float-right"
+              @click="deleteEvent"
+            >
+              <i class="fa fa-times"/> Cancel Event
+            </b-button>
+          </div>
+        </template>
+      </b-modal>
     </div>
   </div>
 </template>
@@ -82,33 +107,25 @@ export default {
   },
   data() {
     return {
-      currentEvent: {}
+      calendarPlugin: 'dayGridMonth,timeGridWeek,listWeek',
+      currentEvent: {},
+      modals: {
+        classic: false,
+        notice: false,
+        form: false
+      }
     }
   },
   computed: {
     ...mapState({
       events: state => state.events.calendarEvents,
-      space: state => state.space.currentSpace.subdomain
+      space: state => state.space.currentSpace
     })
   },
   methods: {
-    showEvent({ title, extendedProps }) {
-      this.currentEvent = {
-        title,
-        id: extendedProps.eventId,
-        description: extendedProps.description
-      }
-      this.$modal.show('event')
-    },
-    viewAttendees() {
-      this.$router.push({
-        path: `/${this.space}/events/${this.currentEvent.id}/attendees`
-      })
-    },
-    editEvent() {
-      this.$router.push({
-        path: `/${this.space}/events/${this.currentEvent.id}/edit`
-      })
+    showEvent(event) {
+      this.currentEvent = event
+      this.$bvModal.show('eventModal')
     },
     dateChange({ startDate, endDate }) {
       startDate = this.$moment(startDate).format('YYYY-MM-DD')
