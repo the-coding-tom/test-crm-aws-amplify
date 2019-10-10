@@ -26,7 +26,7 @@
                 :src="rooms.photo"
                 class="img-fluid"
                 alt="">
-              <badge>San Francisco</badge>
+              <badge>{{ rooms.category.name }}</badge>
             </div>
 
             <div class="mr-t-50">
@@ -39,7 +39,13 @@
 
             <div class="mr-t-30">
               <p>24 hrs cancellation notice</p>
-              <p>Available from: Mondays - Fridays, 8:00AM - 5:00PM</p>
+              <span><b>Available from</b></span>
+              <p 
+                v-for="(available, i) in rooms.room_availability" 
+                :key="i">
+                {{ `${daylookup[available.weekdays[0]]} - ${daylookup[available.weekdays[1]] || ''}` }} 
+                {{ $moment(available.from, "HH:mm").format("hh:mm A") }} - 
+                {{ $moment(available.to, "HH:mm").format("hh:mm A") }}</p>
             </div>
 
             <div slot="footer">
@@ -47,9 +53,9 @@
                 <nuxt-link :to="{ name: 'space-resources-id', params: { id: rooms.id }}">
                   <i class="ti-pencil" /> Edit Resource
                 </nuxt-link>
-                <button  
+                <a 
                   class="text-danger"
-                  @click="deleteRoom(rooms.id)"><i class="ti-trash"/> Delete Resource</button>
+                  @click="deleteRoom(rooms.id)"><i class="ti-trash"/> Delete Resource</a>
               </div>
             </div>
           </card>
@@ -87,6 +93,19 @@ export default {
     EmptyActivity,
     SectionTitle,
     MainTitle
+  },
+  data() {
+    return {
+      daylookup: {
+        0: 'Sunday',
+        1: 'Monday',
+        2: 'Tuesday',
+        3: 'Wednesday',
+        4: 'Thursaday',
+        5: 'Friday',
+        6: 'Saturday'
+      }
+    }
   },
   computed: {
     ...mapState({

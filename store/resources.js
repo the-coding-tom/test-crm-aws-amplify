@@ -1,5 +1,4 @@
-import randomColor from './../util/randomColor'
-import notify from './../util/notify'
+import helper from './../util/helper'
 export const state = () => ({
   rooms: [],
   oneroom: '',
@@ -8,9 +7,16 @@ export const state = () => ({
   addCategory: {
     id: '',
     name: '',
-    color: randomColor()
+    color: helper.randomColor()
   },
   bookings: [],
+  addBooking: {
+    id: null,
+    from: null,
+    to: null,
+    title: null
+  },
+  bookingModal: false,
   addRoom: {
     id: null,
     name: null,
@@ -20,11 +26,13 @@ export const state = () => ({
     min_booking_duration: null,
     max_booking_duration: null,
     price_per_hour: null,
-    can_book: true,
+    can_book: null,
     photo: null,
+    category: null,
     room_category_id: null,
-    amenities: ['projector'],
-    room_availability: null
+    amenities: null,
+    room_availability: null,
+    available_room: null
   }
 })
 
@@ -33,7 +41,20 @@ export const mutations = {
     state.rooms = rooms
   },
   setOneRoom(state, room) {
-    state.addRoom = room
+    state.addRoom.id = room.id
+    state.addRoom.name = room.name
+    state.addRoom.description = room.description
+    state.addRoom.capacity = room.capacity
+    state.addRoom.min_booking_duration = room.min_booking_duration
+    state.addRoom.max_booking_duration = room.max_booking_duration
+    state.addRoom.price_per_hour = room.price_per_hour
+    state.addRoom.can_book = room.can_book
+    state.addRoom.photo = room.photo
+    state.addRoom.photo = room.photo
+    state.addRoom.category = room.category.id
+    state.addRoom.room_category_id = room.category.id
+    state.addRoom.amenities = room.amenities
+    state.addRoom.room_availability = room.room_availability
   },
   setCategories(state, categories) {
     state.categories = categories
@@ -46,6 +67,24 @@ export const mutations = {
   },
   setBookings(state, booking) {
     state.bookings = booking
+  },
+  setRoomAvailabilty(state, available) {
+    state.addRoom.room_availability = available
+  },
+  setSingleCat(state, category_id) {
+    state.addRoom.room_category_id = category_id
+  },
+  setAvailability(state, date) {
+    state.addRoom.available_room = date
+  },
+  editBooking(state, record) {
+    state.addBooking.id = record.id
+    state.addBooking.from = record.from
+    state.addBooking.to = record.to
+    state.addBooking.title = record.title
+  },
+  toggleModal(state, value) {
+    state.bookingModal = value
   }
 }
 
@@ -54,51 +93,57 @@ export const actions = {
     try {
       const { data } = await vm.$resource.getAllRooms(payload)
       context.commit('setRooms', data)
+      console.log(data)
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, notify.error)
+      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
     }
   },
   createRoom: async (context, { vm }) => {
     try {
-      const data = context.state.addRoom
-      const roomAvaila = data.room_availability.split(',')
-      console.log(roomAvaila)
-      return
+      const data = context.state.addRoom.available_room
+      const roomAvailability = helper.parseRoomdate(data, vm)
+      context.commit('setRoomAvailabilty', roomAvailability)
       await vm.$resource.createRoom(context.state.addRoom)
-      vm.$bvToast.toast(`Room created successfully`, notify.sucess)
+      vm.$bvToast.toast(`Room created successfully`, helper.notify.sucess)
       vm.$router.go(-1)
-    } catch (error) {
+    } catch ({ response }) {
       console.log(error)
-      vm.$bvToast.toast(`An internal erorr occured`, notify.error)
+      vm.$bvToast.toast(response.data.errors.room, helper.notify.error)
     }
   },
   updateRoom: async (context, { vm }) => {
     const payload = context.state.addRoom
+    const roomAvailability = helper.parseRoomdate(payload.available_room, vm)
+    console.log(payload)
+    context.commit('setRoomAvailabilty', roomAvailability)
     try {
-      const res = await vm.$resource.updateRoom(payload.id, payload)
-      vm.$bvToast.toast(`Room updated successfully`, notify.sucess)
+      await vm.$resource.updateRoom(payload.id, payload)
+      vm.$bvToast.toast(`Room updated successfully`, helper.notify.sucess)
       vm.$router.go(-1)
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, notify.error)
+      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
     }
   },
   getOneRoom: async (context, { vm, payload }) => {
     try {
       const { data } = await vm.$resource.getARoom(payload)
       context.commit('setOneRoom', data.data)
-      console.log(data.data)
+      context.commit(
+        'setAvailability',
+        helper.undoParse(data.data.room_availability)
+      )
     } catch (error) {
       console.log(error)
-      vm.$bvToast.toast(`An internal erorr occured`, notify.error)
+      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
     }
   },
   deleteRoom: async (context, { state, vm, payload }) => {
     try {
       await vm.$resource.deleteRoom(payload)
-      vm.$bvToast.toast(`Room deleted successfully`, notify.success)
+      vm.$bvToast.toast(`Room deleted successfully`, helper.notify.sucess)
       location.reload()
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, notify.error)
+      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
     }
   },
   getAllCategories: async (context, { vm }) => {
@@ -107,37 +152,37 @@ export const actions = {
       context.commit('setCategories', data)
       console.log(data)
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, notify.error)
+      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
     }
   },
   createCategory: async (context, { vm }) => {
     const payload = context.state.addCategory
     try {
       await vm.$resource.createCategory(payload)
-      vm.$bvToast.toast(`Category created successfully`, notify.sucess)
+      vm.$bvToast.toast(`Category created successfully`, helper.notify.sucess)
       location.reload()
       //   context.commit('updateCategory', payload)
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, notify.error)
+      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
     }
   },
   updateCategory: async (context, { vm }) => {
     const payload = context.state.addCategory
     try {
       await vm.$resource.updateCategory(payload.id, payload)
-      vm.$bvToast.toast(`Category updated successfully`, notify.sucess)
+      vm.$bvToast.toast(`Category updated successfully`, helper.notify.sucess)
     } catch ({ response }) {
-      vm.$bvToast.toast(response.data.errors.name[0], notify.error)
+      vm.$bvToast.toast(response.data.errors.name[0], helper.notify.error)
     }
   },
   deleteCategory: async (context, { vm }) => {
     const payload = context.state.addCategory.id
     try {
       await vm.$resource.deleteCategory(payload)
-      vm.$bvToast.toast(`category deleted successfully`, notify.success)
+      vm.$bvToast.toast(`category deleted successfully`, helper.notify.sucess)
       location.reload()
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, notify.error)
+      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
     }
   },
   bookingsForARoom: async (context, { vm, payload }) => {
@@ -145,25 +190,46 @@ export const actions = {
       const { data } = await vm.$resource.getBookingForARoom(payload)
       context.commit('setBookings', data)
     } catch ({ response }) {
-      vm.$bvToast.toast(response.data.message, notify.error)
+      vm.$bvToast.toast(response.data.message, helper.notify.error)
     }
   },
   getAllBookings: async (context, { vm }) => {
     try {
       const { data } = await vm.$resource.getAllBookings()
+      console.log(data)
       const calData = []
       data.data.map(record => {
         let calObj = {
           title: record.title,
           start: record.start_timestamp,
           end: record.end_timestamp,
-          backgroundColor: record.room.category.color
+          backgroundColor: record.room.category.color,
+          extendedProps: record
         }
         calData.push(calObj)
       })
       context.commit('setBookings', calData)
     } catch ({ response }) {
-      vm.$bvToast.toast(response.data.message, notify.error)
+      vm.$bvToast.toast(response.data.message, helper.notify.error)
+    }
+  },
+  createBooking: async (context, { vm }) => {
+    try {
+      await vm.$resource.bookRoomForMember(context.state.addBooking)
+      context.state.addBooking
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  updateRoomBooking: async (context, { vm }) => {
+    const payload = context.state.addBooking
+    try {
+      await vm.$resource.updateRoomBooking(payload.id, payload)
+      context.commit('toggleModal', false)
+      vm.$bvToast.toast(`Booking updated successfully`, helper.notify.sucess)
+      location.reload()
+    } catch ({ response }) {
+      vm.$bvToast.toast(response.data.errors.booking, helper.notify.error)
     }
   }
 }

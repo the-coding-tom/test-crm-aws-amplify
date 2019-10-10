@@ -113,7 +113,7 @@
                     class="col-md-12" 
                     label="Available Booking Time" 
                     placeholder="0" />
-                  <b-form-text class="col-md-12">You can enter multiple time frames separated by comma, e.g. 8am - 12pm, 14 - 22. You can also use week days, e.g. mo - fr 9 - 17, sa 10am - 3pm.</b-form-text>
+                  <b-form-text class="col-md-12">You can enter multiple time frames separated by comma, e.g. e.g. mo-fr 9-17, sa 10-3.</b-form-text>
                 
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
@@ -190,7 +190,7 @@ export default {
       min_booking_duration: 'resources.addRoom.min_booking_duration',
       max_booking_duration: 'resources.addRoom.max_booking_duration',
       can_book: 'resources.addRoom.can_book',
-      available_booking_time: 'resources.addRoom.room_availability',
+      available_booking_time: 'resources.addRoom.available_room',
       banner_url: 'resources.addRoom.photo'
     })
   },

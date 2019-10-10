@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form @submit.prevent="addNewRoom">
+    <b-form @submit.prevent="updateRoom">
       <base-header
         class="pb-6"
         type="">
@@ -32,7 +32,7 @@
                     <label>Category</label>
                     <el-select 
                       v-model="category" 
-                      name="category">
+                      required>
                       <el-option
                         v-for="item in categories"
                         :key="item.id"
@@ -114,12 +114,14 @@
                     class="col-md-12" 
                     label="Available Booking Time" 
                     placeholder="0" />
-                  <b-form-text class="col-md-12">You can enter multiple time frames separated by comma, e.g. 8am - 12pm, 14 - 22. You can also use week days, e.g. mo - fr 9 - 17, sa 10am - 3pm.</b-form-text>
+                  <b-form-text class="col-md-12">You can enter multiple time frames separated by comma, e.g. e.g. mo-fr 9-17, sa 10-3.</b-form-text>
                 
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
                     <b-form-checkbox-group>
-                      <b-form-checkbox v-model="can_book">Only admins can book</b-form-checkbox>
+                      <b-form-checkbox 
+                        :value="can_book" 
+                        v-model="can_book">Only admins can book</b-form-checkbox>
                     </b-form-checkbox-group>
                   </div>
                 </div>
@@ -194,7 +196,7 @@ export default {
       max_booking_duration: 'resources.addRoom.max_booking_duration',
       seen_by_admin: 'resources.addRoom.seen_by_admin',
       can_book: 'resources.addRoom.can_book',
-      available_booking_time: 'resources.addRoom.available_booking_time',
+      available_booking_time: 'resources.addRoom.available_room',
       photo: 'resources.addRoom.photo',
       category: 'resources.addRoom.room_category_id'
     })
