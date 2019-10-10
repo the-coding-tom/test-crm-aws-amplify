@@ -6,6 +6,13 @@
         slot-scope="props"
         slot="links">
         <sidebar-item :link="{ name: 'Dashboard', icon: 'ni ni-archive-2', path: `/${subdomain}`}" />
+        <sidebar-item :link="{ name: 'Manage', icon: 'fa fa-table'}">
+          <sidebar-item :link="{name: 'Checkins', path: `/${subdomain}/checkins`}" />
+          <sidebar-item :link="{name: 'Invites'}" />
+          <sidebar-item :link="{name: 'Directory', path: `/${subdomain}/directory`}" />
+          <sidebar-item :link="{name: 'Invoices', path: `/${subdomain}/invoices`}" />
+          <sidebar-item :link="{name: 'Companies', path: `/${subdomain}/companies`}" />
+        </sidebar-item>
         <sidebar-item
           :link="{ name: 'Bookings', icon: 'ni ni-shop' }"
         >
