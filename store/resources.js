@@ -10,29 +10,21 @@ export const state = () => ({
     name: '',
     color: randomColor()
   },
+  bookings: [],
   addRoom: {
-    id: '',
-    name: '',
-    description: '',
-    currency: '$',
-    capacity: '20',
-    min_booking_duration: '30',
-    max_booking_duration: '60',
-    price_per_hour: '2',
+    id: null,
+    name: null,
+    description: null,
+    currency: null,
+    capacity: null,
+    min_booking_duration: null,
+    max_booking_duration: null,
+    price_per_hour: null,
     can_book: true,
-    seen_by_admin: true,
-    photo: '',
-    cancellation_notice: '20',
-    available_booking_time: '20',
-    room_category_id: '',
+    photo: null,
+    room_category_id: null,
     amenities: ['projector'],
-    room_availability: [
-      {
-        from: '08:00',
-        to: '12:00',
-        weekdays: [1, 6]
-      }
-    ]
+    room_availability: null
   }
 })
 
@@ -52,8 +44,8 @@ export const mutations = {
     state.addCategory.id = category.id
     state.activateButton = false
   },
-  toggleButton(state) {
-    state.activateButton = false
+  setBookings(state, booking) {
+    state.bookings = booking
   }
 }
 
@@ -68,7 +60,10 @@ export const actions = {
   },
   createRoom: async (context, { vm }) => {
     try {
-      console.log(context.state.addRoom)
+      const data = context.state.addRoom
+      const roomAvaila = data.room_availability.split(',')
+      console.log(roomAvaila)
+      return
       await vm.$resource.createRoom(context.state.addRoom)
       vm.$bvToast.toast(`Room created successfully`, notify.sucess)
       vm.$router.go(-1)
@@ -143,6 +138,32 @@ export const actions = {
       location.reload()
     } catch (error) {
       vm.$bvToast.toast(`An internal erorr occured`, notify.error)
+    }
+  },
+  bookingsForARoom: async (context, { vm, payload }) => {
+    try {
+      const { data } = await vm.$resource.getBookingForARoom(payload)
+      context.commit('setBookings', data)
+    } catch ({ response }) {
+      vm.$bvToast.toast(response.data.message, notify.error)
+    }
+  },
+  getAllBookings: async (context, { vm }) => {
+    try {
+      const { data } = await vm.$resource.getAllBookings()
+      const calData = []
+      data.data.map(record => {
+        let calObj = {
+          title: record.title,
+          start: record.start_timestamp,
+          end: record.end_timestamp,
+          backgroundColor: record.room.category.color
+        }
+        calData.push(calObj)
+      })
+      context.commit('setBookings', calData)
+    } catch ({ response }) {
+      vm.$bvToast.toast(response.data.message, notify.error)
     }
   }
 }

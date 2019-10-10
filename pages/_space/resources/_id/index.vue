@@ -119,8 +119,7 @@
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
                     <b-form-checkbox-group>
-                      <b-form-checkbox v-model="seen_by_admin">Hidden Resource. Can only be booked/seen by admins</b-form-checkbox>
-                      <b-form-checkbox v-model="admin_can_book">Only admins can book</b-form-checkbox>
+                      <b-form-checkbox v-model="can_book">Only admins can book</b-form-checkbox>
                     </b-form-checkbox-group>
                   </div>
                 </div>
@@ -194,8 +193,7 @@ export default {
       min_booking_duration: 'resources.addRoom.min_booking_duration',
       max_booking_duration: 'resources.addRoom.max_booking_duration',
       seen_by_admin: 'resources.addRoom.seen_by_admin',
-      admin_can_book: 'resources.addRoom.admin_can_book',
-      cancellation_notice: 'resources.addRoom.cancellation_notice',
+      can_book: 'resources.addRoom.can_book',
       available_booking_time: 'resources.addRoom.available_booking_time',
       photo: 'resources.addRoom.photo',
       category: 'resources.addRoom.room_category_id'

@@ -35,6 +35,18 @@ export default function(ctx, inject) {
     },
     deleteCategory: id => {
       return ctx.$axios.delete(`${subdomain}/room-categories/${id}`)
+    },
+    getBookingForARoom: id => {
+      return ctx.$axios.get(`${baseUrl}/${id}/bookings`)
+    },
+    updateRoomBooking: (id, payload) => {
+      return ctx.$axios.patch(`${baseUrl}/${id}/bookings`)
+    },
+    bookRoomForMember: (id, payload) => {
+      return ctx.$axios.post(`/rooms/${id}`, payload)
+    },
+    getAllBookings: () => {
+      return ctx.$axios.get(`${subdomain}/rooms/bookings/admin`)
     }
   }
   ;(ctx.$resource = Resource), inject('resource', Resource)

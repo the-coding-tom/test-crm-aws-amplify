@@ -10,7 +10,7 @@
           :link="{ name: 'Bookings', icon: 'ni ni-shop' }"
         >
           <sidebar-item
-            :link="{ name: 'Calendar', path: `/${subdomain}/calendar` }"
+            :link="{ name: 'Bookings', path: `/${subdomain}/resources/bookings` }"
           />
           <sidebar-item
             :link="{ name: 'Resources', path: `/${subdomain}/resources` }"
