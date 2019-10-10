@@ -77,7 +77,7 @@ export default {
         store.commit('events/setEvents', data)
       })
       .catch(err => {
-        error({ statusCode: 404, message: 'Error geting events' })
+        error({ statusCode: 404, message: 'Error getting events' })
       })
   },
   data() {
