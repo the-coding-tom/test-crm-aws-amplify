@@ -62,8 +62,8 @@ module.exports = {
     '~/plugins/services/event',
     '~/plugins/services/images',
     '~/plugins/services/resource',
-    { src: '~/plugins/vue2-datepicker', ssr: false },
-    { src: '~/plugins/dashboard/modal', ssr: false }
+    { src: '~/plugins/vue2-datepicker', ssr: false }
+    // { src: '~/plugins/dashboard/modal', ssr: false }
   ],
 
   /*
