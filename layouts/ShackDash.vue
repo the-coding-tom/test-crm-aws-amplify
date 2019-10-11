@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <notifications/>
+    <notifications />
     <side-bar>
       <template
         slot-scope="props"
@@ -20,30 +20,46 @@
             <sidebar-item :link="{name: 'Add Categories', path: `/${subdomain}/resources/categories/add`}" />
           </sidebar-item>
         </sidebar-item>
-        <sidebar-item :link="{ name: 'Wellness', icon: 'ni ni-shop'}">
-          <sidebar-item :link="{ name: 'Bookings', icon: 'fa fa-calendar', path: `/${subdomain}/wellness/bookings`}" />
+        <sidebar-item :link="{ name: 'Memberships', icon: 'fa fa-id-card-alt'}">
+          <sidebar-item :link="{ name: 'Invited', path: `/${subdomain}/memberships`}" />
+          <sidebar-item
+            :link="{name: 'Uninvited', path: `/${subdomain}/memberships/uninvited`}" />
+        </sidebar-item>
+        <sidebar-item :link="{name: 'Checkins', icon: 'fa fa-user-check', path: `/${subdomain}/checkins`}"/>
+        <sidebar-item :link="{ name: 'Events', icon: 'fa fa-calendar-alt'}">
+          <sidebar-item :link="{name: 'Calendar', path: `/${subdomain}/events`}" />
+          <sidebar-item :link="{name: 'Categories'}">
+            <sidebar-item
+              :link="{name: 'All Categories', path: `/${subdomain}/events/categories`}"
+            />
+            <sidebar-item
+              :link="{name: 'Add Categories', path: `/${subdomain}/events/categories/add`}"
+            />
+          </sidebar-item>
+        </sidebar-item>
+        <sidebar-item :link="{ name: 'Wellness', icon: 'fa fa-walking'}">
+          <sidebar-item :link="{ name: 'Bookings', path: `/${subdomain}/wellness/bookings`}" />
           <sidebar-item :link="{name: 'Sessions', path: `/${subdomain}/wellness`}" />
           <sidebar-item :link="{name: 'Categories'}">
-            <sidebar-item :link="{name: 'All Categories', path: `/${subdomain}/wellness/categories`}" />
-            <sidebar-item :link="{name: 'Add Categories', path: `/${subdomain}/wellness/categories/add`}" />
+            <sidebar-item
+              :link="{name: 'All Categories', path: `/${subdomain}/wellness/categories`}"
+            />
+            <sidebar-item
+              :link="{name: 'Add Categories', path: `/${subdomain}/wellness/categories/add`}"
+            />
           </sidebar-item>
         </sidebar-item>
         <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
           <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />
           <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
         </sidebar-item>
-        <sidebar-item :link="{ name: 'Setup', icon: 'ni ni-shop', }">
-          <sidebar-item :link="{ name: 'Setup', path: `/${subdomain}/setup` }" />
-          <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
-        </sidebar-item>
-      </template>
-    </side-bar>
+    </template></side-bar>
     <div class="main-content">
-      <dashboard-navbar :type="$route.name === 'alternative' ? 'light': 'default'"/>
+      <dashboard-navbar :type="$route.name === 'alternative' ? 'light': 'default'" />
       <div @click="$sidebar.displaySidebar(false)">
-        <nuxt/>
+        <nuxt />
       </div>
-      <content-footer v-if="!$route.meta.hideFooter"/>
+      <content-footer v-if="!$route.meta.hideFooter" />
     </div>
   </div>
 </template>

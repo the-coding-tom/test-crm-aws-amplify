@@ -62,7 +62,10 @@ module.exports = {
     '~/plugins/services/event',
     '~/plugins/services/images',
     '~/plugins/services/resource',
+    '~/plugins/services/membership',
+    '~/plugins/services/plan',
     { src: '~/plugins/vue2-datepicker', ssr: false }
+    // { src: '~/plugins/dashboard/modal', ssr: false }
   ],
 
   /*
@@ -128,7 +131,10 @@ module.exports = {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
+          exclude: /(node_modules)/,
+          options: {
+            fix: true
+          }
         })
       }
     },

@@ -1,39 +1,35 @@
 <template>
   <div>
-    <b-button
-      variant="primary"
-      class="btn-purple"
-      @click="modals.classic = true">Confirm / Reject</b-button>
-      <!-- <modal :show.sync="modals.classic">
-      <h6
-        slot="header"
-        class="modal-title"/>
+    <base-button
+      type="primary"
+      class="mb-0 btn-purple"
+      @click="modals.classic = true"
+    >Confirm / Reject</base-button>
+    <modal :show.sync="modals.classic">
+      <h6 
+        slot="header" 
+        class="modal-title" />
       <h4 class="txt-red">Confirm Membership</h4>
       <p class="mb-4">Select membership plan, this will send an invitation email to the Member.</p>
 
-      <MembershipPlans />
-
       <template slot="footer">
         <base-button type="success">Confirm Membership</base-button>
-        <base-button
-          type="danger"
+        <base-button 
+          type="danger" 
           class="ml-auto">Reject Membership</base-button>
       </template>
-
-    </modal> -->
+    </modal>
   </div>
 </template>
 
 <script>
-import MembershipPlans from '~/components/shack/MembershipPlans.vue'
 export default {
-  components: {
-    MembershipPlans
-  },
+  name: 'EventModal',
+  components: {},
   data() {
     return {
       modals: {
-        classic: false,
+        classic: true,
         notice: false,
         form: false
       },
