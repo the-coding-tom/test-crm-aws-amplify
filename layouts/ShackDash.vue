@@ -33,7 +33,7 @@
             />
           </sidebar-item>
         </sidebar-item>
-        <sidebar-item :link="{ name: 'Plans' }">
+        <sidebar-item :link="{ name: 'Plans', icon: 'fa fa-paper-plane'}">
           <sidebar-item :link="{ name: 'All', path: `/${subdomain}/plans` }" />
           <sidebar-item :link="{ name: 'Add Plan', path: `/${subdomain}/plans/add` }" />
         </sidebar-item>
