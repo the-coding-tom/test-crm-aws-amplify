@@ -25,48 +25,20 @@
                 <h4 class="mr-b-20">{{ plan.name }}</h4>
               </b-col>
               <b-col md="3">
-                <h2
-                  class="mr-b-20 text-gray"
-                >{{ plan.price_per_cycle }} USD / {{ plan.cycle_duration }} month(s)</h2>
+                <h2 class="mr-b-20 text-gray">
+                  <span>
+                    {{ space.currency_symbol }} {{ plan.price_per_cycle }} /
+                    <span
+                      v-if="plan.cycle_duration === 12"
+                    >year</span>
+                    <span v-else>{{ plan.cycle_duration }} month(s)</span>
+                  </span>
+                </h2>
               </b-col>
             </b-row>
             <b-row>
               <b-col md="9">
                 <p>{{ plan.description }}</p>
-              </b-col>
-            </b-row>
-            <b-row>
-              <b-col md="9">
-                <h3 class="line">Plan Settings</h3>
-                <b-row>
-                  <b-col 
-                    class="py-2" 
-                    md="4">
-                    <h3 class="text-gray">Basic Price</h3>
-                    <span>$35.00 / month</span>
-                  </b-col>
-                  <b-col 
-                    class="py-2" 
-                    md="4">
-                    <h3 class="text-gray">Cancellation Notice</h3>
-                    <span>$35.00 / month</span>
-                  </b-col>
-                  <b-col 
-                    class="py-2" 
-                    md="4">
-                    <h3 class="text-gray">Minimum Commitment</h3>
-                    <span>$35.00 / month</span>
-                  </b-col>
-                </b-row>
-              </b-col>
-            </b-row>
-            <b-row md="9">
-              <b-col md="9">
-                <h3 class="line">Private Signup Link</h3>
-                <p>
-                  To let someone sign up for this plan send them the
-                  <a href>link below</a>
-                </p>
               </b-col>
             </b-row>
           </b-container>
@@ -79,18 +51,14 @@
 <script>
 import BaseHeader from '@/components/argon-core/BaseHeader'
 import MainTitle from '@/components/shack/MainTitle.vue'
-import SectionTitle from '@/components/shack/SectionTitle.vue'
-import { Select, Option } from 'element-ui'
+
 import { mapState } from 'vuex'
 
 export default {
   layout: 'ShackDash',
   components: {
     BaseHeader,
-    MainTitle,
-    SectionTitle,
-    [Select.name]: Select,
-    [Option.name]: Option
+    MainTitle
   },
   async asyncData({ store, $plan, params, error }) {
     const { id } = params
@@ -116,7 +84,7 @@ export default {
   },
   computed: {
     ...mapState({
-      space: state => state.space.currentSpace.subdomain,
+      space: state => state.space.currentSpace,
       plan: state => state.plans.currentPlan
     })
   }

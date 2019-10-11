@@ -36,7 +36,6 @@
 // Components
 import BaseHeader from '@/components/argon-core/BaseHeader'
 import MainTitle from '@/components/shack/MainTitle.vue'
-import SectionTitle from '@/components/shack/SectionTitle.vue'
 import Table from '@/components/shack/StripedTable'
 
 import { mapState } from 'vuex'
@@ -46,8 +45,7 @@ export default {
   components: {
     BaseHeader,
     MainTitle,
-    SectionTitle,
-    [Table.name]: Table
+    Table
   },
   async asyncData({ store, $plan, error }) {
     await $plan
@@ -56,15 +54,19 @@ export default {
         store.commit('plans/setPlans', data)
       })
       .catch(err => {
-        error({ statusCode: 404, message: 'Error getting plans. Try again' })
+        error({
+          statusCode: err.statusCode,
+          message: err.response
+            ? JSON.stringify(err.response.data.errors)
+            : err.message
+        })
       })
   },
   computed: {
     ...mapState({
       plans: state => state.plans.plans.data,
       meta: state => state.plans.plans.meta,
-      links: state => state.plans.plans.links,
-      space: state => state.space.currentSpace.subdomain
+      links: state => state.plans.plans.links
     })
   },
   methods: {
@@ -75,8 +77,12 @@ export default {
         .then(({ data }) => {
           store.commit('plans/setPlans', data)
         })
-        .catch(({ response }) => {
-          this.$bvToast.toast(JSON.stringify(response.data.errors), {
+        .catch(err => {
+          const message = err.response
+            ? JSON.stringify(err.response.data.errors)
+            : err.message
+
+          this.$bvToast.toast(message, {
             title: 'Error',
             variant: 'danger',
             solid: true
@@ -90,8 +96,12 @@ export default {
         .then(({ data }) => {
           store.commit('plans/setPlans', data)
         })
-        .catch(({ response }) => {
-          this.$bvToast.toast(JSON.stringify(response.data.errors), {
+        .catch(err => {
+          const message = err.response
+            ? JSON.stringify(err.response.data.errors)
+            : err.message
+
+          this.$bvToast.toast(message, {
             title: 'Error',
             variant: 'danger',
             solid: true

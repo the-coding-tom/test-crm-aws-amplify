@@ -23,7 +23,13 @@
         prop="price_per_cycle" 
         min-width="140px">
         <template v-slot="{row}">
-          <span>$ {{ row.price_per_cycle }} / {{ row.cycle_duration }} month(s)</span>
+          <span>
+            {{ space.currency_symbol }} {{ row.price_per_cycle }} /
+            <span
+              v-if="row.cycle_duration === 12"
+            >year</span>
+            <span v-else>{{ row.cycle_duration }} month(s)</span>
+          </span>
         </template>
       </el-table-column>
       <el-table-column 
@@ -65,26 +71,15 @@
   </div>
 </template>
 <script>
-import {
-  Table,
-  TableColumn,
-  DropdownMenu,
-  DropdownItem,
-  Dropdown,
-  Tooltip
-} from 'element-ui'
+import { Table, TableColumn } from 'element-ui'
 
 import { mapState } from 'vuex'
 
 export default {
   name: 'Table',
   components: {
-    [Tooltip.name]: Tooltip,
     [Table.name]: Table,
-    [TableColumn.name]: TableColumn,
-    [Dropdown.name]: Dropdown,
-    [DropdownItem.name]: DropdownItem,
-    [DropdownMenu.name]: DropdownMenu
+    [TableColumn.name]: TableColumn
   },
   props: {
     plans: {
@@ -101,7 +96,7 @@ export default {
   },
   computed: {
     ...mapState({
-      space: state => state.space.currentSpace.subdomain
+      space: state => state.space.currentSpace
     })
   },
   methods: {
@@ -120,7 +115,11 @@ export default {
           this.loading = !this.loading
         })
         .catch(err => {
-          this.$bvToast.toast(JSON.stringify(err.response.data.errors), {
+          const message = err.response
+            ? JSON.stringify(err.response.data.errors)
+            : err.message
+
+          this.$bvToast.toast(message, {
             title: 'Error',
             variant: 'danger',
             solid: true
