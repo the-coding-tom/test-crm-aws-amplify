@@ -78,6 +78,9 @@ export default {
     MainTitle,
     SectionTitle
   },
+  data: () => ({
+    loading: false
+  }),
   computed: {
     ...mapState({
       categories: state => state.resources.categories.data
@@ -91,8 +94,10 @@ export default {
     this.$store.dispatch('resources/getAllCategories', { vm: this })
   },
   methods: {
-    addCategory() {
-      this.$store.dispatch('resources/createCategory', { vm: this })
+    async addCategory() {
+      this.loading = !this.loading
+      await this.$store.dispatch('resources/createCategory', { vm: this })
+      this.loading = !this.loading
     }
   }
 }

@@ -6,10 +6,11 @@
         type="">
         <div class="d-flex justify-content-between py-4">
           <MainTitle
-            title="Add New Resource"/>
-          <b-button 
+            title="Update Resource"/>
+          <b-button
             type="submit"
-            class="btn btn-primary">
+            variant="primary"
+          >
             Save Resource
           </b-button>
         </div>
@@ -23,15 +24,16 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="row pd-r-20">
-                  <base-input 
+                  <base-input
                     v-model="name"
-                    class="col-md-6" 
-                    label="Name" 
+                    class="col-md-6"
+                    label="Name"
+                    required
                     placeholder="Name of Resource"/>
                   <div class="form-group col-md-6">
                     <label>Category</label>
-                    <el-select 
-                      v-model="category" 
+                    <el-select
+                      v-model="category"
                       required>
                       <el-option
                         v-for="item in categories"
@@ -40,50 +42,45 @@
                         :value="item.id"/>
                     </el-select>
                   </div>
-                  <base-input 
+                  <base-input
                     v-model="price_per_hour"
-                    class="col-md-6" 
-                    label="Price per hour" 
-                    type="number" 
-                    step="0.01" 
+                    class="col-md-6"
+                    label="Price per hour"
+                    type="number"
+                    step="0.01"
                     placeholder="0.00"/>
-                  <div class="form-group col-md-3">
-                    <label>Currency:</label>
-                    <el-select 
-                      v-model="currency" 
-                      name="currency"
-                      placeholder="USD ($)">
-                      <el-option
-                        v-for="item in options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"/>
-                    </el-select>
+                  <div class="col-md-6">
+                    <base-input
+                      v-model="capacity"
+                      label="Number of Units"
+                      type="number"
+                      placeholder="0" />
+                    <b-form-text>How many people can book this at the same time</b-form-text>
                   </div>
                   <div class="form-group col-md-12">
                     <label>Description</label>
-                    <textarea 
+                    <textarea
                       v-model="description"
-                      placeholder="Add details about this resource" 
-                      rows="4" 
-                      max-rows="6" 
+                      placeholder="Add details about this resource"
+                      rows="4"
+                      max-rows="6"
                       class="form-control"/>
                   </div>
 
-                  <base-input 
+                  <base-input
                     v-model="min_booking_duration"
-                    class="col-md-6" 
-                    label="Minimum Booking Duration" 
-                    type="number" 
+                    class="col-md-6"
+                    label="Minimum Booking Duration"
+                    type="number"
                     placeholder="0">
                     <div slot="append">min</div>
                   </base-input>
-                
-                  <base-input 
+
+                  <base-input
                     v-model="max_booking_duration"
-                    class="col-md-6" 
-                    label="Maximum Booking Duration" 
-                    type="number" 
+                    class="col-md-6"
+                    label="Maximum Booking Duration"
+                    type="number"
                     placeholder="0">
                     <div slot="append">max</div>
                   </base-input>
@@ -92,35 +89,20 @@
 
               <div class="col-md-6">
                 <div class="row pd-l-20">
-                  <!-- <base-input 
-                    v-model="cancellation_notice"
-                    class="col-md-12" 
-                    label="Cancellation Notice" 
-                    type="number" 
-                    placeholder="0">
-                    <div slot="append">hrs</div>
-                  </base-input>
-                  <b-form-text class="col-md-12">Prevent members from cancelling bookings within x hours before a booking starts.</b-form-text> -->
-                  <base-input 
-                    v-model="capacity"
-                    class="col-md-5" 
-                    label="Number of Units" 
-                    type="number" 
-                    placeholder="0" />
-                  <b-form-text class="col-md-12">How many people can book this at the same time</b-form-text>
 
-                  <base-input 
+
+                  <base-input
                     v-model="available_booking_time"
-                    class="col-md-12" 
-                    label="Available Booking Time" 
+                    class="col-md-12"
+                    label="Available Booking Time"
                     placeholder="0" />
                   <b-form-text class="col-md-12">You can enter multiple time frames separated by comma, e.g. e.g. mo-fr 9-17, sa 10-3.</b-form-text>
-                
+
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
                     <b-form-checkbox-group>
-                      <b-form-checkbox 
-                        :value="can_book" 
+                      <b-form-checkbox
+                        :value="can_book"
                         v-model="can_book">Only admins can book</b-form-checkbox>
                     </b-form-checkbox-group>
                   </div>
@@ -161,26 +143,17 @@ export default {
     [Select.name]: Select,
     [Option.name]: Option
   },
-  data() {
-    return {
-      options: [
-        { value: 'USD ($)', label: 'USD ($)' },
-        { value: 'GBP (£)', label: 'GBP (£)' },
-        { value: 'EUR (€)', label: 'EUR (€)' },
-        { value: 'CNY (¥)', label: 'CNY (¥)' }
-      ],
-      selectOptions: [
-        { label: 'Phelicia Drake ', value: 'info1@example.com' },
-        { label: 'Samuel Ekubona', value: 'info2@example.com' },
-        { label: 'Goku Justin', value: 'info3@example.com' },
-        { label: 'Kofi Pampaso', value: 'info4@example.com' },
-        { label: 'Tulasi Boni', value: 'info5@example.com' },
-        { label: 'Michael Smith', value: 'info6@example.com' }
-      ],
-      selects: [],
-      organisers: []
-    }
+  async asyncData(vm) {
+    await vm.store.dispatch('resources/getAllCategories', { vm })
+
+    const { id } = vm.route.params
+
+    await vm.store.dispatch('resources/getOneRoom', {
+      vm,
+      payload: id
+    })
   },
+  data: () => ({}),
   computed: {
     ...mapState({
       categories: state => state.resources.categories.data
@@ -201,20 +174,9 @@ export default {
       category: 'resources.addRoom.room_category_id'
     })
   },
-  created() {
-    this.getOneRoom()
-    this.$store.dispatch('resources/getAllCategories', { vm: this })
-  },
   methods: {
     addNewRoom() {
       this.$store.dispatch('resources/createRoom', { vm: this })
-    },
-    getOneRoom() {
-      const room_id = this.$route.params.id
-      this.$store.dispatch('resources/getOneRoom', {
-        vm: this,
-        payload: room_id
-      })
     },
     updateRoom() {
       this.$store.dispatch('resources/updateRoom', { vm: this })

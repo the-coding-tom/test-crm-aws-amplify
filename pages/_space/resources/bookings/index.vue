@@ -1,21 +1,30 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type="">
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle 
-          title="Dashboard" 
-          subtitle="This Week"/>
+        <MainTitle
+          title="Bookings"
+          subtitle="Calendar"/>
         <!--<a
           class="btn btn-primary"
-          @click="$store.commit('resources/toggleModal', true)" 
+          @click="$store.commit('resources/toggleModal', true)"
         >Add Booking</a>-->
-        <modal 
+        <b-button
+          v-b-modal.booking-modal
+          variant="primary">Add New Booking</b-button>
+        <b-modal
+          id="booking-modal"
+          hide-footer
+          title="Add New Booking">
+          <booking-modal @details="submitBooking" />
+        </b-modal>
+        <modal
           :show="$store.state.resources.bookingModal">
           <template slot="header">
-            <h5 
-              id="exampleModalLabel" 
+            <h5
+              id="exampleModalLabel"
               class="modal-title">Update Booking - {{ this.$store.state.resources.addBooking.title }}</h5>
           </template>
           <div>
@@ -60,7 +69,7 @@
                 label="Title"
                 class="col-md-12">
                 <client-only>
-                  <base-input 
+                  <base-input
                     v-model="title"
                     placeholder="Booking Title"/>
                 </client-only>
@@ -69,9 +78,9 @@
           </div>
           <template slot="footer">
             <a
-              type="secondary" 
+              type="secondary"
               @click="$store.commit('resources/toggleModal', false)">Close</a>
-            <b-button 
+            <b-button
               type="submit"
               class="btn btn-primary"
               @click="updateBooking">
@@ -88,7 +97,6 @@
           <client-only>
             <full-calendar
               :events="bookings"
-              :right="null"
               default-view="list"
               @eventClick="eventClick"
               @dateChange="dateChange"
@@ -105,15 +113,21 @@
 import BaseHeader from '@/components/argon-core/BaseHeader'
 import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
+import Modal from '~/components/bookings/Modal'
+
 import { mapState } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
 
 export default {
   layout: 'ShackDash',
   components: {
+    BookingModal: Modal,
     BaseHeader,
     MainTitle,
     SectionTitle
+  },
+  async asyncData(vm) {
+    await vm.store.dispatch('resources/getAllBookings', { vm })
   },
   computed: {
     ...mapState({
@@ -125,10 +139,6 @@ export default {
       to: 'resources.addBooking.to',
       title: 'resources.addBooking.title'
     })
-  },
-
-  created() {
-    this.$store.dispatch('resources/getAllBookings', { vm: this })
   },
   methods: {
     eventClick(e) {
@@ -150,7 +160,16 @@ export default {
     },
     updateBooking() {
       this.$store.dispatch('resources/updateRoomBooking', { vm: this })
+    },
+    submitBooking(e) {
+      alert(JSON.stringify(e))
     }
   }
 }
 </script>
+
+<style>
+.fc-title {
+  color: #000 !important;
+}
+</style>

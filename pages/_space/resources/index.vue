@@ -16,13 +16,13 @@
     <!--Charts-->
     <div class="container-fluid mt--6">
       <div class="row equal">
-        <div 
-          v-for="rooms in allRooms" 
+        <div
+          v-for="rooms in allRooms"
           :key="rooms.id"
           class="col-md-4">
           <card class="sh-book-res">
             <div class="m-n25 img-wrap">
-              <img 
+              <img
                 :src="rooms.photo"
                 class="img-fluid"
                 alt="">
@@ -38,13 +38,12 @@
             </div>
 
             <div class="mr-t-30">
-              <p>24 hrs cancellation notice</p>
-              <span><b>Available from</b></span>
-              <p 
-                v-for="(available, i) in rooms.room_availability" 
+              <p><u>Resource Availability</u></p>
+              <p
+                v-for="(available, i) in rooms.room_availability"
                 :key="i">
-                {{ `${daylookup[available.weekdays[0]]} - ${daylookup[available.weekdays[1]] || ''}` }} 
-                {{ $moment(available.from, "HH:mm").format("hh:mm A") }} - 
+                {{ `${daylookup[available.weekdays[0]]} - ${daylookup[available.weekdays[1]] || ''}` }}
+                {{ $moment(available.from, "HH:mm").format("hh:mm A") }} -
                 {{ $moment(available.to, "HH:mm").format("hh:mm A") }}</p>
             </div>
 
@@ -53,7 +52,7 @@
                 <nuxt-link :to="{ name: 'space-resources-id', params: { id: rooms.id }}">
                   <i class="ti-pencil" /> Edit Resource
                 </nuxt-link>
-                <a 
+                <a
                   class="text-danger"
                   @click="deleteRoom(rooms.id)"><i class="ti-trash"/> Delete Resource</a>
               </div>
@@ -62,37 +61,30 @@
         </div>
       </div>
     </div>
-    <!-- <div>
-     <base-pagination
+    <div>
+      <base-pagination
         :total="meta.total"
         :per-page="meta.per_page"
         :value="meta.current_page"
         align="center"
         @next="next"
         @prev="prev"/>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
-import TopWidget from '~/components/shack/TopWidget.vue'
-import Activity from '~/components/shack/Activity.vue'
 import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
-import EmptyActivity from '~/components/shack/EmptyActivity.vue'
-import FeedTable from '~/components/shack/FeedTable.vue'
-import Booking from '~/components/shack/Booking.vue'
 
 export default {
   layout: 'ShackDash',
   components: {
-    Activity,
-    TopWidget,
-    Booking,
-    FeedTable,
-    EmptyActivity,
     SectionTitle,
     MainTitle
+  },
+  async asyncData({ store }) {
+    await store.dispatch('resources/getAllRooms')
   },
   data() {
     return {
@@ -114,11 +106,10 @@ export default {
       links: state => state.resources.rooms.links
     })
   },
-  created() {
-    this.$store.dispatch('resources/getAllRooms', { vm: this })
-  },
   methods: {
     deleteRoom(room_id) {
+      if (!confirm('Are you sure?')) return
+
       this.$store.dispatch('resources/deleteRoom', {
         vm: this,
         payload: room_id
@@ -135,5 +126,39 @@ export default {
   }
 }
 </script>
-<style>
+
+<style lang="scss">
+.sh-book-res {
+  .card-footer {
+    border: unset;
+    padding-top: 0;
+  }
+  .img-wrap {
+    height: 210px;
+    overflow: hidden;
+  }
+  .badge {
+    position: relative;
+    bottom: 40px;
+    left: 23px;
+    border-radius: 15px;
+    text-transform: unset;
+    background: rgba(76, 77, 79, 0.7) !important;
+    padding: 6px 15px;
+    font-weight: normal;
+    font-size: 12px;
+  }
+  p {
+    margin-bottom: 0px;
+  }
+  a {
+    text-decoration: unset;
+  }
+  img {
+    object-fit: cover;
+    vertical-align: middle;
+    height: 100%;
+    width: 100%;
+  }
+}
 </style>

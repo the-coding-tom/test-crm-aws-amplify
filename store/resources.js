@@ -89,13 +89,19 @@ export const mutations = {
 }
 
 export const actions = {
-  getAllRooms: async (context, { vm, payload }) => {
+  async getAllRooms(context, payload) {
     try {
-      const { data } = await vm.$resource.getAllRooms(payload)
+      const { data } = await this.$resource.getAllRooms(payload)
       context.commit('setRooms', data)
-      console.log(data)
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
+      this.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   },
   createRoom: async (context, { vm }) => {
@@ -106,9 +112,15 @@ export const actions = {
       await vm.$resource.createRoom(context.state.addRoom)
       vm.$bvToast.toast(`Room created successfully`, helper.notify.sucess)
       vm.$router.go(-1)
-    } catch ({ response }) {
-      console.log(error)
-      vm.$bvToast.toast(response.data.errors.room, helper.notify.error)
+    } catch (error) {
+      vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   },
   updateRoom: async (context, { vm }) => {
@@ -121,7 +133,14 @@ export const actions = {
       vm.$bvToast.toast(`Room updated successfully`, helper.notify.sucess)
       vm.$router.go(-1)
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
+      vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   },
   getOneRoom: async (context, { vm, payload }) => {
@@ -134,7 +153,14 @@ export const actions = {
       )
     } catch (error) {
       console.log(error)
-      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
+      vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   },
   deleteRoom: async (context, { state, vm, payload }) => {
@@ -143,7 +169,14 @@ export const actions = {
       vm.$bvToast.toast(`Room deleted successfully`, helper.notify.sucess)
       location.reload()
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
+      vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   },
   getAllCategories: async (context, { vm }) => {
@@ -152,7 +185,14 @@ export const actions = {
       context.commit('setCategories', data)
       console.log(data)
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
+      vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   },
   createCategory: async (context, { vm }) => {
@@ -163,7 +203,14 @@ export const actions = {
       location.reload()
       //   context.commit('updateCategory', payload)
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
+      vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   },
   updateCategory: async (context, { vm }) => {
@@ -171,46 +218,71 @@ export const actions = {
     try {
       await vm.$resource.updateCategory(payload.id, payload)
       vm.$bvToast.toast(`Category updated successfully`, helper.notify.sucess)
-    } catch ({ response }) {
-      vm.$bvToast.toast(response.data.errors.name[0], helper.notify.error)
+    } catch (error) {
+      vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   },
   deleteCategory: async (context, { vm }) => {
     const payload = context.state.addCategory.id
     try {
       await vm.$resource.deleteCategory(payload)
-      vm.$bvToast.toast(`category deleted successfully`, helper.notify.sucess)
+      vm.$bvToast.toast(`Category deleted successfully`, helper.notify.sucess)
       location.reload()
     } catch (error) {
-      vm.$bvToast.toast(`An internal erorr occured`, helper.notify.error)
+      vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   },
   bookingsForARoom: async (context, { vm, payload }) => {
     try {
       const { data } = await vm.$resource.getBookingForARoom(payload)
       context.commit('setBookings', data)
-    } catch ({ response }) {
-      vm.$bvToast.toast(response.data.message, helper.notify.error)
+    } catch (error) {
+      vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   },
   getAllBookings: async (context, { vm }) => {
     try {
       const { data } = await vm.$resource.getAllBookings()
-      console.log(data)
-      const calData = []
-      data.data.map(record => {
-        let calObj = {
-          title: record.title,
-          start: record.start_timestamp,
-          end: record.end_timestamp,
-          backgroundColor: record.room.category.color,
-          extendedProps: record
+
+      const calendarBookings = _.map(data.data, o => {
+        return {
+          title: o.title,
+          start: o.start_timestamp,
+          end: o.end_timestamp,
+          backgroundColor: o.room && `${o.room.category.color}2A`,
+          borderColor: o.room && `${o.room.category.color}2A`,
+          extendProps: o
         }
-        calData.push(calObj)
       })
-      context.commit('setBookings', calData)
-    } catch ({ response }) {
-      vm.$bvToast.toast(response.data.message, helper.notify.error)
+      context.commit('setBookings', calendarBookings)
+    } catch (error) {
+      vm.error({
+        statusCode: error.statusCode,
+        message: error.response
+          ? JSON.stringify(error.response.data.errors)
+          : error.message
+      })
     }
   },
   createBooking: async (context, { vm }) => {
@@ -218,7 +290,14 @@ export const actions = {
       await vm.$resource.bookRoomForMember(context.state.addBooking)
       context.state.addBooking
     } catch (error) {
-      console.log(error)
+      vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   },
   updateRoomBooking: async (context, { vm }) => {
@@ -228,8 +307,15 @@ export const actions = {
       context.commit('toggleModal', false)
       vm.$bvToast.toast(`Booking updated successfully`, helper.notify.sucess)
       location.reload()
-    } catch ({ response }) {
-      vm.$bvToast.toast(response.data.errors.booking, helper.notify.error)
+    } catch (error) {
+      vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
     }
   }
 }
