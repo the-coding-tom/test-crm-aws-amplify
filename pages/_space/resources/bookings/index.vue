@@ -14,12 +14,6 @@
         <b-button
           v-b-modal.booking-modal
           variant="primary">Add New Booking</b-button>
-        <b-modal
-          id="booking-modal"
-          hide-footer
-          title="Add New Booking">
-          <booking-modal @details="submitBooking" />
-        </b-modal>
         <modal
           :show="$store.state.resources.bookingModal">
           <template slot="header">
@@ -94,6 +88,12 @@
     <div class="container-fluid mt--6">
       <div class="card-deck flex-column flex-xl-row">
         <card>
+          <b-modal
+            id="booking-modal"
+            hide-footer
+            title="Add New Booking">
+            <booking-modal @details="submitBooking" />
+          </b-modal>
           <client-only>
             <full-calendar
               :events="bookings"
