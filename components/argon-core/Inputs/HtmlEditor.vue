@@ -35,7 +35,10 @@ export default {
       type: String,
       default: ''
     },
-    name: String
+    name: {
+      type: String,
+      default: null
+    }
   },
   data() {
     return {
