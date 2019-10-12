@@ -37,6 +37,10 @@
           <sidebar-item :link="{ name: 'All', path: `/${subdomain}/plans` }" />
           <sidebar-item :link="{ name: 'Add Plan', path: `/${subdomain}/plans/add` }" />
         </sidebar-item>
+        <sidebar-item :link="{ name: 'Tags', icon: 'fa fa-calendar-alt'}">
+          <sidebar-item :link="{name: 'All', path: `/${subdomain}/tags`}" />
+          <sidebar-item :link="{name: 'Add New Tag', path: `/${subdomain}/tags/add`}" />
+        </sidebar-item>
         <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
           <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />
           <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
