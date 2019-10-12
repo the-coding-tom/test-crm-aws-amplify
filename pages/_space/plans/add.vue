@@ -66,23 +66,16 @@
                         for="planvisibility" 
                         class="form-control-label">Plan Visibility</label>
                       <b-row>
-                        <b-col md="6">
-                          <b-form-radio 
-                            v-model="hidden" 
-                            name="planVisibility" 
-                            value="false">Public</b-form-radio>
+                        <b-col md="10">
+                          <b-form-checkbox
+                            v-model="hidden"
+                            name="planVisibility"
+                            value="false"
+                            unchecked-value="true"
+                          >Public</b-form-checkbox>
                           <p
                             class="text-left mt-2"
                           >Will be displayed on Apply change and all applicants can see this Membership Plan.</p>
-                        </b-col>
-                        <b-col md="6">
-                          <b-form-radio 
-                            v-model="hidden" 
-                            name="planVisibility" 
-                            value="true">Hidden</b-form-radio>
-                          <p
-                            class="text-left mt-2"
-                          >Give selected applicants access to this plan via a secret plan.</p>
                         </b-col>
                       </b-row>
                     </div>
