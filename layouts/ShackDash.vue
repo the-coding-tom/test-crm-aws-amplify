@@ -2,8 +2,8 @@
   <div class="wrapper">
     <notifications />
     <side-bar>
-      <template
-        slot-scope="props"
+      <template 
+        slot-scope="props" 
         slot="links">
         <sidebar-item :link="{ name: 'Dashboard', icon: 'ni ni-archive-2', path: `/${subdomain}`}" />
         <sidebar-item :link="{ name: 'Bookings', icon: 'ni ni-shop' }">
@@ -33,6 +33,10 @@
             />
           </sidebar-item>
         </sidebar-item>
+        <sidebar-item :link="{ name: 'Plans', icon: 'fa fa-paper-plane'}">
+          <sidebar-item :link="{ name: 'All', path: `/${subdomain}/plans` }" />
+          <sidebar-item :link="{ name: 'Add Plan', path: `/${subdomain}/plans/add` }" />
+        </sidebar-item>
         <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
           <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />
           <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
@@ -53,11 +57,9 @@
 /* eslint-disable no-new */
 import PerfectScrollbar from 'perfect-scrollbar'
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
-
 function hasElement(className) {
   return document.getElementsByClassName(className).length > 0
 }
-
 function initScrollbar(className) {
   if (hasElement(className)) {
     new PerfectScrollbar(`.${className}`)
@@ -68,12 +70,10 @@ function initScrollbar(className) {
     }, 100)
   }
 }
-
 import DashboardNavbar from '~/components/layouts/argon/DashboardNavbar.vue'
 import ContentFooter from '~/components/layouts/argon/ContentFooter.vue'
 import DashboardContent from '~/components/layouts/argon/Content.vue'
 import { mapState } from 'vuex'
-
 export default {
   components: {
     DashboardNavbar,

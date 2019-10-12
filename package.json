@@ -10,8 +10,7 @@
     "start": "cross-env NODE_ENV=production node server/index.js",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "heroku-postbuild": "npm run build",
-    "lint-fix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@fullcalendar/core": "^4.2.0",
