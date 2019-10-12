@@ -40,7 +40,6 @@
                 >Add This Category</b-button>
               </div>
             </div>
-
             <div class="mr-tb-80">
               <div class="m-n25">
                 <table class="table table-hover table-striped">
@@ -78,6 +77,9 @@ export default {
     MainTitle,
     SectionTitle
   },
+  async asyncData() {
+    await this.$store.dispatch('resources/getAllCategories')
+  },
   data: () => ({
     loading: false
   }),
@@ -90,13 +92,10 @@ export default {
       color: 'resources.addCategory.color'
     })
   },
-  created() {
-    this.$store.dispatch('resources/getAllCategories', { vm: this })
-  },
   methods: {
     async addCategory() {
       this.loading = !this.loading
-      await this.$store.dispatch('resources/createCategory', { vm: this })
+      await this.$store.dispatch('resources/createCategory')
       this.loading = !this.loading
     }
   }

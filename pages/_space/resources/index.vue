@@ -109,19 +109,15 @@ export default {
   methods: {
     deleteRoom(room_id) {
       if (!confirm('Are you sure?')) return
-
-      this.$store.dispatch('resources/deleteRoom', {
-        vm: this,
-        payload: room_id
-      })
+      this.$store.dispatch('resources/deleteRoom', room_id)
     },
     next() {
       const { next } = this.links
-      this.$store.dispatch('resources/getAllRooms', { vm: this, payload: next })
+      this.$store.dispatch('resources/getAllRooms', next)
     },
     prev() {
       const { prev } = this.links
-      this.$store.dispatch('resources/getAllRooms', { vm: this, payload: prev })
+      this.$store.dispatch('resources/getAllRooms', prev)
     }
   }
 }

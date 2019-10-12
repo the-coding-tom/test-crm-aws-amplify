@@ -83,8 +83,7 @@
                     type="number"
                     placeholder="0">
                     <div slot="append">max</div>
-                  </base-input>
-                </div>
+                </base-input>></div>
               </div>
               <div class="col-md-6">
                 <div class="row pd-l-20">
@@ -124,6 +123,7 @@ import BaseHeader from '@/components/argon-core/BaseHeader'
 import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
 import UploadButton from '~/components/shack/UploadButton.vue'
+import TagsInput from '@/components/argon-core/Inputs/TagsInput'
 import { Select, Option } from 'element-ui'
 
 export default {
@@ -137,7 +137,7 @@ export default {
     [Option.name]: Option
   },
   async asyncData(vm) {
-    await vm.store.dispatch('resources/getAllCategories', { vm })
+    await vm.store.dispatch('resources/getAllCategories')
   },
   data() {
     return {
@@ -159,12 +159,13 @@ export default {
       max_booking_duration: 'resources.addRoom.max_booking_duration',
       can_book: 'resources.addRoom.can_book',
       available_booking_time: 'resources.addRoom.available_room',
-      banner_url: 'resources.addRoom.photo'
+      banner_url: 'resources.addRoom.photo',
+      amenities: 'resources.addRoom.amenities'
     })
   },
   methods: {
     addNewRoom() {
-      this.$store.dispatch('resources/createRoom', { vm: this })
+      this.$store.dispatch('resources/createRoom')
     }
   }
 }

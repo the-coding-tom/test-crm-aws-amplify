@@ -144,14 +144,11 @@ export default {
     [Option.name]: Option
   },
   async asyncData(vm) {
-    await vm.store.dispatch('resources/getAllCategories', { vm })
+    await vm.store.dispatch('resources/getAllCategories')
 
     const { id } = vm.route.params
 
-    await vm.store.dispatch('resources/getOneRoom', {
-      vm,
-      payload: id
-    })
+    await vm.store.dispatch('resources/getOneRoom', id)
   },
   data: () => ({}),
   computed: {
@@ -176,10 +173,10 @@ export default {
   },
   methods: {
     addNewRoom() {
-      this.$store.dispatch('resources/createRoom', { vm: this })
+      this.$store.dispatch('resources/createRoom')
     },
     updateRoom() {
-      this.$store.dispatch('resources/updateRoom', { vm: this })
+      this.$store.dispatch('resources/updateRoom')
     }
   }
 }

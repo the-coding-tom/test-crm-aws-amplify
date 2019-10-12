@@ -79,6 +79,9 @@ export default {
     MainTitle,
     SectionTitle
   },
+  async asyncData() {
+    await this.$store.dispatch('resources/getAllCategories')
+  },
   computed: {
     ...mapState({
       categories: state => state.resources.categories.data
@@ -88,15 +91,12 @@ export default {
       color: 'resources.addCategory.color'
     })
   },
-  created() {
-    this.$store.dispatch('resources/getAllCategories', { vm: this })
-  },
   methods: {
     updateCategory() {
-      this.$store.dispatch('resources/updateCategory', { vm: this })
+      this.$store.dispatch('resources/updateCategory')
     },
     deleteCategory() {
-      this.$store.dispatch('resources/deleteCategory', { vm: this })
+      this.$store.dispatch('resources/deleteCategory')
     },
     changeCategory(category) {
       this.$store.commit('resources/updateCategory', category)

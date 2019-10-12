@@ -127,7 +127,7 @@ export default {
     SectionTitle
   },
   async asyncData(vm) {
-    await vm.store.dispatch('resources/getAllBookings', { vm })
+    await vm.store.dispatch('resources/getAllBookings')
   },
   computed: {
     ...mapState({
@@ -153,13 +153,10 @@ export default {
     },
     dateChange() {},
     getRoomBook(id) {
-      this.$store.dispatch('resources/bookingsForARoom', {
-        vm: this,
-        payload: id
-      })
+      this.$store.dispatch('resources/bookingsForARoom', id)
     },
     updateBooking() {
-      this.$store.dispatch('resources/updateRoomBooking', { vm: this })
+      this.$store.dispatch('resources/updateRoomBooking')
     },
     submitBooking(e) {
       alert(JSON.stringify(e))
