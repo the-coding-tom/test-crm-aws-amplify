@@ -66,6 +66,7 @@ module.exports = {
     '~/plugins/services/membership',
     '~/plugins/services/plan',
     '~/plugins/services/tags',
+    '~/plugins/services/admin',
     { src: '~/plugins/vue2-datepicker', ssr: false }
     // { src: '~/plugins/dashboard/modal', ssr: false }
   ],
