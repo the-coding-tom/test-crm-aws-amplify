@@ -17,7 +17,7 @@
           label="Room">
           <b-form-select 
             :options="rooms"
-            v-model="membership_id" 
+            v-model="room_id" 
             required />
         </b-form-group>
       </b-row>
@@ -98,6 +98,10 @@ export default {
     imembership_id: {
       type: String,
       default: null
+    },
+    iroom_id: {
+      type: String,
+      default: null
     }
   },
   data: () => ({
@@ -105,7 +109,9 @@ export default {
     from: '',
     to: '',
     title: '',
-    members: []
+    members: [],
+    rooms: [],
+    room_id: ''
   }),
   mounted() {
     this.from = this.ifrom
@@ -118,8 +124,10 @@ export default {
           .format('YYYY-MM-DD HH:mm')
     this.title = this.ititle && this.ititle
     this.membership_id = this.imembership_id && this.imembership_id
+    this.room_id = this.iroom_id && this.iroom_id
 
     this.getConnectedMembers()
+    this.getRooms()
   },
   methods: {
     getConnectedMembers() {
@@ -135,19 +143,31 @@ export default {
         this.membership_id = this.members[0].value
       })
     },
+    getRooms() {
+      this.$resource.getAllRooms().then(({ data }) => {
+        this.rooms = _.map(data.data, o => {
+          return {
+            text: o.name,
+            value: o.id
+          }
+        })
+        this.room_id = this.rooms[0].value
+      })
+    },
     changeDate(e) {
       this.to = this.$moment(e)
         .add(1, 'hour')
         .format('YYYY-MM-DD HH:mm')
     },
     submitDetails() {
-      const { from, to, title, membership_id } = this
+      const { from, to, title, membership_id, room_id } = this
 
       this.$emit('details', {
         from,
         to,
         title,
-        membership_id
+        membership_id,
+        room_id
       })
     }
   }

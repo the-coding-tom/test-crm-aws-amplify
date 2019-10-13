@@ -25,7 +25,9 @@
             <booking-modal 
               :ifrom="bookdata.from" 
               :ito="bookdata.to" 
-              :ititle="bookdata.title" 
+              :ititle="bookdata.title"
+              :imembership_id="bookdata.membership_id"
+              :iroom_id="bookdata.room_id"
               @details="submitBooking" />
           </b-modal>
           <client-only>
@@ -67,10 +69,13 @@ export default {
         from: null,
         to: null,
         title: null,
-        id: null
+        membership_id: null,
+        room_id: null,
+        booking_id: null
       },
-      modalText: '',
-      showmodal: true
+      modalText: 'Add New Booking',
+      showmodal: true,
+      modalUpdate: false
     }
   },
   async asyncData({ store }) {
@@ -92,9 +97,12 @@ export default {
     eventClick(e) {
       this.bookdata.from = this.$moment(e.start).format('YYYY-MM-DD HH:mm')
       this.bookdata.to = this.$moment(e.end).format('YYYY-MM-DD HH:mm')
-      this.title = e.title
-      this.id = e.extendedProps.uuid
+      this.bookdata.title = e.title
+      this.bookdata.membership_id = e.extendedProps.extendProps.uuid
+      this.bookdata.room_id = e.extendedProps.extendProps.room.id
+      this.bookdata.booking_id = e.extendedProps.extendProps.uuid
       this.modalText = 'Update Booking'
+      this.modalUpdate = true
       this.$bvModal.show('booking-modal')
     },
     bookDate(e) {
@@ -112,17 +120,37 @@ export default {
     getRoomBook(id) {
       this.$store.dispatch('resources/bookingsForARoom', id)
     },
-    updateBooking() {
-      this.$store.dispatch('resources/updateRoomBooking')
-    },
+
     submitBooking(e) {
       const data = {
         from: this.$moment(e.from).format('YYYY-MM-DD HH:mm'),
         to: this.$moment(e.to).format('YYYY-MM-DD HH:mm'),
         title: e.title,
-        membership_id: e.membership_id
+        membership_id: e.membership_id,
+        room_id: e.room_id,
+        booking_id: this.bookdata.booking_id
       }
-      this.$store.dispatch('resources/createBooking', data)
+      let ms = this.$moment(data.to).diff(this.$moment(data.from))
+      if (ms < 900000) {
+        return this.$bvToast.toast(
+          'Minimum booking duration should be 15 munites and above',
+          {
+            title: 'Error',
+            variant: 'danger',
+            solid: true
+          }
+        )
+      }
+      if (this.modalUpdate && this.bookdata.booking_id) {
+        this.updateBooking(data)
+      } else {
+        this.$store.dispatch('resources/createBooking', data)
+        this.$bvModal.hide('booking-modal')
+      }
+    },
+    updateBooking(data) {
+      this.$store.dispatch('resources/updateRoomBooking', data)
+      this.$bvModal.hide('booking-modal')
     }
   }
 }

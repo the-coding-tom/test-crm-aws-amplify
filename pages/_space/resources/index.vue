@@ -106,14 +106,6 @@ export default {
       links: state => state.resources.rooms.links
     })
   },
-  mounted() {
-    console.log('jerer')
-    // this.$bvToast.toast('meesage here', {
-    //   title: 'Success',
-    //   variant: 'success',
-    //   solid: true
-    // })
-  },
   methods: {
     deleteRoom(room_id) {
       if (!confirm('Are you sure?')) return

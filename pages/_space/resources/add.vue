@@ -99,6 +99,7 @@
                     v-model="available_booking_time"
                     class="col-md-12"
                     label="Available Booking Time"
+                    required
                     placeholder="0" />
                   <b-form-text class="col-md-12">You can enter multiple time frames separated by comma, e.g. e.g. mo-fr 9-17, sa 10-3.</b-form-text>
 
@@ -106,7 +107,8 @@
                     <label>Amenities</label>
                     <TagsInput
                       v-model="amenities"
-                      type="Text" />
+                      type="Text"
+                      required />
                   </div>
 
                   <div class="form-group col-md-12">

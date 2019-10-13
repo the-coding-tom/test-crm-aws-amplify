@@ -23,7 +23,6 @@ const notify = {
 
 const parseRoomdate = (data, vm) => {
   const roomAvaila = data.split(',')
-  console.log(roomAvaila)
   const roomAvailability = []
   roomAvaila.forEach(data => {
     let weekday = []
@@ -37,9 +36,11 @@ const parseRoomdate = (data, vm) => {
       fr: 5,
       sa: 6
     }
-    // const trimmed = data.replace(/ +/g, '')
-    const timeData = data.split(' ')
-    console.log(timeData)
+
+    const timeData = data
+      .replace(/ +/g, '')
+      .replace(/[^0-9-](?=[0-9])/g, '$& ')
+      .split(' ')
     if (timeData.length === 2) {
       weekday.push(timeData[0])
       timeof.push(timeData[1])
@@ -58,8 +59,8 @@ const parseRoomdate = (data, vm) => {
     splitWeekday.forEach(week => {
       AStruc.weekdays.push(lookup[week])
     })
-    AStruc.from = vm.$moment(splitTimeOf[0], 'HH').format('hh:mm')
-    AStruc.to = vm.$moment(splitTimeOf[1], 'HH').format('hh:mm')
+    AStruc.from = vm.$moment(splitTimeOf[0], 'HH').format('HH:mm')
+    AStruc.to = vm.$moment(splitTimeOf[1], 'HH').format('HH:mm')
     roomAvailability.push(AStruc)
   })
   return roomAvailability

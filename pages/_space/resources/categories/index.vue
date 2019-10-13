@@ -96,6 +96,7 @@ export default {
       this.$store.dispatch('resources/updateCategory')
     },
     deleteCategory() {
+      if (!confirm('Are you sure?')) return
       this.$store.dispatch('resources/deleteCategory')
     },
     changeCategory(category) {

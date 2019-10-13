@@ -16,7 +16,6 @@ export const state = () => ({
     to: null,
     title: null
   },
-  bookingModal: false,
   addRoom: {
     id: null,
     name: null,
@@ -83,8 +82,14 @@ export const mutations = {
     state.addBooking.to = record.to
     state.addBooking.title = record.title
   },
-  toggleModal(state, value) {
-    state.bookingModal = value
+  resetForms(state, recordState) {
+    Object.keys(state[recordState]).forEach(key => {
+      if (key == 'amenities') {
+        state[recordState][key] = []
+      } else {
+        state[recordState][key] = null
+      }
+    })
   }
 }
 
@@ -109,10 +114,9 @@ export const actions = {
       const data = state.addRoom.available_room
       const roomAvailability = helper.parseRoomdate(data, this)
       commit('setRoomAvailabilty', roomAvailability)
-      console.log(state.addRoom)
-      return
       await this.$resource.createRoom(state.addRoom)
       this._vm.$bvToast.toast(`Room created successfully`, helper.notify.sucess)
+      commit('resetForms', 'addRoom')
       this.$router.go(-1)
     } catch (error) {
       this._vm.$bvToast.toast(
@@ -132,6 +136,7 @@ export const actions = {
     try {
       await this.$resource.updateRoom(payload.id, payload)
       this._vm.$bvToast.toast(`Room updated successfully`, helper.notify.sucess)
+      commit('resetForms', 'addRoom')
       this.$router.go(-1)
     } catch (error) {
       this._vm.$bvToast.toast(
@@ -160,11 +165,11 @@ export const actions = {
       )
     }
   },
-  async deleteRoom({}, payload) {
+  async deleteRoom({ dispatch }, payload) {
     try {
       await this.$resource.deleteRoom(payload)
       this._vm.$bvToast.toast(`Room deleted successfully`, helper.notify.sucess)
-      location.reload()
+      dispatch('getAllRooms')
     } catch (error) {
       this._vm.$bvToast.toast(
         `${
@@ -191,7 +196,7 @@ export const actions = {
       )
     }
   },
-  async createCategory({ state }) {
+  async createCategory({ state, dispatch, commit }) {
     const payload = state.addCategory
     try {
       await this.$resource.createCategory(payload)
@@ -199,7 +204,8 @@ export const actions = {
         `Category created successfully`,
         helper.notify.sucess
       )
-      location.reload()
+      dispatch('getAllCategories')
+      commit('resetForms', 'addCategory')
     } catch (error) {
       this._vm.$bvToast.toast(
         `${
@@ -211,7 +217,7 @@ export const actions = {
       )
     }
   },
-  async updateCategory({ state }) {
+  async updateCategory({ state, commit, dispatch }) {
     const payload = state.addCategory
     try {
       await this.$resource.updateCategory(payload.id, payload)
@@ -219,6 +225,8 @@ export const actions = {
         `Category updated successfully`,
         helper.notify.sucess
       )
+      dispatch('getAllCategories')
+      commit('resetForms', 'addCategory')
     } catch (error) {
       this._vm.$bvToast.toast(
         `${
@@ -230,15 +238,16 @@ export const actions = {
       )
     }
   },
-  async deleteCategory(context) {
-    const payload = context.state.addCategory.id
+  async deleteCategory({ state, dispatch, commit }) {
+    const payload = state.addCategory.id
     try {
       await this.$resource.deleteCategory(payload)
       this._vm.$bvToast.toast(
         `Category deleted successfully`,
         helper.notify.sucess
       )
-      location.reload()
+      dispatch('getAllCategories')
+      commit('resetForms', 'addCategory')
     } catch (error) {
       this._vm.$bvToast.toast(
         `${
@@ -268,7 +277,6 @@ export const actions = {
   async getAllBookings({ commit }) {
     try {
       const { data } = await this.$resource.getAllBookings()
-      console.log(data)
       const calendarBookings = _.map(data.data, o => {
         return {
           title: o.title,
@@ -314,9 +322,11 @@ export const actions = {
   },
   async createBooking({}, payload) {
     try {
-      await this.$resource.bookRoomForMember(payload.membership_id, payload)
-      this.$bvModal.hide('booking-modal')
-      this.$bvToast.toast(`Booking created successfully`, helper.notify.sucess)
+      await this.$resource.bookRoomForMember(payload.room_id, payload)
+      this._vm.$bvToast.toast(
+        `Booking created successfully`,
+        helper.notify.sucess
+      )
     } catch (error) {
       this._vm.$bvToast.toast(
         `${
@@ -328,13 +338,14 @@ export const actions = {
       )
     }
   },
-  async updateRoomBooking(context) {
-    const payload = context.state.addBooking
+  async updateRoomBooking({ dispatch }, payload) {
     try {
-      await this.$resource.updateRoomBooking(payload.id, payload)
-      this.$bvModal.hide('booking-modal')
-      this.$bvToast.toast(`Booking updated successfully`, helper.notify.sucess)
-      location.reload()
+      await this.$resource.updateRoomBooking(payload.booking_id, payload)
+      dispatch('getAllBookings')
+      this._vm.$bvToast.toast(
+        `Booking updated successfully`,
+        helper.notify.sucess
+      )
     } catch (error) {
       this._vm.$bvToast.toast(
         `${
