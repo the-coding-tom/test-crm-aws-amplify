@@ -113,7 +113,7 @@ export default {
         })
         .catch(err => {
           const message = err.response
-            ? JSON.stringify(err.response.data.errors)
+            ? JSON.stringify(err.response.data.message)
             : err.message
 
           this.$bvToast.toast(message, {

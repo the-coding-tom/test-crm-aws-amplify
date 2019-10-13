@@ -145,7 +145,7 @@ export default {
       this.$plan
         .addPlan(payload)
         .then(({ data: { data } }) => {
-          this.$bvToast.toast(`Plan ${name} created successfully`, {
+          this.$bvToast.toast(`Plan ~${name}~ created successfully`, {
             title: 'Success',
             variant: 'success',
             solid: true

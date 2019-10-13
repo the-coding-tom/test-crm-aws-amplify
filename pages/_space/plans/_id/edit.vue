@@ -20,7 +20,8 @@
               <div class="col-md-6">
                 <div class="row pd-r-20">
                   <base-input
-                    v-model="plan.name"
+                    :value="plan.name"
+                    readonly
                     class="col-md-12"
                     label="Name of Plan"
                     required
@@ -145,8 +146,8 @@ export default {
       this.$plan
         .updatePlan(id, plan)
         .then(({ data: { data } }) => {
-          this.$bvToast.toast('Success', {
-            title: `Plan ~${plan.name}~ updated successfully`,
+          this.$bvToast.toast(`Plan ~${plan.name}~ updated successfully`, {
+            title: 'Success',
             variant: 'success',
             solid: true
           })
