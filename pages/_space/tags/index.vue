@@ -1,78 +1,80 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle 
-          title="Tags" 
-          subtitle="View All Tags" />
-        <b-button 
-          :to="{name:'space-tags-add'}" 
-          squared 
-          variant="primary" 
+        <MainTitle
+          title="Tags"
+          subtitle="All" />
+        <b-button
+          :to="{name:'space-tags-add'}"
+          squared
+          variant="primary"
           class="text-white">Add Tag</b-button>
       </div>
     </base-header>
     <div class="container-fluid mt--6">
       <div class="card-deck flex-column flex-xl-row">
-        <el-table
-          :data="tags"
-          class="table-responsive align-items-center table-flush table-striped"
-          header-row-class-name="thead-light"
-        >
-          <el-table-column 
-            label="Tag" 
-            min-width="310px" 
-            prop="name" 
-            sortable>
-            <template v-slot="{row}">
-              <h4>{{ row.name }}</h4>
-            </template>
-          </el-table-column>
-          <el-table-column 
-            label="Type" 
-            prop="type" 
-            min-width="140px">
-            <template v-slot="{row}">
-              <span>{{ row.type }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column 
-            min-width="180px" 
-            align="center">
-            <template 
-              v-slot="{row}" 
-              class="table-actions">
-              <b-button
-                :disabled="loading"
-                variant="transparent"
-                class="text-primary"
-                @click="showEditModal(row)"
-              >
-                <i class="fa fa-pen" /> Edit
-              </b-button>
-            </template>
-          </el-table-column>
+        <div class="card">
+          <el-table
+            :data="tags"
+            class="table-responsive align-items-center table-flush table-striped"
+            header-row-class-name="thead-light"
+          >
+            <el-table-column
+              label="Tag"
+              min-width="310px"
+              prop="name"
+              sortable>
+              <template v-slot="{row}">
+                <h4>{{ row.name }}</h4>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="Type"
+              prop="type"
+              min-width="140px">
+              <template v-slot="{row}">
+                <span>{{ row.type }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+              min-width="180px"
+              align="center">
+              <template
+                v-slot="{row}"
+                class="table-actions">
+                <b-button
+                  :disabled="loading"
+                  variant="transparent"
+                  class="text-primary"
+                  @click="showEditModal(row)"
+                >
+                  <i class="fa fa-pen" /> Edit
+                </b-button>
+              </template>
+            </el-table-column>
 
-          <el-table-column 
-            min-width="180px" 
-            align="center">
-            <template 
-              v-slot="{row}" 
-              class="table-actions">
-              <b-button
-                :disabled="loading"
-                type="submit"
-                variant="transparent"
-                class="text-danger"
-                @click="removeTag(row)"
-              >
-                <i class="fa fa-times" /> Remove
-              </b-button>
-            </template>
-          </el-table-column>
-        </el-table>
+            <el-table-column
+              min-width="180px"
+              align="center">
+              <template
+                v-slot="{row}"
+                class="table-actions">
+                <b-button
+                  :disabled="loading"
+                  type="submit"
+                  variant="transparent"
+                  class="text-danger"
+                  @click="removeTag(row)"
+                >
+                  <i class="fa fa-times" /> Remove
+                </b-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
       </div>
     </div>
     <div>
@@ -87,43 +89,38 @@
     </div>
 
     <div>
-      <b-modal 
-        id="edit-modal" 
+      <b-modal
+        id="edit-modal"
         hide-footer>
         <template v-slot:modal-title>Edit Tag</template>
 
         <b-form @submit.prevent>
           <div class="row">
-            <div class="col-md-12">
-              <div class="row pd-r-20">
-                <base-input
-                  v-model="name"
-                  class="col-md-12"
-                  label="Name of Tag"
-                  placeholder="cities, ui, ux"
-                  required
-                />
-                <base-input
-                  v-model="type"
-                  class="col-md-12"
-                  label="Tag Type"
-                  disabled
-                  required
-                  placeholder="profile_interest"
-                />
-              </div>
-              <b-button
-                :disabled="loading"
-                squared
-                variant="primary"
-                class="text-white float-right"
-                @click="editTag"
-              >
-                <i class="fa fa-pen" />
-                Edit
-              </b-button>
-            </div>
+            <base-input
+              v-model="name"
+              class="col-md-12"
+              label="Name of Tag"
+              placeholder="cities, ui, ux"
+              required
+            />
+            <base-input
+              v-model="type"
+              class="col-md-12"
+              label="Tag Type"
+              disabled
+              required
+              placeholder="profile_interest"
+            />
           </div>
+          <b-button
+            :disabled="loading"
+            squared
+            variant="primary"
+            class="text-white float-right"
+            @click="editTag"
+          >
+            Update
+          </b-button>
         </b-form>
       </b-modal>
     </div>
@@ -270,7 +267,7 @@ export default {
       this.$tag
         .updateTag(type, payload)
         .then(({ data: { data } }) => {
-          this.$bvToast.toast('Tag updated successfully', {
+          this.$bvToast.toast(`Tag ~${name}~ updated successfully`, {
             title: 'Success',
             variant: 'success',
             solid: true

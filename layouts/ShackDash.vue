@@ -23,8 +23,8 @@
         </sidebar-item>
         <sidebar-item :link="{ name: 'Wellness', icon: 'fa fa-walking'}">
           <sidebar-item :link="{ name: 'Bookings', path: `/${subdomain}/wellness/bookings`}" />
-          <sidebar-item :link="{name: 'Sessions', path: `/${subdomain}/wellness`}" />
-          <sidebar-item :link="{name: 'Categories'}">
+          <sidebar-item :link="{ name: 'Sessions', path: `/${subdomain}/wellness`}" />
+          <sidebar-item :link="{ name: 'Categories'}">
             <sidebar-item
               :link="{name: 'All Categories', path: `/${subdomain}/wellness/categories`}"
             />
@@ -33,12 +33,9 @@
             />
           </sidebar-item>
         </sidebar-item>
-        <sidebar-item :link="{name: 'Setup', icon: 'fa fa-cog'}">
+        <sidebar-item :link="{ name: 'Setup', icon: 'fa fa-cog'}">
           <sidebar-item :link="{ name: 'Plans', path: `/${subdomain}/plans` }" />
-        </sidebar-item>
-        <sidebar-item :link="{ name: 'Tags', icon: 'fa fa-tags'}">
-          <sidebar-item :link="{name: 'All', path: `/${subdomain}/tags`}" />
-          <sidebar-item :link="{name: 'Add New Tag', path: `/${subdomain}/tags/add`}" />
+          <sidebar-item :link="{ name: 'Tags', path: `/${subdomain}/tags`}" />
         </sidebar-item>
         <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
           <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />

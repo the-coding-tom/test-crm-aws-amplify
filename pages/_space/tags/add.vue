@@ -1,41 +1,37 @@
 <template>
   <div>
     <b-form @submit.prevent="addTag">
-      <base-header 
-        class="pb-6" 
+      <base-header
+        class="pb-6"
         type>
         <div class="d-flex justify-content-between align-items-center py-4">
           <MainTitle title="Setup Tag" />
-          <b-button 
-            :disabled="loading" 
-            class="btn btn-primary text-white" 
+          <b-button
+            :disabled="loading"
+            class="btn btn-primary text-white"
             type="submit">Add Tag</b-button>
         </div>
       </base-header>
 
       <div class="container-fluid mt--6">
         <div class="card-deck flex-column flex-xl-row">
-          <card>
+          <card class="col-md-6">
             <h3 class="mr-b-20">Add New Tag</h3>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="row pd-r-20">
-                  <base-input
-                    v-model="name"
-                    class="col-md-12"
-                    label="Name of Tag"
-                    placeholder="cities, ui, ux"
-                    required
-                  />
-                  <base-input
-                    v-model="type"
-                    class="col-md-12"
-                    label="Tag Type"
-                    required
-                    placeholder="profile_interest"
-                  />
-                </div>
-              </div>
+            <div class="row pd-r-20">
+              <base-input
+                v-model="name"
+                class="col-md-6"
+                label="Name of Tag"
+                placeholder="ux"
+                required
+              />
+              <base-input
+                v-model="type"
+                class="col-md-6"
+                label="Tag Type"
+                required
+                placeholder="profile_interests"
+              />
             </div>
           </card>
         </div>
@@ -69,15 +65,10 @@ export default {
 
       this.loading = !this.loading
 
-      const payload = {
-        name,
-        type
-      }
-
       this.$tag
-        .addTag(payload)
+        .addTag({ name, type })
         .then(({ data }) => {
-          this.$bvToast.toast('Success', {
+          this.$bvToast.toast(`Tag ~${name}~ added successfully`, {
             title: 'Success',
             variant: 'success',
             solid: true
