@@ -13,9 +13,10 @@
           @search="search"
         />
         <div>
-          <a
-            href="/ui/members/sendmessage"
-            class="mr-r-20"><i class="fa fa-envelope"/> Send Message (5)</a>
+          <b-button
+            :to="{ name: 'space-memberships-messages', query: {status: 'uninvited'}}"
+            variant="transparent"
+            class="text-primary"><i class="fa fa-envelope"/> Send Message</b-button>
           <b-button
             :to="{name: 'space-memberships-add'}"
             variant="primary"
