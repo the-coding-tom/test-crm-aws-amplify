@@ -57,6 +57,10 @@ module.exports = {
       src: '~/plugins/dashboard/full-calendar',
       ssr: false
     },
+    {
+      src: '~/plugins/vue-quill',
+      ssr: false
+    },
     '~/plugins/services/auth',
     '~/plugins/services/wellness',
     '~/plugins/services/event',
@@ -64,7 +68,7 @@ module.exports = {
     '~/plugins/services/plans',
     '~/plugins/services/resource',
     '~/plugins/services/membership',
-    '~/plugins/services/plan',
+    '~/plugins/services/emails',
     '~/plugins/services/tags',
     '~/plugins/services/admin',
     { src: '~/plugins/vue2-datepicker', ssr: false }

@@ -5,16 +5,40 @@
       type="">
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle
-          title="Members"
-          subtitle="Recently Active"/>
+          title="Messages"
+          subtitle="All"/>
         <b-button
+          :to="{name: 'space-memberships-messages-create'}"
           variant="primary"
-          @click.stop.prevent="submit()"><i class="fa fa-paper-plane"/> Send Email</b-button>
+        ><i class="fa fa-paper-plane"/> New Email</b-button>
       </div>
     </base-header>
     <div class="container-fluid mt--6 mr-b-30">
       <div class="card-deck flex-column flex-xl-row">
-        <card/>
+        <div class="card">
+          <b-table
+            :fields="fields"
+            :items="data"
+            striped
+            hover
+            show-empty
+            @row-clicked="rowClicked">
+            <template v-slot:cell(emails)="row">
+              {{ getEmail(row.value) }}
+            </template>
+          </b-table>
+        </div>
+      </div>
+
+      <div>
+        <base-pagination
+          :total="meta.total"
+          :per-page="meta.per_page"
+          :value="meta.current_page"
+          align="center"
+          @next="next"
+          @prev="prev"
+        />
       </div>
 
       <b-link
@@ -29,68 +53,53 @@ import UploadButton from '~/components/shack/UploadButton.vue'
 import { Select, Option } from 'element-ui'
 
 export default {
+  name: 'SendMessages',
   layout: 'ShackDash',
   components: {
     MainTitle,
-    UploadButton,
     SectionTitle,
     [Select.name]: Select,
     [Option.name]: Option
   },
-  data() {
-    return {
-      selectOptions: [
-        {
-          label: 'Phelicia Drake ',
-          value: 'info1@example.com'
-        },
-        {
-          label: 'Samuel Ekubona',
-          value: 'info2@example.com'
-        },
-        {
-          label: 'Goku Justin',
-          value: 'info3@example.com'
-        },
-        {
-          label: 'Kofi Pampaso',
-          value: 'info4@example.com'
-        },
-        {
-          label: 'Tulasi Boni',
-          value: 'info5@example.com'
-        },
-        {
-          label: 'Michael Smith',
-          value: 'info6@example.com'
-        }
-      ],
-      selects: [],
-      dates: {
-        simple: new Date(),
-        range: '2019-04-19 to 2019-04-24'
-      },
-      inputs: {
-        tags: ['BUCHAREST', 'IASI', 'TIMISOARA'],
-        fileSingle: [],
-        fileMultiple: []
-      },
-      switches: {
-        off: false,
-        primary: true,
-        default: true,
-        danger: true,
-        warning: true,
-        success: true,
-        info: true
-      },
-      sliders: {
-        simple: 50,
-        range: [200, 400]
+  async asyncData({ store, $email, params }) {
+    return await $email.getAllEmails().then(({ data, meta, links }) => {
+      return {
+        data,
+        meta,
+        links
       }
-    }
+    })
   },
+  data: () => ({
+    fields: [
+      {
+        key: 'emails',
+        sortable: false
+      },
+      { key: 'subject', sortable: true },
+      { key: 'created_at', sortable: true }
+    ]
+  }),
   methods: {
+    getEmail(value) {
+      const emails = JSON.parse(value)
+
+      return `${emails[0]} +${emails.length - 1}`
+    },
+    rowClicked(e) {
+      this.$router.push({
+        name: 'space-memberships-messages-id',
+        params: { id: e.id }
+      })
+    },
+    next() {
+      const { next } = this.links
+      this.$email.getAllEmails(next)
+    },
+    prev() {
+      const { prev } = this.links
+      this.$$email.getAllEmails(prev)
+    },
     submit() {
       this.$router.push('/ui/members/messagesent')
     }

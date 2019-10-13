@@ -2,6 +2,9 @@ export default function(ctx, inject) {
   const subdomain = () => ctx.route.params.space
 
   const Plan = {
+    getAllPlans: () => {
+      return ctx.$axios.$get(`/${subdomain()}/plans`)
+    },
     getAllPlan(link = null) {
       if (link) {
         return ctx.$axios.get(link)

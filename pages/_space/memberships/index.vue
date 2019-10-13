@@ -14,7 +14,7 @@
         />
         <div>
           <b-button
-            :to="{ name: 'space-memberships-messages', query: {status: 'invited'}}"
+            :to="{ name: 'space-memberships-messages'}"
             variant="transparent"
             class="text-primary"><i class="fa fa-envelope"/> Send Message</b-button>
           <b-button

@@ -68,7 +68,8 @@ export default {
         theme: 'snow',
         modules: {
           toolbar: `#${this.toolbarId}`
-        }
+        },
+        placeholder: 'Email Content'
       })
 
       if (this.value.length > 0) {
@@ -104,3 +105,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.ql-editor {
+  min-height: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+</style>
