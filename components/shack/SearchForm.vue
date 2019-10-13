@@ -1,20 +1,49 @@
 <template>
-  <base-input 
-    input-group-classes="input-group-merge sh-search" 
-    group 
-    class="mb-0">
-    <template slot="prepend"><i class="fa fa-search"/></template>
-    <input 
-      type="text" 
-      class="form-control" 
-      placeholder="Looking for ..." 
-      aria-label="Recipient's username" 
-      aria-describedby="button-addon2">
-    <div class="input-group-append">
-      <button 
-        id="button-addon2" 
-        class="btn btn-default" 
-        type="button">Search</button>
-    </div>
-  </base-input>
+  <b-form @submit.prevent="search">
+
+    <base-input
+      input-group-classes="input-group-merge sh-search"
+      group
+      class="mb-0">
+      <template slot="prepend"><i class="fa fa-search"/></template>
+      <input
+        v-model="searchTerm"
+        type="text"
+        class="form-control"
+        placeholder="Looking for ..."
+        aria-describedby="button-addon2"
+        required
+      >
+      <div class="input-group-append">
+        <button
+          id="button-addon2"
+          :disabled="loading"
+          class="btn btn-default"
+          type="submit"><i
+            v-if="loading"
+            class="fa fa-spinner fa-spin"/><span v-else> Search</span></button>
+      </div>
+    </base-input>
+  </b-form>
 </template>
+
+<script>
+export default {
+  props: {
+    loading: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: () => ({
+    searchTerm: ''
+  }),
+  methods: {
+    search() {
+      this.$emit('input', this.searchTerm)
+
+      this.$emit('search', 'search')
+    }
+  }
+}
+</script>

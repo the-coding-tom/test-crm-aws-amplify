@@ -1,14 +1,14 @@
 <template>
   <div>
     <b-form @submit.prevent="editPlan">
-      <base-header 
-        class="pb-6" 
+      <base-header
+        class="pb-6"
         type>
         <div class="d-flex justify-content-between align-items-center py-4">
           <MainTitle title="Update Plan" />
-          <b-button 
-            :disabled="loading" 
-            class="btn btn-primary text-white" 
+          <b-button
+            :disabled="loading"
+            class="btn btn-primary text-white"
             type="submit">Update Plan</b-button>
         </div>
       </base-header>
@@ -20,40 +20,42 @@
               <div class="col-md-6">
                 <div class="row pd-r-20">
                   <base-input
-                    v-model="plan.name"
+                    :value="plan.name"
+                    readonly
                     class="col-md-12"
                     label="Name of Plan"
                     required
                     placeholder="Entrepreneur"
                   />
-                  <div class="form-group col-md-12">
-                    <label>Plan Description</label>
-                    <textarea
+                  <b-form-group
+                    class="col-md-12"
+                    label="Plan Description"
+                    description="Description should not exceed 22 characters">
+                    <b-form-input
                       v-model="plan.description"
+                      maxlength="22"
                       placeholder="Add details about the plan"
-                      rows="4"
-                      max-rows="6"
-                      required
-                      description="description"
-                      class="form-control"
-                    />
-                  </div>
-                  <base-input
-                    v-model="plan.price_per_cycle"
-                    class="col-md-6"
-                    label="Price"
-                    required
-                    placeholder="0.00"
-                    type="number"
-                  />
-                  <base-input
-                    v-model="plan.cycle_duration"
-                    class="col-md-6"
-                    label="Per"
-                    placeholder="Month(s)"
-                    type="number"
-                    required
-                  />
+                      required/>
+                  </b-form-group>
+                  <b-form-group
+                    label="Price per cycle"
+                    class="col-md-6">
+                    <b-form-input
+                      v-model="plan.price_per_cycle"
+                      type="number"
+                      placeholder="0.00"
+                      required/>
+                  </b-form-group>
+                  <b-form-group
+                    label="Charge Cycle"
+                    description="Charge cycle denotes the number of months before charging"
+                    class="col-md-6">
+                    <b-form-input
+                      v-model="plan.cycle_duration"
+                      type="number"
+                      label="Charge Cycle"
+                      required/>
+                  </b-form-group>
                 </div>
               </div>
 
@@ -61,16 +63,16 @@
                 <div class="row pd-l-20">
                   <b-row>
                     <div class="form-group col-md-12">
-                      <label 
-                        for="planvisibility" 
+                      <label
+                        for="planvisibility"
                         class="form-control-label">Plan Visibility</label>
                       <b-row>
                         <b-col md="10">
                           <b-form-checkbox
-                            v-model="hidden"
+                            v-model="plan.hidden"
+                            :value="false"
+                            :unchecked-value="true"
                             name="planVisibility"
-                            value="false"
-                            unchecked-value="true"
                           >Public</b-form-checkbox>
                           <p
                             class="text-left mt-2"
@@ -84,6 +86,10 @@
             </div>
           </card>
         </div>
+        <b-button
+          class="text-primary mb-2"
+          variant="transparent"
+          @click="$router.go(-1)"><i class="ti-angle-left"/> Back</b-button>
       </div>
     </b-form>
   </div>
@@ -133,39 +139,21 @@ export default {
   },
   methods: {
     editPlan() {
-      const {
-        name,
-        description,
-        price_per_cycle,
-        cycle_duration,
-        hidden
-      } = this.plan
-
-      const { id, space } = this
+      const { id, space, plan } = this
 
       this.loading = !this.loading
 
-      const payload = {
-        name,
-        description,
-        cycle_duration: parseInt(cycle_duration),
-        price_per_cycle: parseInt(price_per_cycle),
-        recurring: true,
-        hidden: hidden === 'true' ? true : false
-      }
-
       this.$plan
-        .updatePlan(id, payload)
+        .updatePlan(id, plan)
         .then(({ data: { data } }) => {
-          this.$bvToast.toast('Success', {
+          this.$bvToast.toast(`Plan ~${plan.name}~ updated successfully`, {
             title: 'Success',
             variant: 'success',
             solid: true
           })
           this.loading = !this.loading
           this.$router.push({
-            name: 'space-plans-id-view',
-            params: { space: space.subdomain, id }
+            name: 'space-plans'
           })
         })
         .catch(err => {
