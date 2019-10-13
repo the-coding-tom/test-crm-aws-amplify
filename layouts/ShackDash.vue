@@ -33,7 +33,9 @@
             />
           </sidebar-item>
         </sidebar-item>
-        <sidebar-item :link="{ name: 'Plans', icon: 'fa fa-money-check', path: `/${subdomain}/plans` }" />
+        <sidebar-item :link="{name: 'Setup', icon: 'fa fa-cog'}">
+          <sidebar-item :link="{ name: 'Plans', path: `/${subdomain}/plans` }" />
+        </sidebar-item>
         <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
           <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />
           <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
