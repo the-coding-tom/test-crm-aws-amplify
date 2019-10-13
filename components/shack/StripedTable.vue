@@ -1,26 +1,23 @@
 <template>
   <div class="card">
-    <div class="card-header border-0">
-      <div class="row" />
-    </div>
 
     <el-table
       :data="plans"
       class="table-responsive align-items-center table-flush table-striped"
       header-row-class-name="thead-light"
     >
-      <el-table-column 
-        label="Plan" 
-        min-width="310px" 
-        prop="name" 
+      <el-table-column
+        label="Plan"
+        min-width="310px"
+        prop="name"
         sortable>
         <template v-slot="{row}">
           <h4>{{ row.name }}</h4>
         </template>
       </el-table-column>
-      <el-table-column 
-        label="Subscription" 
-        prop="price_per_cycle" 
+      <el-table-column
+        label="Subscription"
+        prop="price_per_cycle"
         min-width="140px">
         <template v-slot="{row}">
           <span>
@@ -32,11 +29,11 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column 
-        min-width="180px" 
+      <el-table-column
+        min-width="180px"
         align="center">
-        <template 
-          v-slot="{row}" 
+        <template
+          v-slot="{row}"
           class="table-actions">
           <b-button
             :disabled="loading"
@@ -50,11 +47,11 @@
         </template>
       </el-table-column>
 
-      <el-table-column 
-        min-width="180px" 
+      <el-table-column
+        min-width="180px"
         align="center">
-        <template 
-          v-slot="{row}" 
+        <template
+          v-slot="{row}"
           class="table-actions">
           <b-button
             :disabled="loading"
