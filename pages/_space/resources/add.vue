@@ -28,6 +28,7 @@
                     v-model="name"
                     class="col-md-6"
                     label="Name"
+                    required
                     placeholder="Name of Resource"/>
                   <div class="form-group col-md-6">
                     <label>Category</label>
@@ -48,12 +49,14 @@
                     label="Price per hour"
                     type="number"
                     step="0.01"
+                    required
                     placeholder="0.00"/>
                   <div class="col-md-6">
                     <base-input
                       v-model="capacity"
                       label="Number of Units"
                       type="number"
+                      required
                       placeholder="0" />
                     <b-form-text>How many people can book this at the same time</b-form-text>
                   </div>
@@ -64,6 +67,7 @@
                       placeholder="Add details about this resource"
                       rows="4"
                       max-rows="6"
+                      required
                       class="form-control"/>
                   </div>
 
@@ -72,6 +76,8 @@
                     class="col-md-6"
                     label="Minimum Booking Duration"
                     type="number"
+                    min="15"
+                    required
                     placeholder="0">
                     <div slot="append">min</div>
                   </base-input>
@@ -81,9 +87,11 @@
                     class="col-md-6"
                     label="Maximum Booking Duration"
                     type="number"
+                    required
                     placeholder="0">
                     <div slot="append">max</div>
-                </base-input>></div>
+                  </base-input>
+                </div>
               </div>
               <div class="col-md-6">
                 <div class="row pd-l-20">
@@ -94,11 +102,16 @@
                     placeholder="0" />
                   <b-form-text class="col-md-12">You can enter multiple time frames separated by comma, e.g. e.g. mo-fr 9-17, sa 10-3.</b-form-text>
 
+                  <div class="col-md-12 form-group">
+                    <label>Amenities</label>
+                    <TagsInput
+                      v-model="amenities"
+                      type="Text" />
+                  </div>
+
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
-                    <b-form-checkbox-group>
-                      <b-form-checkbox v-model="can_book">Only admins can book</b-form-checkbox>
-                    </b-form-checkbox-group>
+                    <b-form-checkbox v-model="can_book">Only admins can book</b-form-checkbox>
                   </div>
                 </div>
               </div>
@@ -134,7 +147,8 @@ export default {
     UploadButton,
     SectionTitle,
     [Select.name]: Select,
-    [Option.name]: Option
+    [Option.name]: Option,
+    TagsInput
   },
   async asyncData(vm) {
     await vm.store.dispatch('resources/getAllCategories')

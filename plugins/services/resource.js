@@ -51,10 +51,16 @@ export default function(ctx, inject) {
       )
     },
     bookRoomForMember: (id, payload) => {
-      return ctx.$axios.post(`/rooms/${id}`, payload)
+      return ctx.$axios.post(`${subdomain()}/rooms/${id}/book/behalf`, payload)
     },
+
     getAllBookings: () => {
       return ctx.$axios.get(`${subdomain()}/rooms/bookings/admin`)
+    },
+    getBookingByDate: ({ from, to }) => {
+      return ctx.$axios.get(
+        `${subdomain()}/rooms/bookings/admin?from=${from}&to=${to}`
+      )
     }
   }
   ;(ctx.$resource = Resource), inject('resource', Resource)

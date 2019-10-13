@@ -15,7 +15,6 @@
         <div
           :class="[gradient ? `bg-gradient-${gradient}` : '',modalContentClasses]"
           class="modal-content">
-
           <div
             v-if="$slots.header"
             :class="[headerClasses]"

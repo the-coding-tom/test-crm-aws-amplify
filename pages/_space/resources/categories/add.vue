@@ -77,8 +77,8 @@ export default {
     MainTitle,
     SectionTitle
   },
-  async asyncData() {
-    await this.$store.dispatch('resources/getAllCategories')
+  async asyncData({ store }) {
+    await store.dispatch('resources/getAllCategories')
   },
   data: () => ({
     loading: false

@@ -23,6 +23,7 @@ const notify = {
 
 const parseRoomdate = (data, vm) => {
   const roomAvaila = data.split(',')
+  console.log(roomAvaila)
   const roomAvailability = []
   roomAvaila.forEach(data => {
     let weekday = []
@@ -36,7 +37,9 @@ const parseRoomdate = (data, vm) => {
       fr: 5,
       sa: 6
     }
+    // const trimmed = data.replace(/ +/g, '')
     const timeData = data.split(' ')
+    console.log(timeData)
     if (timeData.length === 2) {
       weekday.push(timeData[0])
       timeof.push(timeData[1])

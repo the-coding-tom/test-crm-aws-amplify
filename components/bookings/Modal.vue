@@ -13,6 +13,16 @@
       </b-row>
       <b-row>
         <b-form-group
+          class="col-md-12"
+          label="Room">
+          <b-form-select 
+            :options="rooms"
+            v-model="membership_id" 
+            required />
+        </b-form-group>
+      </b-row>
+      <b-row>
+        <b-form-group
           class="col-md-6"
           label="From">
           <client-only>
@@ -131,12 +141,13 @@ export default {
         .format('YYYY-MM-DD HH:mm')
     },
     submitDetails() {
-      const { from, to, title } = this
+      const { from, to, title, membership_id } = this
 
       this.$emit('details', {
         from,
         to,
-        title
+        title,
+        membership_id
       })
     }
   }
