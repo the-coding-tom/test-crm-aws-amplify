@@ -7,7 +7,11 @@
         <MainTitle
           title="Members"
           subtitle="Uninvited"/>
-        <SearchForm />
+        <SearchForm
+          v-model="searchTerm"
+          :loading="loading"
+          @search="search"
+        />
         <div>
           <a
             href="/ui/members/sendmessage"
@@ -93,12 +97,17 @@ export default {
     MembersTable,
     RouteBreadCrumb
   },
-  data: () => ({}),
+  data: () => ({
+    searchTerm: '',
+    loading: false
+  }),
   methods: {
     next() {
       const { next } = this.links
 
-      let link = `${next}&filter[status]=uninvited&include=profile,primaryPlan`
+      let link = `${next}&filter[status]=uninvited&include=profile,primaryPlan&filter[search]=${
+        this.searchTerm
+      }`
 
       this.$membership
         .getAllMemberships()
@@ -120,7 +129,9 @@ export default {
     prev() {
       const { prev } = this.links
 
-      let link = `${prev}&filter[status]=uninvited&include=profile,primaryPlan`
+      let link = `${prev}&filter[status]=uninvited&include=profile,primaryPlan&filter[search]=${
+        this.searchTerm
+      }`
 
       this.$membership
         .getAllMemberships()
@@ -174,6 +185,31 @@ export default {
           }, 5000)
         })
         .catch(e => {
+          this.$bvToast.toast(
+            e.response ? JSON.stringify(e.response.data.errors) : e.message,
+            {
+              title: 'Error',
+              variant: 'danger'
+            }
+          )
+        })
+    },
+    search() {
+      this.loading = !this.loading
+      const link = `filter[status]=uninvited&include=primaryPlan,profile&filter[search]=${
+        this.searchTerm
+      }`
+      this.$membership
+        .getAllMemberships(link)
+        .then(({ data, links, meta }) => {
+          this.members = data
+          this.links = links
+          this.meta = meta
+
+          this.loading = false
+        })
+        .catch(e => {
+          this.loading = !this.loading
           this.$bvToast.toast(
             e.response ? JSON.stringify(e.response.data.errors) : e.message,
             {
