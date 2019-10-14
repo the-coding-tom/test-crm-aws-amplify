@@ -10,6 +10,9 @@ body, p {
 body, p, .table td, .table th, .el-table td, .el-table th, .table .thead-light th, .el-table .thead-light th {
 	color: #4c4d4f;
 }
+.badge-alternative {
+	background: #f8e7fb;
+}
 *, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	font-family: "BrownPro";
 }
@@ -156,6 +159,9 @@ a {
 	justify-content: space-between;
 	font-size: 12px;
 	font-weight: normal;
+}
+.el-table .el-table__header-wrapper thead th.is-right .cell {
+	justify-content: flex-end;
 }
 .table .thead-light th, .el-table .thead-light th {
 	background: unset;

@@ -9,14 +9,14 @@
       </template>
     </span>
     <div class="d-flex align-items-center pd-20 mr-5 mr-tb-20">
-      <img 
-        :src="img ? img : '/img/placeholder.jpg'" 
+      <img
+        :src="img ? img : '/img/placeholder.jpg'"
         class="mr-r-20 rounded-circle avatar-xxl" >
       <div>
         <h1>{{ name }}</h1>
         <h3 class="mr-b-10">{{ company }}</h3>
         <i class="ti-location-pin" />
-        {{ address }}
+        {{ getCities(address) }}
         <br >
         <i class="ti-calendar" />
         {{ date }}
@@ -27,11 +27,11 @@
 
 <script>
 export default {
-  name: {
-    type: String,
-    default: null
-  },
   props: {
+    name: {
+      type: String,
+      default: null
+    },
     status: {
       type: Boolean,
       default: null
@@ -39,19 +39,33 @@ export default {
     img: {
       type: String,
       default: null
+    },
+    company: {
+      type: String,
+      default: null
+    },
+    address: {
+      type: String,
+      default: null
+    },
+    date: {
+      type: String,
+      default: null
+    },
+    extras: {
+      type: String,
+      default: () => []
     }
   },
-  company: {
-    type: String,
-    default: null
-  },
-  address: {
-    type: String,
-    default: null
-  },
-  date: {
-    type: String,
-    default: null
+  methods: {
+    getCities(address) {
+      return _.join(
+        _.map(address, o => {
+          return _.upperFirst(o)
+        }),
+        ', '
+      )
+    }
   }
 }
 </script>

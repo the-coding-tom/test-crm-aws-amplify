@@ -1,14 +1,14 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type="">
       <div class="row py-4">
         <div class="col-md-6">
           <div class="d-flex justify-content-between">
-            <MainTitle 
-              title="Community Directory" 
-              subtitle="342 Profiles" />
+            <MainTitle
+              title="Directory"
+              subtitle="Profile" />
             <div class="d-flex align-items-center">
               <b-form-checkbox
                 v-model="checked"
@@ -16,37 +16,33 @@
                 size="lg"
                 variant="success"
               >
-                <span 
-                  v-if="checked" 
+                <span
+                  v-if="checked"
                   class="text-success">Check in</span>
-                <span 
-                  v-else 
+                <span
+                  v-else
                   class="text-muted">Check Out</span>
               </b-form-checkbox>
             </div>
           </div>
         </div>
         <div class="col-md-6 mr-l-child-10 text-right">
-          <a 
-            href="#" 
-            class="text-primary">
-            <i class="fa fa-user" /> Make Admin
-          </a>
-          <a 
-            href="#" 
+
+          <b-button
+            variant="transparent"
             class="text-primary">
             <i class="fa fa-sticky-note" /> View Notes
-          </a>
-          <a 
-            href="#" 
+          </b-button>
+          <b-button
+            variant="transparent"
             class="text-primary">
             <i class="fa fa-pen" /> Edit Profile
-          </a>
-          <a 
-            href="#" 
+          </b-button>
+          <b-button
+            variant="transparent"
             class="text-danger">
             <i class="fa fa-trash" /> Delete Member
-          </a>
+          </b-button>
         </div>
       </div>
     </base-header>
@@ -56,20 +52,21 @@
         <div class="col-md-6">
           <div class="card">
             <ProfileHead
-              :status="true"
-              img="/img/placeholder.jpg"
-              name="Dami Famuyibo"
-              company="Outside Insight"
-              address="Shoreditch, UK, Something Here, Another Thing"
+              :status="false"
+              :img="data.user_profile.picture"
+              :name="data.user_profile.full_name"
+              :company="data.user_profile.company"
+              :extras="data.user_profile.extras"
+              :address="data.user_profile.cities"
               date="August 18"
             />
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <i class="fa fa-envelope" /> dami@outsideinsight.com
+                  <i class="fa fa-envelope" /> {{ data.email }}
                 </div>
                 <div class="col">
-                  <i class="fa fa-phone" /> +1 (705) 8823 6123
+                  <i class="fa fa-phone" /> {{ data.user_profile.phone }}
                 </div>
               </div>
               <div class="mt-4">
@@ -77,100 +74,114 @@
                   Profile
                 </div>
                 <p>
-                  I am currently a Sales Executive Manager at a leading News
-                  Intelligence firm which largely focuses revealing breadcrumbs
-                  left on the web and unveiling new trends within consumer
-                  businesses.
+                  {{ data.user_profile.bio }}
                 </p>
-                <badge>News</badge>
-                <badge>AI</badge>
-                <badge>Outside Insight</badge>
-                <badge>Consumer Brands</badge>
-                <badge>External Data</badge>
+                <div class="text-muted">
+                  Interests
+                </div>
+                <badge
+                  v-for="(interest, i) in data.user_profile.interests"
+                  :key="`${interest}-${i}`"
+                  class="mr-1">{{ interest }}</badge>
+                <div class="text-muted mt-2">Offers</div>
+                <badge
+                  v-for="(offer, i) in data.user_profile.offers"
+                  :key="`${offer}-${i}`"
+                  class="mr-1">{{ offer }}</badge>
+                <div class="text-muted mt-2">Skills</div>
+                <badge
+                  v-for="(skill, i) in data.user_profile.skills"
+                  :key="`${skill}-${i}`"
+                  class="mr-1">{{ skill }}</badge>
+
               </div>
               <div class="mt-4">
-                <p><i class="ti-twitter-alt" /> @damifam</p>
-                <p><i class="ti-linkedin" /> /damifamuyibo</p>
-                <p><i class="ti-world" /> outsideinsight.com</p>
+                <p><i class="ti-twitter-alt" /> {{ data.user_profile.twitter }}</p>
+                <p><i class="ti-linkedin" /> {{ data.user_profile.linkedin }}</p>
+                <p><i class="ti-world" /> {{ data.user_profile.website }}</p>
               </div>
               <div class="sh-dls">
-                <span> Joined on:</span> October 18, 2019
+                <span> Joined on:</span> {{ $moment(data.member_since).format('MMMM DD, YYYY') }}
               </div>
               <div class="sh-dls">
-                <span>Renewal due by:</span> December 20, 2020
+                <span>Renewal due by:</span> {{ getSubscription }}
               </div>
 
-              <hr 
-                class="w-25 bg-dark3 text-default" 
+              <hr
+                class="w-25 bg-dark3 text-default"
                 align="left" >
 
-              <div class="sh-dls">
-                <span>First Reference:</span> Samuel Jervier - sam@shack15.com
-              </div>
-              <div class="sh-dls">
-                <span>Second Reference:</span> Detrich Peterson -
-                detrich@ff41.co.uk
-              </div>
+              <span v-html="getExtras(data.extras)"/>
+
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
           <card header-classes="bg-transparent">
-            <div 
-              slot="header" 
+            <div
+              slot="header"
               class="d-flex justify-content-between">
               <div class="txt-upper">
                 Card Details
               </div>
-              <template v-if="!cardempty">
-                <a 
-                  href="#" 
+              <template>
+                <a
+                  href="#"
                   class="text-primary">
                   <i class="fa fa-credit-card" /> Add New Card
                 </a>
               </template>
             </div>
-            <template v-if="cardempty">
+            <template v-if="cards.length == 0">
               <div class="text-center">
                 <div class="text-muted">
                   No card added for member
                 </div>
-                <a href="#">Add New Card</a>
               </div>
             </template>
             <template v-else>
-              <div class="d-flex justify-content-between">
-                <h3>Alessandro Mascellino</h3>
-                <div class="mr-l-child-15">
-                  <span> <i class="fa fa-credit-card" /> **** 5161 </span>
-                  <span> Sept, 2020 </span>
-                  <badge type="success">
-                    Active
-                  </badge>
-                  <a 
-                    href="#" 
-                    class="text-primary">
-                    <i class="fa fa-pen" />
-                  </a>
-                  <a 
-                    href="#" 
-                    class="text-danger">
-                    <i class="fa fa-trash" />
-                  </a>
-                </div>
+              <div class="m-n25">
+                <table class="table table-hover table-striped">
+                  <tbody>
+                    <tr
+                      v-for="(card, i) in cards"
+                      :key="card.id"
+                    >
+                      <td>
+                        <h3>{{ card.billing_details.name }}</h3>
+                      </td>
+                      <td>
+                        <span> <i
+                          :class="`fab fa-cc-${card.card.brand}`" /> **** {{ card.card.last4 }} </span>
+                      </td>
+                      <td>
+                        {{ $moment(card.card.exp_month, "M").format('MMM') }} {{ card.card.exp_year }}
+                      </td>
+                      <td class="float-right">
+                        <b-button
+                          :disabled="loading"
+                          size="
+                          sm"
+                          variant="transparent"
+                          class="text-danger"
+                          @click="removeMemberSource(i)"><i class="fa fa-trash"/></b-button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </template>
           </card>
           <card>
-            <div 
-              slot="header" 
+            <div
+              slot="header"
               class="d-flex justify-content-between">
               <div class="txt-upper">
                 MEMBERSHIP PLAN
               </div>
-              <a 
-                href="#" 
+              <a
+                href="#"
                 class="text-primary">
                 <i class="fa fa-plus" /> Add New Plan
               </a>
@@ -178,42 +189,23 @@
             <div class="m-n25">
               <table class="table table-hover table-striped">
                 <tbody>
-                  <tr>
-                    <td>Annual Membership</td>
-                    <td class="d-flex justify-content-between">
-                      <span>$ 1,560.00</span>
-                      <span>Until 15 Dec, 2020</span>
-                    </td>
-                    <td class="mr-l-child-15">
-                      <a 
-                        href="#" 
-                        class="text-primary">
-                        <i class="fa fa-pen" />
-                      </a>
-                      <a 
-                        href="#" 
-                        class="text-danger">
-                        <i class="fa fa-trash" />
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Monthly Desk Membership</td>
-                    <td class="d-flex justify-content-between">
-                      <span>$ 200.00</span>
-                      <span>Until 07 Nov, 2019</span>
-                    </td>
-                    <td class="mr-l-child-15">
-                      <a 
-                        href="#" 
-                        class="text-primary">
-                        <i class="fa fa-pen" />
-                      </a>
-                      <a 
-                        href="#" 
-                        class="text-danger">
-                        <i class="fa fa-trash" />
-                      </a>
+                  <tr
+                    v-for="subscription in data.subscriptions"
+                    :key="subscription.id">
+                    <td>{{ getSubDetails(subscription)['name'] }}</td>
+                    <td>{{ getSubDetails(subscription)['price'] }}</td>
+                    <td> {{ getSubDetails(subscription)['ends_at'] }}</td>
+                    <td class="float-right">
+                      <b-button
+                        size="sm"
+                        variant="transparent"
+                        class="text-primary"
+                        @click="changePlan(subscription)"><i class="fa fa-exchange-alt"/></b-button>
+                      <b-button
+                        size="sm"
+                        variant="transparent"
+                        class="text-danger"
+                        @click="cancelPlan(subscription)"><i class="fa fa-trash"/></b-button>
                     </td>
                   </tr>
                 </tbody>
@@ -222,17 +214,12 @@
           </card>
 
           <card>
-            <div 
-              slot="header" 
+            <div
+              slot="header"
               class="d-flex justify-content-between">
               <div class="txt-upper">
                 Events
               </div>
-              <a 
-                href="#" 
-                class="text-primary">
-                <i class="fa fa-calendar" /> Add Event Booking
-              </a>
             </div>
             <template v-if="bookingsempty">
               <div class="text-center">
@@ -254,22 +241,17 @@
                       </td>
                       <td>
                         Today - 4pm,
-                        <el-tooltip 
-                          content="Open Lounge" 
+                      </td>
+                      <td>
+                        <el-tooltip
+                          content="Open Lounge"
                           placement="bottom">
                           <i class="fa fa-info-circle" />
                         </el-tooltip>
                       </td>
-                      <td>
-                        <a 
-                          href="#" 
-                          class="text-danger">
-                          <i class="fa fa-trash" />
-                        </a>
-                      </td>
                     </tr>
-                    <tr 
-                      v-for="n in 4" 
+                    <tr
+                      v-for="n in 4"
                       :key="n">
                       <td>Creating Successful B2B Bus...</td>
                       <td class="d-flex justify-content-between">
@@ -278,6 +260,8 @@
                       </td>
                       <td>
                         Tues - 11am,
+                      </td>
+                      <td>
                         <el-tooltip
                           content="Conference Room"
                           placement="bottom"
@@ -285,29 +269,18 @@
                           <i class="fa fa-info-circle" />
                         </el-tooltip>
                       </td>
-                      <td>
-                        <a 
-                          href="#" 
-                          class="text-danger">
-                          <i class="fa fa-trash" />
-                        </a>
-                      </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <div 
-                slot="footer" 
-                class="sh-pagination">
-                <a href="#">Prev</a>
-                <a 
-                  href="#" 
-                  class="btn btn-primary btn-sm">1</a>
-                <a 
-                  v-for="n in 10" 
-                  :key="n" 
-                  href="#"> {{ n + 1 }}</a>
-                <a href="#">Next</a>
+              <div
+                slot="footer"
+                class="">
+                <div>
+                  <base-pagination
+                    :page-count="10"
+                    size="sm"/>
+                </div>
               </div>
             </template>
           </card>
@@ -319,20 +292,126 @@
 <script>
 import MainTitle from '~/components/shack/MainTitle.vue'
 import ProfileHead from '~/components/shack/ProfileHead.vue'
+import { mapState } from 'vuex'
 
 export default {
+  name: 'DirectoryProfile',
   layout: 'ShackDash',
   components: {
     MainTitle,
     ProfileHead
   },
+  async asyncData({ store, params, $membership, error }) {
+    try {
+      const cards = await $membership
+        .getPaymentMethods(params.id)
+        .then(({ data }) => {
+          return data
+        })
+
+      return await $membership.getAMembership(params.id).then(({ data }) => {
+        return {
+          data,
+          cards
+        }
+      })
+    } catch (e) {
+      error({
+        statusCode: e.statusCode,
+        message: e.response ? e.response.data.message : e.message
+      })
+    }
+  },
   data() {
     return {
-      checked: false
+      loading: false,
+      checked: false,
+      cards: []
     }
+  },
+  computed: {
+    ...mapState({
+      space: state => state.space.currentSpace
+    }),
+    getSubscription() {
+      let renewal = null
+      _.each(this.data.primary_plan, v => {
+        _.each(this.data.subscriptions, o => {
+          if (o.stripe_plan == v.stripe_id) {
+            renewal = o.ends_at ? o.ends_at : o.trial_ends_at
+          }
+        })
+      })
+      return this.$moment(renewal).format('MMMM DD, YYYY')
+    }
+  },
+  methods: {
+    getExtras(extras) {
+      let html = ''
+      _.each(extras, (o, i) => {
+        html += `<div class="sh-dls"><span>${_.upperFirst(o.type)}:</span> ${
+          o.comment
+        }</div>`
+      })
+
+      return html
+    },
+    toggleLoading() {
+      this.loading = !this.loading
+    },
+    removeMemberSource(i) {
+      this.loading = !this.loading
+
+      this.$membership
+        .deletePaymentMethod(this.$route.params.id, {
+          card_id: this.cards[i].id
+        })
+        .then(res => {
+          this.cards.splice(i, 1)
+
+          this.toggleLoading()
+
+          this.$bvToast.toast('Card source removed successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+        })
+        .catch(e => {
+          const message = e.response ? e.response.data.message : e.message
+          this.$bvToast.toast(message, {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
+    },
+    formatPrice(value) {
+      let val = (value / 1).toFixed(2).replace(',', '.')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    getSubDetails(subscription) {
+      let name, price, ends_at
+
+      const _self = this
+
+      _.each(this.data.plans, o => {
+        if (o.stripe_id == subscription.stripe_plan) {
+          name = o.name
+          price =
+            _self.space.currency_symbol + _self.formatPrice(o.price_per_cycle)
+          ends_at = subscription.ends_at
+            ? this.$moment(subscription.ends_at).format('DD MMM, YYYY')
+            : this.$moment(subscription.trial_ends_at).format('DD MMM, YYYY')
+        }
+      })
+
+      return { name, price, ends_at }
+    },
+    changePlan(subscription) {},
+    cancelPlan(subscription) {}
   }
 }
 </script>
+
 <style lang="scss">
 .sh-dls {
   span {
