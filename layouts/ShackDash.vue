@@ -6,14 +6,16 @@
         slot-scope="props"
         slot="links">
         <sidebar-item :link="{ name: 'Dashboard', icon: 'ni ni-archive-2', path: `/${subdomain}`}" />
+        <sidebar-item :link="{ name: 'Manage', icon: 'fa fa-tasks' }">
+          <sidebar-item :link="{ name: 'Memberships'}">
+            <sidebar-item :link="{ name: 'Invited', path: `/${subdomain}/memberships`}" />
+            <sidebar-item :link="{ name: 'Uninvited', path: `/${subdomain}/memberships/uninvited`}" />
+          </sidebar-item>
+          <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
+        </sidebar-item>
         <sidebar-item :link="{ name: 'Bookings', icon: 'ni ni-shop' }">
           <sidebar-item :link="{ name: 'Calendar', path: `/${subdomain}/calendar` }" />
           <sidebar-item :link="{ name: 'Resources', path: `/${subdomain}/resources` }" />
-        </sidebar-item>
-        <sidebar-item :link="{ name: 'Memberships', icon: 'fa fa-id-card-alt'}">
-          <sidebar-item :link="{ name: 'Invited', path: `/${subdomain}/memberships`}" />
-          <sidebar-item
-            :link="{name: 'Uninvited', path: `/${subdomain}/memberships/uninvited`}" />
         </sidebar-item>
         <sidebar-item :link="{name: 'Checkins', icon: 'fa fa-user-check', path: `/${subdomain}/checkins`}"/>
         <sidebar-item :link="{ name: 'Events', icon: 'fa fa-calendar-alt'}">

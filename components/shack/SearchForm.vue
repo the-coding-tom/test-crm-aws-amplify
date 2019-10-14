@@ -42,7 +42,7 @@ export default {
     search() {
       this.$emit('input', this.searchTerm)
 
-      this.$emit('search', 'search')
+      this.$emit('search', this.searchTerm)
     }
   }
 }
