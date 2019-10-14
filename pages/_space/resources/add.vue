@@ -113,7 +113,7 @@
 
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
-                    <b-form-checkbox v-model="can_book">Only admins can book</b-form-checkbox>
+                    <b-form-checkbox v-model="can_book">Room is bookable</b-form-checkbox>
                   </div>
                 </div>
               </div>

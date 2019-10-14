@@ -113,7 +113,7 @@ export default {
     dateChange(e) {
       const data = {
         from: this.$moment(e.startDate).format('YYYY-MM-DD'),
-        to: this.$moment(e.startDate).format('YYYY-MM-DD')
+        to: this.$moment(e.endDate).format('YYYY-MM-DD')
       }
       this.$store.dispatch('resources/getAllBookingsByDate', data)
     },

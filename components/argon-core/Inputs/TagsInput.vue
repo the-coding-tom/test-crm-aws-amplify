@@ -19,7 +19,7 @@
       class="form-control"
       size="mini"
       @input="onInput"
-      @keyup.enter="handleInputConfirm"
+      @keydown.enter.prevent="handleInputConfirm"
       @blur="handleInputConfirm"
     >
   </div>

@@ -102,7 +102,7 @@
                     <label>Resource Settings</label>
                     <b-form-checkbox
                       :value="can_book"
-                      v-model="can_book">Only admins can book</b-form-checkbox>
+                      v-model="can_book">Room is bookable</b-form-checkbox>
                   </div>
                 </div>
               </div>
