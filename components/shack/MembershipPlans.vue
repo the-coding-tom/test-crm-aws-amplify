@@ -8,6 +8,7 @@
       class="sh-accordion-item">
       <a
         v-b-toggle.accordion-1
+        v-b-toggle="'accordion-' + plan.uuid"
         block
         href="javascript:void(0)"
         class="d-flex justify-content-between"
@@ -21,7 +22,7 @@
           name="plan">Select this plan</b-form-radio>
       </a>
       <b-collapse
-        id="accordion-1"
+        :id="'accordion-' + plan.uuid"
         visible
         accordion="my-accordion"
         role="tabpanel"
