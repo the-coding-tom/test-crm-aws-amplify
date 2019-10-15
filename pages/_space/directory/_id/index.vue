@@ -29,6 +29,7 @@
         <div class="col-md-6 mr-l-child-10 text-right">
 
           <b-button
+            :to="{name: 'space-directory-id-notes', params: {id: $route.params.id}}"
             variant="transparent"
             class="text-primary">
             <i class="fa fa-sticky-note" /> View Notes

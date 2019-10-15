@@ -36,8 +36,8 @@ export default {
       default: null
     },
     status: {
-      type: String,
-      default: null
+      type: Boolean,
+      default: false
     },
     thumbCol: {
       type: String,

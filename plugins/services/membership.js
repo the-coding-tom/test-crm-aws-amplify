@@ -96,6 +96,34 @@ export default function(ctx, inject) {
         .catch(e => {
           getError(e)
         })
+    },
+    getAllNotes: (id, link = null) => {
+      if (link) {
+        return ctx.$axios.$get(link).catch(e => getError(e))
+      }
+      return ctx.$axios
+        .$get(`/${subdomain()}/memberships/${id}/notes`)
+        .catch(e => getError(e))
+    },
+    getANote: (id, noteId) => {
+      return ctx.$axios
+        .$get(`/${subdomain()}/memberships/${id}/notes/${noteId}`)
+        .catch(e => getError(e))
+    },
+    updateNote: (id, noteId, payload) => {
+      return ctx.$axios
+        .$patch(`/${subdomain()}/memberships/${id}/notes/${noteId}`, payload)
+        .catch(e => getError(e))
+    },
+    addNote: (id, payload) => {
+      return ctx.$axios
+        .$post(`/${subdomain()}/memberships/${id}/notes`, payload)
+        .catch(e => getError(e))
+    },
+    deleteNote: (id, noteId) => {
+      return ctx.$axios
+        .$delete(`/${subdomain()}/memberships/${id}/notes/${noteId}`)
+        .catch(e => getError(e))
     }
   }
   ;(ctx.$membership = Membership), inject('membership', Membership)

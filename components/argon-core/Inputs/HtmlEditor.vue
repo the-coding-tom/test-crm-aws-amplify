@@ -35,6 +35,10 @@ export default {
       type: String,
       default: ''
     },
+    placeholder: {
+      type: String,
+      default: 'Email Content'
+    },
     name: String
   },
   data() {
@@ -69,7 +73,7 @@ export default {
         modules: {
           toolbar: `#${this.toolbarId}`
         },
-        placeholder: 'Email Content'
+        placeholder: this.placeholder
       })
 
       if (this.value.length > 0) {

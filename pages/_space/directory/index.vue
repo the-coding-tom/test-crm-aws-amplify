@@ -71,6 +71,18 @@ export default {
     loading: false
   }),
   methods: {
+    next() {
+      const { next } = this.links
+      this.$membership.getAllMemberships(
+        `${next}&filter[status]=accepted&include=profile,primaryPlan`
+      )
+    },
+    prev() {
+      const { prev } = this.links
+      this.$membership.getAllMemberships(
+        `${prev}&filter[status]=accepted&include=profile,primaryPlan`
+      )
+    },
     searchMember(query) {
       this.loading = !this.loading
       const link = `filter[status]=accepted&include=profile&filter[search]=${query}`
