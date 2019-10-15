@@ -45,7 +45,7 @@ export default {
       default: null
     },
     address: {
-      type: String,
+      type: Array,
       default: null
     },
     date: {

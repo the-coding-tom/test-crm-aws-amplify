@@ -1,5 +1,6 @@
 const pkg = require('./package')
 const webpack = require('webpack')
+require('dotenv').config()
 
 const baseURL = 'https://shack15-staging.herokuapp.com/api/v1'
 
@@ -32,6 +33,12 @@ module.exports = {
         integrity:
           'sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/',
         crossorigin: 'anonymous'
+      }
+    ],
+    script: [
+      {
+        src: 'https://js.stripe.com/v3/',
+        body: true
       }
     ]
   },
@@ -84,6 +91,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/dotenv',
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/

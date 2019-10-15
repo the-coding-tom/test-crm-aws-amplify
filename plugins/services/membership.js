@@ -27,7 +27,7 @@ export default function(ctx, inject) {
     getAMembership: id => {
       return ctx.$axios
         .$get(
-          `/${subdomain()}/memberships/${id}?include=profile,primaryPlan,plans,subscriptions`
+          `/${subdomain()}/memberships/${id}?include=profile,primaryPlan,plans,subscriptions,eventsAttended,checkin`
         )
         .catch(e => {
           getError(e)
@@ -36,6 +36,13 @@ export default function(ctx, inject) {
     getPaymentMethods: id => {
       return ctx.$axios
         .$get(`/${subdomain()}/memberships/${id}/retrievepaymentmethods`)
+        .catch(e => {
+          getError(e)
+        })
+    },
+    addPaymentMethod: (id, payload) => {
+      return ctx.$axios
+        .$post(`/${subdomain()}/memberships/${id}/addcard`, payload)
         .catch(e => {
           getError(e)
         })
@@ -56,7 +63,39 @@ export default function(ctx, inject) {
       return ctx.$axios.$post(`/${subdomain()}/memberships/${id}/invitation`)
     },
     deleteMembership: id => {
-      return ctx.$axios.$delete(`/${subdomain()}/memberships/${id}`)
+      return ctx.$axios
+        .$delete(`/${subdomain()}/memberships/${id}`)
+        .catch(e => {
+          getError(e)
+        })
+    },
+    getSubscriptions: id => {
+      return ctx.$axios
+        .$get(`/${subdomain()}/memberships/${id}/get-subscriptions`)
+        .catch(e => {
+          getError(e)
+        })
+    },
+    cancelSubscription: (id, plan) => {
+      return ctx.$axios
+        .$delete(`/${subdomain()}/memberships/${id}/cancelplan`, { data: plan })
+        .catch(e => {
+          getError(e)
+        })
+    },
+    addPlan: (id, payload) => {
+      return ctx.$axios
+        .$post(`/${subdomain()}/memberships/${id}/addplan`, payload)
+        .catch(e => {
+          getError(e)
+        })
+    },
+    changePlan: (id, payload) => {
+      return ctx.$axios
+        .$patch(`/${subdomain()}/memberships/${id}/changeplan`, payload)
+        .catch(e => {
+          getError(e)
+        })
     }
   }
   ;(ctx.$membership = Membership), inject('membership', Membership)

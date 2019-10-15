@@ -11,7 +11,7 @@
               subtitle="Profile" />
             <div class="d-flex align-items-center">
               <b-form-checkbox
-                v-model="checked"
+                :value="checked"
                 switch
                 size="lg"
                 variant="success"
@@ -35,12 +35,8 @@
           </b-button>
           <b-button
             variant="transparent"
-            class="text-primary">
-            <i class="fa fa-pen" /> Edit Profile
-          </b-button>
-          <b-button
-            variant="transparent"
-            class="text-danger">
+            class="text-danger"
+            @click="deleteMember">
             <i class="fa fa-trash" /> Delete Member
           </b-button>
         </div>
@@ -126,11 +122,12 @@
                 Card Details
               </div>
               <template>
-                <a
-                  href="#"
-                  class="text-primary">
+                <b-button
+                  variant="transparent"
+                  class="text-primary"
+                  @click="toggleModal('add-card')">
                   <i class="fa fa-credit-card" /> Add New Card
-                </a>
+                </b-button>
               </template>
             </div>
             <template v-if="cards.length == 0">
@@ -158,7 +155,7 @@
                       <td>
                         {{ $moment(card.card.exp_month, "M").format('MMM') }} {{ card.card.exp_year }}
                       </td>
-                      <td class="float-right">
+                      <td>
                         <b-button
                           :disabled="loading"
                           size="
@@ -180,22 +177,23 @@
               <div class="txt-upper">
                 MEMBERSHIP PLAN
               </div>
-              <a
-                href="#"
-                class="text-primary">
+              <b-button
+                variant="transparent"
+                class="text-primary"
+                @click="toggleModal('add-plan')">
                 <i class="fa fa-plus" /> Add New Plan
-              </a>
+              </b-button>
             </div>
             <div class="m-n25">
               <table class="table table-hover table-striped">
                 <tbody>
                   <tr
-                    v-for="subscription in data.subscriptions"
+                    v-for="subscription in subscriptions"
                     :key="subscription.id">
-                    <td>{{ getSubDetails(subscription)['name'] }}</td>
-                    <td>{{ getSubDetails(subscription)['price'] }}</td>
-                    <td> {{ getSubDetails(subscription)['ends_at'] }}</td>
-                    <td class="float-right">
+                    <td>{{ subscription.plan.name }}</td>
+                    <td>{{ space.currency_symbol }}{{ subscription.plan.amount / 100 }}</td>
+                    <td>Until {{ getSubDetails(subscription) }}</td>
+                    <td>
                       <b-button
                         size="sm"
                         variant="transparent"
@@ -221,77 +219,59 @@
                 Events
               </div>
             </div>
-            <template v-if="bookingsempty">
-              <div class="text-center">
-                <div class="text-muted">
-                  No Events Booked by Member
-                </div>
-                <a href="#">Add New Booking</a>
-              </div>
-            </template>
-            <template v-else>
+            <template>
               <div class="m-n25">
-                <table class="table table-hover table-striped">
-                  <tbody>
-                    <tr>
-                      <td>San Francisco Startup Socials</td>
-                      <td class="d-flex justify-content-between">
-                        <span>1 ticket</span>
-                        <span>$52.00</span>
-                      </td>
-                      <td>
-                        Today - 4pm,
-                      </td>
-                      <td>
-                        <el-tooltip
-                          content="Open Lounge"
-                          placement="bottom">
-                          <i class="fa fa-info-circle" />
-                        </el-tooltip>
-                      </td>
-                    </tr>
-                    <tr
-                      v-for="n in 4"
-                      :key="n">
-                      <td>Creating Successful B2B Bus...</td>
-                      <td class="d-flex justify-content-between">
-                        <span>3 tickets</span>
-                        <span>$15.00</span>
-                      </td>
-                      <td>
-                        Tues - 11am,
-                      </td>
-                      <td>
-                        <el-tooltip
-                          content="Conference Room"
-                          placement="bottom"
-                        >
-                          <i class="fa fa-info-circle" />
-                        </el-tooltip>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="overflow-auto">
+                  <b-table
+                    id="my-table"
+                    :items="events"
+                    :per-page="perPage"
+                    :current-page="currentPage"
+                    striped
+                    hover
+                    show-empty
+                    thead-class="hidden_header"
+                  />
+                </div>
               </div>
               <div
                 slot="footer"
                 class="">
-                <div>
-                  <base-pagination
-                    :page-count="10"
-                    size="sm"/>
-                </div>
+                <b-pagination
+                  :per-page="perPage"
+                  v-model="currentPage"
+                  :total-rows="rows"
+                  aria-controls="my-table"
+                />
               </div>
             </template>
           </card>
         </div>
       </div>
     </div>
+    <b-modal 
+      id="change-plan" 
+      title="Change Current Plan" 
+      hide-footer><ChangePlan :plan_id="plan_id" /></b-modal>
+    <b-modal
+      id="add-plan"
+      title="Add New Plan"
+      hide-footer><AddPlan /></b-modal>
+    <b-modal
+      id="add-card"
+      title="Add New Card"
+      hide-footer><AddCard
+        :toggle-loading="toggleLoading"
+        :loading="loading"
+        @addCard="addCard" /></b-modal>
   </div>
 </template>
 <script>
 import MainTitle from '~/components/shack/MainTitle.vue'
 import ProfileHead from '~/components/shack/ProfileHead.vue'
+import ChangePlan from '~/components/directory/ChangePlan'
+import AddPlan from '~/components/directory/AddPlan'
+import AddCard from '~/components/directory/AddCard'
 import { mapState } from 'vuex'
 
 export default {
@@ -299,9 +279,12 @@ export default {
   layout: 'ShackDash',
   components: {
     MainTitle,
-    ProfileHead
+    ProfileHead,
+    ChangePlan,
+    AddPlan,
+    AddCard
   },
-  async asyncData({ store, params, $membership, error }) {
+  async asyncData({ store, params, $membership, error, $moment }) {
     try {
       const cards = await $membership
         .getPaymentMethods(params.id)
@@ -309,10 +292,28 @@ export default {
           return data
         })
 
+      const subscriptions = await $membership
+        .getSubscriptions(params.id)
+        .then(({ data }) => {
+          return data
+        })
+
       return await $membership.getAMembership(params.id).then(({ data }) => {
+        const events = _.map(data.events_attended, o => {
+          return {
+            name: o.event.name,
+            ticket: o.number_of_tickets + ' tickets',
+            price:
+              store.state.space.currentSpace.currency_symbol + o.total_amount,
+            start: $moment(o.event.start_time).format('MMM DD, YY')
+          }
+        })
         return {
+          checkin: data.checkin.length > 0 ? data.checkin[0] : {},
           data,
-          cards
+          cards,
+          events,
+          subscriptions
         }
       })
     } catch (e) {
@@ -324,9 +325,12 @@ export default {
   },
   data() {
     return {
+      plan_id: '',
       loading: false,
       checked: false,
-      cards: []
+      cards: [],
+      currentPage: 1,
+      perPage: 2
     }
   },
   computed: {
@@ -336,16 +340,24 @@ export default {
     getSubscription() {
       let renewal = null
       _.each(this.data.primary_plan, v => {
-        _.each(this.data.subscriptions, o => {
-          if (o.stripe_plan == v.stripe_id) {
-            renewal = o.ends_at ? o.ends_at : o.trial_ends_at
+        _.each(this.subscriptions, o => {
+          if (o.plan.id == v.stripe_id) {
+            renewal = o.current_period_end
+              ? o.current_period_end
+              : o.trial_ends_at
           }
         })
       })
-      return this.$moment(renewal).format('MMMM DD, YYYY')
+      return this.$moment(renewal * 1000).format('MMMM DD, YYYY')
+    },
+    rows() {
+      return this.data.events_attended.length
     }
   },
   methods: {
+    toggleModal(type) {
+      this.$bvModal.show(type)
+    },
     getExtras(extras) {
       let html = ''
       _.each(extras, (o, i) => {
@@ -389,25 +401,94 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
     getSubDetails(subscription) {
-      let name, price, ends_at
+      const ends_at = subscription.current_period_end
+        ? subscription.current_period_end
+        : subscription.trial_end
+
+      return this.$moment(ends_at * 1000).format('DD MMM, YYYY')
+    },
+    addCard(paymentMethod) {
+      this.$membership
+        .addPaymentMethod(this.$route.params.id, { card_id: paymentMethod })
+        .then(({ data }) => {
+          this.$bvToast.toast('Card added successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+          location.reload()
+        })
+    },
+    deleteMember() {
+      if (!confirm('Are you sure?')) return
+
+      this.loading = !this.loading
+      const { id } = this.$route.params
+      this.$membership
+        .deleteMembership(id)
+        .then(({ data }) => {
+          this.$bvToast.toast('Member deleted successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+
+          this.$router.go(-1)
+        })
+        .catch(e => {
+          this.loading = !this.loading
+
+          const message = e.response ? e.response.data.message : e.message
+
+          this.$bvToast.toast(message, {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
+    },
+    changePlan(subscription) {
+      let plan = null
+
+      if (subscription.plan.id == this.data.primary_plan[0].stripe_id) {
+        this.$bvToast.toast('You cannot swap a member primary plan')
+        return
+      }
 
       const _self = this
 
-      _.each(this.data.plans, o => {
-        if (o.stripe_id == subscription.stripe_plan) {
-          name = o.name
-          price =
-            _self.space.currency_symbol + _self.formatPrice(o.price_per_cycle)
-          ends_at = subscription.ends_at
-            ? this.$moment(subscription.ends_at).format('DD MMM, YYYY')
-            : this.$moment(subscription.trial_ends_at).format('DD MMM, YYYY')
+      _.each(this.data.plans, function(o) {
+        if (o.stripe_id == subscription.plan.id) {
+          _self.plan_id = o.uuid
         }
       })
-
-      return { name, price, ends_at }
+      this.toggleModal('change-plan')
     },
-    changePlan(subscription) {},
-    cancelPlan(subscription) {}
+    cancelPlan(subscription) {
+      if (!confirm('Are you sure?')) return
+
+      this.loading = !this.loading
+
+      this.$membership
+        .cancelSubscription(this.$route.params.id, {
+          plan_id: subscription.plan.id
+        })
+        .then(res => {
+          this.$bvToast.toast('Member plan cancelled succesfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+
+          location.reload()
+        })
+        .catch(e => {
+          this.loading = !this.loading
+
+          const message = e.response ? e.response.data.message : e.message
+
+          this.$bvToast.toast(message, {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
+    }
   }
 }
 </script>
@@ -453,5 +534,8 @@ export default {
       text-decoration: underline;
     }
   }
+}
+.hidden_header {
+  display: none;
 }
 </style>
