@@ -115,7 +115,7 @@ export default {
       default: null
     },
     inumber_of_seats: {
-      type: String,
+      type: Number,
       default: null
     }
   },
@@ -138,9 +138,10 @@ export default {
       : this.$moment()
           .add(1, 'hour')
           .format('YYYY-MM-DD HH:mm')
-    this.title = this.ititle && this.ititle
-    this.membership_id = this.imembership_id && this.imembership_id
-    this.room_id = this.iroom_id && this.iroom_id
+    this.title = this.ititle
+    this.user_id = this.iuser_id
+    this.table_id = this.itable_id
+    this.number_of_seats = this.inumber_of_seats
 
     this.getConnectedMembers()
     this.getTables()

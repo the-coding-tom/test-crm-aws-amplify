@@ -36,7 +36,7 @@ export const mutations = {
     state.addTable.min_booking_duration = table.min_booking_duration
     state.addTable.max_booking_duration = table.max_booking_duration
     state.addTable.amenities = table.amenities
-    state.addTable.reservation_availability = table.room_availability
+    state.addTable.reservation_availability = table.reservation_availability
     state.addTable.bookable_seat_limit = table.bookable_seat_limit
   },
   setTableAvailabilty(state, available) {
@@ -168,10 +168,18 @@ export const actions = {
       )
     }
   },
-  async getTableBookings({ commit }) {
+  async getTableBookings({ commit }, payload) {
     try {
-      const bookings = await this.$table.getAllTableBookings()
-      commit('setTableBookings', bookings)
+      const { data } = await this.$table.getTableBookingByDate(payload)
+      const calendarBookings = _.map(data.data, o => {
+        return {
+          title: o.title,
+          start: o.from,
+          end: o.to,
+          extendProps: o
+        }
+      })
+      commit('setTableBookings', calendarBookings)
     } catch (error) {
       this._vm.$bvToast.toast(
         `${
@@ -185,8 +193,8 @@ export const actions = {
   },
   async getOneTableBooking({ commit }, payload) {
     try {
-      const booking = await this.$table.getOneTableBooking(payload)
-      commit('setTableBookings', booking)
+      const { data } = await this.$table.getOneTableBooking(payload)
+      commit('setTableBookings', data)
     } catch (error) {
       this._vm.$bvToast.toast(
         `${
@@ -198,15 +206,15 @@ export const actions = {
       )
     }
   },
-  async updateTableBooking({ state, commit }) {
+  async updateTableBooking({ commit, dispatch }, payload) {
     try {
-      const payload = state.addBooking
-      await this.$table.updateTableBooking(payload.id, payload)
+      await this.$table.updateTableBookings(payload.booking_id, payload)
       this._vm.$bvToast.toast(
         `Table Booking updated successfully`,
         helper.notify.sucess
       )
       commit('resetForms', 'addTable')
+      dispatch('getTableBookings', payload)
     } catch (error) {
       this._vm.$bvToast.toast(
         `${

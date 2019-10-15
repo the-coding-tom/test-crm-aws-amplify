@@ -27,7 +27,8 @@
               :ito="bookdata.to" 
               :ititle="bookdata.title"
               :imembership_id="bookdata.membership_id"
-              :iroom_id="bookdata.room_id"
+              :itable_id="bookdata.table_id"
+              :inumber_of_seats="bookdata.number_of_seats"
               @details="submitBooking" />
           </b-modal>
           <client-only>
@@ -71,19 +72,16 @@ export default {
         title: null,
         membership_id: null,
         table_id: null,
-        booking_id: null
+        booking_id: null,
+        number_of_seats: null
       },
       modalText: 'Add New Table Booking',
       showmodal: true,
       modalUpdate: false
     }
   },
-  async asyncData({ store }) {
-    await store.dispatch('tablebookings/getAllBookings')
-  },
   computed: {
     ...mapState({
-      allRooms: state => state.tablebookings.rooms.data,
       bookings: state => state.tablebookings.bookings
     }),
     ...mapFields({
@@ -95,19 +93,21 @@ export default {
   },
   methods: {
     eventClick(e) {
-      console.log(e)
       this.bookdata.from = this.$moment(e.start).format('YYYY-MM-DD HH:mm')
       this.bookdata.to = this.$moment(e.end).format('YYYY-MM-DD HH:mm')
       this.bookdata.title = e.title
-      this.bookdata.membership_id = e.extendedProps.extendProps.uuid
-      this.bookdata.table_id = e.extendedProps.extendProps.table.id
-      this.bookdata.booking_id = e.extendedProps.extendProps.uuid
+      this.bookdata.membership_id = e.extendedProps.extendProps.user.id
+      this.bookdata.table_id = e.extendedProps.extendProps.reservation.id
+      this.bookdata.booking_id = e.extendedProps.extendProps.id
+      this.bookdata.number_of_seats =
+        e.extendedProps.extendProps.number_of_seats
+      this.bookdata.seat_limit =
+        e.extendedProps.extendProps.reservation.bookable_seat_limit
       this.modalText = 'Update Table Booking'
       this.modalUpdate = true
       this.$bvModal.show('booking-modal')
     },
     bookDate(e) {
-      console.log(e)
       this.bookdata.from = this.$moment(e.date).format('YYYY-MM-DD HH:mm')
       this.bookdata.to = this.$moment(e.date).format('YYYY-MM-DD HH:mm')
       this.$bvModal.show('booking-modal')
@@ -117,10 +117,7 @@ export default {
         from: this.$moment(e.startDate).format('YYYY-MM-DD'),
         to: this.$moment(e.endDate).format('YYYY-MM-DD')
       }
-      this.$store.dispatch('tablebookings/getAllBookingsByDate', data)
-    },
-    getRoomBook(id) {
-      this.$store.dispatch('tablebookings/bookingsForARoom', id)
+      this.$store.dispatch('tablebookings/getTableBookings', data)
     },
 
     submitBooking(e) {
@@ -143,7 +140,17 @@ export default {
       }
     },
     updateBooking(data) {
-      this.$store.dispatch('tablebookings/updateRoomBooking', data)
+      if (data.number_of_seats > this.bookdata.seat_limit) {
+        return this.$bvToast.toast(
+          'You cannot book more that the available seat limit',
+          {
+            title: 'Error',
+            variant: 'danger',
+            solid: true
+          }
+        )
+      }
+      this.$store.dispatch('tablebookings/updateTableBooking', data)
       this.$bvModal.hide('booking-modal')
     }
   }

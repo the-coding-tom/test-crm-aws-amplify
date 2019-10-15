@@ -26,14 +26,14 @@ export default function(ctx, inject) {
     deleteTable: id => {
       return ctx.$axios.delete(`${baseUrl()}/${id}/delete`)
     },
-    getAllTableBookings: () => {
-      return ctx.$axios.get(`${subdomain()}/booking-reservations/all`)
-    },
     getOneTableBookings: id => {
       return ctx.$axios.post(`${subdomain()}/${id}/bookings`)
     },
-    updateTableBookings: () => {
-      return ctx.$axios.post(`${subdomain()}/booking-reservations/${id}/update`)
+    updateTableBookings: (id, payload) => {
+      return ctx.$axios.put(
+        `${subdomain()}/booking-reservations/${id}/update`,
+        payload
+      )
     },
     bookTableForMember: (id, payload) => {
       return ctx.$axios.post(
@@ -43,7 +43,7 @@ export default function(ctx, inject) {
     },
     getTableBookingByDate: ({ from, to }) => {
       return ctx.$axios.get(
-        `${subdomain()}/reservation/bookings/admin?from=${from}&to=${to}`
+        `${subdomain()}/booking-reservations/all?from=${from}&to=${to}`
       )
     }
   }
