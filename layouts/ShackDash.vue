@@ -12,12 +12,12 @@
             <sidebar-item :link="{ name: 'Uninvited', path: `/${subdomain}/memberships/uninvited`}" />
           </sidebar-item>
           <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
+          <sidebar-item :link="{name: 'Checkins', icon: 'fa fa-user-check', path: `/${subdomain}/checkins`}"/>
         </sidebar-item>
         <sidebar-item :link="{ name: 'Bookings', icon: 'ni ni-shop' }">
           <sidebar-item :link="{ name: 'Calendar', path: `/${subdomain}/calendar` }" />
           <sidebar-item :link="{ name: 'Resources', path: `/${subdomain}/resources` }" />
         </sidebar-item>
-        <sidebar-item :link="{name: 'Checkins', icon: 'fa fa-user-check', path: `/${subdomain}/checkins`}"/>
         <sidebar-item :link="{ name: 'Events', icon: 'fa fa-calendar-alt'}">
           <sidebar-item :link="{name: 'Calendar', path: `/${subdomain}/events`}" />
           <sidebar-item :link="{name: 'Categories'}">

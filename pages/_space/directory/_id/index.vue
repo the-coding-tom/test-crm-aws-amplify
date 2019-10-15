@@ -11,13 +11,16 @@
               subtitle="Profile" />
             <div class="d-flex align-items-center">
               <b-form-checkbox
-                :value="checked"
+                v-model="checkin.status"
                 switch
+                value="checkin"
+                unchecked-value="checkout"
                 size="lg"
                 variant="success"
+                @change="checkinToggle"
               >
                 <span
-                  v-if="checked"
+                  v-if="checkin.status == 'checkin'"
                   class="text-success">Check in</span>
                 <span
                   v-else
@@ -250,9 +253,9 @@
         </div>
       </div>
     </div>
-    <b-modal 
-      id="change-plan" 
-      title="Change Current Plan" 
+    <b-modal
+      id="change-plan"
+      title="Change Current Plan"
       hide-footer><ChangePlan :plan_id="plan_id" /></b-modal>
     <b-modal
       id="add-plan"
@@ -358,6 +361,45 @@ export default {
   methods: {
     toggleModal(type) {
       this.$bvModal.show(type)
+    },
+    checkinToggle(e) {
+      if (e == 'checkin') {
+        this.$checkin
+          .checkin({
+            type: 'member',
+            membership_id: this.data.id
+          })
+          .then(({ data }) => {
+            this.$bvToast.toast('Member checked in successfully', {
+              title: 'Success',
+              variant: 'success'
+            })
+
+            this.checkin = data
+          })
+          .catch(e => {
+            this.$bvToast.toast('Member checkin failed', {
+              title: 'Error',
+              variant: 'danger'
+            })
+          })
+      } else {
+        this.$checkin
+          .checkout(this.checkin.id)
+          .then(({ data }) => {
+            this.$bvToast.toast('Member checked out successfully', {
+              title: 'Success',
+              variant: 'success'
+            })
+            location.reload()
+          })
+          .catch(e => {
+            this.$bvToast.toast('Member check out failed', {
+              title: 'Error',
+              variant: 'danger'
+            })
+          })
+      }
     },
     getExtras(extras) {
       let html = ''
