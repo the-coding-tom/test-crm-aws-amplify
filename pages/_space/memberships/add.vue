@@ -127,23 +127,6 @@
                           required/>
                       </b-form-group>
 
-                      <b-form-group label="Assign Admin to Member">
-                        <el-select
-                          v-model="membership.assigned_admin"
-                          :remote-method="searchAdminsByName"
-                          :loading="searching"
-                          filterable
-                          remote
-                          reserve-keyword
-                          placeholder="Choose an admin">
-                          <el-option
-                            v-for="admin in admins"
-                            :key="admin.id"
-                            :label="admin.name"
-                            :value="admin.id"/>
-                        </el-select>
-                      </b-form-group>
-
                     </div>
                     <div class="col-md-1"/>
                   </div>
@@ -154,7 +137,7 @@
                   <MembershipPlans
                     :plans="plans"
                     v-model="membership.plan_id" />
-                  <div>
+                  <div class="mr-t-20">
                     <base-pagination
                       :total="meta.total"
                       :per-page="meta.per_page"
@@ -178,7 +161,6 @@ import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
 import MembershipPlans from '~/components/shack/MembershipPlans.vue'
 import { Select, Option } from 'element-ui'
-import { mapState } from 'vuex'
 
 export default {
   layout: 'ShackDash',
@@ -189,30 +171,28 @@ export default {
     [Select.name]: Select,
     [Option.name]: Option
   },
-  async asyncData({ $plan, error, store: { commit }, $admin }) {
-    try {
-      await $admin.getAllAdmins().then(({ data }) => {
-        commit('admin/setAdmins', data)
-      })
-
-      return await $plan.getAllPlans().then(({ data, links, meta }) => {
+  async asyncData({ $plan, error }) {
+    return await $plan
+      .getAllPlans()
+      .then(({ data, links, meta }) => {
         return {
           plans: data,
           links,
           meta
         }
       })
-    } catch (e) {
-      error({
-        statusCode: e.statusCode,
-        message: e.response ? JSON.stringify(e.response.data.errors) : e.message
+      .catch(e => {
+        error({
+          statusCode: e.statusCode,
+          message: e.response
+            ? JSON.stringify(e.response.data.errors)
+            : e.message
+        })
       })
-    }
   },
   data() {
     return {
       loading: false,
-      searching: false,
       options: [
         { text: 'Reference', value: 'reference' },
         { text: 'Others', value: 'others' }
@@ -220,7 +200,6 @@ export default {
       membership: {
         first_name: '',
         last_name: '',
-        assigned_admin: null,
         linkedin_url: '',
         email: '',
         extras: [{ type: 'reference', comment: '' }],
@@ -230,11 +209,6 @@ export default {
         trial_days: '0'
       }
     }
-  },
-  computed: {
-    ...mapState({
-      admins: state => state.admin.admins
-    })
   },
   mounted() {
     this.membership.start_time = this.$moment().format('YYYY-MM-DD')
@@ -315,38 +289,6 @@ export default {
             }
           )
         })
-    },
-    async searchAdminsByName(query) {
-      try {
-        this.searching = !this.searching
-        const _self = this
-        _.debounce(async () => {
-          if (query) {
-            const link = `/${
-              _self.$route.params.space
-            }/admins?filter[name]=${query}`
-
-            await _self.$admin.getAllAdmins(link).then(({ data }) => {
-              _self.$store.commit('admin/setAdmins', data)
-            })
-          } else {
-            await _self.$admin.getAllAdmins().then(({ data }) => {
-              _self.$store.commit('admin/setAdmins', data)
-            })
-          }
-
-          _self.searching = !_self.searching
-        }, 350)()
-      } catch (error) {
-        this.searching = !this.searching
-        this.$bvToast.toast(
-          error.response ? error.response.data.message : e.message,
-          {
-            title: 'Error',
-            variant: 'danger'
-          }
-        )
-      }
     }
   }
 }
