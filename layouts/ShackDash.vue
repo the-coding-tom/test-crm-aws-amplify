@@ -14,9 +14,19 @@
           <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
           <sidebar-item :link="{name: 'Checkins', icon: 'fa fa-user-check', path: `/${subdomain}/checkins`}"/>
         </sidebar-item>
-        <sidebar-item :link="{ name: 'Bookings', icon: 'ni ni-shop' }">
-          <sidebar-item :link="{ name: 'Calendar', path: `/${subdomain}/calendar` }" />
-          <sidebar-item :link="{ name: 'Resources', path: `/${subdomain}/resources` }" />
+        <sidebar-item
+          :link="{ name: 'Bookings', icon: 'ni ni-shop' }"
+        >
+          <sidebar-item
+            :link="{ name: 'Bookings', path: `/${subdomain}/resources/bookings` }"
+          />
+          <sidebar-item
+            :link="{ name: 'Resources', path: `/${subdomain}/resources` }"
+          />
+          <sidebar-item :link="{name: 'Categories'}">
+            <sidebar-item :link="{name: 'All Categories', path: `/${subdomain}/resources/categories`}" />
+            <sidebar-item :link="{name: 'Add Categories', path: `/${subdomain}/resources/categories/add`}" />
+          </sidebar-item>
         </sidebar-item>
         <sidebar-item :link="{ name: 'Events', icon: 'fa fa-calendar-alt'}">
           <sidebar-item :link="{name: 'Calendar', path: `/${subdomain}/events`}" />

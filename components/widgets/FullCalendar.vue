@@ -7,8 +7,9 @@
       right: right
     }"
     :events="events"
-    :default-view="defaultView"
+    :default-view="defaultView" 
     :dates-render="datesRender"
+    @dateClick="dateClick"
     @eventClick="eventClick" />
 </template>
 
@@ -61,6 +62,9 @@ export default {
     },
     eventClick({ event }) {
       this.$emit('eventClick', event)
+    },
+    dateClick(event) {
+      this.$emit('dateClick', event)
     }
   }
 }

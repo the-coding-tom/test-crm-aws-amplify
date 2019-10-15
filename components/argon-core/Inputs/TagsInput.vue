@@ -11,16 +11,15 @@
     >
       {{ tag }}
     </el-tag>
-
     <input
       ref="saveTagInput"
       v-model="inputValue"
       type="text"
-      placeholder="Add new tag"
+      placeholder="Add amenities"
       class="form-control"
       size="mini"
       @input="onInput"
-      @keyup.enter="handleInputConfirm"
+      @keydown.enter.prevent="handleInputConfirm"
       @blur="handleInputConfirm"
     >
   </div>
