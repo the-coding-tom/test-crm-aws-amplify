@@ -1,0 +1,161 @@
+<template>
+  <div>
+    <base-header
+      class="pb-6"
+      type="">
+      <div class="d-flex justify-content-between py-4">
+        <MainTitle
+          title="Tables"/>
+        <nuxt-link
+          :to="{ name: 'space-tables-add'}"
+          class="btn btn-primary"
+        >Add Table</nuxt-link>
+      </div>
+    </base-header>
+
+    <!--Charts-->
+    <div class="container-fluid mt--6">
+      <div class="row equal">
+        <div
+          v-for="table in tables"
+          :key="table.id"
+          class="col-md-4">
+          <card class="sh-book-res">
+            <div class="m-n25 img-wrap">
+              <img
+                :src="table.photo"
+                class="img-fluid"
+                alt="">
+                <!-- <badge>{{ rooms.category.name }}</badge> -->
+            </div>
+
+            <div class="mr-t-50">
+              <div class="d-flex justify-content-between mr-b-20">
+                <h3>{{ table.name }}</h3>
+                <!-- <h3 class="text-muted">{{ rooms.price_per_hour }} USD/hr</h3> -->
+              </div>
+              <p class="text-muted">{{ table.description }}</p>
+            </div>
+
+            <div class="mr-t-30">
+              <p><u>Resource Availability</u></p>
+              <p
+                v-for="(available, i) in table.reservation_availability"
+                :key="i">
+                {{ `${daylookup[available.weekdays[0]]} - ${daylookup[available.weekdays[1]] || ''}` }}
+                {{ $moment(available.from, "HH:mm").format("hh:mm A") }} -
+                {{ $moment(available.to, "HH:mm").format("hh:mm A") }}</p>
+            </div>
+
+            <div slot="footer">
+              <div class="d-flex justify-content-between">
+                <nuxt-link :to="{ name: 'space-tables-id', params: { id: table.id }}">
+                  <i class="ti-pencil" /> Edit Resource
+                </nuxt-link>
+                <a
+                  class="text-danger"
+                  @click="deleteTable(table.id)"><i class="ti-trash"/> Delete Table</a>
+              </div>
+            </div>
+          </card>
+        </div>
+      </div>
+    </div>
+    <div>
+      <!-- <base-pagination
+        :total="meta.total"
+        :per-page="meta.per_page"
+        :value="meta.current_page"
+        align="center"
+        @next="next"
+        @prev="prev"/> -->
+    </div>
+  </div>
+</template>
+<script>
+import { mapState } from 'vuex'
+import MainTitle from '~/components/shack/MainTitle.vue'
+import SectionTitle from '~/components/shack/SectionTitle.vue'
+
+export default {
+  layout: 'ShackDash',
+  components: {
+    SectionTitle,
+    MainTitle
+  },
+  async asyncData({ store }) {
+    await store.dispatch('tablebookings/getAllTables')
+  },
+  data() {
+    return {
+      daylookup: {
+        0: 'Sunday',
+        1: 'Monday',
+        2: 'Tuesday',
+        3: 'Wednesday',
+        4: 'Thursaday',
+        5: 'Friday',
+        6: 'Saturday'
+      }
+    }
+  },
+  computed: {
+    ...mapState({
+      tables: state => state.tablebookings.tables.data,
+      meta: state => state.tablebookings.tables.meta,
+      links: state => state.tablebookings.tables.links
+    })
+  },
+
+  methods: {
+    deleteTable(table_id) {
+      if (!confirm('Are you sure?')) return
+      this.$store.dispatch('tablebookings/deleteTable', table_id)
+    },
+    next() {
+      const { next } = this.links
+      this.$store.dispatch('tablebookings/getAllTables', next)
+    },
+    prev() {
+      const { prev } = this.links
+      this.$store.dispatch('tablebookings/getAllTables', prev)
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.sh-book-res {
+  .card-footer {
+    border: unset;
+    padding-top: 0;
+  }
+  .img-wrap {
+    height: 210px;
+    overflow: hidden;
+  }
+  .badge {
+    position: relative;
+    bottom: 40px;
+    left: 23px;
+    border-radius: 15px;
+    text-transform: unset;
+    background: rgba(76, 77, 79, 0.7) !important;
+    padding: 6px 15px;
+    font-weight: normal;
+    font-size: 12px;
+  }
+  p {
+    margin-bottom: 0px;
+  }
+  a {
+    text-decoration: unset;
+  }
+  img {
+    object-fit: cover;
+    vertical-align: middle;
+    height: 100%;
+    width: 100%;
+  }
+}
+</style>
