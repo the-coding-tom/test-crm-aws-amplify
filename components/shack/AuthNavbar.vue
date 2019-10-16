@@ -31,7 +31,7 @@
                 src="img/theme/team-4.jpg" >
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm">John Snow</span>
+              <span class="mb-0 text-sm">{{ user.name }}</span>
             </div>
           </div>
         </a>
@@ -40,7 +40,7 @@
           <div class="dropdown-header noti-title">
             <h6 class="text-overflow m-0">Welcome!</h6>
           </div>
-          <nuxt-link
+          <!-- <nuxt-link
             to="/profile/"
             class="dropdown-item">
             <i class="ni ni-single-02"/>
@@ -64,7 +64,7 @@
             <i class="ni ni-support-16"/>
             <span>Support</span>
           </a>
-          <div class="dropdown-divider"/>
+          <div class="dropdown-divider"/> -->
           <a
             class="dropdown-item"
             @click="logout()">
@@ -80,6 +80,7 @@
 import { CollapseTransition } from 'vue2-transitions'
 import BaseNav from '@/components/argon-core/Navbar/BaseNav.vue'
 import Modal from '@/components/argon-core/Modal.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -107,7 +108,10 @@ export default {
     routeName() {
       const { name } = this.$route
       return this.capitalizeFirstLetter(name)
-    }
+    },
+    ...mapState({
+      user: state => state.auth.user
+    })
   },
   methods: {
     capitalizeFirstLetter(string) {
@@ -127,11 +131,10 @@ export default {
     },
 
     async logout() {
-      console.log('out', this.$auth)
       try {
         await this.$auth.logout('local')
       } catch (error) {
-        this.error = 'Email or Password is incorrect. Try again'
+        this.error = 'Log out failed'
       }
     }
   }

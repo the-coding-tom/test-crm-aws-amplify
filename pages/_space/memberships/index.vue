@@ -7,11 +7,16 @@
         <MainTitle
           title="Members"
           subtitle="Invited"/>
-        <SearchForm />
+        <SearchForm
+          v-model="searchTerm"
+          :loading="loading"
+          @search="search"
+        />
         <div>
-          <a
-            href="/ui/members/sendmessage"
-            class="mr-r-20"><i class="fa fa-envelope"/> Send Message (5)</a>
+          <b-button
+            :to="{ name: 'space-memberships-messages'}"
+            variant="transparent"
+            class="text-primary"><i class="fa fa-envelope"/> Send Message</b-button>
           <b-button
             :to="{name: 'space-memberships-add'}"
             variant="primary"
@@ -39,14 +44,8 @@
     </div>
   </div>
 </template>
+
 <script>
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  Table,
-  TableColumn
-} from 'element-ui'
 import RouteBreadCrumb from '@/components/argon-core/Breadcrumb/RouteBreadcrumb'
 import MembersTable from '~/components/shack/MembersTable.vue'
 import MainTitle from '~/components/shack/MainTitle.vue'
@@ -54,6 +53,7 @@ import SectionTitle from '~/components/shack/SectionTitle.vue'
 import SearchForm from '~/components/shack/SearchForm.vue'
 
 export default {
+  name: 'InvitedMembers',
   layout: 'ShackDash',
   async asyncData({ $membership, $plan, error }) {
     const filter = 'filter[status]=invited&include=profile,primaryPlan'
@@ -83,12 +83,17 @@ export default {
     MembersTable,
     RouteBreadCrumb
   },
-  data: () => ({}),
+  data: () => ({
+    searchTerm: '',
+    loading: false
+  }),
   methods: {
     next() {
       const { next } = this.links
 
-      let link = `${next}&filter[status]=invited&include=profile,primaryPlan`
+      let link = `${next}&filter[status]=invited&include=profile,primaryPlan&filter[search]=${
+        this.searchTerm
+      }`
 
       this.$membership
         .getAllMemberships()
@@ -110,7 +115,9 @@ export default {
     prev() {
       const { prev } = this.links
 
-      let link = `${prev}&filter[status]=invited&include=profile,primaryPlan`
+      let link = `${prev}&filter[status]=invited&include=profile,primaryPlan&filter[search]=${
+        this.searchTerm
+      }`
 
       this.$membership
         .getAllMemberships()
@@ -120,6 +127,31 @@ export default {
           this.meta = meta
         })
         .catch(e => {
+          this.$bvToast.toast(
+            e.response ? JSON.stringify(e.response.data.errors) : e.message,
+            {
+              title: 'Error',
+              variant: 'danger'
+            }
+          )
+        })
+    },
+    search() {
+      this.loading = !this.loading
+      const link = `filter[status]=invited&include=primaryPlan,profile&filter[search]=${
+        this.searchTerm
+      }`
+      this.$membership
+        .getAllMemberships(link)
+        .then(({ data, links, meta }) => {
+          this.members = data
+          this.links = links
+          this.meta = meta
+
+          this.loading = false
+        })
+        .catch(e => {
+          this.loading = !this.loading
           this.$bvToast.toast(
             e.response ? JSON.stringify(e.response.data.errors) : e.message,
             {

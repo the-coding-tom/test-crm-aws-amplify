@@ -137,7 +137,7 @@
                   <MembershipPlans
                     :plans="plans"
                     v-model="membership.plan_id" />
-                  <div>
+                  <div class="mr-t-20">
                     <base-pagination
                       :total="meta.total"
                       :per-page="meta.per_page"

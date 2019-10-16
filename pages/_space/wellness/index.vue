@@ -1,6 +1,8 @@
 <template>
   <div>
-    <base-header class="pb-6">
+    <base-header 
+      class="pb-6" 
+      type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle
           title="Wellness"

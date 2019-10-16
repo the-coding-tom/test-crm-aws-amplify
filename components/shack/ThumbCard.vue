@@ -3,18 +3,20 @@
     <card>
       <span class="label label-default">
         <template v-if="status">
-          <i class="fa fa-lock"/> Private
+          <i class="fa fa-lock" /> Private
         </template>
         <template v-else>
-          <i class="fa fa-unlock"/> Public
+          <i class="fa fa-unlock" /> Public
         </template>
       </span>
       <div class="d-flex mr-tb-10">
         <img 
           :src="img ? img : '/img/placeholder.jpg'" 
-          class="mr-r-10 rounded-circle avatar">
+          class="mr-r-10 rounded-circle avatar" >
         <div>
-          <h3><a :href="link">{{ name }}</a></h3>
+          <h3>
+            <nuxt-link :to="{name:'space-directory-id', params: {id: link}}">{{ name }}</nuxt-link>
+          </h3>
           {{ company }}
         </div>
       </div>
@@ -24,6 +26,31 @@
 
 <script>
 export default {
-  props: ['name', 'company', 'status', 'thumbCol', 'link']
+  props: {
+    name: {
+      type: String,
+      default: null
+    },
+    company: {
+      type: String,
+      default: null
+    },
+    status: {
+      type: Boolean,
+      default: false
+    },
+    thumbCol: {
+      type: String,
+      default: null
+    },
+    link: {
+      type: String,
+      default: null
+    },
+    img: {
+      type: String,
+      default: null
+    }
+  }
 }
 </script>
