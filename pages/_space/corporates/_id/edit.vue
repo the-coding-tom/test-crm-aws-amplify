@@ -138,7 +138,9 @@ export default {
       .then(({ data }) => {
         return {
           ...data,
-          contact_email: data.contat_email // TODO: Ask tsatsu to fix typo response
+          contact_email: data.contat_email, // TODO: Ask tsatsu to fix typo in response,
+          old_contact_email: data.contat_email,
+          old_billing_email: data.billing_email
         }
       })
       .catch(err => {
@@ -170,19 +172,27 @@ export default {
         country,
         billing_email,
         zipcode,
+        old_contact_email,
+        old_billing_email,
         uuid
       } = this
 
       const payload = {
         name,
         contact_name,
-        contact_email,
         address,
         city,
         state,
         country,
-        zipcode,
-        billing_email
+        zipcode
+      }
+
+      if (old_billing_email !== billing_email) {
+        payload.billing_email = billing_email
+      }
+
+      if (old_contact_email !== contact_email) {
+        payload.contact_email = contact_email
       }
 
       this.$company

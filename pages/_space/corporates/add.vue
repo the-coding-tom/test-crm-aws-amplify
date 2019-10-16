@@ -145,6 +145,13 @@ export default {
       loading: false
     }
   },
+  watch: {
+    contact_email(newValue, oldValue) {
+      if (!this.billing_email || this.billing_email === oldValue) {
+        this.billing_email = newValue
+      }
+    }
+  },
   methods: {
     addCompany() {
       this.loading = !this.loading
