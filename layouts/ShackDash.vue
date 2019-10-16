@@ -13,6 +13,7 @@
           </sidebar-item>
           <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
           <sidebar-item :link="{name: 'Checkins', icon: 'fa fa-user-check', path: `/${subdomain}/checkins`}"/>
+          <sidebar-item :link="{name: 'Corporate', path: `/${subdomain}/corporates`}"/>
         </sidebar-item>
         <sidebar-item
           :link="{ name: 'Bookings', icon: 'ni ni-shop' }"
