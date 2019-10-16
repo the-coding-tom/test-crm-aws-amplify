@@ -49,10 +49,6 @@
             />
           </sidebar-item>
         </sidebar-item>
-        <sidebar-item :link="{ name: 'Tables', icon: 'fa fa-concierge-bell'}">
-          <sidebar-item :link="{ name: 'Bookings', path: `/${subdomain}/tables/bookings`}" />
-          <sidebar-item :link="{name: 'Tables', path: `/${subdomain}/tables`}" />
-        </sidebar-item>
         <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
           <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />
           <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
