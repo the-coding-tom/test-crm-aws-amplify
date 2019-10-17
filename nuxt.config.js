@@ -84,9 +84,13 @@ module.exports = {
     '~/plugins/services/community',
     '~/plugins/services/emails',
     '~/plugins/services/tags',
+<<<<<<< HEAD
     '~/plugins/services/admin',
     '~/plugins/services/checkin',
     '~/plugins/services/company',
+=======
+    '~/plugins/services/eatry',
+>>>>>>> eatry implementation complete
     { src: '~/plugins/vue2-datepicker', ssr: false }
     // { src: '~/plugins/dashboard/modal', ssr: false }
   ],
