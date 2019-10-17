@@ -23,6 +23,7 @@
           type="password"
           required />
         <b-button
+          :disabled="loading"
           block
           type="submit"
           variant="outline-dark">SIGN IN</b-button>
@@ -49,11 +50,13 @@ export default {
     AuthNavbar
   },
   data: () => ({
+    loading: false,
     user: { email: '', password: '' },
     error: ''
   }),
   methods: {
     async login() {
+      this.loading = !this.loading
       this.$auth
         .loginWith('local', {
           data: {
@@ -65,6 +68,7 @@ export default {
           this.error = ''
         })
         .catch(e => {
+          this.loading = !this.loading
           this.error = 'Email or password is invalid'
         })
     }

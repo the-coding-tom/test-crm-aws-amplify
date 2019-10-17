@@ -68,8 +68,6 @@ export default {
   methods: {
     setSpace() {
       const { selectedSpace } = this
-      console.log('<<<<<<<<<selectedSpace></selectedSpace>')
-      console.log(selectedSpace)
       if (!selectedSpace) {
         this.$bvToast.toast(`No space selected`, {
           title: 'Heads up',
@@ -83,7 +81,9 @@ export default {
 
       this.$store.commit('space/setSpace', selectedSpace)
 
-      this.$router.push(`/${selectedSpace.subdomain}`)
+      location.href = `/${selectedSpace.subdomain}`
+
+      // this.$router.push(`/${selectedSpace.subdomain}`)
     }
   }
 }

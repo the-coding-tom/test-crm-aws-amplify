@@ -12,7 +12,16 @@
 <script>
 export default {
   name: 'TabPane',
-  props: ['title', 'id'],
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    id: {
+      type: String,
+      default: ''
+    }
+  },
   inject: ['addTab', 'removeTab'],
   data() {
     return {

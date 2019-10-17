@@ -1,5 +1,6 @@
 const pkg = require('./package')
 const webpack = require('webpack')
+require('dotenv').config()
 
 const baseURL = 'https://shack15-staging.herokuapp.com/api/v1'
 
@@ -13,11 +14,16 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'SHACK15 CRM',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'SHACK15 is a new kind of social space dedicated to entrepreneurship, community, and big ideas'
+      }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -27,6 +33,12 @@ module.exports = {
         integrity:
           'sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/',
         crossorigin: 'anonymous'
+      }
+    ],
+    script: [
+      {
+        src: 'https://js.stripe.com/v3/',
+        body: true
       }
     ]
   },
@@ -57,14 +69,24 @@ module.exports = {
       src: '~/plugins/dashboard/full-calendar',
       ssr: false
     },
+    {
+      src: '~/plugins/vue-quill',
+      ssr: false
+    },
     '~/plugins/services/auth',
     '~/plugins/services/wellness',
     '~/plugins/services/event',
     '~/plugins/services/images',
+    '~/plugins/services/plans',
     '~/plugins/services/resource',
     '~/plugins/services/membership',
     '~/plugins/services/plan',
     '~/plugins/services/community',
+    '~/plugins/services/emails',
+    '~/plugins/services/tags',
+    '~/plugins/services/admin',
+    '~/plugins/services/checkin',
+    '~/plugins/services/company',
     { src: '~/plugins/vue2-datepicker', ssr: false }
     // { src: '~/plugins/dashboard/modal', ssr: false }
   ],
@@ -73,6 +95,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/dotenv',
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
