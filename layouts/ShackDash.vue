@@ -14,6 +14,8 @@
           <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
           <sidebar-item :link="{name: 'Checkins', icon: 'fa fa-user-check', path: `/${subdomain}/checkins`}"/>
           <sidebar-item :link="{name: 'Corporate', path: `/${subdomain}/corporates`}"/>
+          <sidebar-item :link="{name: 'Community', icon: 'fa fa-users', path: `/${subdomain}/community`}" />
+
         </sidebar-item>
         <sidebar-item
           :link="{ name: 'Bookings', icon: 'ni ni-shop' }"
@@ -55,14 +57,18 @@
         <sidebar-item :link="{ name: 'Tables', icon: 'fa fa-concierge-bell'}">
           <sidebar-item :link="{ name: 'Bookings', path: `/${subdomain}/tables/bookings`}" />
           <sidebar-item :link="{name: 'Tables', path: `/${subdomain}/tables`}" />
+
+
+          <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
+            <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />
+            <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
+          </sidebar-item>
+         
+        </sidebar-item>
         <sidebar-item :link="{ name: 'Setup', icon: 'fa fa-cog'}">
           <sidebar-item :link="{ name: 'Plans', path: `/${subdomain}/plans` }" />
           <sidebar-item :link="{ name: 'Tags', path: `/${subdomain}/tags`}" />
           <sidebar-item :link="{ name: 'Adminstrators', path: `/${subdomain}/admins`}" />
-        </sidebar-item>
-        <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
-          <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />
-          <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
         </sidebar-item>
     </template></side-bar>
     <div class="main-content">

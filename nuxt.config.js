@@ -80,6 +80,8 @@ module.exports = {
     '~/plugins/services/plans',
     '~/plugins/services/resource',
     '~/plugins/services/membership',
+    '~/plugins/services/plan',
+    '~/plugins/services/community',
     '~/plugins/services/emails',
     '~/plugins/services/tags',
     '~/plugins/services/admin',
