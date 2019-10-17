@@ -65,7 +65,7 @@ export default function(ctx, inject) {
         `/${subdomain()}/events?filter[starts_between]=${startDate},${endDate}`
       )
     },
-    getEventsbyName(name) {
+    getEventsByName(name) {
       return ctx.$axios.get(`/${subdomain()}/events?filter[search]=${name}`)
     },
     deleteEvent(eventId) {

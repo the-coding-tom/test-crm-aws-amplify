@@ -9,131 +9,126 @@
     </a>
 
     <modal 
-      :show.sync="modals.resource" 
+      :show.sync="modals.resource"
       size="lg">
       <h3 
         slot="header" 
         class="mr-tb-20 u-line">
         ATTACH RESOURCE
       </h3>
-
-      <span class="mr-r-20">Select attachment from</span>
-      <el-select 
-        v-model="selectOption"
-        class="select-danger"
-        placeholder="pick resource ..." 
-        @change="changeSelect($event)">
-        <el-option
-          value="event"
-          label="event"
+      <div class="col-md-12">
+        <span class="mr-r-20">Select attachment from</span>
+        <el-select 
+          v-model="selectOption"
           class="select-danger"
-        />
-        <el-option
-          value="wellness"
-          label="wellness"
-          class="select-danger"
-        />
-        <el-option
-          value="image"
-          label="image"
-          class="select-danger"
-        />
-      </el-select>
-
-      <div class="row">
-        <div class="col-md-6">
-          <template v-if="false">
-            <div class="mr-t-30 text-center bdr pd-50 bg-gray1">
-              <i class="fa fa-unlink" />
-              <h3>
-                No Amenities to Display
-              </h3>
-              <p>
-                There is nothing to display for this resource. When you add new
-                amenities for this resource, you’ll see them here
-              </p>
-              <a href="#">Add New Amenities</a>
-            </div>
-          </template>
-          <template v-if="selectOption == 'event'">
-            <div class="mr-t-30 bdr pd-10">
-              <SearchForm @searchResult="getResult"/>
-            </div>
-            <div class="mr-t-30 bdr pd-10">
-              <div
-                v-for="event in events"
-                :key="event.id"
-                class="d-flex sh_modal-resource justify-content-between align-items-center bdr-b pd-b-10 mr-b-10"
-              >
-                <div class="d-flex align-items-center">
-                  <img
-                    :src="event.banner_url"
-                    class="avatar mr-r-10"
-                    alt=""
-                  >
-                  <div class="">
-                    <strong>{{ event.name }}</strong> <br >
-                    {{ $moment(event.start_time).format('MMM Do YY, h:mm') }} - {{ $moment(event.end_time).format('MMM Do YY, h:mm') }} | {{ event.event_category.name }}
-                  </div>
-                </div>
-                <div>
-                  <b-form-radio 
-                    :value="event.id"
-                    name="event"
-                    @change="getAttachment(event, 'event')" />
-                </div>
-              </div>
-            </div>
-          </template>
-          <template v-if="selectOption == 'wellness'">
-            <div class="mr-t-30 bdr pd-10">
-              <SearchForm/>
-            </div>
-            <div class="mr-t-30 bdr pd-10">
-              <div
-                v-for="well in sessions"
-                :key="well.id"
-                class="d-flex sh_modal-resource justify-content-between align-items-center bdr-b pd-b-10 mr-b-10"
-              >
-                <div class="d-flex align-items-center">
-                  <img
-                    :src="well.banner_url"
-                    class="avatar mr-r-10"
-                    alt=""
-                  >
-                  <div class="">
-                    <strong>{{ well.name }}</strong> <br >
-                    {{ $moment(well.start_date).format('MMM Do YY, h:mm') }} - {{ $moment(well.end_date).format('MMM Do YY, h:mm') }} | {{ well.wellness_category.name }}
-                  </div>
-                </div>
-                
-                <div>
-                  <b-form-radio 
-                    :value="well.id"
-                    name="wellness"
-                    @change="getAttachment(well, 'wellness')" />
-                </div>
-              </div>
-            </div>
-          </template>
-          <template v-if="selectOption=='image'">
-            <UploadButton
-              v-model="banner_url"
-              service="resources"
-              label="Upload File (<500KB & size 1125x582)" />
-            <template/>
-        </template></div>
+          placeholder="pick resource ..." 
+          @change="changeSelect($event)">
+          <el-option
+            value="event"
+            label="event"
+            class="select-danger"
+          />
+          <el-option
+            value="wellness"
+            label="wellness"
+            class="select-danger"
+          />
+          <el-option
+            value="image"
+            label="image"
+            class="select-danger"
+          />
+        </el-select>
       </div>
+      <div class="col-md-12">
+        <template v-if="selectOption == 'event'">
+          <div class="mr-t-30 bdr pd-10">
+            <SearchForm 
+              :loading="loadingSearch" 
+              @search="getEventResult"
+            />
+            <h4>{{ noResult }}</h4>
+
+          </div>
+          <div class="mr-t-30 bdr pd-10">
+            <div
+              v-for="event in events"
+              :key="event.id"
+              class="d-flex sh_modal-resource justify-content-between align-items-center bdr-b pd-b-10 mr-b-10"
+            >
+              <div class="d-flex align-items-center">
+                <img
+                  :src="event.banner_url"
+                  class="avatar mr-r-10"
+                  alt=""
+                >
+                <div class="">
+                  <strong>{{ event.name }}</strong> <br >
+                  {{ $moment(event.start_time).format('MMM Do YY, h:mm') }} - {{ $moment(event.end_time).format('MMM Do YY, h:mm') }} | {{ event.event_category.name }}
+                </div>
+              </div>
+              <div>
+                <b-form-radio 
+                  :value="event.id"
+                  name="event"
+                  @change="getAttachment(event, 'event')" />
+              </div>
+            </div>
+          </div>
+        </template>
+        <template v-if="selectOption == 'wellness'">
+          <div class="mr-t-30 bdr pd-10">
+            <SearchForm 
+              :loading="loadingSearch" 
+              @search="getWellnessResult" 
+            />
+            <h4>{{ noResult }}</h4>
+          </div>
+          <div class="mr-t-30 bdr pd-10">
+            <div
+              v-for="well in sessions"
+              :key="well.id"
+              class="d-flex sh_modal-resource justify-content-between align-items-center bdr-b pd-b-10 mr-b-10"
+            >
+              <div class="d-flex align-items-center">
+                <img
+                  :src="well.banner_url"
+                  class="avatar mr-r-10"
+                  alt=""
+                >
+                <div class="">
+                  <strong>{{ well.name }}</strong> <br >
+                  {{ $moment(well.start_date).format('MMM Do YY, h:mm') }} - {{ $moment(well.end_date).format('MMM Do YY, h:mm') }} | {{ well.wellness_category.name }}
+                </div>
+              </div>
+                
+              <div>
+                <b-form-radio 
+                  :value="well.id"
+                  name="wellness"
+                  @change="getAttachment(well, 'wellness')" />
+              </div>
+            </div>
+          </div>
+        </template>
+        <template v-if="selectOption=='image'">
+          <UploadButton
+            v-model="banner_url"
+            service="community"
+            label="Upload File (<500KB & size 1125x582)"
+          />
+        </template>
+      </div>  
       <div 
         class="row" 
-        style="margin-top: -38px;">
+      >
         <div class="col-md-12 text-right">
           <button 
             type="button"
             class="btn btn-default" 
             @click="addAttach">Add to Post</button>
         </div>
-      </div>
+      </div>    
     </modal>
   </div>
 </template>
@@ -162,9 +157,11 @@ export default {
         resource: false
       },
       attachmentSelect: {
-        type: null,
+        type: 'image',
         attachInfo: null
-      }
+      },
+      loadingSearch: false,
+      noResult: null
     }
   },
   computed: {
@@ -175,6 +172,7 @@ export default {
   },
   methods: {
     changeSelect(e) {
+      this.noResult = null
       if (e == 'event') {
         this.getEvents()
       }
@@ -215,16 +213,71 @@ export default {
         )
       }
     },
-    getResult(e) {
-      console.log(e)
+    async getEventResult(e) {
+      this.loadingSearch = true
+      try {
+        const { data } = await this.$event.getEventsByName(e)
+        if (data.data.length == 0) {
+          this.noResult = 'We could not find your search parameter'
+        } else {
+          this.noResult = null
+        }
+        this.loadingSearch = false
+
+        this.$store.commit('events/setEvents', data.data)
+      } catch (error) {
+        this.loadingSearch = false
+        this.$bvToast.toast(
+          `${
+            error.response
+              ? JSON.stringify(error.response.data.errors)
+              : error.message
+          }`,
+          helper.notify.error
+        )
+      }
+    },
+    async getWellnessResult(e) {
+      this.loadingSearch = true
+
+      try {
+        const { data } = await this.$wellness.getWellnessByName(e)
+        if (data.data.length == 0) {
+          this.noResult = 'We could not find your search parameter'
+        } else {
+          this.noResult = null
+        }
+        this.loadingSearch = false
+        this.$store.commit('wellness/setSessions', data)
+      } catch (error) {
+        this.loadingSearch = false
+
+        this.$bvToast.toast(
+          `${
+            error.response
+              ? JSON.stringify(error.response.data.errors)
+              : error.message
+          }`,
+          helper.notify.error
+        )
+      }
     },
     getAttachment(data, type) {
       this.attachmentSelect.type = type
       this.attachmentSelect.attachInfo = data
     },
     addAttach() {
-      this.$store.commit('community/setAttachment', this.attachmentSelect)
-      this.modals.resource = false
+      if (this.attachmentSelect.type == 'image') {
+        const imageData = {
+          type: this.attachmentSelect.type,
+          banner_url: this.banner_url
+        }
+        this.$store.commit('community/setAttachment', imageData)
+        this.modals.resource = false
+      } else {
+        this.$store.commit('community/setAttachment', this.attachmentSelect)
+        this.modals.resource = false
+      }
     }
   }
 }

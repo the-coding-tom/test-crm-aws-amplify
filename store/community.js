@@ -35,16 +35,25 @@ export const mutations = {
     state.postMessage = message
   },
   setAttachment(state, data) {
-    state.addFeed.attachment_type = data.type
-    state.addFeed.attachment_id = data.attachInfo.id
-    state.addFeed.attachment_url = data.attachInfo.banner_url
-    state.addFeed.attachment_text = data.attachInfo.name
+    if (data.type == 'image') {
+      state.addFeed.attachment_type = data.type
+      state.addFeed.attachment_url = data.banner_url
+    }
+
     if (data.type == 'event') {
+      state.addFeed.attachment_type = data.type
+      state.addFeed.attachment_id = data.attachInfo.id
+      state.addFeed.attachment_url = data.attachInfo.banner_url
+      state.addFeed.attachment_text = data.attachInfo.name
       state.addFeed.start_time = data.attachInfo.start_time
       state.addFeed.end_time = data.attachInfo.end_time
       state.addFeed.category = data.attachInfo.event_category.name
     }
     if (data.type == 'wellness') {
+      state.addFeed.attachment_type = data.type
+      state.addFeed.attachment_id = data.attachInfo.id
+      state.addFeed.attachment_url = data.attachInfo.banner_url
+      state.addFeed.attachment_text = data.attachInfo.name
       state.addFeed.start_time = data.attachInfo.start_date
       state.addFeed.end_time = data.attachInfo.end_date
       state.addFeed.category = data.attachInfo.wellness_category.name

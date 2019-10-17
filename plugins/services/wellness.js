@@ -53,6 +53,9 @@ export default function(ctx, inject) {
     getWellnessByDate: date => {
       return ctx.$axios.get(`${baseUrl()}?filter[start_date]=${date}`)
     },
+    getWellnessByName: name => {
+      return ctx.$axios.get(`${baseUrl()}?filter[search]=${name}`)
+    },
     getAllBookings: (id, link = null) => {
       if (link) {
         return ctx.$axios.get(link)

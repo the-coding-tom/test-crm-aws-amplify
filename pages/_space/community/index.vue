@@ -156,6 +156,12 @@
                     <span class="text-muted">{{ $moment(feed.attachments[0].event.start_time).format('MMM Do YY, h:mm') }} - {{ $moment(feed.attachments[0].event.end_time).format('MMM Do YY, h:mm') }}| {{ feed.attachments[0].event.event_category.name }}</span>
                   </div>
                 </div>
+                <div v-if="feed.attachments[0].type == 'image'">
+                  <img 
+                    :src="feed.attachments[0].attachment_url" 
+                    class="avatar mr-r-10" 
+                    alt="">
+                </div>
 
               </div>
             </card>
