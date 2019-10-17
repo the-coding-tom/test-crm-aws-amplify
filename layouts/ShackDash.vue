@@ -56,7 +56,7 @@
           </sidebar-item>
         </sidebar-item>
         <sidebar-item :link="{ name: 'Eatry', icon: 'fa fa-utensils'}">
-          <sidebar-item :link="{ name: 'Orders', path: `/${subdomain}/eatry`}" />
+          <sidebar-item :link="{ name: 'Orders', path: `/${subdomain}/eatry/orders`}" />
           <sidebar-item :link="{ name: 'Inventory'}">
             <sidebar-item :link="{name: 'All Inventory', path: `/${subdomain}/eatry/inventory`}" />
             <sidebar-item
