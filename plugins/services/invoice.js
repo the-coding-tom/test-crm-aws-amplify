@@ -21,7 +21,6 @@ export default function(ctx, inject) {
       return ctx.$axios.post(`${baseUrl()}`, payload)
     },
     updateInvoice: (id, payload) => {
-      console.log(id)
       return ctx.$axios.patch(`${baseUrl()}/${id}`, payload)
     },
     finalizeInvoice: (id, payload) => {

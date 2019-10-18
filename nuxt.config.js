@@ -74,22 +74,23 @@ module.exports = {
       ssr: false
     },
     '~/plugins/services/auth',
+    '~/plugins/services/activity',
     '~/plugins/services/wellness',
     '~/plugins/services/event',
     '~/plugins/services/images',
     '~/plugins/services/plans',
     '~/plugins/services/resource',
     '~/plugins/services/membership',
-    '~/plugins/services/plan',
     '~/plugins/services/community',
     '~/plugins/services/emails',
     '~/plugins/services/tags',
+    '~/plugins/services/table',
     '~/plugins/services/admin',
     '~/plugins/services/checkin',
-    '~/plugins/services/table',
     '~/plugins/services/company',
     '~/plugins/services/invoice',
-
+    '~/plugins/services/eatry',
+    '~/plugins/services/space',
     { src: '~/plugins/vue2-datepicker', ssr: false }
     // { src: '~/plugins/dashboard/modal', ssr: false }
   ],

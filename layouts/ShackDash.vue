@@ -15,8 +15,7 @@
           </sidebar-item>
           <sidebar-item :link="{ name: 'Directorys', path: `/${subdomain}/directory` }" />
           <sidebar-item :link="{ name: 'Invoice', path: `/${subdomain}/invoice` }" />
-
-
+          <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
           <sidebar-item
             :link="{name: 'Checkins', icon: 'fa fa-user-check', path: `/${subdomain}/checkins`}"
           />
@@ -60,10 +59,24 @@
             />
           </sidebar-item>
         </sidebar-item>
+        <sidebar-item :link="{ name: 'Eatry', icon: 'fa fa-utensils'}">
+          <sidebar-item :link="{ name: 'Orders', path: `/${subdomain}/eatry/orders`}" />
+          <sidebar-item :link="{ name: 'Inventory'}">
+            <sidebar-item :link="{name: 'All Inventory', path: `/${subdomain}/eatry/inventory`}" />
+            <sidebar-item
+              :link="{name: 'Add Inventory', path: `/${subdomain}/eatry/inventory/add`}"
+            />
+          </sidebar-item>
+          <sidebar-item :link="{ name: 'Categories'}">
+            <sidebar-item :link="{name: 'All Categories', path: `/${subdomain}/eatry/categories`}" />
+            <sidebar-item
+              :link="{name: 'Add Categories', path: `/${subdomain}/eatry/categories/add`}"
+            />
+          </sidebar-item>
+        </sidebar-item>
         <sidebar-item :link="{ name: 'Tables', icon: 'fa fa-concierge-bell'}">
           <sidebar-item :link="{ name: 'Bookings', path: `/${subdomain}/tables/bookings`}" />
           <sidebar-item :link="{name: 'Tables', path: `/${subdomain}/tables`}" />
-
           <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
             <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />
             <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
@@ -73,6 +86,7 @@
           <sidebar-item :link="{ name: 'Plans', path: `/${subdomain}/plans` }" />
           <sidebar-item :link="{ name: 'Tags', path: `/${subdomain}/tags`}" />
           <sidebar-item :link="{ name: 'Adminstrators', path: `/${subdomain}/admins`}" />
+          <sidebar-item :link="{ name: 'Space', path: `/${subdomain}/edit`}" />
         </sidebar-item>
       </template>
     </side-bar>

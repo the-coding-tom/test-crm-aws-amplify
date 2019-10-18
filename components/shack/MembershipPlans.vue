@@ -19,7 +19,8 @@
         <b-form-radio 
           v-model="selectedPlan"
           :value="plan.uuid"
-          name="plan">Select this plan</b-form-radio>
+          name="plan"
+          @change="changePlan">Select this plan</b-form-radio>
       </a>
       <b-collapse
         :id="'accordion-' + plan.uuid"

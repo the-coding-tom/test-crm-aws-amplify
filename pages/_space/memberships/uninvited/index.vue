@@ -29,6 +29,7 @@
         <div class="col">
           <MembersTable
             :members="members"
+            :view-more="false"
             show-modal>
             <template
               slot-scope="slotProps"

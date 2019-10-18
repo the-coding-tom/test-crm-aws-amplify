@@ -3,15 +3,15 @@
     <card>
       <span class="label label-default">
         <template v-if="status">
-          <i class="fa fa-lock" /> Private
+          <i class="fa fa-star" /> Founding Member
         </template>
         <template v-else>
-          <i class="fa fa-unlock" /> Public
+          <i class="fa fa-unlock" /> Member
         </template>
       </span>
       <div class="d-flex mr-tb-10">
-        <img 
-          :src="img ? img : '/img/placeholder.jpg'" 
+        <img
+          :src="img ? img : '/img/placeholder.jpg'"
           class="mr-r-10 rounded-circle avatar" >
         <div>
           <h3>

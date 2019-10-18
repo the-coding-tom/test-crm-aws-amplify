@@ -2,10 +2,10 @@
   <div class="sh-p-header">
     <span class="label label-default sh-label">
       <template v-if="status">
-        <i class="fa fa-lock" /> Private
+        <i class="fa fa-star" /> Founding Member
       </template>
       <template v-else>
-        <i class="fa fa-unlock" /> Public
+        <i class="fa fa-unlock" /> Member
       </template>
     </span>
     <div class="d-flex align-items-center pd-20 mr-5 mr-tb-20">

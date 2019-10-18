@@ -223,7 +223,6 @@ export default {
       this.$invoice.getAllInvoice(prev)
     },
     openUpdateBox(item) {
-      console.log(item)
       this.addInvoice.id = item.id
       this.addInvoice.description = item.description
       this.addInvoice.footer = item.footer
@@ -233,7 +232,6 @@ export default {
       this.modals.classic = true
     },
     updateInvoice() {
-      console.log(this.addInvoice)
       this.$store.dispatch('invoice/updateInvoice', this.addInvoice)
       this.modals.classic = false
     },

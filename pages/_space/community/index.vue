@@ -1,12 +1,12 @@
 <template>
   <div>
-    <TopAlert 
-      v-if="postMessage.show" 
+    <TopAlert
+      v-if="postMessage.show"
       :type=" postMessage.type">
       <i :class="postMessage.icon" /> {{ postMessage.text }}
     </TopAlert>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Community" />
@@ -32,30 +32,30 @@
                   aria-label="Comment textarea"
                 />
               </div>
-              <div 
+              <div
                 v-if="addFeed.attachment_url"
                 class="d-flex sh_modal-resource justify-content-between align-items-center bdr-b pd-b-10 mr-b-10"
               >
                 <div class="d-flex align-items-center">
-                  <img 
-                    :src="addFeed.attachment_url" 
-                    class="avatar mr-r-10" 
+                  <img
+                    :src="addFeed.attachment_url"
+                    class="avatar mr-r-10"
                     alt="">
                   <div>
                     <strong v-if="addFeed.attachment_text">{{ addFeed.attachment_text }}</strong> <br >
-                    <span 
-                      v-if="addFeed.start_time" 
+                    <span
+                      v-if="addFeed.start_time"
                       class="text-muted">{{ $moment(addFeed.start_time).format('MMM Do YY, h:mm') }} - {{ $moment(addFeed.end_time).format('MMM Do YY, h:mm') }} | {{ addFeed.category }}</span>
                   </div>
                 </div>
-                <a 
-                  href="javascript:void(0)" 
+                <a
+                  href="javascript:void(0)"
                   class="align-self-start"
                   @click="removeAttach"><i class="fa fa-times"/></a>
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <AttachButton />
-                <button 
+                <button
                   :disabled="isLoading"
                   type="submit"
                   class="btn btn-default">SHARE
@@ -69,8 +69,8 @@
               <i class="fa fa-question-circle" /> What can I attach to a post?
             </a>
             <modal :show.sync="modals.classic">
-              <h3 
-                slot="header" 
+              <h3
+                slot="header"
                 class="mr-tb-20">
                 <i class="fa fa-question-circle" /> What can I attach to a post?
               </h3>
@@ -88,12 +88,12 @@
               </ul>
             </modal>
 
-            <card 
-              v-for="feed in feeds" 
+            <card
+              v-for="feed in feeds"
               :key="feed.id">
               <div class="d-flex justify-content-between">
                 <div class="d-flex align-items-center">
-                  <img 
+                  <img
                     v-if="feed.user"
                     :src="feed.user.picture"
                     alt="Image placeholder"
@@ -106,21 +106,21 @@
                     </div>
                   </div>
                 </div>
-                <b-dropdown 
-                  no-caret 
+                <b-dropdown
+                  no-caret
                   class="sh_postdd">
                   <template v-slot:button-content>
-                    <i class="ti-pin-alt" />Pinned Post
+                    <!-- <i class="ti-pin-alt" />Pinned Post -->
                     <i class="fa fa-ellipsis-v" />
                   </template>
-                  <a 
-                    class="dropdown-item" 
+                  <!-- <a
+                    class="dropdown-item"
                     href="#">
                     <i class="ti-pin-alt" /> Pin this
-                  </a>
+                  </a> -->
                   <button
                     type="button"
-                    class="dropdown-item text-danger" 
+                    class="dropdown-item text-danger"
                     @click="deleteFeed(feed.id)">
                     <i class="ti-trash" /> Delete Post
                   </button>
@@ -133,33 +133,33 @@
 
               <!-- <AttachButton class="mr-t-20 mr-b-10 bdr-b" /> -->
 
-              <div 
-                v-if="feed.attachments.length > 0" 
+              <div
+                v-if="feed.attachments.length > 0"
                 class="d-flex align-items-center">
                 <div v-if="feed.attachments[0].type == 'wellness'">
-                  <img 
-                    :src="feed.attachments[0].wellness.banner_url" 
-                    class="avatar mr-r-10" 
+                  <img
+                    :src="feed.attachments[0].wellness.banner_url"
+                    class="avatar mr-r-10 mt-1"
                     alt="">
-                  <div>
-                    <strong>{{ feed.attachments[0].wellness.name }}</strong> <br >
-                    <span class="text-muted">{{ $moment(feed.attachments[0].wellness.start_date).format('MMM Do YY, h:mm') }} - {{ $moment(feed.attachments[0].wellness.end_date).format('MMM Do YY, h:mm') }}| {{ feed.attachments[0].wellness.wellness_category.name }}</span>
+                  <div class="mt-1">
+                    <p><strong>{{ feed.attachments[0].wellness.name }}</strong> </p>
+                    <span class="text-muted">{{ $moment(feed.attachments[0].wellness.start_date).format('MMM Do YY, h:mm') }} - {{ $moment(feed.attachments[0].wellness.end_date).format('MMM Do YY, h:mm') }} | <b-badge>{{ feed.attachments[0].wellness.wellness_category.name }}</b-badge>  </span>
                   </div>
                 </div>
                 <div v-if="feed.attachments[0].type == 'event'">
-                  <img 
-                    :src="feed.attachments[0].event.banner_url" 
-                    class="avatar mr-r-10" 
+                  <img
+                    :src="feed.attachments[0].event.banner_url"
+                    class="avatar mr-r-10 mt-1"
                     alt="">
-                  <div>
-                    <strong>{{ feed.attachments[0].event.name }}</strong> <br >
-                    <span class="text-muted">{{ $moment(feed.attachments[0].event.start_time).format('MMM Do YY, h:mm') }} - {{ $moment(feed.attachments[0].event.end_time).format('MMM Do YY, h:mm') }}| {{ feed.attachments[0].event.event_category.name }}</span>
+                  <div class="mt-1">
+                    <p><strong>{{ feed.attachments[0].event.name }}</strong> </p>
+                    <span class="text-muted">{{ $moment(feed.attachments[0].event.start_time).format('MMM Do YY, h:mm') }} - {{ $moment(feed.attachments[0].event.end_time).format('MMM Do YY, h:mm') }} | <b-badge> {{ feed.attachments[0].event.event_category.name }}</b-badge></span>
                   </div>
                 </div>
                 <div v-if="feed.attachments[0].type == 'image'">
-                  <img 
-                    :src="feed.attachments[0].attachment_url" 
-                    class="avatar mr-r-10" 
+                  <img
+                    :src="feed.attachments[0].attachment_url"
+                    class="avatar mr-r-10"
                     alt="">
                 </div>
 
