@@ -2,7 +2,9 @@
   <div class="wrapper">
     <notifications />
     <side-bar>
-      <template slot-scope="props" slot="links">
+      <template 
+        slot-scope="props" 
+        slot="links">
         <sidebar-item :link="{ name: 'Dashboard', icon: 'ni ni-archive-2', path: `/${subdomain}`}" />
         <sidebar-item :link="{ name: 'Manage', icon: 'fa fa-tasks' }">
           <sidebar-item :link="{ name: 'Memberships'}">
