@@ -74,6 +74,7 @@ module.exports = {
       ssr: false
     },
     '~/plugins/services/auth',
+    '~/plugins/services/activity',
     '~/plugins/services/wellness',
     '~/plugins/services/event',
     '~/plugins/services/images',

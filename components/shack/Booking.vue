@@ -1,14 +1,14 @@
 <template>
   <tr>
     <td class="pd-r-0">
-      <img
-        :src="img"
-        height="36"
-        alt="">
+      <img :src="img" >
     </td>
     <td>
-      {{ title }} <br>
-      <span> <slot/> </span>
+      {{ title }}
+      <br >
+      <span>
+        <slot />
+      </span>
     </td>
   </tr>
 </template>
