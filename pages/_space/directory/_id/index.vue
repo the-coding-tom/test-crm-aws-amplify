@@ -403,9 +403,9 @@ export default {
     },
     getExtras(extras) {
       let html = ''
-      _.each(extras, (o, i) => {
+      _.each(JSON.parse(extras), (o, i) => {
         html += `<div class="sh-dls"><span>${_.upperFirst(o.type)}:</span> ${
-          o.comment
+          o.comment ? o.comment : ''
         }</div>`
       })
 
