@@ -13,6 +13,8 @@
               :link="{ name: 'Uninvited', path: `/${subdomain}/memberships/uninvited`}"
             />
           </sidebar-item>
+          <sidebar-item :link="{ name: 'Directorys', path: `/${subdomain}/directory` }" />
+          <sidebar-item :link="{ name: 'Invoice', path: `/${subdomain}/invoice` }" />
           <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
           <sidebar-item
             :link="{name: 'Checkins', icon: 'fa fa-user-check', path: `/${subdomain}/checkins`}"
@@ -75,6 +77,10 @@
         <sidebar-item :link="{ name: 'Tables', icon: 'fa fa-concierge-bell'}">
           <sidebar-item :link="{ name: 'Bookings', path: `/${subdomain}/tables/bookings`}" />
           <sidebar-item :link="{name: 'Tables', path: `/${subdomain}/tables`}" />
+          <sidebar-item :link="{ name: 'Analyze', icon: 'ni ni-shop',}">
+            <sidebar-item :link="{ name: 'Analyze', path: '/analyze' }" />
+            <sidebar-item :link="{ name: 'Alternative', path: '/alternative' }" />
+          </sidebar-item>
         </sidebar-item>
         <sidebar-item :link="{ name: 'Setup', icon: 'fa fa-cog'}">
           <sidebar-item :link="{ name: 'Plans', path: `/${subdomain}/plans` }" />
