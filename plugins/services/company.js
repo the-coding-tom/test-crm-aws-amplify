@@ -11,6 +11,11 @@ export default function(ctx, inject) {
       if (link) return ctx.$axios.$get(link)
       return ctx.$axios.$get(`/${subdomain()}/companies`)
     },
+    getCompanyByName(name) {
+      return ctx.$axios.$get(
+        `/${subdomain()}/companies/?filter[search]=${name}`
+      )
+    },
     removeOneCompany(companyId) {
       return ctx.$axios.$delete(`/${subdomain()}/companies/${companyId}`)
     },
