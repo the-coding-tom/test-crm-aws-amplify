@@ -2,8 +2,8 @@
   <div class="wrapper">
     <notifications />
     <side-bar>
-      <template 
-        slot-scope="props" 
+      <template
+        slot-scope="props"
         slot="links">
         <sidebar-item :link="{ name: 'Dashboard', icon: 'ni ni-archive-2', path: `/${subdomain}`}" />
         <sidebar-item :link="{ name: 'Manage', icon: 'fa fa-tasks' }">
@@ -59,7 +59,7 @@
             />
           </sidebar-item>
         </sidebar-item>
-        <sidebar-item :link="{ name: 'Eatry', icon: 'fa fa-utensils'}">
+        <sidebar-item :link="{ name: 'Eatery', icon: 'fa fa-utensils'}">
           <sidebar-item :link="{ name: 'Orders', path: `/${subdomain}/eatry/orders`}" />
           <sidebar-item :link="{ name: 'Inventory'}">
             <sidebar-item :link="{name: 'All Inventory', path: `/${subdomain}/eatry/inventory`}" />
