@@ -70,7 +70,6 @@ export const actions = {
   async getAllFeeds({ commit }) {
     try {
       const { data } = await this.$community.getAllFeeds()
-      console.log(data)
       commit('setFeeds', data)
     } catch (error) {
       this._vm.$bvToast.toast(
