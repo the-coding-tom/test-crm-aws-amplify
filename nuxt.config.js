@@ -84,6 +84,7 @@ module.exports = {
     '~/plugins/services/community',
     '~/plugins/services/emails',
     '~/plugins/services/tags',
+    '~/plugins/services/table',
     '~/plugins/services/admin',
     '~/plugins/services/checkin',
     '~/plugins/services/company',
