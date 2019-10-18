@@ -49,6 +49,7 @@
 
                       <base-input
                         v-model="membership.linkedin_url"
+                        :required="false"
                         type="url"
                         label="Linkedin"
                         placeholder="https://linkedin.com/in/someone"/>

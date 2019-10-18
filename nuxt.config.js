@@ -2,7 +2,7 @@ const pkg = require('./package')
 const webpack = require('webpack')
 require('dotenv').config()
 
-const baseURL = 'https://shack15-staging.herokuapp.com/api/v1'
+const baseURL = 'http://shack15-backend.us-east-1.elasticbeanstalk.com/api/v1'
 
 module.exports = {
   mode: 'universal',
