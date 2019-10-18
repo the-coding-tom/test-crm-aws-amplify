@@ -102,7 +102,7 @@
                   <div class="mr-l-10">
                     <div v-if="feed.user">{{ feed.user.full_name }}</div>
                     <div class="text-muted">
-                      Posted {{ $moment(feed.created_at).startOf('day').fromNow() }}
+                      Posted on {{ $moment(feed.created_at).format('MMM-DD') }}
                     </div>
                   </div>
                 </div>
