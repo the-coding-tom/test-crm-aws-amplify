@@ -1,29 +1,32 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type>
       <div class="d-flex justify-content-between py-4">
-        <MainTitle 
-          title="Dashboard" 
+        <MainTitle
+          title="Dashboard"
           subtitle="This Month" />
       </div>
 
       <div class="row">
-        <TopWidget 
-          :value="summary.checkins" 
-          img="/img/icon-user.png" 
+        <TopWidget
+          :value="summary.checkins"
+          img="/img/icon-user.png"
+          destination-link="space-checkins"
           text="Members Checked In" />
 
         <TopWidget
           :value="summary.unpaidInvoices"
           img="/img/icon-wallet.png"
+          destination-link="space-invoice"
           text="Unpaid Invoices"
         />
-        <TopWidget 
-          :value="summary.bookings" 
-          img="/img/icon-discount.png" 
-          text="Bookings" />
+        <TopWidget
+          :value="summary.bookings"
+          :text="`Bookings Revenue (${space.currency})`"
+          img="/img/icon-discount.png"
+          destination-link="space-resources" />
         <TopWidget
           :value="summary.events"
           img="/img/icon-help.png"
@@ -37,12 +40,12 @@
     <div class="container-fluid mt--6">
       <div class="card-deck flex-column flex-xl-row">
         <card>
-          <div 
-            slot="header" 
+          <div
+            slot="header"
             class="row align-items-center">
             <div class="col">
-              <SectionTitle 
-                title="Activity Feed" 
+              <SectionTitle
+                title="Activity Feed"
                 subtitle="Usage Stream on Mobile Platform" />
             </div>
           </div>
@@ -66,12 +69,12 @@
         </card>
 
         <card header-classes="bg-transparent">
-          <div 
-            slot="header" 
+          <div
+            slot="header"
             class="row align-items-center">
             <div class="col">
-              <SectionTitle 
-                title="Bookings" 
+              <SectionTitle
+                title="Bookings"
                 subtitle="Space, Events, Meals, and Resources" />
             </div>
           </div>
@@ -118,12 +121,21 @@ export default {
     SectionTitle,
     MainTitle
   },
-  async asyncData({ error, $activity, store }) {
+  async asyncData({ error, $activity, $resource, store, $moment }) {
     try {
       const activities = await $activity.getAllActivities()
       store.commit('activity/setActivities', activities)
 
-      const bookings = await $activity.getAllBookings()
+      const payload = {
+        from: $moment()
+          .startOf('day')
+          .format('YYYY-MM-DD'),
+        to: $moment()
+          .endOf('day')
+          .format('YYYY-MM-DD')
+      }
+
+      const bookings = await $resource.getBookingByDate(payload)
       store.commit('activity/setActivityBookings', bookings.data)
 
       const summaries = await $activity.getSummary()
@@ -145,6 +157,7 @@ export default {
   },
   computed: {
     ...mapState({
+      space: state => state.space.currentSpace,
       summary: state => state.activity.summary,
       activities: state =>
         state.activity.activities.data.length < 6
