@@ -85,6 +85,7 @@
           <sidebar-item :link="{ name: 'Plans', path: `/${subdomain}/plans` }" />
           <sidebar-item :link="{ name: 'Tags', path: `/${subdomain}/tags`}" />
           <sidebar-item :link="{ name: 'Adminstrators', path: `/${subdomain}/admins`}" />
+          <sidebar-item :link="{ name: 'Space', path: `/${subdomain}/edit`}" />
         </sidebar-item>
       </template>
     </side-bar>
