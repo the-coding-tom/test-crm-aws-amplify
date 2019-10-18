@@ -34,8 +34,9 @@ export default function(ctx, inject) {
       return ctx.$axios.patch(`${baseUrl()}/${id}/update-item`, payload)
     },
     deleteInvoiceItem: (id, payload) => {
-      console.log(payload)
-      return ctx.$axios.delete(`${baseUrl()}/${id}/delete-item`, payload)
+      return ctx.$axios.delete(`${baseUrl()}/${id}/delete-item`, {
+        data: payload
+      })
     },
     searchInvoice: name => {
       return ctx.$axios.get(`${baseUrl()}/?filter[search]=${name}`)

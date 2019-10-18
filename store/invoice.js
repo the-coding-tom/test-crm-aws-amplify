@@ -184,7 +184,7 @@ export const actions = {
       )
     }
   },
-  async deleteInvoiceItem({ state }, payload) {
+  async deleteInvoiceItem({ state, dispatch }, payload) {
     try {
       await this.$invoice.deleteInvoiceItem(state.oneInvoice.data.id, payload)
       this._vm.$bvToast.toast(
