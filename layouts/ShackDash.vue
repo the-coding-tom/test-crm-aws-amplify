@@ -13,7 +13,7 @@
               :link="{ name: 'Uninvited', path: `/${subdomain}/memberships/uninvited`}"
             />
           </sidebar-item>
-          <sidebar-item :link="{ name: 'Directorys', path: `/${subdomain}/directory` }" />
+          <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
           <sidebar-item :link="{ name: 'Invoice', path: `/${subdomain}/invoice` }" />
           <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
           <sidebar-item
