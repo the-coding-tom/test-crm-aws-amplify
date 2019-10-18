@@ -17,7 +17,7 @@
         <ThumbCard
           v-for="member in data"
           :key="member.id"
-          :status="false"
+          :status="member.founding_member"
           :name="member.user_profile.full_name"
           :company="member.user_profile.company"
           :img="member.user_profile.picture"

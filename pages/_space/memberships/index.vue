@@ -61,6 +61,9 @@ export default {
     return await $membership
       .getAllMemberships(filter)
       .then(({ data, links, meta }) => {
+        console.log('------------------------------------')
+        console.log(data)
+        console.log('------------------------------------')
         return {
           members: data,
           links,

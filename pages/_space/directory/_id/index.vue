@@ -52,13 +52,13 @@
         <div class="col-md-6">
           <div class="card">
             <ProfileHead
-              :status="false"
+              :status="data.founding_member"
               :img="data.user_profile.picture"
               :name="data.user_profile.full_name"
               :company="data.user_profile.company"
               :extras="data.user_profile.extras"
               :address="data.user_profile.cities"
-              date="August 18"
+              :date="data.user_profile.date_of_birth"
             />
             <div class="card-body">
               <div class="row">
