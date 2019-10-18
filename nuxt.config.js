@@ -2,7 +2,7 @@ const pkg = require('./package')
 const webpack = require('webpack')
 require('dotenv').config()
 
-const baseURL = 'https://shack15-staging.herokuapp.com/api/v1'
+const baseURL = 'https://api.shack15.com/api/v1'
 
 module.exports = {
   mode: 'universal',
@@ -88,6 +88,7 @@ module.exports = {
     '~/plugins/services/admin',
     '~/plugins/services/checkin',
     '~/plugins/services/company',
+    '~/plugins/services/invoice',
     '~/plugins/services/eatry',
     '~/plugins/services/space',
     { src: '~/plugins/vue2-datepicker', ssr: false }
