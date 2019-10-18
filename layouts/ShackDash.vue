@@ -14,15 +14,14 @@
             />
           </sidebar-item>
           <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
-          <sidebar-item :link="{ name: 'Invoice', path: `/${subdomain}/invoice` }" />
-          <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
           <sidebar-item
             :link="{name: 'Checkins', icon: 'fa fa-user-check', path: `/${subdomain}/checkins`}"
           />
-          <sidebar-item :link="{name: 'Corporate', path: `/${subdomain}/corporates`}" />
           <sidebar-item
             :link="{name: 'Community', icon: 'fa fa-users', path: `/${subdomain}/community`}"
           />
+          <sidebar-item :link="{name: 'Corporate', path: `/${subdomain}/corporates`}" />
+          <sidebar-item :link="{ name: 'Invoice', path: `/${subdomain}/invoice` }" />
         </sidebar-item>
         <sidebar-item :link="{ name: 'Bookings', icon: 'ni ni-shop' }">
           <sidebar-item :link="{ name: 'Bookings', path: `/${subdomain}/resources/bookings` }" />
