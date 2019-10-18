@@ -1,9 +1,11 @@
 <template>
   <tr>
-    <td>
-      <img
-        :src="img"
-        alt=""> <slot /> </td>
+    <td class="activity">
+      <img 
+        :src="img" 
+        alt >
+      <slot />
+    </td>
     <td>{{ date }}</td>
   </tr>
 </template>
@@ -22,3 +24,9 @@ export default {
   }
 }
 </script>
+
+<style lang="css" scoped>
+.activity {
+  width: '100%';
+}
+</style>
