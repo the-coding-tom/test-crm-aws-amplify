@@ -94,9 +94,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAllRooms({ commit }) {
+  async getAllRooms({ commit }, link = null) {
     try {
-      const { data } = await this.$resource.getAllRooms()
+      const { data } = await this.$resource.getAllRooms(link)
       commit('setRooms', data)
     } catch (error) {
       this._vm.$bvToast.toast(
