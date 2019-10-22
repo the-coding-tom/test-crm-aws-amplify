@@ -112,7 +112,7 @@ export default {
       }`
 
       this.$membership
-        .getAllMemberships()
+        .getMemberships()
         .then(({ data, links, meta }) => {
           this.members = data
           this.links = links
@@ -136,7 +136,7 @@ export default {
       }`
 
       this.$membership
-        .getAllMemberships()
+        .getMemberships()
         .then(({ data, links, meta }) => {
           this.members = data
           this.links = links

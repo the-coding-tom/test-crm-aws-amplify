@@ -13,7 +13,7 @@
           <div class="sh-vflex">
             <div>
               <img
-                :src="row.user_profile ? row.user_profile.picture : img"
+                :src="row.user_profile && row.user_profile.picture ? row.user_profile.picture : img"
                 alt="Image placeholder"
                 class="mr-r-20 rounded-circle"
                 height="40px"
