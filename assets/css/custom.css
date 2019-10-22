@@ -452,3 +452,12 @@ table .fa.fa-circle {
     padding: 0 15px;
     color: unset;
 }
+.custom-radio .custom-control-input:checked~.custom-control-label::after {
+  top: 2px;
+}
+.wrap-normal {
+  white-space: normal;
+}
+.table td.activity {
+  white-space: normal;
+}
