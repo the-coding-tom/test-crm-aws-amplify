@@ -38,9 +38,10 @@
                   placeholder="00000000"/>
                 <base-input
                   v-model="data.linkedin_url"
+                  :required="false"
                   class="col-md-6"
                   label="Linkedin"
-                  placeholder="https://linkedin.com/in/someone"/>
+                  placeholder="https://linkedin.com/in/someone" />
                 <b-form-group
                   label="Source of Invitation"
                   class="col-md-6">

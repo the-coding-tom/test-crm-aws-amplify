@@ -22,9 +22,9 @@
             id="booking-modal"
             :title="modalText"
             hide-footer>
-            <booking-modal 
-              :ifrom="bookdata.from" 
-              :ito="bookdata.to" 
+            <booking-modal
+              :ifrom="bookdata.from"
+              :ito="bookdata.to"
               :ititle="bookdata.title"
               :imembership_id="bookdata.membership_id"
               :iroom_id="bookdata.room_id"
@@ -33,7 +33,8 @@
           <client-only>
             <full-calendar
               :events="bookings"
-              default-view="list"
+              :views="views"
+              default-view="listWeek"
               @eventClick="eventClick"
               @dateClick="bookDate"
               @dateChange="dateChange"
@@ -65,6 +66,11 @@ export default {
   },
   data() {
     return {
+      views: {
+        listWeek: {
+          noEventsMessage: 'No bookings to display'
+        }
+      },
       bookdata: {
         from: null,
         to: null,

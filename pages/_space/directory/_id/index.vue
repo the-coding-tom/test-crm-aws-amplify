@@ -21,10 +21,10 @@
               >
                 <span
                   v-if="checkin.status == 'checkin'"
-                  class="text-success">Check in</span>
+                  class="text-success">Checked in</span>
                 <span
                   v-else
-                  class="text-muted">Check Out</span>
+                  class="text-muted">Checked Out</span>
               </b-form-checkbox>
             </div>
           </div>
@@ -77,6 +77,14 @@
                 </p>
                 <div v-if="data.user_profile">
                   <div class="text-muted">
+                    Cities
+                  </div>
+                  <badge
+                    v-for="(city, i) in data.user_profile.cities"
+
+                    :key="`${city}-${i}`"
+                    class="mr-1">{{ city }}</badge>
+                  <div class="text-muted">
                     Interests
                   </div>
                   <badge
@@ -99,6 +107,7 @@
 
               </div>
               <div class="mt-4">
+                <p><i class="ti-id-badge" /> {{ data && data.membership_id }}</p>
                 <p><i class="ti-twitter-alt" /> {{ data.user_profile && data.user_profile.twitter }}</p>
                 <p><i class="ti-linkedin" /> {{ data.user_profile && data.user_profile.linkedin }}</p>
                 <p><i class="ti-world" /> {{ data.user_profile && data.user_profile.website }}</p>

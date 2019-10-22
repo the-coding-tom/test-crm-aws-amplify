@@ -6,6 +6,7 @@
       center: 'title',
       right: right
     }"
+    :views="views"
     :events="events"
     :default-view="defaultView"
     :dates-render="datesRender"
@@ -36,6 +37,14 @@ export default {
     right: {
       type: String,
       default: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    },
+    views: {
+      type: Object,
+      default: () => ({
+        listWeek: {
+          noEventsMessage: 'No events to display'
+        }
+      })
     }
   },
   data() {

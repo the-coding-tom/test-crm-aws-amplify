@@ -58,13 +58,13 @@
           <div class="dropdown-header noti-title">
             <h6 class="text-overflow m-0">Welcome!</h6>
           </div>
-          <!-- <a
-            href="#!"
+          <nuxt-link
+            :to="{name: 'space-settings'}"
             class="dropdown-item">
-            <i class="ni ni-single-02"/>
-            <span>My profile</span>
-          </a>
-          <a
+            <i class="ni ni-settings-gear-65"/>
+            <span>Settings</span>
+          </nuxt-link>
+          <!--<a
             href="#!"
             class="dropdown-item">
             <i class="ni ni-settings-gear-65"/>
