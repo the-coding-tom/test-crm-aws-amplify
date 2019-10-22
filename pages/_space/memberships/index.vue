@@ -61,9 +61,6 @@ export default {
     return await $membership
       .getAllMemberships(filter)
       .then(({ data, links, meta }) => {
-        console.log('------------------------------------')
-        console.log(data)
-        console.log('------------------------------------')
         return {
           members: data,
           links,
@@ -99,7 +96,7 @@ export default {
       }`
 
       this.$membership
-        .getAllMemberships()
+        .getMemberships(link)
         .then(({ data, links, meta }) => {
           this.members = data
           this.links = links
@@ -123,7 +120,7 @@ export default {
       }`
 
       this.$membership
-        .getAllMemberships()
+        .getMemberships(link)
         .then(({ data, links, meta }) => {
           this.members = data
           this.links = links

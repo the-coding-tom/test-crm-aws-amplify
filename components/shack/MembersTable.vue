@@ -13,17 +13,14 @@
           <div class="sh-vflex">
             <div>
               <img
-                :src="row.user_profile && row.user_profile.picture ? row.user_profile.picture : img"
+                :src="row.user_profile ? row.user_profile.picture : img"
                 alt="Image placeholder"
                 class="mr-r-20 rounded-circle"
                 height="40px"
                 width="40px">
             </div>
-            <b-link v-if="viewMore"><b-link
-              :to="{name: 'space-directory-id', params: {id: row.id}}"
-            >{{ row.first_name }} {{ row.last_name }}</b-link> <br> <span style="color: grey;">{{ row.user_profile ? row.user_profile.company : null }}</span></b-link>
-            <b-link v-else><b-link
-
+            <b-link ><b-link
+              :to="{name: 'space-memberships-id', params: {id: row.id}}"
             >{{ row.first_name }} {{ row.last_name }}</b-link> <br> <span style="color: grey;">{{ row.user_profile ? row.user_profile.company : null }}</span></b-link>
           </div>
         </template>

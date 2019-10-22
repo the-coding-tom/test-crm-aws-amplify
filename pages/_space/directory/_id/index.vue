@@ -53,12 +53,11 @@
           <div class="card">
             <ProfileHead
               :status="data.founding_member"
-              :img="data.user_profile.picture"
-              :name="data.user_profile.full_name"
-              :company="data.user_profile.company"
-              :extras="data.user_profile.extras"
-              :address="data.user_profile.cities"
-              :date="data.user_profile.date_of_birth"
+              :img="data.user_profile ? data.user_profile.picture : null"
+              :name="data.user_profile ? data.user_profile.full_name : `${data.first_name} ${data.last_name}`"
+              :company="data.user_profile ? data.user_profile.company : null"
+              :address="data.user_profile ? data.user_profile.addresses : null"
+              :date="data.user_profile ? data.user_profile.date_of_birth : null"
             />
             <div class="card-body">
               <div class="row">
@@ -66,7 +65,7 @@
                   <i class="fa fa-envelope" /> {{ data.email }}
                 </div>
                 <div class="col">
-                  <i class="fa fa-phone" /> {{ data.user_profile.phone }}
+                  <i class="fa fa-phone" /> {{ data.user_profile && data.user_profile.phone }}
                 </div>
               </div>
               <div class="mt-4">
@@ -74,31 +73,35 @@
                   Profile
                 </div>
                 <p>
-                  {{ data.user_profile.bio }}
+                  {{ data.user_profile && data.user_profile.bio }}
                 </p>
-                <div class="text-muted">
-                  Interests
+                <div v-if="data.user_profile">
+                  <div class="text-muted">
+                    Interests
+                  </div>
+                  <badge
+                    v-for="(interest, i) in data.user_profile.interests"
+
+                    :key="`${interest}-${i}`"
+                    class="mr-1">{{ interest }}</badge>
+                  <div class="text-muted mt-2">Offers</div>
+                  <badge
+                    v-for="(offer, i) in data.user_profile.offers"
+                    :key="`${offer}-${i}`"
+                    class="mr-1">{{ offer }}</badge>
+                  <div class="text-muted mt-2">Skills</div>
+                  <badge
+                    v-for="(skill, i) in data.user_profile.skills"
+                    :key="`${skill}-${i}`"
+                    class="mr-1">{{ skill }}</badge>
                 </div>
-                <badge
-                  v-for="(interest, i) in data.user_profile.interests"
-                  :key="`${interest}-${i}`"
-                  class="mr-1">{{ interest }}</badge>
-                <div class="text-muted mt-2">Offers</div>
-                <badge
-                  v-for="(offer, i) in data.user_profile.offers"
-                  :key="`${offer}-${i}`"
-                  class="mr-1">{{ offer }}</badge>
-                <div class="text-muted mt-2">Skills</div>
-                <badge
-                  v-for="(skill, i) in data.user_profile.skills"
-                  :key="`${skill}-${i}`"
-                  class="mr-1">{{ skill }}</badge>
+
 
               </div>
               <div class="mt-4">
-                <p><i class="ti-twitter-alt" /> {{ data.user_profile.twitter }}</p>
-                <p><i class="ti-linkedin" /> {{ data.user_profile.linkedin }}</p>
-                <p><i class="ti-world" /> {{ data.user_profile.website }}</p>
+                <p><i class="ti-twitter-alt" /> {{ data.user_profile && data.user_profile.twitter }}</p>
+                <p><i class="ti-linkedin" /> {{ data.user_profile && data.user_profile.linkedin }}</p>
+                <p><i class="ti-world" /> {{ data.user_profile && data.user_profile.website }}</p>
               </div>
               <div class="sh-dls">
                 <span> Joined on:</span> {{ $moment(data.member_since).format('MMMM DD, YYYY') }}

@@ -24,6 +24,9 @@ export default function(ctx, inject) {
         getError(e)
       })
     },
+    getMemberships: link => {
+      return ctx.$axios.$get(link)
+    },
     getAMembership: id => {
       return ctx.$axios
         .$get(
@@ -124,6 +127,9 @@ export default function(ctx, inject) {
       return ctx.$axios
         .$delete(`/${subdomain()}/memberships/${id}/notes/${noteId}`)
         .catch(e => getError(e))
+    },
+    updateMembership: (id, payload) => {
+      return ctx.$axios.$patch(`/${subdomain()}/memberships/${id}`, payload)
     }
   }
   ;(ctx.$membership = Membership), inject('membership', Membership)
