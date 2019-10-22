@@ -152,7 +152,7 @@ export default {
         .deleteEvent(eventId)
         .then(res => {
           this.$store.commit('events/removeEvent', eventId)
-          this.$modal.hide('event')
+          this.$bvModal.hide('eventModal')
         })
         .catch(({ response }) => {
           this.$bvToast.toast(JSON.stringify(response.data.errors), {

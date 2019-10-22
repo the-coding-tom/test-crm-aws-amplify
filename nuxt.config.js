@@ -1,8 +1,10 @@
 const pkg = require('./package')
 const webpack = require('webpack')
-require('dotenv').config()
+const config = require('dotenv').config()
 
-const baseURL = 'https://api.shack15.com/api/v1'
+console.log(config.parsed.base_url)
+
+const baseURL = config.parsed.base_url
 
 module.exports = {
   mode: 'universal',

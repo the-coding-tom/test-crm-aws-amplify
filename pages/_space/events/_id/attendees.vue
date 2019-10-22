@@ -1,7 +1,7 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Attendees" />
@@ -15,8 +15,8 @@
             <b-row>
               <div class="form-group col-md-4">
                 <label>Add new Attendee</label>
-                <el-select 
-                  v-model="attendee" 
+                <el-select
+                  v-model="attendee"
                   placeholder="Select Member">
                   <el-option
                     v-for="member in memberships"
@@ -49,6 +49,7 @@
 
             <div class="mr-tb-80">
               <div class="m-n25">
+
                 <table class="table table-hover table-striped sh-border-head">
                   <thead>
                     <tr>
@@ -58,8 +59,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr 
-                      v-for="(attendee, i) in attendees" 
+                    <tr
+                      v-for="(attendee, i) in attendees"
                       :key="i">
                       <td>{{ attendee.membership.first_name + ' ' + attendee.membership.last_name }}</td>
                       <td>{{ attendee.number_of_tickets }}</td>
@@ -77,17 +78,17 @@
                     </tr>
                   </tbody>
                 </table>
-                <div>
-                  <base-pagination
-                    :total="meta.total"
-                    :per-page="meta.per_page"
-                    :value="meta.current_page"
-                    align="center"
-                    @next="next"
-                    @prev="prev"
-                  />
-                </div>
               </div>
+            </div>
+            <div>
+              <base-pagination
+                :total="meta.total"
+                :per-page="meta.per_page"
+                :value="meta.current_page"
+                align="center"
+                @next="next"
+                @prev="prev"
+              />
             </div>
           </card>
         </div>

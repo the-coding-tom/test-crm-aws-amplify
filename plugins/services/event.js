@@ -67,10 +67,10 @@ export default function(ctx, inject) {
     },
     getEventsByName(name) {
       return ctx.$axios.get(`/${subdomain()}/events?filter[search]=${name}`)
-    },
-    deleteEvent(eventId) {
-      return ctx.$axios.delete(`/${subdomain()}/events/${eventId}/`)
     }
+    // deleteEvent(eventId) {
+    //   return ctx.$axios.delete(`/${subdomain()}/events/${eventId}/`)
+    // }
   }
   ;(ctx.$event = Event), inject('event', Event)
 }
