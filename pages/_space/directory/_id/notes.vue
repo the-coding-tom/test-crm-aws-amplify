@@ -119,6 +119,7 @@ export default {
       this.$membership
         .addNote(id, { body, sticky_note })
         .then(({ data }) => {
+          this.body = ''
           this.loading = !this.loading
           this.$bvToast.toast('Note added successfully', {
             title: 'Success',

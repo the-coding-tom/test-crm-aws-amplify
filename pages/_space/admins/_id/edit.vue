@@ -1,72 +1,79 @@
 <template>
   <div>
     <b-form @submit.prevent="updateAdmin">
-      <base-header 
-        class="pb-6" 
+      <base-header
+        class="pb-6"
         type>
         <div class="d-flex justify-content-between align-items-center py-4">
-          <MainTitle 
-            title="Adminstrators" 
+          <MainTitle
+            title="Adminstrators"
             subtitle="Update Admin" />
+          <b-button
+            :disabled="loading"
+            class="btn btn-primary text-white"
+            type="submit"
+          >Update Adminstrator</b-button>
         </div>
       </base-header>
 
+
+
       <div class="container-fluid mt--6">
-        <div class="card-deck flex-column flex-xl-row">
-          <card class="col-md-12">
-            <h3 class="mr-b-20">Update Admin's Details</h3>
-            <b-row>
-              <base-input
-                v-model="name"
-                class="col-md-6"
-                label="Name"
-                placeholder="Admin's Name"
-                required
-              />
-            </b-row>
-            <b-row>
-              <base-input
-                v-model="email"
-                class="col-md-6"
-                label="Email"
-                required
-                placeholder="user@shack15.com"
-              />
-            </b-row>
-            <b-row>
-              <base-input
-                v-model="password"
-                class="col-md-6"
-                label="Password"
-                type="password"
-                required
-                placeholder="********"
-                autocomplete="off"
-              />
-            </b-row>
-            <b-button
-              :disabled="loading"
-              class="btn btn-primary text-white"
-              type="submit"
-            >Update Adminstrator</b-button>
-          </card>
+
+        <div class="row">
+          <div class="col-md-6">
+            <card>
+              <div class="d-flex align-items-center mr-b-20">
+                <img
+                  :src="url ? url : '/img/placeholder.jpg'"
+                  class="mr-r-20 rounded-circle avatar-xl">
+                <div>
+                  <div class="upload-btn-wrapper">
+                    <button class="btn btn-outline-primary sh-btn-outline"> UPLOAD PHOTO </button>
+                    <input
+                      type="file"
+                      @change="onFileChange">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+
+                <base-input
+                  v-model="first_name"
+                  class="col-md-6"
+                  label="First Name"
+                  placeholder="First Name"/>
+                <base-input
+                  v-model="last_name"
+                  class="col-md-6"
+                  label="Last Name"
+                  placeholder="Last Name"/>
+                <base-input
+                  v-model="password"
+                  type="password"
+                  class="col-md-6"
+                  label="Password"
+                  placeholder="********"/>
+
+              </div>
+            </card>
+          </div>
         </div>
+
       </div>
     </b-form>
   </div>
 </template>
 <script>
-// Components
-import BaseHeader from '@/components/argon-core/BaseHeader'
-import MainTitle from '@/components/shack/MainTitle.vue'
-
-import { mapState } from 'vuex'
+import MainTitle from '~/components/shack/MainTitle.vue'
+import UploadButton from '~/components/shack/UploadButton.vue'
+import axios from 'axios'
 
 export default {
   layout: 'ShackDash',
   components: {
-    BaseHeader,
-    MainTitle
+    MainTitle,
+    UploadButton
   },
   async asyncData({ $admin, error, params }) {
     const { id } = params
@@ -76,8 +83,9 @@ export default {
       .then(({ data }) => {
         return {
           id,
-          name: data.name,
-          email: data.email
+          first_name: data.profile && data.profile.first_name,
+          last_name: data.profile && data.profile.last_name,
+          url: data.profile && data.profile.picture
         }
       })
       .catch(err => {
@@ -89,34 +97,119 @@ export default {
   },
   data() {
     return {
+      url: null,
+      loading: false,
+      first_name: '',
+      last_name: '',
+      picture: '',
+      email: '',
       password: '',
-      loading: false
+      service: 'images'
     }
   },
   methods: {
+    async onFileChange(e) {
+      const file = e.target.files[0]
+
+      if (!file) {
+        return
+      }
+
+      if (file.size > 500000) {
+        this.$bvToast.toast('File size must not be greater than 500kb', {
+          variant: 'warning'
+        })
+        return
+      }
+
+      let mime = file.type
+
+      this.url = URL.createObjectURL(file)
+
+      let upload = await this.getSignedUrl(mime)
+      this.picture = upload.public_url
+
+      this.$bvToast.toast('Uploading image. Please wait...')
+
+      //upload image here
+      let uploadUrl = await this.uploadUrl(upload.signed_url, file, mime)
+        .then(res => {
+          this.$emit('input', this.publicUrl)
+
+          this.$bvToast.toast('Image uploaded successfully', {
+            variant: 'success',
+            solid: true
+          })
+        })
+        .catch(e => {
+          this.$bvToast.toast(e.message, {
+            title: 'Error',
+            variant: 'danger',
+            solid: true
+          })
+        })
+    },
+    getSignedUrl(mime) {
+      const { service } = this
+
+      return this.$images
+        .getSignedUrl(service, mime)
+        .then(({ data }) => {
+          return data.data
+        })
+        .catch(({ response }) => {
+          this.$bvToast.toast(JSON.stringify(response.data.errors), {
+            title: 'Error',
+            variant: 'danger',
+            solid: true
+          })
+        })
+    },
+    uploadUrl(url, file, mime) {
+      return axios
+        .put(url, file, {
+          headers: {
+            'Content-Type': mime
+          }
+        })
+        .then(res => {
+          return res
+        })
+        .catch(({ response }) => {
+          this.$bvToast.toast(JSON.stringify(response.data), {
+            variant: 'danger',
+            solid: true
+          })
+        })
+    },
     updateAdmin() {
-      const { id, name, email, password } = this
+      const { id, first_name, last_name, picture } = this
 
       this.loading = !this.loading
 
       this.$admin
-        .updateAnAdmin(id, { name, email, password })
+        .updateAnAdmin(id, { first_name, last_name, picture })
         .then(({ data }) => {
-          this.$bvToast.toast(`Admin updated successfully`, {
-            title: 'Success',
-            variant: 'success',
-            solid: true
+          this.loading = !this.loading
+          this.$bvToast.toast(
+            `${first_name} ${last_name} updated successfully`,
+            {
+              title: 'Success',
+              variant: 'success',
+              solid: true
+            }
+          )
+          this.$router.push({
+            name: 'space-admins'
           })
-
-          setTimeout(() => {
-            this.loading = !this.loading
-            this.$router.push({
-              name: 'space-admins'
-            })
-          }, 3000)
         })
-        .catch(err => {
-          this.$bvToast.toast(err, {
+        .catch(e => {
+          const message = e.response
+            ? `${e.response.data.message} ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+          this.$bvToast.toast(message, {
             title: 'Error',
             variant: 'danger',
             solid: true

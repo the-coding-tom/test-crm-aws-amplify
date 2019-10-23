@@ -57,7 +57,7 @@ import {
   CardNumber,
   CardExpiry,
   CardCvc,
-  createPaymentMethod
+  createToken
 } from 'vue-stripe-elements-plus'
 
 const { publishable_key } = process.env
@@ -134,13 +134,11 @@ export default {
 
       const { name } = this
 
-      createPaymentMethod('card', {
-        billing_details: {
-          name
-        }
+      createToken({
+        name
       })
-        .then(({ paymentMethod }) => {
-          this.$emit('addCard', paymentMethod.id)
+        .then(({ token }) => {
+          this.$emit('addCard', token.id)
         })
         .catch(e => {
           this.toggleLoading()

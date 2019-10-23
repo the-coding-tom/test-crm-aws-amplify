@@ -177,7 +177,7 @@
                         @click="removeSlot(i)"><i class="fa fa-times"/></b-button>
                     </b-form-group>
                   </div>
-                  <p class="text-mute pd-l-20">Note: Slots are key to how the retrieve wellness slots.</p>
+                  <!-- <p class="text-mute pd-l-20">Note: Slots are key to how the retrieve wellness slots.</p> -->
                 </div>
               </div>
             </div>
@@ -213,16 +213,22 @@ export default {
     [Select.name]: Select,
     [Option.name]: Option
   },
-  async asyncData({ $wellness }) {
-    let categories
+  async asyncData({ $wellness, error }) {
+    let categories = []
 
     await $wellness.getWellnessCategories().then(({ data }) => {
       categories = data.data
     })
 
+    if (categories.length > 0) {
+      return {
+        categories,
+        wellness_category_id: categories[0].id
+      }
+    }
+
     return {
-      categories,
-      wellness_category_id: categories[0].id
+      categories
     }
   },
   data() {

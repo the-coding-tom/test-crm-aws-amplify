@@ -1,7 +1,7 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle
@@ -62,6 +62,9 @@
           </card>
         </div>
       </div>
+      <card v-if="sessions.length == 0">
+        <p>No sessions available</p>
+      </card>
     </div>
     <div>
       <base-pagination

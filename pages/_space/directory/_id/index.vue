@@ -118,6 +118,9 @@
               <div class="sh-dls">
                 <span>Renewal due by:</span> {{ getSubscription }}
               </div>
+              <div class="sh-dls">
+                <span>Last Checkin Timestamp:</span>
+              </div>
 
               <hr
                 class="w-25 bg-dark3 text-default"

@@ -93,6 +93,7 @@ module.exports = {
     '~/plugins/services/invoice',
     '~/plugins/services/eatry',
     '~/plugins/services/space',
+    '~/plugins/services/settings',
     { src: '~/plugins/vue2-datepicker', ssr: false },
     { src: '~/plugins/vue2-filters', ssr: false }
   ],
