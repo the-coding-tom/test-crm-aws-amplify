@@ -61,6 +61,23 @@
         </b-tab>
         <b-tab
           title="Guest"><b-form @submit.prevent="checkinGuest">
+            <b-form-group label="Member">
+              <el-select
+                v-model="membership_id"
+                :remote-method="searchMembers"
+                :loading="searching"
+                required
+                filterable
+                remote
+                reserve-keyword
+                placeholder="Choose a member">
+                <el-option
+                  v-for="option in data"
+                  :key="option.id"
+                  :label="option.first_name + ' ' + option.last_name"
+                  :value="option.id"/>
+              </el-select>
+            </b-form-group>
             <b-form-group label="First Name">
               <b-form-input
                 v-model="first_name"
@@ -183,18 +200,19 @@ export default {
     },
     checkinGuest() {
       this.loading = !this.loading
-      const { first_name, last_name, email, company } = this
+      const { first_name, last_name, email, company, membership_id } = this
       this.$checkin
         .checkin({
           type: 'guest',
           first_name,
           last_name,
           email,
-          company
+          company,
+          membership_id
         })
         .then(({ data }) => {
           this.loadiing = !this.loading
-          this.checkins.push(data)
+          // this.checkins.push(data)
 
           this.$bvToast.toast('Guest checked in successfully', {
             title: 'Success',
@@ -202,6 +220,7 @@ export default {
           })
 
           this.$bvModal.hide('checkin')
+          location.reload()
         })
         .catch(e => {
           this.loading = !this.loading
@@ -221,8 +240,8 @@ export default {
             membership: membership_id
           })
           .then(({ data }) => {
-            this.loadiing = false
-            this.checkins.push(data)
+            this.loading = false
+            // this.checkins.push(data)
 
             this.$bvToast.toast('Member checked in successfully', {
               title: 'Success',
@@ -230,6 +249,7 @@ export default {
             })
 
             this.$bvModal.hide('checkin')
+            location.reload()
           })
       } catch (e) {
         this.loading = !this.loading

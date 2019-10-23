@@ -5,9 +5,9 @@
         <b-form-group
           class="col-md-12"
           label="Member">
-          <b-form-select 
+          <b-form-select
             :options="members"
-            v-model="membership_id" 
+            v-model="membership_id"
             required />
         </b-form-group>
       </b-row>
@@ -15,9 +15,9 @@
         <b-form-group
           class="col-md-12"
           label="Room">
-          <b-form-select 
+          <b-form-select
             :options="rooms"
-            v-model="room_id" 
+            v-model="room_id"
             required />
         </b-form-group>
       </b-row>
@@ -29,6 +29,7 @@
             <date-picker
               id="time"
               v-model="from"
+              :time-picker-options="timePickerOptions"
               width="100%"
               input-class="form-control"
               lang="en"
@@ -47,6 +48,7 @@
             <date-picker
               id="time"
               v-model="to"
+              :time-picker-options="timePickerOptions"
               width="100%"
               input-class="form-control"
               lang="en"
@@ -70,8 +72,8 @@
       </b-row>
       <b-row>
         <b-form-group class="col-md-12">
-          <b-button 
-            type="submit" 
+          <b-button
+            type="submit"
             class="float-right"
             variant="primary">Save</b-button>
         </b-form-group>
@@ -111,7 +113,12 @@ export default {
     title: '',
     members: [],
     rooms: [],
-    room_id: ''
+    room_id: '',
+    timePickerOptions: {
+      start: '00:00',
+      step: '00:15',
+      end: '23:30'
+    }
   }),
   mounted() {
     this.from = this.ifrom

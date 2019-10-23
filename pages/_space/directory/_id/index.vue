@@ -119,7 +119,7 @@
                 <span>Renewal due by:</span> {{ getSubscription }}
               </div>
               <div class="sh-dls">
-                <span>Last Checkin Timestamp:</span>
+                <span>Last Checkin Timestamp:</span> {{ data.last_checkin[0] && $moment(data.last_checkin[0].checkin_timestamp).format('MMMM DD, YYYY HH:mm:ss') }}
               </div>
 
               <hr

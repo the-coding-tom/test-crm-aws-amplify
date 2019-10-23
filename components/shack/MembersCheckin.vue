@@ -12,17 +12,29 @@
         sortable>
         <template v-slot="{row}">
           <div class="sh-vflex">
-            <div><nuxt-link :to="{name: 'space-directory-id', params: {id: row.membership}}" >{{ row.first_name + " "+ row.last_name }}</nuxt-link> <br> {{ row.company }}</div>
+            <div v-if="row.membership"><nuxt-link :to="{name: 'space-directory-id', params: {id: row.membership}}" >
+              {{ row.first_name + " "+ row.last_name }}</nuxt-link> <br> {{ row.company }}
+            </div>
+            <div v-else>
+              {{ row.first_name + " "+ row.last_name }} <br> {{ row.company }}
+            </div>
           </div>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="Member ID"
+        label="Type"
+        prop="type"
+        sortable />
+
+      <el-table-column
+        label="For"
         prop="member_id"
         sortable>
         <template v-slot="{row}">
-          <div class="float-left">{{ row.type == 'member' ? row.member_id : row.type }}</div>
+          <div
+            v-if="!row.membership"
+            class="float-left">{{ `${row.member.first_name} ${row.member.last_name}` }}</div>
         </template>
       </el-table-column>
 
@@ -109,6 +121,7 @@ export default {
             title: 'Success',
             variant: 'success'
           })
+          location.reload()
         })
         .catch(e => {
           this.toggleLoading()

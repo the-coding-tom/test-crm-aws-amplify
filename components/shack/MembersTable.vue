@@ -21,7 +21,8 @@
             </div>
             <b-link ><b-link
               :to="{name: 'space-memberships-id', params: {id: row.id}}"
-            >{{ row.first_name }} {{ row.last_name }}</b-link> <br> <span style="color: grey;">{{ row.user_profile ? row.user_profile.company : null }}</span></b-link>
+            >{{ row.first_name }} {{ row.last_name }}</b-link> <br>
+            <span style="color: grey;">{{ row.user_profile ? row.user_profile.company : null }}</span></b-link>
           </div>
         </template>
       </el-table-column>
@@ -33,7 +34,10 @@
         <template v-slot="{row}">
           <div
             v-if="row.primary_plan.length > 0"
-            class="float-left">{{ row.primary_plan.length > 0 && row.primary_plan[0].name }}</div> <div class="float-right text-muted">{{ row.primary_plan[0] && row.primary_plan[0].price_per_cycle | currency(space.currency_symbol) }}</div>
+            class="float-left">{{ row.primary_plan.length > 0 && row.primary_plan[0].name }}</div>
+          <div class="float-right text-muted">
+            {{ row.primary_plan[0] && row.primary_plan[0].price_per_cycle | currency(space.currency_symbol) }}
+          </div>
         </template>
       </el-table-column>
 
