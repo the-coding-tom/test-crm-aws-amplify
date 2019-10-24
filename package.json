@@ -12,7 +12,7 @@
     "precommit": "yarn lint --fix",
     "heroku-postbuild": "yarn build"
   },
-  "engine": {
+  "engines": {
     "node": "10.*.*",
     "yarn": "1.17.*"
   },
