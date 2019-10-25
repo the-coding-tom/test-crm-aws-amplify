@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-3 sh-widget">
     <div class="card">
-      <nuxt-link :to="{name:destination-link}">
+      <nuxt-link :to="{name:destinationLink}">
         <div class="card-body">
           <div class="d-flex justify-content-between">
             <h2>{{ value }}</h2>
