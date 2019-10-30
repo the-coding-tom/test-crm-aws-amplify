@@ -80,6 +80,7 @@
     </div>
   </div>
 </template>
+
 <script>
 // Components
 import BaseHeader from '@/components/argon-core/BaseHeader'
@@ -102,7 +103,10 @@ export default {
         store.commit('events/setEvents', data)
       })
       .catch(err => {
-        error({ statusCode: 404, message: 'Error getting events' })
+        const message = err.response
+          ? JSON.stringify(err.response.data.errros)
+          : err.message
+        error({ statusCode: 404, message: message })
       })
   },
   data() {
