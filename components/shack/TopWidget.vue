@@ -5,7 +5,7 @@
         <div class="card-body">
           <div class="d-flex justify-content-between">
             <h2>{{ value }}</h2>
-            <img :src="img" />
+            <img :src="img" >
           </div>
           <p class="card-text">{{ text }}</p>
         </div>

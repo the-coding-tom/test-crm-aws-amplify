@@ -183,14 +183,17 @@ export default {
       }, 350)()
     },
     createInvoice() {
-      this.$store.commit('invoice/initiateInvoice', this.company_id)
+      let data = {
+        company_id: this.company_id,
+        space: this.$store.state.space.currentSpace.subdomain
+      }
+      this.$store.commit('invoice/initiateInvoice', data)
     },
     async getInvoiceResult(e) {
       this.loadingSearch = true
 
       try {
         const { data } = await this.$invoice.searchInvoice(e)
-        console.log(data)
         let emptyIn = []
         data.data.map(item => {
           let invObj = {

@@ -15,10 +15,10 @@ export const mutations = {
   setTableInvoices(state, invoice) {
     state.invoiceTable = invoice
   },
-  initiateInvoice(state, company_id) {
-    state.addInvoice.company_id = company_id
+  initiateInvoice(state, data) {
+    state.addInvoice.company_id = data.company_id
     this.$router.push({
-      path: `/shack15/invoice/add/${company_id}`
+      path: `/${data.space}/invoice/add/${data.company_id}`
     })
   },
   setIsLoading(state) {
@@ -33,7 +33,6 @@ export const actions = {
   async getAllInvoices({ commit }) {
     try {
       const { data } = await this.$invoice.getAllInvoice()
-      console.log(data.data)
       let emptyIn = []
       data.data.map(item => {
         let invObj = {
@@ -54,7 +53,6 @@ export const actions = {
       commit('setTableInvoices', emptyIn)
       commit('setInvoices', data)
     } catch (error) {
-      console.log(error)
       this._vm.$bvToast.toast(
         `${
           error.response
@@ -91,10 +89,8 @@ export const actions = {
   async getOneInvoice({ commit }, payload) {
     try {
       const { data } = await this.$invoice.getOneInvoice(payload)
-      console.log(data)
       commit('setOneInvoice', data)
     } catch (error) {
-      console.log(error)
       this._vm.$bvToast.toast(
         `${
           error.response
@@ -105,7 +101,7 @@ export const actions = {
       )
     }
   },
-  async updateInvoice({ state, commit }, payload) {
+  async updateInvoice({ state, dispatch }, payload) {
     try {
       await this.$invoice.updateInvoice(payload.id, payload)
       dispatch('getAllInvoices')
@@ -114,7 +110,6 @@ export const actions = {
         `Invoice updated successfully`,
         helper.notify.sucess
       )
-      this.$router.go(-1)
     } catch (error) {
       this._vm.$bvToast.toast(
         `${
@@ -173,7 +168,6 @@ export const actions = {
       )
       dispatch('getAllInvoices')
     } catch (error) {
-      console.log(error)
       this._vm.$bvToast.toast(
         `${
           error.response

@@ -1,34 +1,38 @@
 <template>
   <div>
-    <base-header class="pb-6" type>
+    <base-header 
+      class="pb-6" 
+      type>
       <div class="d-flex justify-content-between py-4">
-        <MainTitle title="Dashboard" subtitle="This Month" />
+        <MainTitle 
+          title="Dashboard" 
+          subtitle="This Month" />
       </div>
 
       <div class="row">
         <TopWidget
           :value="summary.checkins"
           img="/img/icon-user.png"
-          destinationLink="space-checkins"
+          destination-link="space-checkins"
           text="Members Checked In"
         />
 
         <TopWidget
           :value="summary.unpaidInvoices"
           img="/img/icon-wallet.png"
-          destinationLink="space-invoice"
+          destination-link="space-invoice"
           text="Unpaid Invoices"
         />
         <TopWidget
           :value="summary.bookings"
           :text="`Bookings Revenue (${space.currency})`"
           img="/img/icon-discount.png"
-          destinationLink="space-resources"
+          destination-link="space-resources"
         />
         <TopWidget
           :value="summary.events"
           img="/img/icon-help.png"
-          destinationLink="space-events"
+          destination-link="space-events"
           text="Events"
         />
       </div>
@@ -38,9 +42,13 @@
     <div class="container-fluid mt--6">
       <div class="card-deck flex-column flex-xl-row">
         <card>
-          <div slot="header" class="row align-items-center">
+          <div 
+            slot="header" 
+            class="row align-items-center">
             <div class="col">
-              <SectionTitle title="Activity Feed" subtitle="Usage Stream on Mobile Platform" />
+              <SectionTitle 
+                title="Activity Feed" 
+                subtitle="Usage Stream on Mobile Platform" />
             </div>
           </div>
           <div class="m-n25 sh-activity">
@@ -63,9 +71,13 @@
         </card>
 
         <card header-classes="bg-transparent">
-          <div slot="header" class="row align-items-center">
+          <div 
+            slot="header" 
+            class="row align-items-center">
             <div class="col">
-              <SectionTitle title="Bookings" subtitle="Space, Events, Meals, and Resources" />
+              <SectionTitle 
+                title="Bookings" 
+                subtitle="Space, Events, Meals, and Resources" />
             </div>
           </div>
           <div class="m-n25 sh-activity sh-bookings">
