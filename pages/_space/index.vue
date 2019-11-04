@@ -1,11 +1,11 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type>
       <div class="d-flex justify-content-between py-4">
-        <MainTitle 
-          title="Dashboard" 
+        <MainTitle
+          title="Dashboard"
           subtitle="This Month" />
       </div>
 
@@ -42,12 +42,12 @@
     <div class="container-fluid mt--6">
       <div class="card-deck flex-column flex-xl-row">
         <card>
-          <div 
-            slot="header" 
+          <div
+            slot="header"
             class="row align-items-center">
             <div class="col">
-              <SectionTitle 
-                title="Activity Feed" 
+              <SectionTitle
+                title="Activity Feed"
                 subtitle="Usage Stream on Mobile Platform" />
             </div>
           </div>
@@ -57,10 +57,9 @@
                 <EmptyActivity v-if="activities.length === 0" />
                 <template v-else>
                   <Activity
-                    v-for="(activity,index) in activities"
-                    :key="index"
-                    img="/img/icon-notification-o.png"
-                    date="2h ago"
+                    v-for="(activity) in activities"
+                    :key="activity.id"
+                    :date="getTimestamp(activity)"
                   >
                     <span>{{ activity.description }}</span>
                   </Activity>
@@ -68,15 +67,19 @@
               </tbody>
             </table>
           </div>
+          <nuxt-link
+            slot="footer"
+            :to="{name:'space-activities'}"
+            class="mr-t-10">See More</nuxt-link>
         </card>
 
         <card header-classes="bg-transparent">
-          <div 
-            slot="header" 
+          <div
+            slot="header"
             class="row align-items-center">
             <div class="col">
-              <SectionTitle 
-                title="Bookings" 
+              <SectionTitle
+                title="Bookings"
                 subtitle="Space, Events, Meals, and Resources" />
             </div>
           </div>
@@ -89,7 +92,7 @@
                     v-for="(booking, index) in bookings"
                     :key="index"
                     :title="booking.title + ' ' + $moment(booking.start_timestamp).format('dddd MMM Do') + ' ' + booking.from + ' - ' + booking.to"
-                    img="/img/icon-notification-o.png"
+                    :img="booking.room.photo"
                   >Room: {{ booking.room.name }}</Booking>
                 </template>
               </tbody>
@@ -111,6 +114,7 @@ import FeedTable from '~/components/shack/FeedTable.vue'
 import Booking from '~/components/shack/Booking.vue'
 
 import { mapState } from 'vuex'
+import mz from 'moment-timezone'
 
 export default {
   layout: 'ShackDash',
@@ -161,15 +165,16 @@ export default {
     ...mapState({
       space: state => state.space.currentSpace,
       summary: state => state.activity.summary,
-      activities: state =>
-        state.activity.activities.data.length < 6
-          ? state.activity.activities.data
-          : state.activity.activities.data.slice(0, 5),
-      bookings: state =>
-        state.activity.bookings.data.length < 6
-          ? state.activity.bookings.data
-          : state.activity.bookings.data.slice(0, 5)
+      activities: state => state.activity.activities.data,
+      bookings: state => state.activity.bookings.data
     })
+  },
+  methods: {
+    getTimestamp(activity) {
+      return mz(activity.created_at)
+        .tz(this.space.timezone)
+        .fromNow()
+    }
   }
 }
 </script>

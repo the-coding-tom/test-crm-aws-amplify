@@ -1,9 +1,6 @@
 <template>
   <tr>
     <td class="activity">
-      <img 
-        :src="img" 
-        alt >
       <slot />
     </td>
     <td>{{ date }}</td>
