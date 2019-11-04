@@ -100,7 +100,8 @@
                     <label>Resource Settings</label>
                     <b-form-checkbox
                       v-model="can_book"
-                      :checked="can_book"
+                      :unchecked-value="false"
+                      :checked="true"
                     >Room is bookable</b-form-checkbox>
                   </div>
                 </div>
