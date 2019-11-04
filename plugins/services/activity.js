@@ -6,7 +6,7 @@ export default function(ctx, inject) {
       return ctx.$axios.$get(`${subdomain()}/summary`)
     },
     getAllActivities() {
-      return ctx.$axios.$get(`${subdomain()}/activities`)
+      return ctx.$axios.$get(`${subdomain()}/activities?sort=-created_at`)
     },
     getAllBookings: () => {
       return ctx.$axios.get(`${subdomain()}/rooms/bookings/admin`)
