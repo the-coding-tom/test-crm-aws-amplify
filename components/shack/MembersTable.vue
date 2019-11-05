@@ -36,7 +36,7 @@
             v-if="row.primary_plan.length > 0"
             class="float-left">{{ row.primary_plan.length > 0 && row.primary_plan[0].name }}</div>
           <div class="float-right text-muted">
-            {{ row.primary_plan[0] && row.primary_plan[0].price_per_cycle | currency(space.currency_symbol) }}
+            {{ row.primary_plan[0] && row.primary_plan[0].price | currency(space.currency_symbol) }}
           </div>
         </template>
       </el-table-column>

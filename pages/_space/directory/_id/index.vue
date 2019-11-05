@@ -165,14 +165,10 @@
                       :key="card.id"
                     >
                       <td>
-                        <h3>{{ card.billing_details.name }}</h3>
+                        {{ card.card_brand }}
                       </td>
                       <td>
-                        <span> <i
-                          :class="`fab fa-cc-${card.card.brand}`" /> **** {{ card.card.last4 }} </span>
-                      </td>
-                      <td>
-                        {{ $moment(card.card.exp_month, "M").format('MMM') }} {{ card.card.exp_year }}
+                        {{ $moment(card.exp_month, "M").format('MMM') }} {{ card.exp_year }}
                       </td>
                       <td>
                         <b-button
@@ -207,10 +203,9 @@
               <table class="table table-hover table-striped">
                 <tbody>
                   <tr
-                    v-for="subscription in subscriptions"
+                    v-for="subscription in data.subscriptions"
                     :key="subscription.id">
-                    <td>{{ subscription.plan.name }}</td>
-                    <td>{{ space.currency_symbol }}{{ subscription.plan.amount / 100 }}</td>
+                    <td>{{ getSubName(subscription)['name'] }}</td>
                     <td>Until {{ getSubDetails(subscription) }}</td>
                     <td>
                       <b-button
@@ -359,15 +354,13 @@ export default {
     getSubscription() {
       let renewal = null
       _.each(this.data.primary_plan, v => {
-        _.each(this.subscriptions, o => {
-          if (o.plan.id == v.stripe_id) {
-            renewal = o.current_period_end
-              ? o.current_period_end
-              : o.trial_ends_at
+        _.each(this.data.subscriptions, o => {
+          if (o.plan_id == v.id) {
+            renewal = o.ends_at ? o.ends_at : o.trial_ends_at
           }
         })
       })
-      return this.$moment(renewal * 1000).format('MMMM DD, YYYY')
+      return this.$moment(renewal).format('MMMM DD, YYYY')
     },
     rows() {
       return this.data.events_attended.length
@@ -376,6 +369,17 @@ export default {
   methods: {
     toggleModal(type) {
       this.$bvModal.show(type)
+    },
+    getSubName(subscription) {
+      let name, price
+      _.each(this.data.plans, function(o) {
+        if (o.id == subscription.plan_id) {
+          name = o.name
+          price = o.price
+        }
+      })
+
+      return { name, price }
     },
     checkinToggle(e) {
       if (e == 'checkin') {
@@ -418,7 +422,7 @@ export default {
     },
     getExtras(extras) {
       let html = ''
-      _.each(JSON.parse(extras), (o, i) => {
+      _.each(extras, (o, i) => {
         html += `<div class="sh-dls"><span>${_.upperFirst(o.type)}:</span> ${
           o.comment ? o.comment : ''
         }</div>`
@@ -459,11 +463,11 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
     getSubDetails(subscription) {
-      const ends_at = subscription.current_period_end
-        ? subscription.current_period_end
-        : subscription.trial_end
+      const ends_at = subscription.ends_at
+        ? subscription.ends_at
+        : subscription.trial_ends_at
 
-      return this.$moment(ends_at * 1000).format('DD MMM, YYYY')
+      return this.$moment(ends_at).format('DD MMM, YYYY')
     },
     addCard(paymentMethod) {
       this.$membership

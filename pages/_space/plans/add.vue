@@ -137,8 +137,8 @@ export default {
       const payload = {
         name,
         description,
-        cycle_duration,
-        price_per_cycle,
+        invoice_period: cycle_duration,
+        price: price_per_cycle,
         recurring: true,
         hidden
       }

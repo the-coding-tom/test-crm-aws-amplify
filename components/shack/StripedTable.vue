@@ -21,11 +21,11 @@
         min-width="140px">
         <template v-slot="{row}">
           <span>
-            {{ space.currency_symbol }} {{ row.price_per_cycle }} every
+            {{ row.price | currency(space.currency_symbol) }} every
             <span
               v-if="row.cycle_duration === 12"
             >year</span>
-            <span v-else>{{ row.cycle_duration }} month(s)</span>
+            <span v-else>{{ row.invoice_period }} month(s)</span>
           </span>
         </template>
       </el-table-column>

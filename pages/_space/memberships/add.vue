@@ -78,36 +78,11 @@
                     <div class="col-md-5">
                       <h3 class="mb-4">Membership Details</h3>
 
-                      <b-form-group label="Start Date">
-                        <client-only>
-                          <date-picker
-                            id="time"
-                            v-model="membership.start_time"
-                            width="100%"
-                            input-class="form-control"
-                            lang="en"
-                            format="YYYY-MM-DD"
-                            value-type="format"
-                            confirm
-                            type="date"
-                            placeholder="Start Date"/>
-                        </client-only>
-                      </b-form-group>
-
-                      <b-form-group label="End Date">
-                        <client-only>
-                          <date-picker
-                            id="time"
-                            v-model="membership.end_time"
-                            width="100%"
-                            input-class="form-control"
-                            lang="en"
-                            format="YYYY-MM-DD"
-                            value-type="format"
-                            confirm
-                            type="date"
-                            placeholder="End Date"/>
-                        </client-only>
+                      <b-form-group label="Membership ID">
+                        <b-form-input
+                          v-model="membership.membership_id"
+                          placeholder="Membership #"
+                          required/>
                       </b-form-group>
 
                       <b-form-group label="On Trial">
@@ -202,10 +177,10 @@ export default {
         first_name: '',
         last_name: '',
         linkedin_url: '',
+        membership_id: '',
         email: '',
         extras: [{ type: 'reference', comment: '' }],
         founding_member: false,
-        start_time: '',
         trial: false,
         trial_days: '0'
       }

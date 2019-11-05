@@ -1,29 +1,29 @@
 <template>
-  <div 
-    role="tablist" 
+  <div
+    role="tablist"
     class="sh-accordion">
-    <div 
-      v-for="plan in plans" 
-      :key="plan.uuid"
+    <div
+      v-for="plan in plans"
+      :key="plan.id"
       class="sh-accordion-item">
       <a
         v-b-toggle.accordion-1
-        v-b-toggle="'accordion-' + plan.uuid"
+        v-b-toggle="'accordion-' + plan.id"
         block
         href="javascript:void(0)"
         class="d-flex justify-content-between"
       >
         <div class="sh-acc-title">
-          {{ plan.name }} ({{ space.currency_symbol }} {{ plan.price_per_cycle }} {{ getCycleDuration(plan.cycle_duration) }}) <i class="fa fa-angle-down" />
+          {{ plan.name }} ({{ plan.price | currency(space.currency_symbol) }} {{ getCycleDuration(plan.cycle_duration) }}) <i class="fa fa-angle-down" />
         </div>
-        <b-form-radio 
+        <b-form-radio
           v-model="selectedPlan"
-          :value="plan.uuid"
+          :value="plan.id"
           name="plan"
           @change="changePlan">Select this plan</b-form-radio>
       </a>
       <b-collapse
-        :id="'accordion-' + plan.uuid"
+        :id="'accordion-' + plan.id"
         visible
         accordion="my-accordion"
         role="tabpanel"
@@ -54,7 +54,7 @@ export default {
     })
   },
   mounted() {
-    this.selectedPlan = this.plans[0].uuid
+    this.selectedPlan = this.plans[0].id
     this.$emit('input', this.selectedPlan)
     this.accordion = this.selectedPlan
   },

@@ -185,7 +185,7 @@ export default {
       this.$checkin.checkins(`${prev}`)
     },
     searchMembers(query) {
-      const link = `filter[search]=${query}`
+      const link = `filter[search]=${query}&filter[status]=accepted`
 
       this.searching = !this.searching
 

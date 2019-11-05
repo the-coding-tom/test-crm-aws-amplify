@@ -19,11 +19,13 @@
           <div class="col-md-5">
             <card>
               <div class="d-flex mr-b-10">
-                <img
+                <!-- <img
                   alt="Image placeholder"
                   class="avatar rounded-circle"
-                  src="img/theme/team-4.jpg"
-                >
+                  height="80"
+                  width="80"
+                  :src=""
+                > -->
                 <textarea
                   v-model="feed_text"
                   class="form-control no-border resize-none"
