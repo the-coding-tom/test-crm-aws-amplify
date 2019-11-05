@@ -12,7 +12,7 @@ export const mutations = {
   },
   removePlan(state, planId) {
     const index = state.plans.data.findIndex(plan => {
-      return plan.uuid == planId
+      return plan.id == planId
     })
     if (index !== -1) state.plans.data.splice(index, 1)
   }

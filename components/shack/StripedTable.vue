@@ -29,7 +29,7 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         min-width="180px"
         align="center">
         <template
@@ -37,7 +37,7 @@
           class="table-actions">
           <b-button
             :disabled="loading"
-            :to="{name:'space-plans-id-edit', params: { id: row.uuid}}"
+            :to="{name:'space-plans-id-edit', params: { id: row.id}}"
             type="submit"
             variant="transparent"
             class="text-primary"
@@ -45,7 +45,7 @@
             <i class="fa fa-pen" /> Edit
           </b-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column
         min-width="180px"
@@ -101,14 +101,14 @@ export default {
       this.loading = !this.loading
 
       await this.$plan
-        .removePlan(row.uuid)
+        .removePlan(row.id)
         .then(res => {
           this.$bvToast.toast('Plan removed successfully', {
             title: 'Success',
             variant: 'success',
             solid: true
           })
-          this.$store.commit('plans/removePlan', row.uuid)
+          this.$store.commit('plans/removePlan', row.id)
           this.loading = !this.loading
         })
         .catch(err => {

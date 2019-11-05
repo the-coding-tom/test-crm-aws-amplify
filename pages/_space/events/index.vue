@@ -52,7 +52,12 @@
         </b-row>
         <b-row>
           <b-col md="12">
-            <p>Price: {{ space.currency_symbol }} {{ currentEvent.extendedProps ? currentEvent.extendedProps.price : null }}</p>
+            <p>Price: {{ currentEvent.extendedProps && currentEvent.extendedProps.price | currency(space.currency_symbol) }}</p>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="12">
+            <badge type="info">{{ currentEvent.extendedProps && currentEvent.extendedProps.event_category.name }}</badge>
           </b-col>
         </b-row>
         <template v-slot:modal-footer>

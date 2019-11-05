@@ -17,9 +17,25 @@
             placeholder="Choose New Plan">
             <el-option
               v-for="plan in plans"
-              :key="plan.uuid"
+              :key="plan.id"
               :label="plan.name"
-              :value="plan.uuid"
+              :value="plan.id"
+            />
+          </el-select>
+        </b-form-group>
+        <b-form-group
+          class="col-md-12"
+          label="Payment Source"
+          description="">
+          <el-select
+            v-model="plan.card_nonce"
+            reserve-keyword
+            placeholder="Choose Card">
+            <el-option
+              v-for="card in cards"
+              :key="card.id"
+              :label="`${card.card_brand} ~ **** ${card.last_4}`"
+              :value="card.id"
             />
           </el-select>
         </b-form-group>
@@ -48,27 +64,6 @@
             required/>
         </b-form-group>
       </b-row>
-      <!-- <b-row>
-
-        <b-form-group
-          class="col-md-12"
-          label="End Time">
-          <client-only>
-            <date-picker
-              id="time"
-              v-model="plan.end_time"
-              width="100%"
-              input-class="form-control"
-              lang="en"
-              format="YYYY-MM-DD HH:mm:ss"
-              value-type="format"
-              confirm
-              type="datetime"
-              placeholder="yyyy-mm-dd hh:mm:ss"
-            />
-          </client-only>
-        </b-form-group>
-      </b-row> -->
       <b-button
         :disabled="loading"
         class="float-right"
@@ -87,7 +82,12 @@ export default {
     [Select.name]: Select,
     [Option.name]: Option
   },
-  props: {},
+  props: {
+    cards: {
+      type: Array,
+      default: () => []
+    }
+  },
   data: () => ({
     loading: false,
     search: '',
@@ -95,8 +95,8 @@ export default {
     plan: {
       plan_id: '',
       trial: false,
-      end_time: '',
-      trial_days: '0'
+      trial_days: '0',
+      card_nonce: ''
     }
   }),
   mounted() {
@@ -142,7 +142,7 @@ export default {
 
       this.$membership
         .addPlan(id, plan)
-        .then(({ data }) => {
+        .then(res => {
           this.$bvToast.toast('Plan assigned to member successfully', {
             title: 'Success',
             variant: 'success'
@@ -151,7 +151,11 @@ export default {
         })
         .catch(e => {
           this.loading = !this.loading
-          const message = e.response ? e.response.data.message : e.message
+          const message = e.response
+            ? `${e.response.data.message} ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
 
           this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
         })

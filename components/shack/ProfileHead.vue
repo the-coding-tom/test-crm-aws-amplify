@@ -53,7 +53,7 @@ export default {
       default: null
     },
     extras: {
-      type: String,
+      type: Array,
       default: () => []
     }
   },

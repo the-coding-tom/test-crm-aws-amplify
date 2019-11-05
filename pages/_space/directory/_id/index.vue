@@ -204,6 +204,7 @@
                 <tbody>
                   <tr
                     v-for="subscription in data.subscriptions"
+                    v-if="!subscription.canceled_at"
                     :key="subscription.id">
                     <td>{{ getSubName(subscription)['name'] }}</td>
                     <td>Until {{ getSubDetails(subscription) }}</td>
@@ -270,7 +271,7 @@
     <b-modal
       id="add-plan"
       title="Add New Plan"
-      hide-footer><AddPlan /></b-modal>
+      hide-footer><AddPlan :cards="cards" /></b-modal>
     <b-modal
       id="add-card"
       title="Add New Card"
@@ -353,9 +354,9 @@ export default {
     }),
     getSubscription() {
       let renewal = null
-      _.each(this.data.primary_plan, v => {
+      _.each(this.data.plans, v => {
         _.each(this.data.subscriptions, o => {
-          if (o.plan_id == v.id) {
+          if (o.plan_id == v.id && o.canceled_at == null) {
             renewal = o.ends_at ? o.ends_at : o.trial_ends_at
           }
         })
@@ -438,7 +439,7 @@ export default {
 
       this.$membership
         .deletePaymentMethod(this.$route.params.id, {
-          card_id: this.cards[i].id
+          card_nonce: this.cards[i].id
         })
         .then(res => {
           this.cards.splice(i, 1)
@@ -471,7 +472,7 @@ export default {
     },
     addCard(paymentMethod) {
       this.$membership
-        .addPaymentMethod(this.$route.params.id, { card_id: paymentMethod })
+        .addPaymentMethod(this.$route.params.id, { card_nonce: paymentMethod })
         .then(({ data }) => {
           this.$bvToast.toast('Card added successfully', {
             title: 'Success',
@@ -509,16 +510,11 @@ export default {
     changePlan(subscription) {
       let plan = null
 
-      if (subscription.plan.id == this.data.primary_plan[0].stripe_id) {
-        this.$bvToast.toast('You cannot swap a member primary plan')
-        return
-      }
-
       const _self = this
 
       _.each(this.data.plans, function(o) {
-        if (o.stripe_id == subscription.plan.id) {
-          _self.plan_id = o.uuid
+        if (o.id == subscription.plan_id) {
+          _self.plan_id = subscription.id
         }
       })
       this.toggleModal('change-plan')
@@ -530,10 +526,11 @@ export default {
 
       this.$membership
         .cancelSubscription(this.$route.params.id, {
-          plan_id: subscription.plan.id
+          plan_id: subscription.plan_id,
+          immediate: true
         })
         .then(res => {
-          this.$bvToast.toast('Member plan cancelled succesfully', {
+          this.$bvToast.toast('Plan canceled succesfully', {
             title: 'Success',
             variant: 'success'
           })
@@ -543,7 +540,11 @@ export default {
         .catch(e => {
           this.loading = !this.loading
 
-          const message = e.response ? e.response.data.message : e.message
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
 
           this.$bvToast.toast(message, {
             title: 'Error',

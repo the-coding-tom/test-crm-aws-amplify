@@ -113,6 +113,9 @@ export default {
     return await $plan
       .getPlan(id)
       .then(({ data: { data } }) => {
+        console.log('------------------------------------')
+        console.log(data)
+        console.log('------------------------------------')
         return {
           plan: data,
           id

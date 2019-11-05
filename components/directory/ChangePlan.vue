@@ -17,14 +17,14 @@
             placeholder="Choose New Plan">
             <el-option
               v-for="plan in plans"
-              :key="plan.uuid"
+              :key="plan.id"
               :label="plan.name"
-              :value="plan.uuid"
+              :value="plan.id"
             />
           </el-select>
         </b-form-group>
       </b-row>
-      
+
       <b-button
         :disabled="loading"
         class="float-right"
@@ -96,7 +96,7 @@ export default {
       const { new_plan_id, plan_id } = this
 
       this.$membership
-        .changePlan(id, { plan_id, new_plan_id })
+        .changePlan(id, { subscription_id: plan_id, new_plan_id })
         .then(({ data }) => {
           this.$bvToast.toast('Plan changed successfully', {
             title: 'Success',
@@ -106,7 +106,11 @@ export default {
         })
         .catch(e => {
           this.loading = !this.loading
-          const message = e.response ? e.response.data.message : e.message
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
 
           this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
         })

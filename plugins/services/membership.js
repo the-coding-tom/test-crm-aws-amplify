@@ -4,10 +4,15 @@ export default function(ctx, inject) {
   }
 
   const getError = e => {
-    ctx.error({
-      statusCode: e.statusCode,
-      message: e.response ? JSON.stringify(e.response.data) : e.message
-    })
+    const message = e.response
+      ? JSON.stringify(e.response.data.errors)
+      : e.message
+    // ctx.$bvToast.toast(message, {
+    //   title: 'Error',
+    //   variant: 'error'
+    // })
+
+    return message
   }
 
   const Membership = {
@@ -51,13 +56,15 @@ export default function(ctx, inject) {
         })
     },
     deletePaymentMethod: (id, payload) => {
-      return ctx.$axios
-        .$delete(`/${subdomain()}/memberships/${id}/removepaymentmethod`, {
+      return ctx.$axios.$delete(
+        `/${subdomain()}/memberships/${id}/removepaymentmethod`,
+        {
           data: payload
-        })
-        .catch(e => {
-          getError(e)
-        })
+        }
+      )
+      // .catch(e => {
+      //   getError(e)
+      // })
     },
     addMembership: payload => {
       return ctx.$axios.$post(`/${subdomain()}/memberships`, payload)
@@ -66,11 +73,10 @@ export default function(ctx, inject) {
       return ctx.$axios.$post(`/${subdomain()}/memberships/${id}/invitation`)
     },
     deleteMembership: id => {
-      return ctx.$axios
-        .$delete(`/${subdomain()}/memberships/${id}`)
-        .catch(e => {
-          getError(e)
-        })
+      return ctx.$axios.$delete(`/${subdomain()}/memberships/${id}`)
+      // .catch(e => {
+      //   getError(e)
+      // })
     },
     getSubscriptions: id => {
       return ctx.$axios
@@ -80,25 +86,22 @@ export default function(ctx, inject) {
         })
     },
     cancelSubscription: (id, plan) => {
-      return ctx.$axios
-        .$delete(`/${subdomain()}/memberships/${id}/cancelplan`, { data: plan })
-        .catch(e => {
-          getError(e)
-        })
+      return ctx.$axios.$delete(
+        `/${subdomain()}/memberships/${id}/cancelplan`,
+        { data: plan }
+      )
     },
     addPlan: (id, payload) => {
-      return ctx.$axios
-        .$post(`/${subdomain()}/memberships/${id}/addplan`, payload)
-        .catch(e => {
-          getError(e)
-        })
+      return ctx.$axios.$post(
+        `/${subdomain()}/memberships/${id}/addplan`,
+        payload
+      )
     },
     changePlan: (id, payload) => {
-      return ctx.$axios
-        .$patch(`/${subdomain()}/memberships/${id}/changeplan`, payload)
-        .catch(e => {
-          getError(e)
-        })
+      return ctx.$axios.$patch(
+        `/${subdomain()}/memberships/${id}/changeplan`,
+        payload
+      )
     },
     getAllNotes: (id, link = null) => {
       if (link) {

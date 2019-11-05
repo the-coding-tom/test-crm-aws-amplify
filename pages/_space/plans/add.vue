@@ -76,7 +76,7 @@
                           >Public</b-form-checkbox>
                           <p
                             class="text-left mt-2"
-                          >Will be displayed on Apply change and all applicants can see this Membership Plan.</p>
+                          >Will be displayed on Apply change and all applicants can see this plan.</p>
                         </b-col>
                       </b-row>
                     </div>
