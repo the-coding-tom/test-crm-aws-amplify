@@ -83,6 +83,7 @@
                       v-model="newBooking.from"
                       :time-picker-options="timePickerOptions"
                       :not-before="not_before"
+                      :disabled-days="disabledates"
                       width="100%"
                       input-class="form-control"
                       lang="en"
@@ -102,6 +103,7 @@
                       v-model="newBooking.to"
                       :time-picker-options="timePickerOptions"
                       :not-before="not_before"
+                      :disabled-days="disabledates"
                       width="100%"
                       input-class="form-control"
                       lang="en"
@@ -211,7 +213,8 @@ export default {
       },
       modalText: 'Add New Booking',
       showmodal: true,
-      modalUpdate: false
+      modalUpdate: false,
+      disabledates: []
     }
   },
   computed: {
@@ -229,6 +232,12 @@ export default {
     not_before() {
       return this.$moment().format('YYYY-MM-DD HH:mm')
     }
+  },
+  created() {
+    this.bookings.map(booked => {
+      this.disabledates.push(booked.start)
+      this.disabledates.push(booked.end)
+    })
   },
   methods: {
     searchMembers(query) {
