@@ -28,7 +28,9 @@
               :ititle="bookdata.title"
               :imembership_id="bookdata.membership_id"
               :iroom_id="bookdata.room_id"
-              @details="submitBooking" />
+              :disableddates="disabledates"
+              @details="submitBooking"
+              @deleteBooking="cancelBook" />
           </b-modal>
           <b-modal
             id="new-booking-modal"
@@ -66,11 +68,44 @@
                     filterable
                     remote
                     reserve-keyword
-                    placeholder="Choose a resource">
+                    placeholder="Choose a resource"
+                  >
                     <el-option
                       v-for="option in allRooms"
                       :key="option.id"
                       :label="option.name"
+                      :value="option.id"/>
+                  </el-select>
+                </b-form-group>
+                <b-form-group
+                  class="col-md-12"
+                  label="Choose payment type">
+                  <el-select
+                    v-model="newBooking.source"
+                    :disabled="!newBooking.membership_id"
+                    required
+                    placeholder="Choose payment type"
+                    @change="getPaymentMethods">
+                    <el-option
+                      v-for="option in paymenttype"
+                      :key="option.id"
+                      :label="option.name"
+                      :value="option.name"/>
+                  </el-select>
+                </b-form-group>
+                <b-form-group 
+                  v-if="newBooking.source == 'card'"
+                  class="col-md-12"
+                  label="Choose card">
+                  <el-select  
+                    v-model="newBooking.payment_method"
+                    required
+                    placeholder="Choose card"
+                  >
+                    <el-option
+                      v-for="option in payCards"
+                      :key="option.id"
+                      :label="option.card_brand"
                       :value="option.id"/>
                   </el-select>
                 </b-form-group>
@@ -83,13 +118,14 @@
                       v-model="newBooking.from"
                       :time-picker-options="timePickerOptions"
                       :not-before="not_before"
+                      :disabled-days="disabledates"
                       width="100%"
                       input-class="form-control"
                       lang="en"
                       format="YYYY-MM-DD HH:mm"
                       value-type="format"
                       confirm
-                      type="datetime"
+                      type="time"
                     />
                   </client-only>
                 </b-form-group>
@@ -102,13 +138,14 @@
                       v-model="newBooking.to"
                       :time-picker-options="timePickerOptions"
                       :not-before="not_before"
+                      :disabled-days="disabledates"
                       width="100%"
                       input-class="form-control"
                       lang="en"
                       format="YYYY-MM-DD HH:mm"
                       value-type="format"
                       confirm
-                      type="datetime"
+                      type="time"
                     />
                   </client-only>
                 </b-form-group>
@@ -188,7 +225,10 @@ export default {
         to: null,
         title: null,
         membership_id: null,
-        room_id: null
+        room_id: null,
+        payment_method: null,
+        card: null,
+        source: null
       },
       timePickerOptions: {
         start: '00:00',
@@ -211,7 +251,10 @@ export default {
       },
       modalText: 'Add New Booking',
       showmodal: true,
-      modalUpdate: false
+      modalUpdate: false,
+      disabledates: [],
+      paymenttype: [{ id: 1, name: 'card' }, { id: 2, name: 'credit' }],
+      payCards: []
     }
   },
   computed: {
@@ -227,8 +270,14 @@ export default {
       id: 'resources.addBooking.id'
     }),
     not_before() {
-      return this.$moment().format('YYYY-MM-DD HH:mm')
+      return this.$moment().format('HH:mm')
     }
+  },
+  created() {
+    this.bookings.map(booked => {
+      this.disabledates.push(booked.start)
+      this.disabledates.push(booked.end)
+    })
   },
   methods: {
     searchMembers(query) {
@@ -334,9 +383,26 @@ export default {
         this.$bvModal.hide('booking-modal')
       }
     },
+    async cancelBook() {
+      await this.$resource.cancelRoomBooking(this.bookdata.booking_id)
+      this.$bvToast.toast('Booking cancelled successful', {
+        title: 'Success',
+        variant: 'success'
+      })
+      this.$bvModal.hide('booking-modal')
+      location.reload()
+    },
     updateBooking(data) {
       this.$store.dispatch('resources/updateRoomBooking', data)
       this.$bvModal.hide('booking-modal')
+    },
+    async getPaymentMethods(e) {
+      if (e == 'card') {
+        const result = await this.$membership.getPaymentMethods(
+          this.newBooking.membership_id
+        )
+        this.payCards = result.data
+      }
     }
   }
 }
