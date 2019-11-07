@@ -30,13 +30,14 @@
               id="time"
               v-model="from"
               :time-picker-options="timePickerOptions"
+              :disabled-days="disableddates"
               width="100%"
               input-class="form-control"
               lang="en"
               format="YYYY-MM-DD HH:mm"
               value-type="format"
               confirm
-              type="datetime"
+              type="time"
               @change="changeDate"
             />
           </client-only>
@@ -49,13 +50,14 @@
               id="time"
               v-model="to"
               :time-picker-options="timePickerOptions"
+              :disabled-days="disableddates"
               width="100%"
               input-class="form-control"
               lang="en"
               format="YYYY-MM-DD HH:mm"
               value-type="format"
               confirm
-              type="datetime"
+              type="time"
             />
           </client-only>
         </b-form-group>
@@ -74,8 +76,13 @@
         <b-form-group class="col-md-12">
           <b-button
             type="submit"
-            class="float-right"
             variant="primary">Save</b-button>
+          <b-button
+            type="button"
+            class="float-right"
+            variant="default"
+            @click="cancelBooking">Cancel Booking</b-button>
+          
         </b-form-group>
       </b-row>
     </b-form>
@@ -103,6 +110,10 @@ export default {
     },
     iroom_id: {
       type: String,
+      default: null
+    },
+    disableddates: {
+      type: Array,
       default: null
     }
   },
@@ -176,6 +187,9 @@ export default {
         membership_id,
         room_id
       })
+    },
+    cancelBooking() {
+      this.$emit('deleteBooking')
     }
   }
 }
