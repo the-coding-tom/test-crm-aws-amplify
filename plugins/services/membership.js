@@ -133,6 +133,9 @@ export default function(ctx, inject) {
     },
     updateMembership: (id, payload) => {
       return ctx.$axios.$patch(`/${subdomain()}/memberships/${id}`, payload)
+    },
+    getPaidFor: id => {
+      return ctx.$axios.$get(`/${subdomain()}/memberships/${id}/paid-for`)
     }
   }
   ;(ctx.$membership = Membership), inject('membership', Membership)

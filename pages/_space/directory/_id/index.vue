@@ -133,7 +133,11 @@
                 <span> Paid by:</span> <nuxt-link :to="{name: 'space-memberships-id', params: {id: data.paid_by}}">{{ data.payee_name }}</nuxt-link>
               </div>
               <div class="sh-dls">
-                <span> Paying for:</span>
+                <span> Paying for:</span> <span
+                  v-for="paid in paid_for"
+                  :key="paid.id"><nuxt-link 
+                    v-if="paid_for.length > 0"
+                    :to="{name: 'space-memberships-id', params: {id: paid.id}}">{{ paid.first_name }} {{ paid.last_name }}</nuxt-link>, </span>
               </div>
 
             </div>
@@ -321,6 +325,10 @@ export default {
           return data
         })
 
+      const paid_for = await $membership.getPaidFor(params.id).then(res => {
+        return res.data
+      })
+
       return await $membership.getAMembership(params.id).then(({ data }) => {
         const events = _.map(data.events_attended, o => {
           return {
@@ -336,7 +344,8 @@ export default {
           data,
           cards,
           events,
-          subscriptions
+          subscriptions,
+          paid_for
         }
       })
     } catch (e) {
