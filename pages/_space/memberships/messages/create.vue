@@ -103,6 +103,7 @@ export default {
   },
   data() {
     return {
+      searching: false,
       emails: [],
       subject: '',
       content: '',
@@ -149,20 +150,24 @@ export default {
       const { emails, subject, content } = this
       this.$email
         .createEmail({ emails, subject, content })
-        .then(({ data }) => {
+        .then(res => {
           this.$bvToast.toast('Email sent successfully', {
             title: 'Success',
             variant: 'success'
           })
 
           this.$router.push({
-            name: 'space-memberships-message-id',
-            params: { id: data.id }
+            name: 'space-memberships-messages-id',
+            params: { id: res.data.id }
           })
         })
         .catch(e => {
           this.loading = !this.loading
-          const message = e.response ? e.response.data.message : e.message
+          const message = e.response
+            ? `${e.response.data.message} ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
           this.$bvToast(message, {
             title: 'Error',
             variant: 'danger'

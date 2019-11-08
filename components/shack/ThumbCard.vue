@@ -2,11 +2,8 @@
   <div class="col-md-3 sh-thumb">
     <card>
       <span class="label label-default">
-        <template v-if="status">
-          <i class="fa fa-star" /> Founding Member
-        </template>
-        <template v-else>
-          <i class="fa fa-unlock" /> Member
+        <template>
+          <i class="fa fa-star" /> {{ getMembershipType }}
         </template>
       </span>
       <div class="d-flex mr-tb-10">
@@ -36,8 +33,8 @@ export default {
       default: null
     },
     status: {
-      type: Boolean,
-      default: false
+      type: Object,
+      default: () => {}
     },
     thumbCol: {
       type: String,
@@ -50,6 +47,38 @@ export default {
     img: {
       type: String,
       default: null
+    }
+  },
+  data: () => ({
+    prefix_type: [
+      {
+        text: 'Founding Member',
+        value: '0'
+      },
+      {
+        text: 'Fast Track',
+        value: '1'
+      },
+      {
+        text: 'Early Invite',
+        value: '2'
+      },
+      {
+        text: 'General Member',
+        value: '3'
+      }
+    ]
+  }),
+  computed: {
+    getMembershipType() {
+      let type = null
+      _.each(this.prefix_type, o => {
+        if (o.value == this.status.prefix_type) {
+          type = o.text
+        }
+      })
+
+      return type
     }
   }
 }

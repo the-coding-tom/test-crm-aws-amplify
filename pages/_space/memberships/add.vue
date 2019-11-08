@@ -67,22 +67,46 @@
                           placeholder="Comments to save on this member"/>
                       </b-form-group>
 
-                      <b-form-group>
+                      <!-- <b-form-group>
                         <b-form-checkbox
                           v-model="membership.founding_member"
                           :value="true"
                           :unchecked-value="false">Founding Member</b-form-checkbox>
-                      </b-form-group>
+                      </b-form-group> -->
                     </div>
                     <div class="col-md-1"/>
                     <div class="col-md-5">
                       <h3 class="mb-4">Membership Details</h3>
 
-                      <b-form-group label="Membership ID">
-                        <b-form-input
-                          v-model="membership.membership_id"
-                          placeholder="Membership #"
-                          required/>
+                      <b-form-group label="Membership Type">
+                        <b-form-select
+                          v-model="membership.prefix_type"
+                          :options="prefix_type" />
+                      </b-form-group>
+
+                      <b-form-group label="Region">
+                        <b-form-select
+                          v-model="membership.prefix_locality"
+                          :options="prefix_locality" />
+                      </b-form-group>
+
+                      <b-form-group
+                        label="Assigned Admin">
+                        <el-select
+                          v-model="membership.assigned_admin"
+                          :remote-method="searchAdmins"
+                          :loading="searching"
+                          filterable
+                          remote
+                          reserve-keyword
+                          placeholder="Choose an admin"
+                        >
+                          <el-option
+                            v-for="option in admins"
+                            :key="option.id"
+                            :label="option.name"
+                            :value="option.id"/>
+                        </el-select>
                       </b-form-group>
 
                       <b-form-group label="On Trial">
@@ -91,6 +115,7 @@
                           :value="true"
                           :unchecked-value="false">Yes</b-form-checkbox>
                       </b-form-group>
+
 
                       <b-form-group
                         v-if="membership.trial"
@@ -102,6 +127,42 @@
                           type="number"
                           required/>
                       </b-form-group>
+
+                      <b-form-group label="Paid for">
+                        <b-form-checkbox
+                          v-model="membership.paid_for"
+                          :value="true"
+                          :unchecked-value="false">Yes</b-form-checkbox>
+                      </b-form-group>
+
+                      <b-form-group
+                        v-if="membership.paid_for"
+                        label="Paid by">
+                        <el-select
+                          v-model="membership.paid_by"
+                          :remote-method="searchMembers"
+                          :loading="searching"
+                          filterable
+                          remote
+                          reserve-keyword
+                          placeholder="Choose a member"
+                        >
+                          <el-option
+                            v-for="option in data"
+                            :key="option.id"
+                            :label="option.first_name + ' ' + option.last_name"
+                            :value="option.id"/>
+                        </el-select>
+                      </b-form-group>
+
+                      <!-- <b-form-group
+                        v-if="membership.paid_for"
+                        label="Payment Source">
+                        <b-form-select
+                          v-model="membership.card_nonce"
+                          :options="cards"
+                          :required="true" />
+                      </b-form-group> -->
 
                     </div>
                     <div class="col-md-1"/>
@@ -137,6 +198,7 @@ import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
 import MembershipPlans from '~/components/shack/MembershipPlans.vue'
 import { Select, Option } from 'element-ui'
+import { mapState } from 'vuex'
 
 export default {
   layout: 'ShackDash',
@@ -168,10 +230,50 @@ export default {
   },
   data() {
     return {
+      data: [],
+      cards: [],
+      admins: [],
       loading: false,
+      searching: false,
       options: [
-        { text: 'Reference', value: 'reference' },
-        { text: 'Others', value: 'others' }
+        { text: 'Referral', value: 'referral' },
+        { text: 'Application', value: 'application' }
+      ],
+      prefix_type: [
+        {
+          text: 'Founding Member',
+          value: '0'
+        },
+        {
+          text: 'Fast Track',
+          value: '1'
+        },
+        {
+          text: 'Early Invite',
+          value: '2'
+        },
+        {
+          text: 'General Member',
+          value: '3'
+        }
+      ],
+      prefix_locality: [
+        {
+          text: 'Bay Area',
+          value: 'A'
+        },
+        {
+          text: 'US outside of the Bay',
+          value: 'B'
+        },
+        {
+          text: 'EMEA',
+          value: 'C'
+        },
+        {
+          text: 'APAC',
+          value: 'D'
+        }
       ],
       membership: {
         first_name: '',
@@ -179,12 +281,22 @@ export default {
         linkedin_url: '',
         membership_id: '',
         email: '',
-        extras: [{ type: 'reference', comment: '' }],
+        extras: [{ type: 'referral', comment: '' }],
         founding_member: false,
         trial: false,
-        trial_days: '0'
+        paid_for: false,
+        trial_days: '0',
+        prefix_type: '0',
+        prefix_locality: 'A',
+        paid_by: null,
+        assigned_admin: null
       }
     }
+  },
+  computed: {
+    ...mapState({
+      space: state => state.space.currentSpace
+    })
   },
   mounted() {
     this.membership.start_time = this.$moment().format('YYYY-MM-DD')
@@ -264,6 +376,66 @@ export default {
               variant: 'danger'
             }
           )
+        })
+    },
+    searchMembers(query) {
+      const link = `filter[search]=${query}&filter[status]=accepted`
+
+      this.searching = !this.searching
+
+      const _self = this
+
+      _.debounce(() => {
+        _self.$membership.getAllMemberships(link).then(({ data }) => {
+          _self.searching = !_self.searching
+          _self.data = data
+        })
+      }, 350)()
+    },
+    searchAdmins(query) {
+      const link = `${process.env.base_url}/${
+        this.space.subdomain
+      }/admins?filter[name]=${query}`
+
+      this.$admin
+        .getAllAdmins(link)
+        .then(res => {
+          this.admins = res.data
+        })
+        .catch(escape => {
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+          error({
+            statusCode: err.status || 404,
+            message
+          })
+        })
+    },
+    getCards(e) {
+      this.$membership
+        .getPaymentMethods(e)
+        .then(res => {
+          // this.cards = res.data
+          _.each(res.data, o => {
+            this.cards.push({
+              text: `${o.card_brand} - **** ${o.last_4}`,
+              value: o.id
+            })
+          })
+        })
+        .catch(e => {
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+          this.$bvToast.toast(message, {
+            variant: 'danger',
+            title: 'Error'
+          })
         })
     }
   }

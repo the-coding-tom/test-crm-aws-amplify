@@ -115,6 +115,7 @@
               <div class="sh-dls">
                 <span> Joined on:</span> {{ $moment(data.member_since).format('MMMM DD, YYYY') }}
               </div>
+
               <div class="sh-dls">
                 <span>Renewal due by:</span> {{ getSubscription }}
               </div>
@@ -127,6 +128,13 @@
                 align="left" >
 
               <span v-html="getExtras(data.extras)"/>
+
+              <div class="sh-dls">
+                <span> Paid by:</span> <nuxt-link :to="{name: 'space-memberships-id', params: {id: data.paid_by}}">{{ data.payee_name }}</nuxt-link>
+              </div>
+              <div class="sh-dls">
+                <span> Paying for:</span>
+              </div>
 
             </div>
           </div>
@@ -345,7 +353,7 @@ export default {
       checked: false,
       cards: [],
       currentPage: 1,
-      perPage: 2
+      perPage: 5
     }
   },
   computed: {

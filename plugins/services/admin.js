@@ -10,9 +10,7 @@ export default function(ctx, inject) {
   const Admin = {
     getAllAdmins: (link = null) => {
       if (link) {
-        return ctx.$axios.$get(link).catch(e => {
-          ctx.error({ statusCode: e.statusCode, message: getError(e) })
-        })
+        return ctx.$axios.$get(link)
       }
 
       return ctx.$axios.$get(`${subdomain()}/admins`).catch(e => {
