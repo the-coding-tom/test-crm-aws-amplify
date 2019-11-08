@@ -85,8 +85,8 @@
                       <el-option
                         v-for="(country, index) in countries"
                         :key="index"
-                        :label="country"
-                        :value="country"
+                        :label="country.cname"
+                        :value="country.ccode"
                       />
                     </el-select>
                   </div>

@@ -11,7 +11,7 @@
         width="130" 
         sortable>
         <template v-slot="{ row }">
-          <a :href="`/${space}/invoice/${row.id}`">{{ row.invoice_number }}</a>
+          <a :href="`/${space}/invoice/preview/${row.id}`">{{ row.invoice_number }}</a>
         </template>
       </el-table-column>
 
@@ -46,9 +46,17 @@
             <a 
               v-if="!row.finalize" 
               @click="openUpdateBox(row.invProps)"><i class="fa fa-pen" /> Edit</a>
-            <!-- <a 
-              v-if="!row.send" 
-              href="#"><i class="fa fa-envelope" /> Send</a> -->
+            <a 
+              v-if="!row.sent" 
+              @click="sendInv(row.invProps.id)"><i class="fa fa-envelope" /> Send</a>
+
+            <a 
+              v-if="row.sent" 
+              @click="sendInv(row.invProps.id)"><i class="fa fa-envelope" /> Resend</a>
+
+
+            <a @click="writeOff(row.invProps.id)"><i class="fa fa-times" /> Writeoff</a>
+
             <a 
               v-if="!row.finalize" 
               @click="finalizeInv(row.invProps)"><i class="fa fa-check" /> finalize</a>
@@ -80,19 +88,29 @@
               type="success">
               sent
             </badge>
-            <!--
-            <badge type="warning">
+
+            <badge 
+              v-if="!row.paid" 
+              type="primary">
+              unpaid & pending
+            </badge>
+            
+            <badge
+              v-if="row.written_off"
+              type="warning">
               written off
             </badge>
-            <badge type="alternative">
+            <badge 
+              v-if="!row.sent" 
+              type="alternative">
               not sent
             </badge>
-            -->
+           
           </div>
         </template>
       </el-table-column>
     </el-table>
-
+    <br>
     <base-pagination
       :total="meta.total"
       :per-page="meta.per_page"
@@ -247,6 +265,14 @@ export default {
       }
       if (!confirm('Are you sure?')) return
       this.$store.dispatch('invoice/finalizeInv', data)
+    },
+    writeOff(id) {
+      if (!confirm('Are you sure?')) return
+      this.$store.dispatch('invoice/writeOffInv', id)
+    },
+    sendInv(id) {
+      if (!confirm('Are you sure want to send this invoice?')) return
+      this.$store.dispatch('invoice/sendInv', id)
     }
   }
 }

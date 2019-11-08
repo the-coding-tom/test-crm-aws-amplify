@@ -37,8 +37,17 @@ export default function(ctx, inject) {
         data: payload
       })
     },
+    writeOffInvoice: id => {
+      return ctx.$axios.post(`${baseUrl()}/${id}/writeoff`)
+    },
+    filterUnpaid: month => {
+      return ctx.$axios.get(`${baseUrl()}?filter[created_at]=${month}`)
+    },
+    sendInvoice: id => {
+      return ctx.$axios.post(`${baseUrl()}/${id}/send-invoice`)
+    },
     searchInvoice: name => {
-      return ctx.$axios.get(`${baseUrl()}/?filter[search]=${name}`)
+      return ctx.$axios.get(`${baseUrl()}?filter[search]=${name}`)
     }
   }
   ;(ctx.$invoice = Invoice), inject('invoice', Invoice)

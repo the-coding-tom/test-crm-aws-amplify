@@ -60,7 +60,6 @@ export default function(ctx, inject) {
       if (link) {
         return ctx.$axios.get(link)
       }
-
       return ctx.$axios.get(`${baseUrl()}/${id}/bookings`)
     },
     cancelABooking: (wellnessId, bookingId) => {
