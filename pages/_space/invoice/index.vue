@@ -9,8 +9,6 @@
           :loading="loadingSearch" 
           @search="getInvoiceResult" />
         <div class="mr-l-child-20">
-          <!-- <a href="#"><i class="fa fa-download" /> Download CSV</a> -->
-          <!-- <a href="#"><i class="fa fa-download" /> Download PDF</a> -->
           <a
             href="javascript:void(0)"
             class="btn btn-primary"
@@ -23,33 +21,29 @@
     </base-header>
     <div class="container-fluid mt--6 inv-table">
       <div class="row">
-        <!-- <div class="col-md-4">
+        <div class="col-md-4">
           <card>
             <div class="d-flex justify-content-between align-items-center">
-              <base-dropdown>
-                <base-button
-                  slot="title-container"
-                  type="secondary"
-                  class="dropdown-toggle"
-                >
-                  Nov 2018
-                </base-button>
-                <a 
-                  :href="$route.path" 
-                  class="dropdown-item">Dec 2018</a>
-                <a 
-                  :href="$route.path" 
-                  class="dropdown-item">Nov 2018</a>
-                <a 
-                  :href="$route.path" 
-                  class="dropdown-item">Oct 2018</a>
-              </base-dropdown>
-              <div class="text-muted">
-                UNPAID INVOICES
-              </div>
+              <b-form-group
+                class="col-md-12"
+                label="Filter unpaid invoices">
+                <date-picker
+                  id="month"
+                  v-model="invMonth"
+                  width="100%"
+                  input-class="form-control"
+                  lang="en"
+                  format="YYYY-MM"
+                  value-type="format"
+                  confirm
+                  label="select month"
+                  type="month"
+                  @change="filterInv"
+                />
+              </b-form-group>
             </div>
           </card>
-        </div> -->
+        </div>
         <div class="col-md-8">
           <card>
             <div class="d-flex justify-content-around">
@@ -95,9 +89,9 @@
             placeholder="Choose a company">
             <el-option
               v-for="option in companies"
-              :key="option.uuid"
+              :key="option.id"
               :label="option.name"
-              :value="option.uuid"/>
+              :value="option.id"/>
           </el-select>
 
           <div class="clear-fix" />
@@ -124,6 +118,8 @@ import InvoiceTable from '~/components/shack/InvoiceTable.vue'
 import MainTitle from '~/components/shack/MainTitle.vue'
 import SearchForm from '~/components/shack/SearchForm.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
+import helper from './../../../util/helper'
+
 import { Select, Option } from 'element-ui'
 import { mapState } from 'vuex'
 
@@ -155,7 +151,8 @@ export default {
       companies: [],
       searching: false,
       company_id: null,
-      loadingSearch: false
+      loadingSearch: false,
+      invMonth: null
     }
   },
   computed: {
@@ -224,6 +221,9 @@ export default {
           helper.notify.error
         )
       }
+    },
+    filterInv(e) {
+      this.$store.dispatch('invoice/filterInvoice', e)
     }
   }
 }

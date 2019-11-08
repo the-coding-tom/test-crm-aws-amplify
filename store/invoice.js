@@ -178,6 +178,77 @@ export const actions = {
       )
     }
   },
+  async writeOffInv({ dispatch }, payload) {
+    try {
+      await this.$invoice.writeOffInvoice(payload)
+      this._vm.$bvToast.toast(
+        `Invoice written off successfully`,
+        helper.notify.sucess
+      )
+      dispatch('getAllInvoices')
+    } catch (error) {
+      this._vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
+    }
+  },
+  async sendInv({ dispatch }, payload) {
+    try {
+      await this.$invoice.sendInvoice(payload)
+      this._vm.$bvToast.toast(
+        `Invoice was sent successfully`,
+        helper.notify.sucess
+      )
+      dispatch('getAllInvoices')
+    } catch (error) {
+      this._vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
+    }
+  },
+  async filterInvoice({ commit }, payload) {
+    try {
+      const { data } = await this.$invoice.filterUnpaid(payload)
+      let emptyIn = []
+      data.data.map(item => {
+        let invObj = {
+          company: item.company.name,
+          date: this.$moment(item.created_at).format('LL'),
+          contact_person: item.company.contact_name,
+          id: item.id,
+          invoice_number: item.inv_number,
+          paid: item.paid,
+          finalize: item.finalize,
+          sent: item.sent,
+          amount: item.total_amount,
+          void: item.void,
+          invProps: item
+        }
+        emptyIn.push(invObj)
+      })
+      commit('setTableInvoices', emptyIn)
+      commit('setInvoices', data)
+    } catch (error) {
+      this._vm.$bvToast.toast(
+        `${
+          error.response
+            ? JSON.stringify(error.response.data.errors)
+            : error.message
+        }`,
+        helper.notify.error
+      )
+    }
+  },
   async deleteInvoiceItem({ state, dispatch }, payload) {
     try {
       await this.$invoice.deleteInvoiceItem(state.oneInvoice.data.id, payload)
