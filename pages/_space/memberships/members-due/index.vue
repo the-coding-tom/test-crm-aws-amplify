@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>companies</h1>
+    <div>Member Due</div>
   </div>
 </template>
 

@@ -2,30 +2,39 @@
   <div>
     <base-header
       class="pb-6"
-      type="">
+      type>
       <div class="d-flex justify-content-between py-4">
         <MainTitle
           title="Dashboard"
-          subtitle="This Week"/>
+          subtitle="This Month" />
       </div>
 
       <div class="row">
         <TopWidget
-          value="0"
+          :value="summary.checkins"
           img="/img/icon-user.png"
-          text="Members Checked In" />
+          destination-link="space-checkins"
+          text="Members Checked In"
+        />
+
         <TopWidget
-          value="$ 0"
+          :value="summary.unpaidInvoices"
           img="/img/icon-wallet.png"
-          text="Unpaid Invoices" />
+          destination-link="space-invoice"
+          text="Unpaid Invoices"
+        />
         <TopWidget
-          value="$ 0"
+          :value="summary.bookings"
+          :text="`Bookings Revenue (${space.currency})`"
           img="/img/icon-discount.png"
-          text="Bookings Revenue" />
+          destination-link="space-resources"
+        />
         <TopWidget
-          value="0"
+          :value="summary.events"
           img="/img/icon-help.png"
-          text="Issues Raised" />
+          destination-link="space-events"
+          text="Events"
+        />
       </div>
     </base-header>
 
@@ -39,67 +48,29 @@
             <div class="col">
               <SectionTitle
                 title="Activity Feed"
-                subtitle="Usage Stream on Mobile Platform"/>
+                subtitle="Usage Stream on Mobile Platform" />
             </div>
           </div>
           <div class="m-n25 sh-activity">
             <table class="table table-hover table-striped">
               <tbody>
-                <EmptyActivity v-if="false" />
+                <EmptyActivity v-if="activities.length === 0" />
                 <template v-else>
                   <Activity
-                    img="/img/icon-calendar-o.png"
-                    date="2h ago">
-                    Gerhard Malah booked Restaurant f Nov - 01:00PM (2h)
-                  </Activity>
-                  <Activity
-                    img="/img/icon-user-o.png"
-                    alt="9h ago">
-                    <a href="/ui/members/view">Jeffery Monoka</a>â€™s membership was confirmed
-                  </Activity>
-                  <Activity
-                    img="/img/icon-notification-o.png"
-                    date="22h ago">
-                    <a href="/ui/members/view">Jeff Bean</a> changed their payment method to Credit Card
-                  </Activity>
-                  <Activity
-                    img="/img/icon-user-o.png"
-                    date="6d ago">
-                    <i class="ti-user"/> New member <a href="/ui/members/view">Jeffery Monoka</a>, applied on The Entrepreneur Plan
-                  </Activity>
-                  <Activity
-                    img="/img/icon-discount-o.png"
-                    date="7d ago">
-                    <a href="javascript:void(0)">Invoice 1145</a> (12.00 USD) created for Jeff Bean
-                  </Activity>
-                  <Activity
-                    img="/img/icon-calendar-o.png"
-                    date="7d ago">
-                    <a href="/ui/members/view">Michael Dean</a> booked Board Room for 05 Nov - 04:00PM (1h)
-                  </Activity>
-                  <Activity
-                    img="/img/icon-notification-o.png"
-                    date="7d ago">
-                    You reactivated the membership of <a href="/ui/members/view">Peter Mutch</a>
-                  </Activity>
-                  <Activity
-                    img="/img/icon-calendar-o.png"
-                    date="7d ago">
-                    <a href="/ui/members/view">Albert Ultrich</a> booked Restaurant for 04 Nov - 01:00PM (1h)
-                  </Activity>
-                  <Activity
-                    img="/img/icon-discount-o.png"
-                    date="7d ago">
-                    <a href="/ui/members/view">Invoice 1144</a> (15.00 USD) created for Jeff Bean
+                    v-for="(activity) in activities"
+                    :key="activity.id"
+                    :date="getTimestamp(activity)"
+                  >
+                    <span>{{ activity.description }}</span>
                   </Activity>
                 </template>
               </tbody>
             </table>
           </div>
-          <a
+          <nuxt-link
             slot="footer"
-            href="/ui/dashboard/activity"
-            class="mr-t-10">See More</a>
+            :to="{name:'space-activities'}"
+            class="mr-t-10">See More</nuxt-link>
         </card>
 
         <card header-classes="bg-transparent">
@@ -109,33 +80,28 @@
             <div class="col">
               <SectionTitle
                 title="Bookings"
-                subtitle="Space, Events, Meals, and Resources"/>
+                subtitle="Space, Events, Meals, and Resources" />
             </div>
           </div>
           <div class="m-n25 sh-activity sh-bookings">
             <table class="table table-hover table-striped">
               <tbody>
-                <EmptyActivity v-if="false" />
-                <template
-                  v-else>
+                <EmptyActivity v-if="bookings.length === 0" />
+                <template v-else>
                   <Booking
-                    img="/img/placeholder.jpg"
-                    title="Monday, 10:00AM - 2:00PM">
-                    Board Room â€¢ Meeting with Axios Capital â€¢ Booking by: Albert Ultrich
-                  </Booking>
+                    v-for="(booking, index) in bookings"
+                    :key="index"
+                    :title="booking.title + ' ' + $moment(booking.start_timestamp).format('dddd MMM Do') + ' ' + booking.from + ' - ' + booking.to"
+                    :img="booking.room.photo"
+                  >Room: {{ booking.room.name }}</Booking>
                 </template>
               </tbody>
             </table>
           </div>
-          <div slot="footer">
-            <a
-              href="javascript:void(0)"
-              class="mr-r-30">See More</a> <a href="javascript:void(0)">View Restaurant Bookings</a>
-          </div>
+          <div slot="footer" />
         </card>
       </div>
     </div>
-
   </div>
 </template>
 <script>
@@ -147,6 +113,9 @@ import EmptyActivity from '~/components/shack/EmptyActivity.vue'
 import FeedTable from '~/components/shack/FeedTable.vue'
 import Booking from '~/components/shack/Booking.vue'
 
+import { mapState } from 'vuex'
+import mz from 'moment-timezone'
+
 export default {
   layout: 'ShackDash',
   components: {
@@ -157,6 +126,55 @@ export default {
     EmptyActivity,
     SectionTitle,
     MainTitle
+  },
+  async asyncData({ error, $activity, $resource, store, $moment }) {
+    try {
+      const activities = await $activity.getAllActivities()
+      store.commit('activity/setActivities', activities)
+
+      const payload = {
+        from: $moment()
+          .startOf('day')
+          .format('YYYY-MM-DD'),
+        to: $moment()
+          .endOf('day')
+          .format('YYYY-MM-DD')
+      }
+
+      const bookings = await $resource.getBookingByDate(payload)
+      store.commit('activity/setActivityBookings', bookings.data)
+
+      const summaries = await $activity.getSummary()
+      const data = {
+        checkins: summaries['check-ins'].toString(),
+        events: summaries['events'].toString(),
+        bookings: summaries['bookings'].toString(),
+        unpaidInvoices: summaries['unpaid-invoices'].toString()
+      }
+      store.commit('activity/setSummary', data)
+    } catch (err) {
+      error({
+        statusCode: err.status || 404,
+        message: err.response
+          ? JSON.stringify(err.response.data.errors)
+          : err.message
+      })
+    }
+  },
+  computed: {
+    ...mapState({
+      space: state => state.space.currentSpace,
+      summary: state => state.activity.summary,
+      activities: state => state.activity.activities.data,
+      bookings: state => state.activity.bookings.data
+    })
+  },
+  methods: {
+    getTimestamp(activity) {
+      return mz(activity.created_at)
+        .tz(this.space.timezone)
+        .fromNow()
+    }
   }
 }
 </script>

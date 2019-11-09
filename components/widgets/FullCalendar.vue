@@ -6,8 +6,9 @@
       center: 'title',
       right: right
     }"
+    :views="views"
     :events="events"
-    :default-view="defaultView" 
+    :default-view="defaultView"
     :dates-render="datesRender"
     @dateClick="dateClick"
     @eventClick="eventClick" />
@@ -20,11 +21,6 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 
-import '@fullcalendar/core/main.css'
-import '@fullcalendar/daygrid/main.css'
-import '@fullcalendar/timegrid/main.css'
-import '@fullcalendar/list/main.css'
-
 export default {
   components: {
     FullCalendar // make the <FullCalendar> tag available
@@ -36,11 +32,19 @@ export default {
     },
     defaultView: {
       type: String,
-      default: 'dayGridMonth'
+      default: 'listWeek'
     },
     right: {
       type: String,
       default: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    },
+    views: {
+      type: Object,
+      default: () => ({
+        listWeek: {
+          noEventsMessage: 'No events to display'
+        }
+      })
     }
   },
   data() {
@@ -74,4 +78,12 @@ export default {
 .fc-event .fc-title {
   color: gray-dark !important;
 }
+</style>
+
+<style lang="scss">
+@import '@fullcalendar/core/main.css';
+@import '@fullcalendar/daygrid/main.css';
+@import '@fullcalendar/timegrid/main.css';
+@import '@fullcalendar/list/main.css';
+@import '~/assets/sass/core/vendors/_fullcalendar.scss';
 </style>

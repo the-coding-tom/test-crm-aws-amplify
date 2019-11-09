@@ -35,10 +35,11 @@ export default {
       type: String,
       default: ''
     },
-    name: {
+    placeholder: {
       type: String,
-      default: null
-    }
+      default: 'Email Content'
+    },
+    name: String
   },
   data() {
     return {
@@ -71,7 +72,8 @@ export default {
         theme: 'snow',
         modules: {
           toolbar: `#${this.toolbarId}`
-        }
+        },
+        placeholder: this.placeholder
       })
 
       if (this.value.length > 0) {
@@ -107,3 +109,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.ql-editor {
+  min-height: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+</style>

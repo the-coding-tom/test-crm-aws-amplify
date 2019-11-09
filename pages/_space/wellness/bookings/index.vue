@@ -17,6 +17,7 @@
             <full-calendar
               :events="sessions"
               :right="null"
+              :views="views"
               default-view="list"
               @eventClick="eventClick"
               @dateChange="dateChange"

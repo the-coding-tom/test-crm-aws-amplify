@@ -42,7 +42,7 @@
 
             <p class="d-flex align-items-center text-muted">{{ $moment(currentEvent.start).format('MMMM DD YYYY') }}, {{ $moment(currentEvent.start).format('HH:mm') }} - {{ $moment(currentEvent.end).format('HH:mm') }} <i
               class="fa fa-circle mx-2"
-              style="font-size: 5px;"/> {{ currentEvent.extendedProps && currentEvent.extendedProps.room.name }} </p>
+              style="font-size: 5px;"/> {{ currentEvent.extendedProps && (currentEvent.extendedProps.room) ? currentEvent.extendedProps.room.name : null }} </p>
           </b-col>
         </b-row>
         <b-row>
@@ -52,7 +52,12 @@
         </b-row>
         <b-row>
           <b-col md="12">
-            <p>Price: {{ space.currency_symbol }} {{ currentEvent.extendedProps ? currentEvent.extendedProps.price : null }}</p>
+            <p>Price: {{ currentEvent.extendedProps && currentEvent.extendedProps.price | currency(space.currency_symbol) }}</p>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="12">
+            <badge type="info">{{ currentEvent.extendedProps && currentEvent.extendedProps.event_category.name }}</badge>
           </b-col>
         </b-row>
         <template v-slot:modal-footer>
@@ -80,6 +85,7 @@
     </div>
   </div>
 </template>
+
 <script>
 // Components
 import BaseHeader from '@/components/argon-core/BaseHeader'
@@ -102,7 +108,10 @@ export default {
         store.commit('events/setEvents', data)
       })
       .catch(err => {
-        error({ statusCode: 404, message: 'Error getting events' })
+        const message = err.response
+          ? JSON.stringify(err.response.data.errros)
+          : err.message
+        error({ statusCode: 404, message: message })
       })
   },
   data() {
@@ -152,7 +161,7 @@ export default {
         .deleteEvent(eventId)
         .then(res => {
           this.$store.commit('events/removeEvent', eventId)
-          this.$modal.hide('event')
+          this.$bvModal.hide('eventModal')
         })
         .catch(({ response }) => {
           this.$bvToast.toast(JSON.stringify(response.data.errors), {

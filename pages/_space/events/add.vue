@@ -264,7 +264,7 @@ export default {
             solid: true
           })
 
-          this.$router.push({ path: `/${this.space}/events/${data.id}/view` })
+          this.$router.push({ path: `/${this.space}/events/${data.id}` })
         })
         .catch(({ response }) => {
           this.$bvToast.toast(JSON.stringify(response.data.errors), {

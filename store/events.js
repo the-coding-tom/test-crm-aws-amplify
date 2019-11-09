@@ -21,8 +21,9 @@ export const mutations = {
         end: event.end_time,
         description: event.description,
         eventId: event.id,
-        backgroundColor: `${event.event_category.color}3A`,
-        borderColor: `${event.event_category.color}3A`,
+        backgroundColor:
+          event.event_category && `${event.event_category.color}3A`,
+        borderColor: event.event_category && `${event.event_category.color}3A`,
         id: event.id,
         extendedProps: event
       }

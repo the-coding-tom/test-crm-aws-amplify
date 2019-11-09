@@ -45,10 +45,13 @@ export default function(ctx, inject) {
       return ctx.$axios.get(`${baseUrl()}/${id}/bookings`)
     },
     updateRoomBooking: (id, payload) => {
-      return ctx.$axios.put(
+      return ctx.$axios.patch(
         `${subdomain()}/rooms/bookings/${id}/update`,
         payload
       )
+    },
+    cancelRoomBooking: id => {
+      return ctx.$axios.delete(`${subdomain()}/rooms/bookings/${id}`)
     },
     bookRoomForMember: (id, payload) => {
       return ctx.$axios.post(`${subdomain()}/rooms/${id}/book/behalf`, payload)

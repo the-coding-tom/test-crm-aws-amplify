@@ -30,7 +30,7 @@
             </div>
             <div class="pv-footer">
               <p>
-                Price: {{ currentSpace.currency_symbol }}{{ event.price }} /
+                Price: {{ event.price | currency(currentSpace.currency_symbol) }} /
                 <span class="text-muted">ticket</span>
               </p>
               <p>{{ time }}</p>

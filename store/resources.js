@@ -49,7 +49,6 @@ export const mutations = {
     state.addRoom.price_per_hour = room.price_per_hour
     state.addRoom.can_book = room.can_book
     state.addRoom.photo = room.photo
-    state.addRoom.photo = room.photo
     state.addRoom.category = room.category.id
     state.addRoom.room_category_id = room.category.id
     state.addRoom.amenities = room.amenities
@@ -94,9 +93,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAllRooms({ commit }) {
+  async getAllRooms({ commit }, link = null) {
     try {
-      const { data } = await this.$resource.getAllRooms()
+      const { data } = await this.$resource.getAllRooms(link)
       commit('setRooms', data)
     } catch (error) {
       this._vm.$bvToast.toast(

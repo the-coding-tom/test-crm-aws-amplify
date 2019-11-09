@@ -1,7 +1,10 @@
 const pkg = require('./package')
 const webpack = require('webpack')
+const config = require('dotenv').config()
 
-const baseURL = 'https://shack15-staging.herokuapp.com/api/v1'
+console.log(config.parsed.base_url)
+
+const baseURL = config.parsed.base_url
 
 module.exports = {
   mode: 'universal',
@@ -13,11 +16,16 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'SHACK15 CRM',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'SHACK15 is a new kind of social space dedicated to entrepreneurship, community, and big ideas'
+      }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -27,6 +35,12 @@ module.exports = {
         integrity:
           'sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/',
         crossorigin: 'anonymous'
+      }
+    ],
+    script: [
+      {
+        src: 'https://js.squareupsandbox.com/v2/paymentform',
+        body: true
       }
     ]
   },
@@ -57,21 +71,38 @@ module.exports = {
       src: '~/plugins/dashboard/full-calendar',
       ssr: false
     },
+    {
+      src: '~/plugins/vue-quill',
+      ssr: false
+    },
     '~/plugins/services/auth',
+    '~/plugins/services/activity',
     '~/plugins/services/wellness',
     '~/plugins/services/event',
     '~/plugins/services/images',
+    '~/plugins/services/plans',
     '~/plugins/services/resource',
     '~/plugins/services/membership',
-    '~/plugins/services/plan',
-    { src: '~/plugins/vue2-datepicker', ssr: false }
-    // { src: '~/plugins/dashboard/modal', ssr: false }
+    '~/plugins/services/community',
+    '~/plugins/services/emails',
+    '~/plugins/services/tags',
+    '~/plugins/services/table',
+    '~/plugins/services/admin',
+    '~/plugins/services/checkin',
+    '~/plugins/services/company',
+    '~/plugins/services/invoice',
+    '~/plugins/services/eatry',
+    '~/plugins/services/space',
+    '~/plugins/services/settings',
+    { src: '~/plugins/vue2-datepicker', ssr: false },
+    { src: '~/plugins/vue2-filters', ssr: false }
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/dotenv',
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/

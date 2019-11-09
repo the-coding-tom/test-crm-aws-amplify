@@ -13,14 +13,16 @@
           <div class="sh-vflex">
             <div>
               <img
-                :src="row.user_profile ? row.user_profile.picture : img"
+                :src="row.user_profile && row.user_profile.picture ? row.user_profile.picture : img"
                 alt="Image placeholder"
                 class="mr-r-20 rounded-circle"
+                height="40px"
                 width="40px">
             </div>
-            <b-link><b-link
-              :to="{name: 'space-directory-id', params: {id: row.id}}"
-            >{{ row.first_name }} {{ row.last_name }}</b-link> <br> <span style="color: grey;">{{ row.user_profile ? row.user_profile.company : null }}</span></b-link>
+            <b-link ><b-link
+              :to="{name: 'space-memberships-id', params: {id: row.id}}"
+            >{{ row.first_name }} {{ row.last_name }}</b-link> <br>
+            <span style="color: grey;">{{ row.user_profile ? row.user_profile.company : null }}</span></b-link>
           </div>
         </template>
       </el-table-column>
@@ -30,7 +32,12 @@
         prop="amount"
         sortable>
         <template v-slot="{row}">
-          <div class="float-left">{{ row.primary_plan[0].name }}</div> <div class="float-right text-muted">{{ space.currency_symbol }} {{ row.primary_plan[0].price_per_cycle }}</div>
+          <div
+            v-if="row.primary_plan.length > 0"
+            class="float-left">{{ row.primary_plan.length > 0 && row.primary_plan[0].name }}</div>
+          <div class="float-right text-muted">
+            {{ row.primary_plan[0] && row.primary_plan[0].price | currency(space.currency_symbol) }}
+          </div>
         </template>
       </el-table-column>
 
@@ -96,6 +103,10 @@ export default {
     showModal: {
       type: Boolean,
       default: false
+    },
+    viewMore: {
+      type: Boolean,
+      default: true
     }
   },
   data() {

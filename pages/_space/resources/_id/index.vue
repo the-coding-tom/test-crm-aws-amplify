@@ -89,8 +89,6 @@
 
               <div class="col-md-6">
                 <div class="row pd-l-20">
-
-
                   <base-input
                     v-model="available_booking_time"
                     class="col-md-12"
@@ -101,8 +99,10 @@
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
                     <b-form-checkbox
-                      :value="can_book"
-                      v-model="can_book">Room is bookable</b-form-checkbox>
+                      v-model="can_book"
+                      :unchecked-value="false"
+                      :checked="true"
+                    >Room is bookable</b-form-checkbox>
                   </div>
                 </div>
               </div>
