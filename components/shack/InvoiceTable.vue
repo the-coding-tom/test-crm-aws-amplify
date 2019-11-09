@@ -5,20 +5,20 @@
       class="table table-hover table-striped"
       header-row-class-name="thead-light"
     >
-      <el-table-column 
-        label="No." 
-        prop="inv_id" 
-        width="130" 
+      <el-table-column
+        label="No."
+        prop="inv_id"
+        width="155"
         sortable>
         <template v-slot="{ row }">
           <a :href="`/${space}/invoice/preview/${row.id}`">{{ row.invoice_number }}</a>
         </template>
       </el-table-column>
 
-      <el-table-column 
-        label="Date" 
-        prop="inv_date" 
-        width="200" 
+      <el-table-column
+        label="Date"
+        prop="inv_date"
+        width="200"
         sortable>
         <template v-slot="{ row }">
           <div class="float-left">
@@ -27,9 +27,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column 
-        label="Name  /  Company" 
-        prop="name" 
+      <el-table-column
+        label="Name  /  Company"
+        prop="name"
         sortable>
         <template v-slot="{ row }">
           <div class="d-flex justify-content-between">
@@ -43,71 +43,71 @@
           <div
             class="d-flex justify-content-between inv-links"
           >
-            <a 
-              v-if="!row.finalize" 
+            <a
+              v-if="!row.finalize"
               @click="openUpdateBox(row.invProps)"><i class="fa fa-pen" /> Edit</a>
-            <a 
-              v-if="!row.sent" 
+            <a
+              v-if="!row.sent"
               @click="sendInv(row.invProps.id)"><i class="fa fa-envelope" /> Send</a>
 
-            <a 
-              v-if="row.sent" 
+            <a
+              v-if="row.sent"
               @click="sendInv(row.invProps.id)"><i class="fa fa-envelope" /> Resend</a>
 
 
-            <a 
-              v-if="!row.written_off" 
+            <a
+              v-if="!row.written_off"
               @click="writeOff(row.invProps.id)"><i class="fa fa-times" /> Writeoff</a>
 
-            <a 
-              v-if="!row.finalize" 
+            <a
+              v-if="!row.finalize"
               @click="finalizeInv(row.invProps)"><i class="fa fa-check" /> finalize</a>
               <!-- <a href="#"><i class="fa fa-download" /> PDF</a> -->
           </div>
         </template>
       </el-table-column>
 
-      <el-table-column 
-        label="Amount" 
-        align="right" 
-        width="300" 
+      <el-table-column
+        label="Amount"
+        align="right"
+        width="350"
         prop="status">
         <template v-slot="{ row }">
           {{ currency_symbol }}{{ row.amount }}
           <div class="">
-            <badge 
-              v-if="row.void" 
+            <badge
+              v-if="row.void"
               type="primary">
               void
             </badge>
-            <badge 
-              v-if="row.paid" 
+            <badge
+              v-if="row.paid"
               type="danger">
               paid
             </badge>
-            <badge 
-              v-if="row.sent" 
+            <badge
+              v-if="row.sent"
               type="success">
               sent
             </badge>
 
-            <badge 
-              v-if="!row.paid" 
+            <badge
+              v-if="!row.paid"
               type="primary">
               unpaid & pending
             </badge>
-            
+
             <badge
               v-if="row.written_off"
               type="warning">
               written off
             </badge>
-            <badge 
-              v-if="!row.sent" 
+            <badge
+              v-if="!row.sent"
               type="alternative">
               not sent
             </badge>
-           
+
           </div>
         </template>
       </el-table-column>
@@ -168,7 +168,7 @@
         <div class="clear-fix" />
 
         <button
-          type="submit" 
+          type="submit"
           class="btn btn-primary mr-t-40 pd-lr-40">Update Invoice</button>
       </b-form>
     </modal>

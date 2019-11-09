@@ -1,12 +1,12 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
+    <base-header
+      class="pb-6"
       type="">
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Invoices" />
-        <SearchForm 
-          :loading="loadingSearch" 
+        <SearchForm
+          :loading="loadingSearch"
           @search="getInvoiceResult" />
         <div class="mr-l-child-20">
           <a
@@ -23,30 +23,38 @@
       <div class="row">
         <div class="col-md-4">
           <card>
-            <div class="d-flex justify-content-between align-items-center">
-              <b-form-group
-                class="col-md-12"
-                label="Filter unpaid invoices">
-                <date-picker
-                  id="month"
-                  v-model="invMonth"
-                  width="100%"
-                  input-class="form-control"
-                  lang="en"
-                  format="YYYY-MM"
-                  value-type="format"
-                  confirm
-                  label="select month"
-                  type="month"
-                  @change="filterInv"
-                />
-              </b-form-group>
-            </div>
+            <b-row class="d-flex align-items-center">
+              <b-col md="8">
+                <client-only>
+                  <date-picker
+                    id="month"
+                    v-model="invMonth"
+                    :icon="false"
+                    width="100%"
+                    lang="en"
+                    input-class="form-control"
+                    format="YYYY-MM"
+                    value-type="format"
+                    confirm
+                    label="select month"
+                    type="month"
+                    @change="filterInv"
+                  >
+                    <template slot="calendar-icon">
+                      <i/>
+                    </template>
+                  </date-picker>
+                </client-only>
+              </b-col>
+              <b-col md="4">
+                <h3 class="text-muted">UNPAID</h3>
+              </b-col>
+            </b-row>
           </card>
         </div>
         <div class="col-md-8">
           <card>
-            <div class="d-flex justify-content-around">
+            <div class="d-flex justify-content-around py-2">
               <badge type="primary">
                 unpaid & pending <i class="fa fa-eye" />
               </badge>
@@ -97,7 +105,7 @@
           <div class="clear-fix" />
 
           <button
-            type="submit" 
+            type="submit"
             class="btn btn-primary mr-t-40 pd-lr-40">Create Invoice</button>
         </b-form>
       </modal>
