@@ -55,7 +55,9 @@
               @click="sendInv(row.invProps.id)"><i class="fa fa-envelope" /> Resend</a>
 
 
-            <a @click="writeOff(row.invProps.id)"><i class="fa fa-times" /> Writeoff</a>
+            <a 
+              v-if="!row.written_off" 
+              @click="writeOff(row.invProps.id)"><i class="fa fa-times" /> Writeoff</a>
 
             <a 
               v-if="!row.finalize" 
@@ -180,7 +182,7 @@ import {
   DropdownItem,
   Dropdown
 } from 'element-ui'
-// import UnconfirmedModal from "~/components/shack/UnconfirmedModal"
+import SectionTitle from '~/components/shack/SectionTitle.vue'
 import { mapState } from 'vuex'
 
 export default {
@@ -189,7 +191,9 @@ export default {
     [TableColumn.name]: TableColumn,
     [Dropdown.name]: Dropdown,
     [DropdownItem.name]: DropdownItem,
-    [DropdownMenu.name]: DropdownMenu
+    [DropdownMenu.name]: DropdownMenu,
+    SectionTitle
+
     // UnconfirmedModal
   },
   props: {
