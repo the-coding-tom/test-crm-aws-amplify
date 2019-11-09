@@ -46,6 +46,7 @@ export const actions = {
           sent: item.sent,
           amount: item.total_amount,
           void: item.void,
+          written_off: item.written_off,
           invProps: item
         }
         emptyIn.push(invObj)
@@ -232,6 +233,7 @@ export const actions = {
           sent: item.sent,
           amount: item.total_amount,
           void: item.void,
+          written_off: item.written_off,
           invProps: item
         }
         emptyIn.push(invObj)

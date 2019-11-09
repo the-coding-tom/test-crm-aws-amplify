@@ -55,7 +55,7 @@
             <div class="col-md-7">
               <div class="sh_prev_bf">
                 <div class="col-md-12">
-                  <h3 class="mr-b-20">Invoice Item(s)</h3>
+                  <h3 class="mr-b-20"><b>Invoice Item(s)</b></h3>
                   <div 
                     v-for="(item) in invoice.invoice_items" 
                     :key="item.id" 
@@ -80,11 +80,7 @@
                         </a>
                       </div>
                       <div>{{ currency_symbol }}{{ item.amount }}</div>
-                      <div class="text-muted">
-                        <!-- <br >{{ tax_rate }}% Tax : {{ currency_symbol }} {{(tax_rate % 100) * item.amount}} -->
-                        <br >
-                        Net Amount: {{ currency_symbol }}{{ item.amount }}
-                      </div>
+                      <div class="text-muted"/>
                     </div>
                   </div>
                   <modal :show.sync="modals.classic">
@@ -283,9 +279,9 @@ export default {
 </script>
 <style lang="scss">
 .sh-inv_item {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   + .sh-inv_item {
-    padding-top: 30px;
+    padding-top: 15px;
     border-top: 1px solid #dddddd;
   }
 }
