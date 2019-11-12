@@ -39,7 +39,7 @@ module.exports = {
     ],
     script: [
       {
-        src: 'https://js.squareupsandbox.com/v2/paymentform',
+        src: 'https://js.squareup.com/v2/paymentform',
         body: true
       }
     ]
