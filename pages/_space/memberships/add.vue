@@ -67,12 +67,6 @@
                           placeholder="Comments to save on this member"/>
                       </b-form-group>
 
-                      <!-- <b-form-group>
-                        <b-form-checkbox
-                          v-model="membership.founding_member"
-                          :value="true"
-                          :unchecked-value="false">Founding Member</b-form-checkbox>
-                      </b-form-group> -->
                     </div>
                     <div class="col-md-1"/>
                     <div class="col-md-5">
@@ -154,15 +148,6 @@
                             :value="option.id"/>
                         </el-select>
                       </b-form-group>
-
-                      <!-- <b-form-group
-                        v-if="membership.paid_for"
-                        label="Payment Source">
-                        <b-form-select
-                          v-model="membership.card_nonce"
-                          :options="cards"
-                          :required="true" />
-                      </b-form-group> -->
 
                     </div>
                     <div class="col-md-1"/>
