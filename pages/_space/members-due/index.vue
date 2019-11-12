@@ -17,7 +17,7 @@
             :key="i"
             @click="handleClick(day)">{{ day }} days</b-dropdown-item>
           <b-dropdown-divider/>
-          <b-dropdown-item>Expired</b-dropdown-item>
+          <b-dropdown-item @click="handleClick(0)">Expired</b-dropdown-item>
         </b-dropdown>
 
       </div>
@@ -26,6 +26,7 @@
       <div class="card-deck flex-column flex-xl-row">
         <card>
           <b-table
+            :busy="loading"
             :items="items"
             :fields="fields"
             show-empty
@@ -115,6 +116,7 @@ export default {
     MainTitle
   },
   data: () => ({
+    loading: false,
     data: null,
     card: null,
     cards: [],
@@ -132,6 +134,37 @@ export default {
   methods: {
     handleClick(day) {
       this.dropdown = day
+
+      this.loading = !this.loading
+
+      this.$membership
+        .expiringSubscriptions(day)
+        .then(data => {
+          this.loading = !this.loading
+
+          this.items = _.map(data, o => {
+            return {
+              id: o.id,
+              full_name: `${o.user.first_name} ${o.user.last_name}`,
+              plan: o.plan.name,
+              plan_id: o.plan.id,
+              slug: o.slug,
+              start_date: o.starts_at,
+              end_date: o.ends_at,
+              membership_id: o.user.uuid
+            }
+          })
+        })
+        .catch(e => {
+          this.loading = !this.loading
+
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+          error({ statusCode: e.statusCode, message })
+        })
     },
     showForm(e) {
       this.data = e
