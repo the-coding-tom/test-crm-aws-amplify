@@ -66,13 +66,12 @@ export default {
       // Customize the CSS for SqPaymentForm iframe elements
       inputStyles: [
         {
-          backgroundColor: 'rgba(0,0,0,1)',
-          boxShadow: '5px 10px 0px 0px rgb(255,255,255)',
-          color: 'rgba(255,255,255,1)',
-          fontSize: '15px',
+          backgroundColor: 'transparent',
+          color: '#4c4d4f',
+          fontSize: '14px',
           fontWeight: '100',
           padding: '10px',
-          placeholderColor: 'rgba(255,255,255,1)'
+          placeholderColor: 'grey'
         },
         {
           mediaMaxWidth: '800px',
@@ -191,11 +190,15 @@ export default {
   color: #8898aa;
 }
 
-.stripe-card {
-  width: 300px;
-  border: 1px solid grey;
-}
-.stripe-card.complete {
-  border-color: green;
+.sq-input {
+  font-family: 'GothamBook';
+  box-sizing: border-box;
+  border: 1px solid #000;
+  outline-offset: -2px;
+  display: inline-block;
+  -webkit-transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out;
+  -moz-transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out;
+  -ms-transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out;
+  transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 </style>

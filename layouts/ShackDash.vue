@@ -13,6 +13,7 @@
               :link="{ name: 'Uninvited', path: `/${subdomain}/memberships/uninvited`}"
             />
           </sidebar-item>
+          <sidebar-item :link="{ name: 'Members Due', path: `/${subdomain}/members-due`}"/>
           <sidebar-item :link="{ name: 'Directory', path: `/${subdomain}/directory` }" />
           <sidebar-item
             :link="{name: 'Checkins', icon: 'fa fa-user-check', path: `/${subdomain}/checkins`}"

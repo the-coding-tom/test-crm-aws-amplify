@@ -136,6 +136,15 @@ export default function(ctx, inject) {
     },
     getPaidFor: id => {
       return ctx.$axios.$get(`/${subdomain()}/memberships/${id}/paid-for`)
+    },
+    expiringSubscriptions: day => {
+      return ctx.$axios.$get(`/${subdomain()}/expiring-subscriptions/${day}`)
+    },
+    renewSubscription: (id, data) => {
+      return ctx.$axios.$post(
+        `/${subdomain()}/memberships/${id}/renew-subscription`,
+        data
+      )
     }
   }
   ;(ctx.$membership = Membership), inject('membership', Membership)
