@@ -261,7 +261,7 @@ export default {
     getRooms(link) {
       this.$resource
         .getAllRooms(link)
-        .then(res => {
+        .then(({ data }) => {
           this.meta = data.meta
           this.links = data.links
           this.$store.commit('events/setRooms', data)
