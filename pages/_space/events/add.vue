@@ -115,6 +115,16 @@
                       name="room"
                     >{{ room.name }}</b-form-radio>
                   </b-form-group>
+                  <div>
+                    <base-pagination
+                      :total="meta.total"
+                      :per-page="15"
+                      size="sm"
+                      @next="next"
+                      @prev="prev"
+                    />
+                  </div>
+
                 </div>
 
                 <div class="form-group col-md-12">
@@ -177,9 +187,13 @@ export default {
     [Option.name]: Option
   },
   async asyncData({ store, $event }) {
+    let meta, links
+
     await $event
       .getRooms()
       .then(({ data }) => {
+        meta = data.meta
+        links = data.links
         store.commit('events/setRooms', data)
       })
       .catch(err => {
@@ -193,6 +207,11 @@ export default {
       .catch(err => {
         error({ statusCode: 404, message: 'Server Error. Try Again !!!' })
       })
+
+    return {
+      meta,
+      links
+    }
   },
   data() {
     return {
@@ -230,6 +249,34 @@ export default {
       this.endTime = this.$moment(e)
         .add(1, 'hour')
         .format('YYYY-MM-DD HH:mm:ss')
+    },
+    next() {
+      const { next } = this.links
+      this.getRooms(next)
+    },
+    prev() {
+      const { prev } = this.links
+      this.getRooms(prev)
+    },
+    getRooms(link) {
+      this.$resource
+        .getAllRooms(link)
+        .then(res => {
+          this.meta = data.meta
+          this.links = data.links
+          store.commit('events/setRooms', data)
+        })
+        .catch(err => {
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+          this.$bvToast.toast(message, {
+            variant: 'error',
+            title: 'Error'
+          })
+        })
     },
     async addEvent() {
       const start_time = this.$moment(this.startTime).format(

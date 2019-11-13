@@ -44,7 +44,7 @@
           <div class="media align-items-center">
             <span class="avatar avatar-sm rounded-circle">
               <img
-                :src="picture ? picture : `img/theme/team-4.jpg`"
+                :src="picture ? picture : `/img/placeholder.jpg`"
                 alt="Image placeholder">
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
@@ -64,24 +64,6 @@
             <i class="ni ni-settings-gear-65"/>
             <span>Settings</span>
           </nuxt-link>
-          <!--<a
-            href="#!"
-            class="dropdown-item">
-            <i class="ni ni-settings-gear-65"/>
-            <span>Settings</span>
-          </a>
-          <a
-            href="#!"
-            class="dropdown-item">
-            <i class="ni ni-calendar-grid-58"/>
-            <span>Activity</span>
-          </a>
-          <a
-            href="#!"
-            class="dropdown-item">
-            <i class="ni ni-support-16"/>
-            <span>Support</span>
-          </a> -->
           <div class="dropdown-divider"/>
           <a
             class="dropdown-item"

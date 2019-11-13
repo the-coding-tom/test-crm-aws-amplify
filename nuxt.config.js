@@ -2,9 +2,15 @@ const pkg = require('./package')
 const webpack = require('webpack')
 const config = require('dotenv').config()
 
-console.log(config.parsed.base_url)
+let baseURL = config.parsed.base_url
 
-const baseURL = config.parsed.base_url
+if (process.env.NODE_ENV == 'development') {
+  baseURL = config.parsed.staging_base_url
+}
+
+console.log('------------------------------------')
+console.log(baseURL)
+console.log('------------------------------------')
 
 module.exports = {
   mode: 'universal',
