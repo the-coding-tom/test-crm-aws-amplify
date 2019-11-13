@@ -8,6 +8,7 @@
           <b-form-select
             :options="members"
             v-model="membership_id"
+            :value="membership_id"
             required />
         </b-form-group>
       </b-row>
@@ -157,8 +158,6 @@ export default {
             value: o.id
           }
         })
-
-        this.membership_id = this.members[0].value
       })
     },
     getRooms() {

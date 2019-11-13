@@ -305,7 +305,7 @@ export default {
       this.bookdata.from = this.$moment(e.start).format('YYYY-MM-DD HH:mm')
       this.bookdata.to = this.$moment(e.end).format('YYYY-MM-DD HH:mm')
       this.bookdata.title = e.title
-      this.bookdata.membership_id = e.extendedProps.extendProps.uuid
+      this.bookdata.membership_id = e.extendedProps.extendProps.membership.id
       this.bookdata.room_id = e.extendedProps.extendProps.room.id
       this.bookdata.booking_id = e.extendedProps.extendProps.uuid
       this.modalText = 'Update Booking'
