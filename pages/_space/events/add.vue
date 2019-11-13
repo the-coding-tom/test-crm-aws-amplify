@@ -117,6 +117,7 @@
                   </b-form-group>
                   <div>
                     <base-pagination
+                      :value="meta.current_page"
                       :total="meta.total"
                       :per-page="15"
                       size="sm"
