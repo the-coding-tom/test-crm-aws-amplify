@@ -19,6 +19,7 @@
           <b-form-select
             :options="rooms"
             v-model="room_id"
+            :value="room_id"
             required />
         </b-form-group>
       </b-row>
@@ -168,7 +169,7 @@ export default {
             value: o.id
           }
         })
-        this.room_id = this.rooms[0].value
+        // this.room_id = this.rooms[0].value
       })
     },
     changeDate(e) {
