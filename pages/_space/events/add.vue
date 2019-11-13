@@ -266,7 +266,7 @@ export default {
           this.links = data.links
           store.commit('events/setRooms', data)
         })
-        .catch(err => {
+        .catch(e => {
           const message = e.response
             ? `${e.response.data.message} ~ ${JSON.stringify(
                 e.response.data.errors
