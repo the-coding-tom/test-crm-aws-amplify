@@ -264,7 +264,7 @@ export default {
         .then(res => {
           this.meta = data.meta
           this.links = data.links
-          store.commit('events/setRooms', data)
+          this.$store.commit('events/setRooms', data)
         })
         .catch(e => {
           const message = e.response
