@@ -32,11 +32,20 @@
         <div class="col-md-6 mr-l-child-10 text-right">
 
           <b-button
+            variant="transparent"
+            class="text-primary"
+            @click="drawer = true"
+          >
+            <i
+              class="fa fa-sticky-note"
+            /> View Notes
+          </b-button>
+          <!-- <b-button
             :to="{name: 'space-directory-id-notes', params: {id: $route.params.id}}"
             variant="transparent"
             class="text-primary">
             <i class="fa fa-sticky-note" /> View Notes
-          </b-button>
+          </b-button> -->
           <b-button
             variant="transparent"
             class="text-danger"
@@ -300,15 +309,24 @@
         :toggle-loading="toggleLoading"
         :loading="loading"
         @addCard="addCard" /></b-modal>
+    <el-drawer
+      :visible.sync="drawer"
+      :direction="direction"
+      title="Notes">
+      <MembershipNotes />
+    </el-drawer>
   </div>
 </template>
 <script>
 import MainTitle from '~/components/shack/MainTitle.vue'
 import ProfileHead from '~/components/shack/ProfileHead.vue'
+import MembershipNotes from '~/components/shack/MembershipNotes.vue'
 import ChangePlan from '~/components/directory/ChangePlan'
 import AddPlan from '~/components/directory/AddPlan'
 import AddCard from '~/components/directory/AddCard'
 import { mapState } from 'vuex'
+import { Drawer } from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 export default {
   name: 'DirectoryProfile',
@@ -318,7 +336,9 @@ export default {
     ProfileHead,
     ChangePlan,
     AddPlan,
-    AddCard
+    AddCard,
+    [Drawer.name]: Drawer,
+    MembershipNotes
   },
   async asyncData({ store, params, $membership, error, $moment }) {
     try {
@@ -371,7 +391,9 @@ export default {
       checked: false,
       cards: [],
       currentPage: 1,
-      perPage: 5
+      perPage: 5,
+      drawer: false,
+      direction: 'rtl'
     }
   },
   computed: {
