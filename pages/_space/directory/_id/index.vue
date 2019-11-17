@@ -61,11 +61,20 @@
             />
             <div class="card-body">
               <div class="row">
-                <div class="col">
+                <div class="col-md-6">
                   <i class="fa fa-envelope" /> {{ data.email }}
                 </div>
-                <div class="col">
+                <div class="col-md-6">
                   <i class="fa fa-phone" /> {{ data.user_profile && data.user_profile.phone }}
+                </div>
+
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <i class="fa fa-user" /> {{ data.user_profile && data.user_profile.gender }}
+                </div>
+                <div class="col-md-6">
+                  <i class="fa fa-globe" /> {{ data.user_profile && data.user_profile.nationality }}
                 </div>
               </div>
               <div class="mt-4">
@@ -135,7 +144,7 @@
               <div class="sh-dls">
                 <span> Paying for:</span> <span
                   v-for="paid in paid_for"
-                  :key="paid.id"><nuxt-link 
+                  :key="paid.id"><nuxt-link
                     v-if="paid_for.length > 0"
                     :to="{name: 'space-memberships-id', params: {id: paid.id}}">{{ paid.first_name }} {{ paid.last_name }}</nuxt-link>, </span>
               </div>
