@@ -8,6 +8,7 @@
           <b-form-select
             :options="members"
             v-model="membership_id"
+            :value="membership_id"
             required />
         </b-form-group>
       </b-row>
@@ -18,6 +19,7 @@
           <b-form-select
             :options="rooms"
             v-model="room_id"
+            :value="room_id"
             required />
         </b-form-group>
       </b-row>
@@ -157,8 +159,6 @@ export default {
             value: o.id
           }
         })
-
-        this.membership_id = this.members[0].value
       })
     },
     getRooms() {
@@ -169,7 +169,7 @@ export default {
             value: o.id
           }
         })
-        this.room_id = this.rooms[0].value
+        // this.room_id = this.rooms[0].value
       })
     },
     changeDate(e) {
