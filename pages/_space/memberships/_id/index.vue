@@ -8,10 +8,13 @@
           <MainTitle
             :subtitle="`${data.first_name} ${data.last_name}`"
             title="Membership"/>
+
+          <b-button
+            variant="transparent"
+            class="text-danger"
+            @click="cancelMembership"><i class="fa fa-trash"/> Cancel Membership</b-button>
         </div>
       </base-header>
-
-
 
       <div class="container-fluid mt--6">
 
@@ -105,12 +108,6 @@
                     :unchecked-value="false">Yes</b-form-checkbox>
                 </b-form-group>
 
-                <!-- <b-form-group class="col-md-6">
-                  <b-form-checkbox
-                    v-model="data.founding_member"
-                    :value="true"
-                    :unchecked-value="false">Founding Member</b-form-checkbox>
-                </b-form-group> -->
                 <b-form-group
                   v-if="data.paid_for"
                   class="col-md-6"
@@ -132,16 +129,6 @@
                       :value="option.id"/>
                   </el-select>
                 </b-form-group>
-
-                <!-- <b-form-group
-                  v-if="data.paid_for"
-                  class="col-md-6"
-                  label="Payment Source">
-                  <b-form-select
-                    v-model="data.card_nonce"
-                    :options="cards"
-                    :required="true" />
-                </b-form-group> -->
 
                 <div class="col-md-12">
                   <b-button
@@ -328,6 +315,36 @@ export default {
           this.$bvToast.toast(message, {
             variant: 'danger',
             title: 'Error'
+          })
+        })
+    },
+    cancelMembership() {
+      if (!confirm('Are you sure?')) return
+
+      this.loading = !this.loading
+      const { id } = this.$route.params
+      this.$membership
+        .deleteMembership(id)
+        .then(({ data }) => {
+          this.$bvToast.toast('Member deleted successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+
+          this.$router.go(-1)
+        })
+        .catch(e => {
+          this.loading = !this.loading
+
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+
+          this.$bvToast.toast(message, {
+            title: 'Error',
+            variant: 'danger'
           })
         })
     }
