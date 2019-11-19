@@ -40,12 +40,6 @@
               class="fa fa-sticky-note"
             /> View Notes
           </b-button>
-          <!-- <b-button
-            :to="{name: 'space-directory-id-notes', params: {id: $route.params.id}}"
-            variant="transparent"
-            class="text-primary">
-            <i class="fa fa-sticky-note" /> View Notes
-          </b-button> -->
           <b-button
             variant="transparent"
             class="text-danger"
@@ -61,7 +55,7 @@
         <div class="col-md-6">
           <div class="card">
             <ProfileHead
-              :status="data.founding_member"
+              :status="data.prefix_type"
               :img="data.user_profile ? data.user_profile.picture : null"
               :name="data.user_profile ? data.user_profile.full_name : `${data.first_name} ${data.last_name}`"
               :company="data.user_profile ? data.user_profile.company : null"

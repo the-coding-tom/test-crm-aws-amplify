@@ -1,11 +1,11 @@
 <template>
   <div class="col-md-3 sh-thumb">
     <card>
-      <span class="label label-default">
+      <span
+        v-show="getMembershipType"
+        class="label label-default">
         <template>
-          <i
-            v-show="getMembershipType"
-            class="fa fa-star" /> {{ getMembershipType }}
+          <i class="fa fa-star" /> {{ getMembershipType }}
         </template>
       </span>
       <div class="d-flex mr-tb-10">
