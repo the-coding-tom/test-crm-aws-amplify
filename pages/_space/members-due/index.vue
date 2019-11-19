@@ -16,41 +16,40 @@
             v-for="(day, i) in days"
             :key="i"
             @click="handleClick(day)">{{ day }} days</b-dropdown-item>
-          <b-dropdown-divider/>
+          <b-dropdown-item @click="handleClick(0)">Today</b-dropdown-item>
           <b-dropdown-item @click="handleClick(0)">Expired</b-dropdown-item>
+          <b-dropdown-divider/>
         </b-dropdown>
 
       </div>
     </base-header>
     <div class="container-fluid mt--6">
-      <div class="card-deck flex-column flex-xl-row">
-        <card>
-          <b-table
-            :busy="loading"
-            :items="items"
-            :fields="fields"
-            show-empty
-            striped
-            hover>
-            <template v-slot:cell(options)="data">
-              <b-button
-                variant="transparent"
-                class="text-primary"
-                small
-                @click="showForm(data)"><i class="fas fa-undo-alt"/>  Renew</b-button>
-            </template>
-          </b-table>
+      <card>
+        <b-table
+          :busy="loading"
+          :items="items"
+          :fields="fields"
+          show-empty
+          striped
+          hover>
+          <template v-slot:cell(options)="data">
+            <b-button
+              variant="transparent"
+              class="text-primary"
+              small
+              @click="showForm(data)"><i class="fas fa-undo-alt"/>  Renew</b-button>
+          </template>
+        </b-table>
 
-          <b-pagination
-            v-model="currentPage"
-            :total-rows="rows"
-            :per-page="perPage"
-            align="center"
-            class="text-center"
-            aria-controls="my-table"
-          />
-        </card>
-      </div>
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="rows"
+          :per-page="perPage"
+          align="center"
+          class="text-center"
+          aria-controls="my-table"
+        />
+      </card>
     </div>
     <b-modal
       id="renew"
