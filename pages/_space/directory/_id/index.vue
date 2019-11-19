@@ -569,6 +569,7 @@ export default {
       this.$membership
         .cancelSubscription(this.$route.params.id, {
           plan_id: subscription.plan_id,
+          slug: subscription.slug,
           immediate: true
         })
         .then(res => {
