@@ -33,14 +33,9 @@
                 />
                 <div class="form-group col-md-12">
                   <label>Event Description</label>
-                  <textarea
+                  <html-editor
                     v-model="description"
-                    placeholder="Add details about the event"
-                    rows="4"
-                    max-rows="6"
-                    description="description"
-                    class="form-control"
-                  />
+                    placeholder="Add details about the event" />
                 </div>
                 <b-form-group
                   label="Start Date"
@@ -285,9 +280,15 @@ export default {
       )
       const end_time = this.$moment(this.endTime).format('YYYY-MM-DD HH:mm:ss')
 
+      this.description = _.replace(this.description, /<\/?p[^>]*>/g, '\n')
+
+      var showdown = require('showdown')
+      var converter = new showdown.Converter()
+      var markdown = converter.makeMarkdown(this.description)
+
       const eventDetails = {
         name: this.title,
-        description: this.description,
+        description: markdown,
         price: this.price,
         start_time,
         end_time,

@@ -25,7 +25,7 @@
             </div>
             <div class="pv-content">
               <h3>{{ event.name }}</h3>
-              <p class="text-muted">{{ event.description }}</p>
+              <span v-html="event.description" />
               <badge type="info">{{ event.event_category.name }}</badge>
             </div>
             <div class="pv-footer">
@@ -99,6 +99,13 @@ export default {
         end_time
       ).format('HH:mm')} `
     }
+  },
+  mounted() {
+    var showdown = require('showdown')
+    var converter = new showdown.Converter()
+    var html = converter.makeHtml(this.event.description)
+
+    this.event.description = html
   }
 }
 </script>

@@ -39,6 +39,7 @@
     "moment-timezone": "^0.5.27",
     "nuxt": "^2.0.0",
     "perfect-scrollbar": "^1.4.0",
+    "showdown": "^1.9.1",
     "vee-validate": "^3.0.10",
     "vue-quill-editor": "^3.0.6",
     "vue-stripe-elements-plus": "^0.3.2",

@@ -39,14 +39,9 @@
                   />
                   <div class="form-group col-md-12">
                     <label>Event Description</label>
-                    <textarea
+                    <html-editor
                       v-model="event.description"
-                      placeholder="Add details about the event"
-                      rows="4"
-                      max-rows="6"
-                      description="description"
-                      class="form-control"
-                    />
+                      placeholder="Add details about the event" />
                   </div>
                   <b-form-group
                     label="Start Date"
@@ -225,6 +220,7 @@ export default {
       .then(({ data }) => {
         data.event_category_id = data.event_category.id
         data.room_id = data.room.id
+
         return {
           event: data
         }
@@ -248,6 +244,13 @@ export default {
       space: state => state.space.currentSpace.subdomain
     })
   },
+  mounted() {
+    var showdown = require('showdown')
+    var converter = new showdown.Converter()
+    var markdown = converter.makeHtml(this.event.description)
+
+    this.event.description = markdown
+  },
   methods: {
     toggleLoading() {
       this.loading = !this.loading
@@ -258,12 +261,21 @@ export default {
         .format('YYYY-MM-DD HH:mm:ss')
     },
     async updateEvent() {
-      const { event } = this
+      let object = Object.freeze(this.event)
 
       this.loading = !this.loading
 
+      var showdown = require('showdown')
+      var converter = new showdown.Converter()
+      var stripedHtml = _.replace(this.event.description, /<\/?p[^>]*>/g, '\n')
+
+      let description = converter.makeMarkdown(stripedHtml)
+
       await this.$event
-        .updateEvent(event.id, event)
+        .updateEvent(this.event.id, {
+          ...object,
+          description
+        })
         .then(({ data }) => {
           this.$bvToast.toast(`Event updated successfully`, {
             title: 'Success',
@@ -273,7 +285,7 @@ export default {
 
           this.$router.push({
             name: 'space-events-id',
-            params: { id: event.id }
+            params: { id: this.event.id }
           })
         })
         .catch(({ response }) => {
