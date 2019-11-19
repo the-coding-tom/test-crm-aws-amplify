@@ -1,6 +1,59 @@
 <template>
   <div>
-    <b-form @submit.prevent="addNote">
+    <div class="add-note mr-lr-20 mr-b-20">
+      <textarea
+        v-model="description"
+        placeholder="Notes on Alessandro"
+        rows="5"
+        max-rows="6"
+        description="description"
+        class="form-control dashed"
+      />
+      <b-button
+        variant="primary"
+        block
+        class="mr-t-20"
+      >Publish Note</b-button>
+      <b-button
+        variant="outline-default"
+        block
+        class="mr-t-20 dashed"
+      >Add New Note</b-button>
+    </div>
+
+    <div 
+      v-for="n in 5" 
+      :key="n" 
+      class="note-card pd-20">
+      <div class="d-flex justify-content-between">
+        <h3><i class="ti-pin-alt mr-r-10" /> Note #2</h3>
+        <b-dropdown 
+          no-caret 
+          class="drop-0">
+          <template v-slot:button-content>
+            <i class="fa fa-ellipsis-v" />
+          </template>
+          <a 
+            class="dropdown-item" 
+            href="#">
+            <i class="ti-pin-alt" /> Pin this
+          </a>
+          <a 
+            class="dropdown-item text-danger" 
+            href="#">
+            <i class="ti-trash" /> Delete Post
+          </a>
+        </b-dropdown>
+      </div>
+      <p>I created a special plan that caters to the needs of Alessandro.</p>
+      <p class="text-muted m-0">Samuel Jervier  •  30 Sep — 10:15 AM</p>
+    </div>
+
+
+    <!-- My Code ends here -->
+
+
+    <!-- <b-form @submit.prevent="addNote">
       <base-header
         class="pb-6"
         type>
@@ -64,7 +117,7 @@
           </b-col>
         </b-row>
       </b-container>
-    </b-form>
+    </b-form> -->
   </div>
 </template>
 
@@ -168,4 +221,29 @@ export default {
 </script>
 
 <style>
+.note-card {
+  border-bottom: 1px solid #f4f4f4;
+}
+.note-card:nth-child(even) {
+  background: #fcfcfc;
+}
+.note-card h3 {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.drop-0 button {
+  padding: 0;
+}
+.drop-0 .dropdown-menu.show {
+  left: -15px !important;
+  top: 10px !important;
+}
+.el-drawer.ltr,
+.el-drawer.rtl,
+.el-drawer__container {
+  overflow: scroll;
+}
+.btn-outline-default {
+  background: #ececec;
+}
 </style>
