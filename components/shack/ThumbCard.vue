@@ -3,7 +3,9 @@
     <card>
       <span class="label label-default">
         <template>
-          <i class="fa fa-star" /> {{ getMembershipType }}
+          <i
+            v-show="getMembershipType"
+            class="fa fa-star" /> {{ getMembershipType }}
         </template>
       </span>
       <div class="d-flex mr-tb-10">
@@ -54,18 +56,6 @@ export default {
       {
         text: 'Founding Member',
         value: '0'
-      },
-      {
-        text: 'Fast Track',
-        value: '1'
-      },
-      {
-        text: 'Early Invite',
-        value: '2'
-      },
-      {
-        text: 'General Member',
-        value: '3'
       }
     ]
   }),
