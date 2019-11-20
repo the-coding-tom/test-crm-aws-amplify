@@ -145,6 +145,10 @@
 
       </div>
     </b-form>
+    <b-button
+      variant="transparent"
+      class="text-primary ml-2 mb-2"
+      @click="$router.go(-1)"><i class="fas fa-chevron-left"/> Back</b-button>
   </div>
 </template>
 <script>

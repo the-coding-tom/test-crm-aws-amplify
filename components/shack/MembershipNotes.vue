@@ -1,123 +1,61 @@
 <template>
   <div>
     <div class="add-note mr-lr-20 mr-b-20">
-      <textarea
-        v-model="description"
-        placeholder="Notes on Alessandro"
-        rows="5"
-        max-rows="6"
-        description="description"
-        class="form-control dashed"
-      />
-      <b-button
-        variant="primary"
-        block
-        class="mr-t-20"
-      >Publish Note</b-button>
-      <b-button
-        variant="outline-default"
-        block
-        class="mr-t-20 dashed"
-      >Add New Note</b-button>
+      <b-form @submit.prevent="addNote">
+        <textarea
+          v-model="body"
+          placeholder="Notes on member goes here"
+          rows="3"
+          max-rows="6"
+          description="description"
+          class="form-control dashed"
+          required
+        />
+        <b-form-checkbox
+          v-model="sticky_note"
+          :value="true"
+          :unchecked-value="false"
+          class="mt-2">Sticky Note</b-form-checkbox>
+        <b-button
+          type="submit"
+          variant="outline-default"
+          block
+          class="mr-t-20 dashed"
+        >Add New Note</b-button>
+      </b-form>
     </div>
 
-    <div 
-      v-for="n in 5" 
-      :key="n" 
+    <div
+      v-for="(note, i) in notes"
+      :key="note.id"
       class="note-card pd-20">
       <div class="d-flex justify-content-between">
-        <h3><i class="ti-pin-alt mr-r-10" /> Note #2</h3>
-        <b-dropdown 
-          no-caret 
+        <h3><i
+          v-show="note.sticky_note"
+          class="ti-pin-alt mr-r-10" /></h3>
+        <b-dropdown
+          no-caret
           class="drop-0">
           <template v-slot:button-content>
             <i class="fa fa-ellipsis-v" />
           </template>
-          <a 
-            class="dropdown-item" 
-            href="#">
-            <i class="ti-pin-alt" /> Pin this
-          </a>
-          <a 
-            class="dropdown-item text-danger" 
-            href="#">
-            <i class="ti-trash" /> Delete Post
-          </a>
+          <b-button
+            variant="transparent"
+            class="dropdown-item"
+            @click="updateNote(note)"
+          >
+            <i class="ti-pin-alt" /> <span v-if="!note.sticky_note">Pin this</span> <span v-else>Unpin this</span>
+          </b-button>
+          <b-button
+            variant="transparent"
+            class="dropdown-item text-danger"
+            size="sm"
+            @click="deleteNote(i)"><i class="ti ti-trash"/> Delete Post</b-button>
         </b-dropdown>
       </div>
-      <p>I created a special plan that caters to the needs of Alessandro.</p>
-      <p class="text-muted m-0">Samuel Jervier  •  30 Sep — 10:15 AM</p>
+      <p>{{ note.body }}</p>
+      <p class="text-muted m-0">{{ note.user.name }}  •  {{ $moment(note.updated_at).format('MMM DD, YYYY HH:mm:ss') }}</p>
     </div>
-
-
-    <!-- My Code ends here -->
-
-
-    <!-- <b-form @submit.prevent="addNote">
-      <base-header
-        class="pb-6"
-        type>
-        <div class="d-flex justify-content-between align-items-center py-4">
-          <MainTitle
-            title="Directory"
-            subtitle="Notes" />
-          <b-button
-            :disabled="loading"
-            type="submit"
-            variant="primary">Add Note</b-button>
-        </div>
-      </base-header>
-      <b-container class="col-md-12">
-
-        <b-row>
-          <b-col cols="6">
-            <b-card title="New Note">
-              <html-editor
-                v-model="body"
-                placeholder="Content" />
-              <b-form-checkbox
-                v-model="sticky_note"
-                :value="true"
-                :unchecked-value="false"
-                class="mt-2">Sticky Note</b-form-checkbox>
-            </b-card>
-          </b-col>
-          <b-col
-            cols="6"
-          >
-            <b-card
-              title="Administrator Notes"
-            >
-              <div
-                style="max-height: 500px; overflow-y:auto; margin: 0 -25px;">
-                <table class="table table-hover table-striped">
-                  <tbody>
-                    <tr
-                      v-for="(note, i) in notes"
-                      :key="note.id"><td>
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <span>{{ $moment(note.updated_at).format('MMM DD, YYYY HH:mm:ss') }}</span>
-                            <span>~ {{ note.user.name }}</span>
-                          </div>
-                          <div v-if="note.user.id == user">
-                            <b-button
-                              variant="transparent"
-                              class="text-danger"
-                              size="sm"
-                              @click="deleteNote(i)"><i class="fa fa-trash"/></b-button>
-                          </div>
-                        </div>
-                        <span v-html="note.body"/>
-                    </td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </b-card>
-          </b-col>
-        </b-row>
-      </b-container>
-    </b-form> -->
   </div>
 </template>
 
@@ -129,22 +67,16 @@ import { mapState } from 'vuex'
 
 export default {
   layout: 'ShackDash',
-  async asyncData({ $membership, params }) {
-    return await $membership
-      .getAllNotes(params.id)
-      .then(({ data }) => {
-        return {
-          notes: data
-        }
-      })
-      .catch(e => {
-        console.log(e.response.data.message)
-      })
-  },
   components: {
     BaseHeader,
     MainTitle,
     HtmlEditor
+  },
+  props: {
+    membership_id: {
+      type: String,
+      default: ''
+    }
   },
   data: () => ({
     loading: false,
@@ -157,7 +89,24 @@ export default {
       user: state => state.auth.user.id
     })
   },
+  mounted() {
+    this.getNotes()
+  },
   methods: {
+    getNotes() {
+      this.$membership
+        .getAllNotes(this.$route.params.id)
+        .then(({ data }) => {
+          this.notes = _.sortBy(_.sortBy(data, ['updated_by']), [
+            function(o) {
+              return o.sticky_note !== true
+            }
+          ])
+        })
+        .catch(e => {
+          console.log(e.response.data.message)
+        })
+    },
     addNote() {
       const { body, sticky_note } = this
       const { id } = this.$route.params
@@ -175,6 +124,12 @@ export default {
           })
 
           this.notes.push(data)
+
+          this.notes = _.sortBy(_.sortBy(this.notes, ['updated_by']), [
+            function(o) {
+              return o.sticky_note !== true
+            }
+          ])
         })
         .catch(e => {
           this.loading = !this.loading
@@ -205,6 +160,36 @@ export default {
           })
 
           this.notes.splice(i, 1)
+        })
+        .catch(e => {
+          this.loading = !this.loading
+          const message = e.response ? e.response.data.message : e.message
+
+          this.$bvToast.toast(message, {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
+    },
+    updateNote(note) {
+      this.loading = !this.loading
+      this.sticky_note = !note.sticky_note
+
+      const { sticky_note } = this
+
+      this.$membership
+        .updateNote(this.membership_id, note.id, {
+          sticky_note
+        })
+        .then(res => {
+          this.loading = !this.loading
+
+          this.getNotes()
+
+          this.$bvToast.toast('Note added successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
         })
         .catch(e => {
           this.loading = !this.loading

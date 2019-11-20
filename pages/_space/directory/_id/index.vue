@@ -32,6 +32,13 @@
         <div class="col-md-6 mr-l-child-10 text-right">
 
           <b-button
+            :to="{name: 'space-memberships-id', params: {id: data.id}}"
+            variant="transparent"
+            class="text-primary"
+          >
+            <i class="fas fa-edit"/> Edit Membership
+          </b-button>
+          <b-button
             variant="transparent"
             class="text-primary"
             @click="drawer = true"
@@ -307,7 +314,7 @@
       :visible.sync="drawer"
       :direction="direction"
       title="Notes">
-      <MembershipNotes />
+      <MembershipNotes :membership_id="data.id" />
     </el-drawer>
   </div>
 </template>
