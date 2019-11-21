@@ -16,8 +16,8 @@
             v-for="(day, i) in days"
             :key="i"
             @click="handleClick(day)">{{ day }} days</b-dropdown-item>
-          <b-dropdown-item @click="handleClick(0)">Today</b-dropdown-item>
-          <b-dropdown-item @click="handleClick(0)">Expired</b-dropdown-item>
+          <b-dropdown-item @click="handleClick(1)">Today</b-dropdown-item>
+          <b-dropdown-item @click="handleClick(-1)">Expired</b-dropdown-item>
           <b-dropdown-divider/>
         </b-dropdown>
 
