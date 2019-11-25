@@ -22,7 +22,8 @@
                 <el-select
                   v-model="attendee"
                   placeholder="Select Member"
-                  @change="getCards">
+                  filterable
+                >
                   <el-option
                     v-for="member in memberships"
                     :key="member.id"
@@ -31,7 +32,24 @@
                   />
                 </el-select>
               </div>
-              <div class="form-group col-md-2">
+              <div
+                v-if="attendee"
+                class="form-group col-md-2">
+                <label for="source">Payment Source</label>
+                <el-select
+                  v-model="source"
+                  placeholder="Choose a source"
+                  @change="getCards" >
+                  <el-option
+                    v-for="source in sources"
+                    :key="source.text"
+                    :label="source.value"
+                    :value="source.value"/>
+                </el-select>
+              </div>
+              <div
+                v-if="source === 'card'"
+                class="form-group col-md-2">
                 <label>Payment Method</label>
                 <el-select
                   v-model="payment_method"
@@ -173,7 +191,12 @@ export default {
       loading: false,
       attendee: '',
       payment_method: '',
-      cards: []
+      cards: [],
+      source: '',
+      sources: [
+        { text: 'Card', value: 'card' },
+        { text: 'Credit', value: 'credit' }
+      ]
     }
   },
   computed: {
@@ -193,7 +216,11 @@ export default {
       const { prev } = this.links
       this.$events.getAttendees(null, prev)
     },
-    getCards(id) {
+    getCards(source) {
+      if (source !== 'card') return
+
+      const id = this.attendee
+
       this.$membership
         .getPaymentMethods(id)
         .then(({ data }) => {
@@ -219,7 +246,8 @@ export default {
       const payload = {
         number_of_tickets: this.tickets,
         membership_id: this.attendee,
-        payment_method: this.payment_method
+        payment_method: this.payment_method,
+        source: this.source
       }
 
       this.$event
@@ -233,7 +261,12 @@ export default {
           this.$store.commit('events/addAttendee', data)
         })
         .catch(error => {
-          this.$bvToast.toast(JSON.stringify(error.response.data.errors), {
+          const message = error.response
+            ? error.response.data.message +
+              ' ~ ' +
+              JSON.stringify(error.response.data.errors)
+            : error.message
+          this.$bvToast.toast(message, {
             title: 'Error',
             variant: 'danger',
             solid: true
