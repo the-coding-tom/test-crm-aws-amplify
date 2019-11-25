@@ -5,6 +5,10 @@
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Attendees" />
+        <SearchForm
+          :loading="loading"
+          :required="false"
+          @search="searchAttendees" />
       </div>
     </base-header>
 
@@ -13,11 +17,12 @@
         <div class="col">
           <card>
             <b-row>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
                 <label>Add new Attendee</label>
                 <el-select
                   v-model="attendee"
-                  placeholder="Select Member">
+                  placeholder="Select Member"
+                  @change="getCards">
                   <el-option
                     v-for="member in memberships"
                     :key="member.id"
@@ -26,13 +31,26 @@
                   />
                 </el-select>
               </div>
+              <div class="form-group col-md-2">
+                <label>Payment Method</label>
+                <el-select
+                  v-model="payment_method"
+                  placeholder="Choose a card">
+                  <el-option
+                    v-for="card in cards"
+                    :key="card.id"
+                    :label="`${card.card_brand} ~ **** ${card.last_4}`"
+                    :value="card.id"
+                  />
+                </el-select>
+              </div>
               <base-input
                 v-model="tickets"
-                class="col-md-4"
+                class="col-md-1"
                 label="Tickets"
                 placeholder="Enter number of tickets"
                 type="number"
-                max="3"
+                min="1"
               />
               <div class="form-group col-md-3">
                 <label>&nbsp;</label>
@@ -66,13 +84,21 @@
                       <td>{{ attendee.number_of_tickets }}</td>
                       <td>
                         <b-button
+                          :disabled="attendee.membership.last_checkin[0] && attendee.membership.last_checkin[0].status === 'checkin'"
+                          variant="info"
+                          @click="checkinToggle(attendee)"
+                        >
+                          <i class="fas fa-check-square"/>
+                          <span>Checkin</span>
+                        </b-button>
+                        <b-button
                           :disabled="loading"
                           type="submit"
                           variant="transparent"
                           class="text-danger"
                           @click="removeTicket(i, attendee)"
                         >
-                          <i class="fa fa-times" /> Remove
+                          <i class="fa fa-times" /> Cancel
                         </b-button>
                       </td>
                     </tr>
@@ -102,6 +128,7 @@ import BaseHeader from '@/components/argon-core/BaseHeader'
 import MainTitle from '@/components/shack/MainTitle.vue'
 import SectionTitle from '@/components/shack/SectionTitle.vue'
 import { Select, Option } from 'element-ui'
+import SearchForm from '~/components/shack/SearchForm.vue'
 
 import { mapState } from 'vuex'
 
@@ -111,6 +138,7 @@ export default {
     BaseHeader,
     MainTitle,
     SectionTitle,
+    SearchForm,
     [Select.name]: Select,
     [Option.name]: Option
   },
@@ -143,7 +171,9 @@ export default {
     return {
       tickets: 1,
       loading: false,
-      attendee: ''
+      attendee: '',
+      payment_method: '',
+      cards: []
     }
   },
   computed: {
@@ -156,24 +186,44 @@ export default {
   },
   methods: {
     next() {
-      const { next } = this.meta
+      const { next } = this.links
       this.$events.getAttendees(null, next)
     },
     prev() {
-      const { prev } = this.meta
+      const { prev } = this.links
       this.$events.getAttendees(null, prev)
     },
+    getCards(id) {
+      this.$membership
+        .getPaymentMethods(id)
+        .then(({ data }) => {
+          this.cards = data
+          this.payment_method = data[0].id
+        })
+        .catch(e => {
+          const message = e.response
+            ? e.response.data.message +
+              ' ' +
+              JSON.stringify(error.response.data.errors)
+            : e.message
+          this.$bvToast.toast(message, {
+            title: 'Error',
+            variant: 'danger',
+            solid: true
+          })
+        })
+    },
     adminPurchaseTicket() {
-      const vm = this
-      vm.loading = true
+      this.loading = true
 
       const payload = {
-        number_of_tickets: vm.tickets,
-        membership_id: vm.attendee
+        number_of_tickets: this.tickets,
+        membership_id: this.attendee,
+        payment_method: this.payment_method
       }
 
       this.$event
-        .purchaseTicketByAdmin(vm.id, payload)
+        .purchaseTicketByAdmin(this.id, payload)
         .then(({ data: { data } }) => {
           this.$bvToast.toast('Added New Attendee', {
             title: 'Success',
@@ -214,6 +264,42 @@ export default {
         .catch(({ response }) => {
           this.loading = !this.loading
           this.$bvToast.toast(JSON.stringify(response.data.errors), {
+            title: 'Error',
+            variant: 'danger',
+            solid: true
+          })
+        })
+    },
+    checkinToggle(e) {
+      this.$checkin
+        .checkin({
+          type: 'member',
+          membership_id: e.membership.id
+        })
+        .then(({ data }) => {
+          this.$bvToast.toast('Member checked in successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+
+          location.reload()
+        })
+        .catch(e => {
+          this.$bvToast.toast('Member checkin failed', {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
+    },
+    searchAttendees(term) {
+      const { id } = this.$route.params
+      this.$event
+        .searchAttendees(id, term)
+        .then(data => {
+          this.$store.commit('events/setAttendees', data)
+        })
+        .catch(e => {
+          this.$bvToast.toast(JSON.stringify(e.response.data.errors), {
             title: 'Error',
             variant: 'danger',
             solid: true
