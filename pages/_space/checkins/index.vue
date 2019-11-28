@@ -7,9 +7,15 @@
         <MainTitle
           title="Members"
           subtitle="Check-in"/>
-        <b-button
-          v-b-modal.checkin
-          variant="primary">Manual Check-in</b-button>
+        <div>
+          <b-button
+            :to="{name: 'space-checkins-settings'}"
+            variant="transparent"
+          ><i class="fa fa-cogs"/> Settings</b-button>
+          <b-button
+            v-b-modal.checkin
+            variant="primary">Manual Check-in</b-button>
+        </div>
       </div>
     </base-header>
     <div class="container-fluid mt--6">
@@ -103,6 +109,10 @@
                 placeholder="SHACK15"
                 required/>
             </b-form-group>
+            <b-form-checkbox
+              v-model="meeting_guest"
+              :value="true"
+              :unchecked-value="false"> Is a meeting guest</b-form-checkbox>
             <b-button
               :disabled="loading"
               type="submit"
@@ -131,6 +141,7 @@ import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
 import SearchForm from '~/components/shack/SearchForm.vue'
 import { Select, Option } from 'element-ui'
+import { displayError } from '../../../util/errors'
 
 export default {
   name: 'Checkin',
@@ -146,10 +157,17 @@ export default {
   },
   async asyncData({ $membership, $checkin, error }) {
     try {
+      const moment = require('moment')
+
       const link = 'filter[status]=accepted&include=profile'
+      const checkinFilter = `?filter[status]=checkin&filter[created_at]=${moment().format(
+        'YYYY-MM-DD'
+      )}`
+
       let imeta, ilinks
+
       const checkins = await $checkin
-        .checkins()
+        .checkins(checkinFilter)
         .then(({ data, meta, links }) => {
           imeta = meta
           ilinks = links
@@ -173,7 +191,8 @@ export default {
     company: '',
     email: '',
     membership_id: '',
-    loading: false
+    loading: false,
+    meeting_guest: false
   }),
   methods: {
     next() {
@@ -200,7 +219,14 @@ export default {
     },
     checkinGuest() {
       this.loading = !this.loading
-      const { first_name, last_name, email, company, membership_id } = this
+      const {
+        first_name,
+        last_name,
+        email,
+        company,
+        membership_id,
+        meeting_guest
+      } = this
       this.$checkin
         .checkin({
           type: 'guest',
@@ -208,7 +234,8 @@ export default {
           last_name,
           email,
           company,
-          membership_id
+          membership_id,
+          meeting_guest
         })
         .then(({ data }) => {
           this.loadiing = !this.loading

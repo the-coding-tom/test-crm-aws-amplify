@@ -33,8 +33,19 @@
         sortable>
         <template v-slot="{row}">
           <div
-            v-if="!row.membership"
+            v-if="row.type == 'guest'"
             class="float-left">{{ `${row.member.first_name} ${row.member.last_name}` }}</div>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="Meeting Guest"
+        prop="meeting_guest"
+        sortable>
+        <template v-slot="{row}">
+          <b-badge 
+            v-if="row.meeting_guest"
+            variant="primary">Yes</b-badge>
         </template>
       </el-table-column>
 
@@ -66,6 +77,7 @@
 </template>
 <script>
 import { Table, TableColumn } from 'element-ui'
+import { displayError } from '../../util/errors'
 
 export default {
   components: {
@@ -129,6 +141,20 @@ export default {
             title: 'Error',
             variant: 'danger'
           })
+        })
+    },
+    guestOf(data) {
+      // if (data.item.)
+      console.log('------------------------------------')
+      console.log(data)
+      console.log('------------------------------------')
+      return this.$membership
+        .getAMembership(data.value)
+        .then(res => {
+          return res.data.first_name
+        })
+        .catch(e => {
+          displayError(e)
         })
     }
   }
