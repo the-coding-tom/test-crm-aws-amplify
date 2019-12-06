@@ -36,6 +36,9 @@
                   <html-editor
                     v-model="description"
                     placeholder="Add details about the event" />
+                    <!-- <editor
+                    v-model="description"
+                    mode="markdown" /> -->
                 </div>
                 <b-form-group
                   label="Start Date"
@@ -213,7 +216,7 @@ export default {
     return {
       category: '',
       title: '',
-      description: '',
+      description: 'some detailss',
       capacity: 10,
       price: 10,
       startTime: '',
@@ -254,6 +257,12 @@ export default {
       const { prev } = this.links
       this.getRooms(prev)
     },
+    convertTextToHtml(text) {
+      const showdown = require('showdown')
+      const converter = new showdown.Converter()
+
+      return converter.makeHtml(text)
+    },
     getRooms(link) {
       this.$resource
         .getAllRooms(link)
@@ -280,15 +289,11 @@ export default {
       )
       const end_time = this.$moment(this.endTime).format('YYYY-MM-DD HH:mm:ss')
 
-      this.description = _.replace(this.description, /<\/?p[^>]*>/g, '\n')
-
-      var showdown = require('showdown')
-      var converter = new showdown.Converter()
-      var markdown = converter.makeMarkdown(this.description)
+      const emailMessage = this.convertTextToHtml(this.emailMessage)
 
       const eventDetails = {
         name: this.title,
-        description: markdown,
+        description: this.description,
         price: this.price,
         start_time,
         end_time,
@@ -301,7 +306,7 @@ export default {
         total_tickets: this.capacity,
         send_mail: this.sendMail === 'true' ? true : false,
         email_subject: this.emailSubject,
-        email_message: this.emailMessage
+        email_message: emailMessage
       }
 
       await this.$event

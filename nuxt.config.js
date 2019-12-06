@@ -101,7 +101,11 @@ module.exports = {
     '~/plugins/services/space',
     '~/plugins/services/settings',
     { src: '~/plugins/vue2-datepicker', ssr: false },
-    { src: '~/plugins/vue2-filters', ssr: true }
+    { src: '~/plugins/vue2-filters', ssr: true },
+    {
+      src: '~/plugins/tui-editor',
+      ssr: false
+    }
   ],
 
   /*
