@@ -96,6 +96,14 @@
                     placeholder="0" />
                   <b-form-text class="col-md-12">You can enter multiple time frames separated by comma, e.g. e.g. mo-fr 9-17, sa 10-3.</b-form-text>
 
+                  <div class="col-md-12 form-group">
+                    <label>Amenities</label>
+                    <TagsInput
+                      v-model="amenities"
+                      type="Text"
+                      required />
+                  </div>
+
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
                     <b-form-checkbox
@@ -127,6 +135,7 @@ import { mapState } from 'vuex'
 import BaseHeader from '@/components/argon-core/BaseHeader'
 import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
+import TagsInput from '@/components/argon-core/Inputs/TagsInput'
 import UploadButton from '~/components/shack/UploadButton.vue'
 
 import { Select, Option } from 'element-ui'
@@ -139,7 +148,8 @@ export default {
     UploadButton,
     SectionTitle,
     [Select.name]: Select,
-    [Option.name]: Option
+    [Option.name]: Option,
+    TagsInput
   },
   async asyncData(vm) {
     await vm.store.dispatch('resources/getAllCategories')
@@ -166,7 +176,8 @@ export default {
       can_book: 'resources.addRoom.can_book',
       available_booking_time: 'resources.addRoom.available_room',
       photo: 'resources.addRoom.photo',
-      category: 'resources.addRoom.room_category_id'
+      category: 'resources.addRoom.room_category_id',
+      amenities: 'resources.addRoom.amenities'
     })
   },
   methods: {
