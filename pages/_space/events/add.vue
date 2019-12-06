@@ -103,28 +103,7 @@
                     />
                   </el-select>
                 </div>
-                <div class="form-group col-md-12">
-                  <b-form-group label="Rooms Available">
-                    <b-form-radio
-                      v-for="room in rooms"
-                      v-model="selectedRoom"
-                      :value="room.id"
-                      :key="room.id"
-                      name="room"
-                    >{{ room.name }}</b-form-radio>
-                  </b-form-group>
-                  <div>
-                    <base-pagination
-                      :value="meta.current_page"
-                      :total="meta.total"
-                      :per-page="15"
-                      size="sm"
-                      @next="next"
-                      @prev="prev"
-                    />
-                  </div>
-
-                </div>
+                <room v-model="selectedRoom" />
 
                 <div class="form-group col-md-12">
                   <b-form-checkbox
@@ -173,9 +152,11 @@ import UploadButton from '@/components/shack/UploadButton.vue'
 import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
 import { mapState } from 'vuex'
 import { Select, Option } from 'element-ui'
+import Room from '@/components/events/Room'
 
 export default {
   layout: 'ShackDash',
+  name: 'EventAdd',
   components: {
     BaseHeader,
     MainTitle,
@@ -183,21 +164,10 @@ export default {
     SectionTitle,
     HtmlEditor,
     [Select.name]: Select,
-    [Option.name]: Option
+    [Option.name]: Option,
+    Room
   },
   async asyncData({ store, $event }) {
-    let meta, links
-
-    await $event
-      .getRooms()
-      .then(({ data }) => {
-        meta = data.meta
-        links = data.links
-        store.commit('events/setRooms', data)
-      })
-      .catch(err => {
-        error({ statusCode: 404, message: 'Server Error. Try Again !!!' })
-      })
     await $event
       .getEventCategories()
       .then(({ data }) => {
@@ -206,17 +176,12 @@ export default {
       .catch(err => {
         error({ statusCode: 404, message: 'Server Error. Try Again !!!' })
       })
-
-    return {
-      meta,
-      links
-    }
   },
   data() {
     return {
       category: '',
       title: '',
-      description: 'some detailss',
+      description: '',
       capacity: 10,
       price: 10,
       startTime: '',
@@ -231,7 +196,6 @@ export default {
   },
   computed: {
     ...mapState({
-      rooms: state => state.events.rooms,
       categories: state => state.events.categories,
       space: state => state.space.currentSpace.subdomain
     })
@@ -249,39 +213,11 @@ export default {
         .add(1, 'hour')
         .format('YYYY-MM-DD HH:mm:ss')
     },
-    next() {
-      const { next } = this.links
-      this.getRooms(next)
-    },
-    prev() {
-      const { prev } = this.links
-      this.getRooms(prev)
-    },
     convertTextToHtml(text) {
       const showdown = require('showdown')
       const converter = new showdown.Converter()
 
       return converter.makeHtml(text)
-    },
-    getRooms(link) {
-      this.$resource
-        .getAllRooms(link)
-        .then(({ data }) => {
-          this.meta = data.meta
-          this.links = data.links
-          this.$store.commit('events/setRooms', data)
-        })
-        .catch(e => {
-          const message = e.response
-            ? `${e.response.data.message} ~ ${JSON.stringify(
-                e.response.data.errors
-              )}`
-            : e.message
-          this.$bvToast.toast(message, {
-            variant: 'error',
-            title: 'Error'
-          })
-        })
     },
     async addEvent() {
       const start_time = this.$moment(this.startTime).format(

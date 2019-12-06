@@ -106,17 +106,8 @@
                       />
                     </el-select>
                   </div>
-                  <div class="form-group col-md-12">
-                    <b-form-group label="Rooms Available">
-                      <b-form-radio
-                        v-for="room in rooms"
-                        v-model="event.room_id"
-                        :value="room.id"
-                        :key="room.id"
-                        name="room"
-                      >{{ room.name }}</b-form-radio>
-                    </b-form-group>
-                  </div>
+
+                  <Room v-model="event.room_id" />
 
                   <div class="form-group col-md-12">
                     <b-form-checkbox
@@ -168,6 +159,7 @@ import MainTitle from '@/components/shack/MainTitle.vue'
 import SectionTitle from '@/components/shack/SectionTitle.vue'
 import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
 import UploadButton from '@/components/shack/UploadButton.vue'
+import Room from '@/components/events/Room'
 
 import { Select, Option } from 'element-ui'
 import moment from 'moment'
@@ -182,7 +174,8 @@ export default {
     SectionTitle,
     HtmlEditor,
     [Select.name]: Select,
-    [Option.name]: Option
+    [Option.name]: Option,
+    Room
   },
   async asyncData({ store, $event, params, error }) {
     const { id } = params
@@ -191,20 +184,6 @@ export default {
       .getEventCategories()
       .then(({ data }) => {
         store.commit('events/setCategories', data)
-      })
-      .catch(err => {
-        error({
-          statusCode: err.statusCode,
-          message: e.response
-            ? JSON.stringify(e.response.data.message)
-            : e.message
-        })
-      })
-
-    await $event
-      .getRooms()
-      .then(({ data }) => {
-        store.commit('events/setRooms', data)
       })
       .catch(err => {
         error({
@@ -240,16 +219,8 @@ export default {
   computed: {
     ...mapState({
       categories: state => state.events.categories,
-      rooms: state => state.events.rooms,
       space: state => state.space.currentSpace.subdomain
     })
-  },
-  mounted() {
-    var showdown = require('showdown')
-    var converter = new showdown.Converter()
-    var markdown = converter.makeHtml(this.event.description)
-
-    this.event.description = markdown
   },
   methods: {
     toggleLoading() {
@@ -260,21 +231,21 @@ export default {
         .add(1, 'hour')
         .format('YYYY-MM-DD HH:mm:ss')
     },
-    async updateEvent() {
-      let object = Object.freeze(this.event)
+    convertTextToHtml(text) {
+      const showdown = require('showdown')
+      const converter = new showdown.Converter()
 
+      return converter.makeHtml(text)
+    },
+    async updateEvent() {
       this.loading = !this.loading
 
-      var showdown = require('showdown')
-      var converter = new showdown.Converter()
-      var stripedHtml = _.replace(this.event.description, /<\/?p[^>]*>/g, '\n')
-
-      let description = converter.makeMarkdown(stripedHtml)
+      const emailMessage = this.convertTextToHtml(this.event.email_content)
 
       await this.$event
         .updateEvent(this.event.id, {
-          ...object,
-          description
+          ...this.event,
+          email_content: emailMessage
         })
         .then(({ data }) => {
           this.$bvToast.toast(`Event updated successfully`, {
