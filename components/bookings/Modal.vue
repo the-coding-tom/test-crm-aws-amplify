@@ -39,7 +39,7 @@
               format="YYYY-MM-DD HH:mm"
               value-type="format"
               confirm
-              type="time"
+              type="datetime"
               @change="changeDate"
             />
           </client-only>
@@ -59,7 +59,7 @@
               format="YYYY-MM-DD HH:mm"
               value-type="format"
               confirm
-              type="time"
+              type="datetime"
             />
           </client-only>
         </b-form-group>
@@ -84,7 +84,7 @@
             class="float-right"
             variant="default"
             @click="cancelBooking">Cancel Booking</b-button>
-          
+
         </b-form-group>
       </b-row>
     </b-form>
