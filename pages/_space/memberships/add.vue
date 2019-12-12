@@ -117,7 +117,7 @@
                         description="Number of days before member is charged">
                         <b-form-input
                           v-model="membership.trial_days"
-                          :min="membership.trial && 1"
+                          min="0"
                           type="number"
                           required/>
                       </b-form-group>

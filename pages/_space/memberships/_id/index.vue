@@ -101,6 +101,17 @@
 
                 <b-form-group
                   class="col-md-6"
+                  label="Trial Days"
+                  description="Number of days before member is charged">
+                  <b-form-input
+                    v-model="data.trial_days"
+                    min="0"
+                    type="number"
+                    required/>
+                </b-form-group>
+
+                <b-form-group
+                  class="col-md-6"
                   label="Paid for">
                   <b-form-checkbox
                     v-model="data.paid_for"
@@ -233,6 +244,9 @@ export default {
     ...mapState({
       space: state => state.space.currentSpace
     })
+  },
+  mounted() {
+    this.data.trial_days = this.data.primary_plan[0].pivot.trial_days
   },
   methods: {
     updateMembership() {

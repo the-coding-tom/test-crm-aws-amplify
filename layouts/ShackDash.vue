@@ -47,7 +47,7 @@
             />
           </sidebar-item>
         </sidebar-item>
-        <sidebar-item :link="{ name: 'Wellness', icon: 'fa fa-walking'}">
+        <!-- <sidebar-item :link="{ name: 'Wellness', icon: 'fa fa-walking'}">
           <sidebar-item :link="{ name: 'Bookings', path: `/${subdomain}/wellness/bookings`}" />
           <sidebar-item :link="{ name: 'Sessions', path: `/${subdomain}/wellness`}" />
           <sidebar-item :link="{ name: 'Categories'}">
@@ -58,8 +58,8 @@
               :link="{name: 'Add Categories', path: `/${subdomain}/wellness/categories/add`}"
             />
           </sidebar-item>
-        </sidebar-item>
-        <sidebar-item :link="{ name: 'Eatery', icon: 'fa fa-utensils'}">
+        </sidebar-item> -->
+        <!-- <sidebar-item :link="{ name: 'Eatery', icon: 'fa fa-utensils'}">
           <sidebar-item :link="{ name: 'Orders', path: `/${subdomain}/eatry/orders`}" />
           <sidebar-item :link="{ name: 'Inventory'}">
             <sidebar-item :link="{name: 'All Inventory', path: `/${subdomain}/eatry/inventory`}" />
@@ -73,11 +73,11 @@
               :link="{name: 'Add Categories', path: `/${subdomain}/eatry/categories/add`}"
             />
           </sidebar-item>
-        </sidebar-item>
-        <sidebar-item :link="{ name: 'Tables', icon: 'fa fa-concierge-bell'}">
+        </sidebar-item> -->
+        <!-- <sidebar-item :link="{ name: 'Tables', icon: 'fa fa-concierge-bell'}">
           <sidebar-item :link="{ name: 'Bookings', path: `/${subdomain}/tables/bookings`}" />
           <sidebar-item :link="{name: 'Tables', path: `/${subdomain}/tables`}" />
-        </sidebar-item>
+        </sidebar-item> -->
         <sidebar-item :link="{ name: 'Setup', icon: 'fa fa-cog'}">
           <sidebar-item :link="{ name: 'Plans', path: `/${subdomain}/plans` }" />
           <sidebar-item :link="{ name: 'Tags', path: `/${subdomain}/tags`}" />
