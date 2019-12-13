@@ -180,6 +180,7 @@ export default {
   async asyncData({ store, params, $membership, error, $moment }) {
     try {
       return await $membership.getAMembership(params.id).then(({ data }) => {
+        data.trial_days = data.primary_plan[0].pivot.trial_days
         return {
           data
         }
@@ -244,9 +245,6 @@ export default {
     ...mapState({
       space: state => state.space.currentSpace
     })
-  },
-  mounted() {
-    this.data.trial_days = this.data.primary_plan[0].pivot.trial_days
   },
   methods: {
     updateMembership() {
