@@ -392,9 +392,11 @@ export default {
       this.$bvModal.hide('booking-modal')
       location.reload()
     },
-    updateBooking(data) {
-      this.$store.dispatch('resources/updateRoomBooking', data)
-      this.$bvModal.hide('booking-modal')
+    async updateBooking(data) {
+      await this.$store.dispatch('resources/updateRoomBooking', data)
+
+      location.reload()
+      // this.$bvModal.hide('booking-modal')
     },
     async getPaymentMethods(e) {
       if (e == 'card') {
