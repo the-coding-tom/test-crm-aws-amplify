@@ -101,6 +101,25 @@
 
                 <b-form-group
                   class="col-md-6"
+                  label="Start Date">
+                  <client-only>
+                    <date-picker
+                      id="time"
+                      v-model="data.trial_ends_at"
+                      width="100%"
+                      input-class="form-control"
+                      lang="en"
+                      format="YYYY-MM-DD"
+                      value-type="format"
+                      confirm
+                      type="date"
+                      placeholder="Start Date"
+                    />
+                  </client-only>
+                </b-form-group>
+
+                <b-form-group
+                  class="col-md-6"
                   label="Trial Days"
                   description="Number of days before member is charged">
                   <b-form-input

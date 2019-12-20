@@ -103,6 +103,23 @@
                         </el-select>
                       </b-form-group>
 
+                      <b-form-group label="Start Date">
+                        <client-only>
+                          <date-picker
+                            id="time"
+                            v-model="membership.trial_ends_at"
+                            width="100%"
+                            input-class="form-control"
+                            lang="en"
+                            format="YYYY-MM-DD"
+                            value-type="format"
+                            confirm
+                            type="date"
+                            placeholder="Start Date"
+                          />
+                        </client-only>
+                      </b-form-group>
+
                       <b-form-group label="On Trial">
                         <b-form-checkbox
                           v-model="membership.trial"
@@ -274,7 +291,8 @@ export default {
         prefix_type: '0',
         prefix_locality: 'A',
         paid_by: null,
-        assigned_admin: null
+        assigned_admin: null,
+        trial_ends_at: null
       }
     }
   },
