@@ -68,11 +68,14 @@ import MembersTable from '~/components/shack/MembersTable.vue'
 import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
 import SearchForm from '~/components/shack/SearchForm.vue'
+import { getQueryParams } from '../../../../util/url'
 
 export default {
   layout: 'ShackDash',
-  async asyncData({ $membership, $plan, error }) {
-    const filter = 'filter[status]=uninvited&include=profile,primaryPlan'
+  async asyncData({ $membership, $plan, error, route }) {
+    const filter = `filter[status]=uninvited&include=profile,primaryPlan&page=${
+      route.query.page
+    }`
 
     return await $membership
       .getAllMemberships(filter)
@@ -107,6 +110,10 @@ export default {
     next() {
       const { next } = this.links
 
+      const params = getQueryParams(next)
+
+      this.$router.push(params)
+
       let link = `${next}&filter[status]=uninvited&include=profile,primaryPlan&filter[search]=${
         this.searchTerm
       }`
@@ -130,6 +137,10 @@ export default {
     },
     prev() {
       const { prev } = this.links
+
+      const params = getQueryParams(prev)
+
+      this.$router.push(params)
 
       let link = `${prev}&filter[status]=uninvited&include=profile,primaryPlan&filter[search]=${
         this.searchTerm

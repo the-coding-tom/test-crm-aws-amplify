@@ -60,12 +60,15 @@ import MainTitle from '~/components/shack/MainTitle.vue'
 import ThumbCard from '~/components/shack/ThumbCard.vue'
 import SearchForm from '~/components/shack/SearchForm.vue'
 import { Select, Option } from 'element-ui'
+import { getQueryParams } from '../../../util/url'
 
 export default {
   name: 'Directory',
   layout: 'ShackDash',
-  async asyncData({ store, $membership }) {
-    const link = 'filter[status]=accepted&include=profile,primaryPlan'
+  async asyncData({ store, $membership, route }) {
+    const link = `filter[status]=accepted&include=profile,primaryPlan&page=${
+      route.query.page
+    }`
     return await $membership
       .getAllMemberships(link)
       .then(({ data, meta, links }) => {
@@ -112,6 +115,11 @@ export default {
   methods: {
     next() {
       const { next } = this.links
+
+      const params = getQueryParams(next)
+
+      this.$router.push(params)
+
       this.$membership.getAllMemberships(
         `${next}&filter[status]=accepted&include=profile,primaryPlan&filter[prefix_type]=${
           this.filter
@@ -120,6 +128,11 @@ export default {
     },
     prev() {
       const { prev } = this.links
+
+      const params = getQueryParams(prev)
+
+      this.$router.push(params)
+
       this.$membership.getAllMemberships(
         `${prev}&filter[status]=accepted&include=profile,primaryPlan&filter[prefix_type]=${
           this.filter
