@@ -23,6 +23,13 @@
             <card>
               <div class="row">
                 <base-input
+                  v-model="data.email"
+                  :disabled="true"
+                  type="text"
+                  class="col-md-6"
+                  label="Email"
+                  placeholder="Email"/>
+                <base-input
                   v-model="data.first_name"
                   type="text"
                   class="col-md-6"
@@ -80,6 +87,7 @@
                 </b-form-group>
 
                 <b-form-group
+                  :description="assignedAdmin"
                   class="col-md-6"
                   label="Assigned Admin">
                   <el-select
@@ -263,7 +271,14 @@ export default {
   computed: {
     ...mapState({
       space: state => state.space.currentSpace
-    })
+    }),
+    assignedAdmin() {
+      if (typeof this.data.assigned_admin === 'Object') {
+        return `Current: ${this.data.assigned_admin.name}`
+      }
+
+      return ''
+    }
   },
   methods: {
     updateMembership() {
@@ -308,9 +323,7 @@ export default {
       }, 350)()
     },
     searchAdmins(query) {
-      const link = `${process.env.base_url}/${
-        this.space.subdomain
-      }/admins?filter[name]=${query}`
+      const link = `/${this.space.subdomain}/admins?filter[name]=${query}`
 
       this.$admin
         .getAllAdmins(link)

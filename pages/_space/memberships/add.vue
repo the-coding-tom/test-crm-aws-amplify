@@ -370,15 +370,16 @@ export default {
         .catch(e => {
           this.loading = !this.loading
 
-          this.$bvToast.toast(
-            `${
-              e.response ? JSON.stringify(e.response.data.errors) : e.message
-            }`,
-            {
-              title: 'Error',
-              variant: 'danger'
-            }
-          )
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+
+          this.$bvToast.toast(message, {
+            title: 'Error',
+            variant: 'danger'
+          })
         })
     },
     searchMembers(query) {
@@ -396,9 +397,7 @@ export default {
       }, 350)()
     },
     searchAdmins(query) {
-      const link = `${process.env.base_url}/${
-        this.space.subdomain
-      }/admins?filter[name]=${query}`
+      const link = `/${this.space.subdomain}/admins?filter[name]=${query}`
 
       this.$admin
         .getAllAdmins(link)
