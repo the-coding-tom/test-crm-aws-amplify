@@ -111,6 +111,20 @@
                       required />
                   </div>
 
+                  <b-form-group
+                    class="col-md-12"
+                    label="Zoom Rooms"
+                  >
+                    <b-form-select
+                      v-model="zoom_room_id"
+                      :options="zoom_rooms"
+                      value-field="id"
+                      text-field="name"
+                    >
+                      <option value="">Choose a zoom room</option>
+                    </b-form-select>
+                  </b-form-group>
+
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
                     <b-form-checkbox v-model="can_book">Room is bookable</b-form-checkbox>
@@ -152,8 +166,13 @@ export default {
     [Option.name]: Option,
     TagsInput
   },
-  async asyncData(vm) {
-    await vm.store.dispatch('resources/getAllCategories')
+  async asyncData({ store, $zoomrooms }) {
+    await store.dispatch('resources/getAllCategories')
+    return await $zoomrooms.getRooms().then(res => {
+      return {
+        zoom_rooms: res
+      }
+    })
   },
   data() {
     return {
@@ -176,7 +195,8 @@ export default {
       can_book: 'resources.addRoom.can_book',
       available_booking_time: 'resources.addRoom.available_room',
       banner_url: 'resources.addRoom.photo',
-      amenities: 'resources.addRoom.amenities'
+      amenities: 'resources.addRoom.amenities',
+      zoom_room_id: 'resources.addRoom.zoom_room_id'
     })
   },
   methods: {

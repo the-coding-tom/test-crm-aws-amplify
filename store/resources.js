@@ -31,7 +31,8 @@ export const state = () => ({
     room_category_id: null,
     amenities: [],
     room_availability: null,
-    available_room: null
+    available_room: null,
+    zoom_room_id: ''
   }
 })
 
@@ -53,6 +54,7 @@ export const mutations = {
     state.addRoom.room_category_id = room.category.id
     state.addRoom.amenities = room.amenities
     state.addRoom.room_availability = room.room_availability
+    state.addRoom.zoom_room_id = room.zoom_room_id
   },
   setCategories(state, categories) {
     state.categories = categories

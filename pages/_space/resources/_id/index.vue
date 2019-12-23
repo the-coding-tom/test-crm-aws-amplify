@@ -104,6 +104,20 @@
                       required />
                   </div>
 
+                  <b-form-group
+                    class="col-md-12"
+                    label="Zoom Rooms"
+                  >
+                    <b-form-select
+                      v-model="zoom_room_id"
+                      :options="zoom_rooms"
+                      value-field="id"
+                      text-field="name"
+                    >
+                      <option value="">Choose a zoom room</option>
+                    </b-form-select>
+                  </b-form-group>
+
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
                     <b-form-checkbox
@@ -157,6 +171,12 @@ export default {
     const { id } = vm.route.params
 
     await vm.store.dispatch('resources/getOneRoom', id)
+
+    return await vm.$zoomrooms.getRooms().then(res => {
+      return {
+        zoom_rooms: res
+      }
+    })
   },
   data: () => ({}),
   computed: {
@@ -177,7 +197,8 @@ export default {
       available_booking_time: 'resources.addRoom.available_room',
       photo: 'resources.addRoom.photo',
       category: 'resources.addRoom.room_category_id',
-      amenities: 'resources.addRoom.amenities'
+      amenities: 'resources.addRoom.amenities',
+      zoom_room_id: 'resources.addRoom.zoom_room_id'
     })
   },
   methods: {

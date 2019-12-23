@@ -100,6 +100,7 @@ module.exports = {
     '~/plugins/services/eatry',
     '~/plugins/services/space',
     '~/plugins/services/settings',
+    '~/plugins/services/zoomrooms',
     { src: '~/plugins/vue2-datepicker', ssr: false },
     { src: '~/plugins/vue2-filters', ssr: true },
     {
