@@ -114,8 +114,20 @@
                       value-field="id"
                       text-field="name"
                     >
-                      <option value="">Choose a zoom room</option>
+                      <option :value="null">Choose a zoom room</option>
                     </b-form-select>
+                  </b-form-group>
+
+                  <b-form-group
+                    class="col-md-12"
+                    label="Brivo Access Point">
+                    <b-form-select
+                      v-model="access_point_id"
+                      :options="access_points"
+                      value-field="id"
+                      text-field="name"
+                    >
+                    <option :value="null">Choose a zoom room</option></b-form-select>
                   </b-form-group>
 
                   <div class="form-group col-md-12">
@@ -171,10 +183,12 @@ export default {
     const { id } = vm.route.params
 
     await vm.store.dispatch('resources/getOneRoom', id)
+    const access_points = await vm.$accesspoint.list()
 
     return await vm.$zoomrooms.getRooms().then(res => {
       return {
-        zoom_rooms: res
+        zoom_rooms: res,
+        access_points
       }
     })
   },
@@ -198,7 +212,8 @@ export default {
       photo: 'resources.addRoom.photo',
       category: 'resources.addRoom.room_category_id',
       amenities: 'resources.addRoom.amenities',
-      zoom_room_id: 'resources.addRoom.zoom_room_id'
+      zoom_room_id: 'resources.addRoom.zoom_room_id',
+      access_point_id: 'resources.addRoom.access_point_id'
     })
   },
   methods: {

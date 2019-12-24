@@ -145,6 +145,9 @@ export default function(ctx, inject) {
         `/${subdomain()}/memberships/${id}/renew-subscription`,
         data
       )
+    },
+    onboardBrivo: id => {
+      return ctx.$axios.$put(`/${subdomain()}/memberships/${id}/onboard-brivo`)
     }
   }
   ;(ctx.$membership = Membership), inject('membership', Membership)

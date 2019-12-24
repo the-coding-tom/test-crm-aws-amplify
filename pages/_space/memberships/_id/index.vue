@@ -9,10 +9,19 @@
             :subtitle="`${data.first_name} ${data.last_name}`"
             title="Membership"/>
 
-          <b-button
-            variant="transparent"
-            class="text-danger"
-            @click="cancelMembership"><i class="fa fa-trash"/> Cancel Membership</b-button>
+          <div>
+            <b-button
+              variant="transparent"
+              class="text-primary"
+              @click="onboardBrivo">
+              <i class="fas fa-user-lock"/> Brivo Onboard
+            </b-button>
+
+            <b-button
+              variant="transparent"
+              class="text-danger"
+              @click="cancelMembership"><i class="fa fa-trash"/> Cancel Membership</b-button>
+          </div>
         </div>
       </base-header>
 
@@ -194,6 +203,7 @@ import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
 import { Select, Option } from 'element-ui'
 import { mapState } from 'vuex'
+import { displayError } from '../../../../util/errors'
 
 export default {
   name: 'DirectoryEdit',
@@ -273,11 +283,9 @@ export default {
       space: state => state.space.currentSpace
     }),
     assignedAdmin() {
-      if (typeof this.data.assigned_admin === 'Object') {
+      if (this.data.assigned_admin) {
         return `Current: ${this.data.assigned_admin.name}`
       }
-
-      return ''
     }
   },
   methods: {
@@ -394,6 +402,23 @@ export default {
             title: 'Error',
             variant: 'danger'
           })
+        })
+    },
+    onboardBrivo() {
+      this.loading = !this.loading
+      const { id } = this.$route.params
+
+      this.$membership
+        .onboardBrivo(id)
+        .then(res => {
+          this.loading = !this.loading
+          this.$bvToast.toast('Brivo onboarding successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+        })
+        .catch(e => {
+          displayError(e, this)
         })
     }
   }

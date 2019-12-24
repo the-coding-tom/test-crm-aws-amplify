@@ -101,6 +101,7 @@ module.exports = {
     '~/plugins/services/space',
     '~/plugins/services/settings',
     '~/plugins/services/zoomrooms',
+    '~/plugins/services/accesspoint',
     { src: '~/plugins/vue2-datepicker', ssr: false },
     { src: '~/plugins/vue2-filters', ssr: true },
     {
