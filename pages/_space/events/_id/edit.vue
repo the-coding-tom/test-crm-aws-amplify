@@ -88,6 +88,13 @@
                     step="0.01"
                     placeholder="0.00"
                   />
+                  <base-input
+                    v-model="event.max_ticket_per_person"
+                    class="col-md-6"
+                    label="Max Ticket Per Person"
+                    type="number"
+                    placeholder="3"
+                  />
                 </div>
               </div>
 

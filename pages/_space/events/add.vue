@@ -85,6 +85,13 @@
                   step="0.01"
                   placeholder="0.00"
                 />
+                <base-input
+                  v-model="max_ticket_per_person"
+                  class="col-md-6"
+                  label="Max Ticket Per Person"
+                  type="number"
+                  placeholder="3"
+                />
               </div>
             </div>
 
@@ -191,7 +198,8 @@ export default {
       sendMail: false,
       emailSubject: '',
       emailMessage: '',
-      selectedRoom: ''
+      selectedRoom: '',
+      max_ticket_per_person: 3
     }
   },
   computed: {
@@ -238,7 +246,7 @@ export default {
         type: 'event',
         room_id: this.selectedRoom,
         event_category_id: this.category,
-        max_ticket_per_person: 3,
+        max_ticket_per_person: this.max_ticket_per_person,
         total_tickets: this.capacity,
         send_mail: this.sendMail === 'true' ? true : false,
         email_subject: this.emailSubject,
