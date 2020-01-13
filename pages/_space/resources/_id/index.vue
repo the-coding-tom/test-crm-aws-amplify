@@ -72,7 +72,8 @@
                     class="col-md-6"
                     label="Minimum Booking Duration"
                     type="number"
-                    placeholder="0">
+                    min="60"
+                    placeholder="60">
                     <div slot="append">min</div>
                   </base-input>
 
@@ -81,7 +82,7 @@
                     class="col-md-6"
                     label="Maximum Booking Duration"
                     type="number"
-                    placeholder="0">
+                    placeholder="120">
                     <div slot="append">max</div>
                   </base-input>
                 </div>
