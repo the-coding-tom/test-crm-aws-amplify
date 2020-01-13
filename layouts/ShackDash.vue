@@ -83,6 +83,7 @@
           <sidebar-item :link="{ name: 'Tags', path: `/${subdomain}/tags`}" />
           <sidebar-item :link="{ name: 'Adminstrators', path: `/${subdomain}/admins`}" />
           <sidebar-item :link="{ name: 'Space', path: `/${subdomain}/edit`}" />
+          <sidebar-item :link="{ name: 'Rooms', path: `/${subdomain}/settings/rooms`}" />
         </sidebar-item>
       </template>
     </side-bar>

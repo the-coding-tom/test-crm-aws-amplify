@@ -76,7 +76,7 @@
                     class="col-md-6"
                     label="Minimum Booking Duration"
                     type="number"
-                    min="15"
+                    min="60"
                     required
                     placeholder="0">
                     <div slot="append">min</div>
