@@ -120,7 +120,17 @@ module.exports = {
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     '@nuxtjs/auth',
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
+    [
+      'nuxt-rollbar-module',
+      {
+        serverAccessToken: 'f6992963cbab499890c235f6e446d353',
+        clientAccessToken: 'e25d4776e2cb4dd385dbe74ffd47cb43',
+        config: {
+          // Addtional config
+        }
+      }
+    ]
   ],
   /*
   ** Axios module configuration
