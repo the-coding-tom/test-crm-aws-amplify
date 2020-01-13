@@ -9,11 +9,18 @@
           <MainTitle
             title="Event"
             subtitle="Update" />
-          <b-button
-            :disabled="loading"
-            type="submit"
-            class="btn btn-primary text-white"
-          >Update Event</b-button>
+          <div>
+
+            <b-button
+              :disabled="loading"
+              type="submit"
+              class="btn btn-primary text-white"
+            >Update Event</b-button>
+            <b-button
+              variant="transparent"
+              class="text-danger"
+              @click="$router.go(-1)"><i class="fa fa-angle-left"/> Cancel Update</b-button>
+          </div>
         </div>
       </base-header>
 
@@ -114,7 +121,26 @@
                     </el-select>
                   </div>
 
-                  <Room v-model="event.room_id" />
+                  <div class="form-group col-md-12">
+                    <b-form-checkbox
+                      id="external-1"
+                      v-model="external"
+                      :value="true"
+                      :unchecked-value="null"
+                      name="external-1"
+                    >
+                      Host at an external location
+                    </b-form-checkbox>
+                    <b-form-input
+                      v-if="external"
+                      v-model="event.external_location"
+                      placeholder="External Location"
+                      required />
+                  </div>
+
+                  <Room
+                    v-if="!external"
+                    v-model="event.room_id" />
 
                   <div class="form-group col-md-12">
                     <b-form-checkbox
@@ -205,9 +231,17 @@ export default {
       .getEvent(id)
       .then(({ data }) => {
         data.event_category_id = data.event_category.id
-        data.room_id = data.room.id
+
+        let external = false
+
+        if (data.room) {
+          data.room_id = data.room ? data.room.id : null
+        } else {
+          external = true
+        }
 
         return {
+          external,
           event: data
         }
       })
@@ -249,9 +283,17 @@ export default {
 
       const emailMessage = this.convertTextToHtml(this.event.email_content)
 
+      let eventUpdate = this.event
+
+      if (this.external) {
+        eventUpdate.room_id = null
+      } else {
+        eventUpdate.external_location = null
+      }
+
       await this.$event
         .updateEvent(this.event.id, {
-          ...this.event,
+          ...eventUpdate,
           email_content: emailMessage
         })
         .then(({ data }) => {

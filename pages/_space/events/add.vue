@@ -110,7 +110,27 @@
                     />
                   </el-select>
                 </div>
-                <room v-model="selectedRoom" />
+
+                <div class="form-group col-md-12">
+
+                  <b-form-checkbox
+                    id="external-1"
+                    v-model="external"
+                    :value="true"
+                    :unchecked-value="null"
+                    name="external-1"
+                  >
+                    Host at an external location
+                  </b-form-checkbox>
+                  <b-form-input
+                    v-if="external"
+                    v-model="external_location"
+                    placeholder="External Location"
+                    required />
+                </div>
+                <room
+                  v-if="!external"
+                  v-model="selectedRoom" />
 
                 <div class="form-group col-md-12">
                   <b-form-checkbox
@@ -198,8 +218,10 @@ export default {
       sendMail: false,
       emailSubject: '',
       emailMessage: '',
-      selectedRoom: '',
-      max_ticket_per_person: 3
+      selectedRoom: null,
+      max_ticket_per_person: 3,
+      external: false,
+      external_location: null
     }
   },
   computed: {
@@ -235,6 +257,12 @@ export default {
 
       const emailMessage = this.convertTextToHtml(this.emailMessage)
 
+      if (this.external) {
+        this.selectedRoom = null
+      } else {
+        this.external_location = null
+      }
+
       const eventDetails = {
         name: this.title,
         description: this.description,
@@ -250,7 +278,8 @@ export default {
         total_tickets: this.capacity,
         send_mail: this.sendMail === 'true' ? true : false,
         email_subject: this.emailSubject,
-        email_message: emailMessage
+        email_message: emailMessage,
+        external_location
       }
 
       await this.$event

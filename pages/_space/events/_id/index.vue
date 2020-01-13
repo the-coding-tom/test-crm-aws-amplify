@@ -37,6 +37,9 @@
               <div v-if="event.room">
                 <p>{{ event.room.name }}</p>
               </div>
+              <div v-else>
+                <p>{{ event.external_location }}</p>
+              </div>
             </div>
           </card>
           <div class="mr-b-30">
