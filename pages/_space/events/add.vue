@@ -279,7 +279,7 @@ export default {
         send_mail: this.sendMail === 'true' ? true : false,
         email_subject: this.emailSubject,
         email_message: emailMessage,
-        external_location
+        external_location: this.external_location
       }
 
       await this.$event
