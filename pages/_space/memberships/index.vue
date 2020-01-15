@@ -14,6 +14,10 @@
         />
         <div>
           <b-button
+            variant="transparent"
+            class="text-primary"
+            @click="exportData"><i class="fa fa-file-export"/> Export</b-button>
+          <b-button
             :to="{ name: 'space-memberships-messages'}"
             variant="transparent"
             class="text-primary"><i class="fa fa-envelope"/> Send Message</b-button>
@@ -91,6 +95,25 @@ export default {
     loading: false
   }),
   methods: {
+    exportData() {
+      this.$membership.export().then(res => {
+        console.log(res)
+        let blob = new Blob([res], { type: 'text/csv' })
+        // window.location.href = URL.createObjectURL(blob)
+
+        const a = document.createElement('a')
+        const url = URL.createObjectURL(blob)
+
+        // Put the link somewhere in the body
+        document.body.appendChild(a)
+        a.innerHTML = 'download me'
+        a.href = url
+        // Set our custom filename
+        a.download = 'memberships.csv'
+        // Automatically click the link
+        a.click()
+      })
+    },
     next() {
       const { next } = this.links
 

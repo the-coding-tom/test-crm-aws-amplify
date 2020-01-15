@@ -148,6 +148,9 @@ export default function(ctx, inject) {
     },
     onboardBrivo: id => {
       return ctx.$axios.$put(`/${subdomain()}/memberships/${id}/onboard-brivo`)
+    },
+    export: () => {
+      return ctx.$axios.$get(`/${subdomain()}/memberships/export-to-csv`)
     }
   }
   ;(ctx.$membership = Membership), inject('membership', Membership)
