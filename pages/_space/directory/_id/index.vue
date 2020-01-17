@@ -167,7 +167,7 @@
           <card header-classes="bg-transparent">
             <div
               slot="header"
-              class="d-flex justify-content-between">
+              class="d-flex justify-content-between align-items-center">
               <div class="txt-upper">
                 Card Details
               </div>
@@ -219,7 +219,57 @@
           <card>
             <div
               slot="header"
-              class="d-flex justify-content-between">
+              class="d-flex align-items-center justify-content-between">
+              <div class="txt-upper">
+                CheckIn
+              </div>
+              <div style="width: 200px">
+                <date-picker
+                  id="time"
+                  width="100%"
+                  input-class="form-control"
+                  lang="en"
+                  format="YYYY-MM-DD HH:mm:ss"
+                  value-type="format"
+                  confirm
+                  range
+                  type="date"
+                  placeholder="Start Date"
+                />
+              </div>
+            </div>
+            <div class="m-n25">
+              <table class="table table-hover table-striped">
+                <tbody>
+                  <tr>
+                    <td>George Lutterodt (G)</td>
+                    <td>Energo Web</td>
+                    <td class="text-right">2020-01-20 19:00</td>
+                  </tr>
+                  <tr>
+                    <td>Member Checkin</td>
+                    <td>&nbsp;</td>
+                    <td class="text-right">2020-01-20 19:00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div
+              slot="footer"
+              class="">
+              <b-pagination
+                :per-page="perPage"
+                v-model="currentPage"
+                :total-rows="rows"
+                align="center"
+                aria-controls="my-table"
+              />
+            </div>
+          </card>
+          <card>
+            <div
+              slot="header"
+              class="d-flex justify-content-between align-items-center">
               <div class="txt-upper">
                 MEMBERSHIP PLAN
               </div>
@@ -287,6 +337,7 @@
                   :per-page="perPage"
                   v-model="currentPage"
                   :total-rows="rows"
+                  align="center"
                   aria-controls="my-table"
                 />
               </div>
@@ -650,5 +701,12 @@ export default {
 }
 .hidden_header {
   display: none;
+}
+.card-footer .b-pagination {
+  margin-bottom: 0;
+}
+tr td button.btn {
+  margin-top: -15px;
+  margin-bottom: -15px;
 }
 </style>
