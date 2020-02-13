@@ -6,7 +6,7 @@
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle
           title="Members"
-          subtitle="Uninvited"/>
+          subtitle="Pending Invitation"/>
         <SearchForm
           v-model="searchTerm"
           :loading="loading"
