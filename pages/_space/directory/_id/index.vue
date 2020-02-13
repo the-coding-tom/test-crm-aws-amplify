@@ -241,6 +241,20 @@
                     <td>Until {{ getSubDetails(subscription) }}</td>
                     <td>
                       <b-button
+                        id="popover-1-top"
+                        size="sm"
+                        variant="transparent"
+                        class="text-primary"
+                        @click="makePlanPrimary(subscription)">
+                        <i class="fas fa-user-shield"/>
+                      </b-button>
+                      <b-popover
+                        placement="top"
+                        target="popover-1-top"
+                        content="Make plan primary"
+                        triggers="hover focus"
+                      />
+                      <b-button
                         size="sm"
                         variant="transparent"
                         class="text-primary"
@@ -600,6 +614,27 @@ export default {
             title: 'Error',
             variant: 'danger'
           })
+        })
+    },
+    makePlanPrimary(subscription) {
+      this.loading = !this.loading
+
+      this.$membership
+        .makePlanPrimary(this.$route.params.id, {
+          plan_id: subscription.plan_id
+        })
+        .then(res => {
+          this.loading = !this.loading
+
+          this.$bvToast.toast('Plan made primary', {
+            title: 'Success',
+            variant: 'success'
+          })
+        })
+        .catch(e => {
+          this.loading = !this.loading
+
+          displayError(e, this)
         })
     }
   }

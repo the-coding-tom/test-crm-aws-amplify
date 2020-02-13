@@ -151,6 +151,12 @@ export default function(ctx, inject) {
     },
     export: () => {
       return ctx.$axios.$get(`/${subdomain()}/memberships/export-to-csv`)
+    },
+    makePlanPrimary: (id, data) => {
+      return ctx.$axios.$put(
+        `/${subdomain()}/memberships/${id}/make-plan-primary`,
+        data
+      )
     }
   }
   ;(ctx.$membership = Membership), inject('membership', Membership)
