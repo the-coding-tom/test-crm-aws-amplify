@@ -383,7 +383,7 @@ export default {
         })
     },
     searchMembers(query) {
-      const link = `filter[search]=${query}&filter[status]=accepted`
+      const link = `filter[search]=${query}`
 
       this.searching = !this.searching
 
