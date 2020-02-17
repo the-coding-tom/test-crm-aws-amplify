@@ -216,12 +216,27 @@ export default {
   },
   async asyncData({ store, params, $membership, error, $moment }) {
     try {
-      return await $membership.getAMembership(params.id).then(({ data }) => {
-        data.trial_days = data.primary_plan[0].pivot.trial_days
-        return {
-          data
-        }
-      })
+      let paid_by = null
+      let members = []
+
+      return await $membership
+        .getAMembership(params.id)
+        .then(async ({ data }) => {
+          data.trial_days = data.primary_plan[0].pivot.trial_days
+
+          if (data.paid_by) {
+            const result = await $membership.getAMembership(data.paid_by)
+
+            members.push(result.data)
+            paid_by = data.paid_by
+          }
+
+          return {
+            data,
+            members,
+            paid_by
+          }
+        })
     } catch (e) {
       error({
         statusCode: e.statusCode,
