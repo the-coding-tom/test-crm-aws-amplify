@@ -824,6 +824,16 @@
   resolved "https://registry.yarnpkg.com/@fullcalendar/list/-/list-4.3.0.tgz#b2523e54db0fd4cd44f7e93d72353d649c529dd7"
   integrity sha512-Al+XaKynC4RsJpXyWOWJgrVQXFOSC+fg8DI4HGAt/mrrwazZ1L0pTQwCLeU8auZp53VFazCiNxV+jkAbuDdbDQ==
 
+"@fullcalendar/moment-timezone@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/moment-timezone/-/moment-timezone-4.4.0.tgz#35f8b8b4950c3704755a7ebdfbf7af3029c1b88d"
+  integrity sha512-eBzipkwuM/y47M/t2HAM+uWph3b08Gk7xa34X3nM1UNHnryWNFMJgCczcZk+OMRCbuhNMjujj0F/rUYbnE0FDQ==
+
+"@fullcalendar/moment@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/moment/-/moment-4.4.0.tgz#a83a4340427aedc46bc5216164465ecd595e839b"
+  integrity sha512-sW2F7z0E1+kBvBduGiXVYJtIWj2AWeUQQoiLA+xgprsyljzigwnI+9J2iviaB9uL7LIbCSnPrOZmhpVTufmPvQ==
+
 "@fullcalendar/timegrid@^4.1.0":
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/@fullcalendar/timegrid/-/timegrid-4.3.0.tgz#bf003499319e5e66135bb7b8d8ed274b1a62ca91"

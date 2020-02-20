@@ -10,6 +10,7 @@
     :events="events"
     :default-view="defaultView"
     :dates-render="datesRender"
+    :time-zone="timeZone"
     @dateClick="dateClick"
     @eventClick="eventClick" />
 </template>
@@ -20,6 +21,7 @@ import listPlugin from '@fullcalendar/list'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import momentTimezonePlugin from '@fullcalendar/moment-timezone'
 
 export default {
   components: {
@@ -45,6 +47,10 @@ export default {
           noEventsMessage: 'No events to display'
         }
       })
+    },
+    timeZone: {
+      type: String,
+      default: 'UTC'
     }
   },
   data() {
@@ -53,7 +59,8 @@ export default {
         dayGridPlugin,
         timeGridPlugin,
         interactionPlugin,
-        listPlugin
+        listPlugin,
+        momentTimezonePlugin
       ]
     }
   },
