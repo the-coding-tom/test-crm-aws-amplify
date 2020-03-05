@@ -284,6 +284,10 @@ export default {
       const emailMessage = this.convertTextToHtml(this.event.email_content)
 
       let eventUpdate = this.event
+      eventUpdate.description = eventUpdate.description.replace(
+        /(?:<br>)/g,
+        '\n'
+      )
 
       if (this.external) {
         eventUpdate.room_id = null

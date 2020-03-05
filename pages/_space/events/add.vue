@@ -215,8 +215,8 @@ export default {
       endTime: '',
       eventLogo: '',
       hostLogo: '',
-      sendMail: false,
-      emailSubject: '',
+      sendMail: true,
+      emailSubject: 'Booking Confirmed',
       emailMessage: '',
       selectedRoom: null,
       max_ticket_per_person: 3,
@@ -262,6 +262,8 @@ export default {
       } else {
         this.external_location = null
       }
+
+      this.description = this.description.replace(/(?:<br>)/g, '\n')
 
       const eventDetails = {
         name: this.title,
