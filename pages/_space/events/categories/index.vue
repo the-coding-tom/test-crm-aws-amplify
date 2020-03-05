@@ -1,8 +1,8 @@
 <template>
   <div>
     <b-form @submit.prevent="updateCategory">
-      <base-header 
-        class="pb-6" 
+      <base-header
+        class="pb-6"
         type>
         <div class="d-flex justify-content-between py-4">
           <MainTitle title="Resource Categories" />
@@ -15,9 +15,9 @@
             >
               <i class="fa fa-times" /> Remove Category
             </b-button>
-            <b-button 
-              type="submit" 
-              style="color: white" 
+            <b-button
+              type="submit"
+              style="color: white"
               class="btn btn-primary">Update Category</b-button>
           </div>
         </div>
@@ -44,13 +44,26 @@
                 label="Color Tag"
                 placeholder="#4C4D4F"
               />
+
+              <b-form-group
+                label="Disabled"
+                label-for="input-1"
+              >
+                <b-form-checkbox
+                  id="checkbox-1"
+                  v-model="disable"
+                  :value="true"
+                  :unchecked-value="false"
+                  name="checkbox-1"
+                />
+              </b-form-group>
             </div>
             <div class="row mr-t-40">
               <b-form-radio-group class="col-md-6">
                 <div class="row">
-                  <div 
-                    v-for="category in categories" 
-                    :key="category.id" 
+                  <div
+                    v-for="category in categories"
+                    :key="category.id"
                     class="col-md-6">
                     <b-form-radio
                       v-model="cat"
@@ -89,7 +102,8 @@ export default {
   data: () => ({
     cat: null,
     name: null,
-    color: null
+    color: null,
+    disable: false
   }),
   computed: {
     ...mapState({
@@ -100,14 +114,16 @@ export default {
     changeCategory(cat) {
       this.name = cat.name
       this.color = cat.color
+      this.disable = cat.disable
     },
     updateCategory() {
-      const { cat, name, color } = this
+      const { cat, name, color, disable } = this
 
       this.$event
         .updateCategory(cat, {
           name,
-          color
+          color,
+          disable
         })
         .then(res => {
           if (res.data) {
