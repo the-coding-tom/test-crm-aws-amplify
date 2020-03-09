@@ -81,11 +81,19 @@
               </div>
               <div class="row mt-2">
                 <div class="col-md-6">
-                  <i class="fa fa-user" /> {{ data.user_profile && data.user_profile.gender }}
+                  <i class="fa fa-venus-mars" /> {{ data.user_profile && data.user_profile.gender }}
                 </div>
                 <div class="col-md-6">
                   <i class="fa fa-globe" /> {{ data.user_profile && data.user_profile.nationality }}
                 </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <i class="fa fa-user" /> {{ data.user_profile && data.user_profile.ethnicity }}
+                </div>
+                <!-- <div class="col-md-6">
+                  <i class="fa fa-globe" /> {{ data.user_profile && data.user_profile.nationality }}
+                </div> -->
               </div>
               <div class="mt-4">
                 <div class="text-muted">
