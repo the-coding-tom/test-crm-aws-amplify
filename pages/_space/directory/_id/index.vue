@@ -278,7 +278,7 @@
               </table>
             </div>
           </card>
-
+          <check-in/>
           <card>
             <div
               slot="header"
@@ -347,6 +347,7 @@ import MembershipNotes from '~/components/shack/MembershipNotes.vue'
 import ChangePlan from '~/components/directory/ChangePlan'
 import AddPlan from '~/components/directory/AddPlan'
 import AddCard from '~/components/directory/AddCard'
+import CheckIn from '~/components/shack/CheckIn'
 import { mapState } from 'vuex'
 import { Drawer } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -361,7 +362,8 @@ export default {
     AddPlan,
     AddCard,
     [Drawer.name]: Drawer,
-    MembershipNotes
+    MembershipNotes,
+    CheckIn
   },
   async asyncData({ store, params, $membership, error, $moment }) {
     try {

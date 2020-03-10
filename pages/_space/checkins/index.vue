@@ -162,7 +162,9 @@ export default {
       const link = 'filter[status]=accepted&include=profile'
       const checkinFilter = `?filter[status]=checkin&filter[created_at]=${moment().format(
         'YYYY-MM-DD'
-      )}`
+      )},${moment()
+        .add(1, 'days')
+        .format('YYYY-MM-DD')}`
 
       let imeta, ilinks
 
