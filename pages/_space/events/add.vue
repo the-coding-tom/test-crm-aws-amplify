@@ -158,6 +158,11 @@
           <UploadButton
             v-model="eventLogo"
             service="event"
+            label="Upload Event Image (<500KB & size 1125x582)"
+          />
+          <UploadButton
+            v-model="banner_image"
+            service="event"
             label="Upload Event Banner (<500KB & size 1125x582)"
           />
           <UploadButton
@@ -221,7 +226,8 @@ export default {
       selectedRoom: null,
       max_ticket_per_person: 3,
       external: false,
-      external_location: null
+      external_location: null,
+      banner_image: ''
     }
   },
   computed: {
@@ -279,7 +285,8 @@ export default {
         send_mail: this.sendMail === 'true' ? true : false,
         email_subject: this.emailSubject,
         email_message: emailMessage,
-        external_location: this.external_location
+        external_location: this.external_location,
+        banner_image: this.banner_image
       }
 
       await this.$event

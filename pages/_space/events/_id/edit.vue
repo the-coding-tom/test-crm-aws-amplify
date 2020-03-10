@@ -170,6 +170,12 @@
               :url="event.banner_url"
               v-model="event.event_logo"
               name="eventbanner"
+              label="Upload Event Image (<500KB & size 1125x582)"
+              service="event" />
+            <UploadButton
+              :url="event.banner_image"
+              v-model="event.banner_image"
+              name="eventbanner"
               label="Upload Event Banner (<500KB & size 1125x582)"
               service="event" />
             <UploadButton
