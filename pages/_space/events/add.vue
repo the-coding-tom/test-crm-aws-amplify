@@ -163,7 +163,7 @@
           <UploadButton
             v-model="banner_image"
             service="event"
-            label="Upload Event Banner (<500KB & size 1125x582)"
+            label="Upload Event Banner (<500KB)"
           />
           <UploadButton
             v-model="hostLogo"
