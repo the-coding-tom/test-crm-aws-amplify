@@ -220,7 +220,7 @@ export default {
       endTime: '',
       eventLogo: '',
       hostLogo: '',
-      sendMail: true,
+      sendMail: false,
       emailSubject: 'Booking Confirmed',
       emailMessage: '',
       selectedRoom: null,
