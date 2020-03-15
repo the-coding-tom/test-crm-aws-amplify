@@ -9,11 +9,18 @@
           <MainTitle
             title="Event"
             subtitle="Update" />
-          <b-button
-            :disabled="loading"
-            type="submit"
-            class="btn btn-primary text-white"
-          >Update Event</b-button>
+          <div>
+
+            <b-button
+              :disabled="loading"
+              type="submit"
+              class="btn btn-primary text-white"
+            >Update Event</b-button>
+            <b-button
+              variant="transparent"
+              class="text-danger"
+              @click="$router.go(-1)"><i class="fa fa-angle-left"/> Cancel Update</b-button>
+          </div>
         </div>
       </base-header>
 
@@ -39,14 +46,9 @@
                   />
                   <div class="form-group col-md-12">
                     <label>Event Description</label>
-                    <textarea
+                    <html-editor
                       v-model="event.description"
-                      placeholder="Add details about the event"
-                      rows="4"
-                      max-rows="6"
-                      description="description"
-                      class="form-control"
-                    />
+                      placeholder="Add details about the event" />
                   </div>
                   <b-form-group
                     label="Start Date"
@@ -93,6 +95,13 @@
                     step="0.01"
                     placeholder="0.00"
                   />
+                  <base-input
+                    v-model="event.max_ticket_per_person"
+                    class="col-md-6"
+                    label="Max Ticket Per Person"
+                    type="number"
+                    placeholder="3"
+                  />
                 </div>
               </div>
 
@@ -111,17 +120,27 @@
                       />
                     </el-select>
                   </div>
+
                   <div class="form-group col-md-12">
-                    <b-form-group label="Rooms Available">
-                      <b-form-radio
-                        v-for="room in rooms"
-                        v-model="event.room_id"
-                        :value="room.id"
-                        :key="room.id"
-                        name="room"
-                      >{{ room.name }}</b-form-radio>
-                    </b-form-group>
+                    <b-form-checkbox
+                      id="external-1"
+                      v-model="external"
+                      :value="true"
+                      :unchecked-value="null"
+                      name="external-1"
+                    >
+                      Host at an external location
+                    </b-form-checkbox>
+                    <b-form-input
+                      v-if="external"
+                      v-model="event.external_location"
+                      placeholder="External Location"
+                      required />
                   </div>
+
+                  <Room
+                    v-if="!external"
+                    v-model="event.room_id" />
 
                   <div class="form-group col-md-12">
                     <b-form-checkbox
@@ -151,6 +170,12 @@
               :url="event.banner_url"
               v-model="event.event_logo"
               name="eventbanner"
+              label="Upload Event Image (<500KB & size 1125x582)"
+              service="event" />
+            <UploadButton
+              :url="event.banner_image"
+              v-model="event.banner_image"
+              name="eventbanner"
               label="Upload Event Banner (<500KB & size 1125x582)"
               service="event" />
             <UploadButton
@@ -173,6 +198,7 @@ import MainTitle from '@/components/shack/MainTitle.vue'
 import SectionTitle from '@/components/shack/SectionTitle.vue'
 import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
 import UploadButton from '@/components/shack/UploadButton.vue'
+import Room from '@/components/events/Room'
 
 import { Select, Option } from 'element-ui'
 import moment from 'moment'
@@ -187,7 +213,8 @@ export default {
     SectionTitle,
     HtmlEditor,
     [Select.name]: Select,
-    [Option.name]: Option
+    [Option.name]: Option,
+    Room
   },
   async asyncData({ store, $event, params, error }) {
     const { id } = params
@@ -206,26 +233,21 @@ export default {
         })
       })
 
-    await $event
-      .getRooms()
-      .then(({ data }) => {
-        store.commit('events/setRooms', data)
-      })
-      .catch(err => {
-        error({
-          statusCode: err.statusCode,
-          message: e.response
-            ? JSON.stringify(e.response.data.message)
-            : e.message
-        })
-      })
-
     return await $event
       .getEvent(id)
       .then(({ data }) => {
         data.event_category_id = data.event_category.id
-        data.room_id = data.room.id
+
+        let external = false
+
+        if (data.room) {
+          data.room_id = data.room ? data.room.id : null
+        } else {
+          external = true
+        }
+
         return {
+          external,
           event: data
         }
       })
@@ -244,7 +266,6 @@ export default {
   computed: {
     ...mapState({
       categories: state => state.events.categories,
-      rooms: state => state.events.rooms,
       space: state => state.space.currentSpace.subdomain
     })
   },
@@ -257,13 +278,34 @@ export default {
         .add(1, 'hour')
         .format('YYYY-MM-DD HH:mm:ss')
     },
-    async updateEvent() {
-      const { event } = this
+    convertTextToHtml(text) {
+      const showdown = require('showdown')
+      const converter = new showdown.Converter()
 
+      return converter.makeHtml(text)
+    },
+    async updateEvent() {
       this.loading = !this.loading
 
+      const emailMessage = this.convertTextToHtml(this.event.email_content)
+
+      let eventUpdate = this.event
+      eventUpdate.description = eventUpdate.description.replace(
+        /(?:<br>)/g,
+        '\n'
+      )
+
+      if (this.external) {
+        eventUpdate.room_id = null
+      } else {
+        eventUpdate.external_location = null
+      }
+
       await this.$event
-        .updateEvent(event.id, event)
+        .updateEvent(this.event.id, {
+          ...eventUpdate,
+          email_content: emailMessage
+        })
         .then(({ data }) => {
           this.$bvToast.toast(`Event updated successfully`, {
             title: 'Success',
@@ -273,7 +315,7 @@ export default {
 
           this.$router.push({
             name: 'space-events-id',
-            params: { id: event.id }
+            params: { id: this.event.id }
           })
         })
         .catch(({ response }) => {

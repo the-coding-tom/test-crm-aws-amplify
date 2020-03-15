@@ -72,7 +72,8 @@
                     class="col-md-6"
                     label="Minimum Booking Duration"
                     type="number"
-                    placeholder="0">
+                    min="0"
+                    placeholder="60">
                     <div slot="append">min</div>
                   </base-input>
 
@@ -81,7 +82,7 @@
                     class="col-md-6"
                     label="Maximum Booking Duration"
                     type="number"
-                    placeholder="0">
+                    placeholder="120">
                     <div slot="append">max</div>
                   </base-input>
                 </div>
@@ -95,6 +96,40 @@
                     label="Available Booking Time"
                     placeholder="0" />
                   <b-form-text class="col-md-12">You can enter multiple time frames separated by comma, e.g. e.g. mo-fr 9-17, sa 10-3.</b-form-text>
+
+                  <div class="col-md-12 form-group">
+                    <label>Amenities</label>
+                    <TagsInput
+                      v-model="amenities"
+                      type="Text"
+                      required />
+                  </div>
+
+                  <b-form-group
+                    class="col-md-12"
+                    label="Zoom Rooms"
+                  >
+                    <b-form-select
+                      v-model="zoom_room_id"
+                      :options="zoom_rooms"
+                      value-field="id"
+                      text-field="name"
+                    >
+                      <option :value="null">Choose a zoom room</option>
+                    </b-form-select>
+                  </b-form-group>
+
+                  <b-form-group
+                    class="col-md-12"
+                    label="Brivo Access Point">
+                    <b-form-select
+                      v-model="access_point_id"
+                      :options="access_points"
+                      value-field="id"
+                      text-field="name"
+                    >
+                    <option :value="null">Choose a zoom room</option></b-form-select>
+                  </b-form-group>
 
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
@@ -127,6 +162,7 @@ import { mapState } from 'vuex'
 import BaseHeader from '@/components/argon-core/BaseHeader'
 import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
+import TagsInput from '@/components/argon-core/Inputs/TagsInput'
 import UploadButton from '~/components/shack/UploadButton.vue'
 
 import { Select, Option } from 'element-ui'
@@ -139,7 +175,8 @@ export default {
     UploadButton,
     SectionTitle,
     [Select.name]: Select,
-    [Option.name]: Option
+    [Option.name]: Option,
+    TagsInput
   },
   async asyncData(vm) {
     await vm.store.dispatch('resources/getAllCategories')
@@ -147,6 +184,14 @@ export default {
     const { id } = vm.route.params
 
     await vm.store.dispatch('resources/getOneRoom', id)
+    const access_points = await vm.$accesspoint.list()
+
+    return await vm.$zoomrooms.getRooms().then(res => {
+      return {
+        zoom_rooms: res,
+        access_points
+      }
+    })
   },
   data: () => ({}),
   computed: {
@@ -166,7 +211,10 @@ export default {
       can_book: 'resources.addRoom.can_book',
       available_booking_time: 'resources.addRoom.available_room',
       photo: 'resources.addRoom.photo',
-      category: 'resources.addRoom.room_category_id'
+      category: 'resources.addRoom.room_category_id',
+      amenities: 'resources.addRoom.amenities',
+      zoom_room_id: 'resources.addRoom.zoom_room_id',
+      access_point_id: 'resources.addRoom.access_point_id'
     })
   },
   methods: {

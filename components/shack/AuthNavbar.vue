@@ -28,7 +28,7 @@
             <span class="avatar avatar-sm rounded-circle">
               <img
                 alt="Image placeholder"
-                src="img/theme/team-4.jpg" >
+                src="/img/placeholder.jpg" >
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
               <span class="mb-0 text-sm">{{ user.name }}</span>

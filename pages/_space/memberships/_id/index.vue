@@ -8,10 +8,22 @@
           <MainTitle
             :subtitle="`${data.first_name} ${data.last_name}`"
             title="Membership"/>
+
+          <div>
+            <b-button
+              variant="transparent"
+              class="text-primary"
+              @click="onboardBrivo">
+              <i class="fas fa-user-lock"/> Brivo Onboard
+            </b-button>
+
+            <b-button
+              variant="transparent"
+              class="text-danger"
+              @click="cancelMembership"><i class="fa fa-trash"/> Cancel Membership</b-button>
+          </div>
         </div>
       </base-header>
-
-
 
       <div class="container-fluid mt--6">
 
@@ -19,6 +31,13 @@
           <div class="col-md-6">
             <card>
               <div class="row">
+                <base-input
+                  v-model="data.email"
+                  :disabled="true"
+                  type="text"
+                  class="col-md-6"
+                  label="Email"
+                  placeholder="Email"/>
                 <base-input
                   v-model="data.first_name"
                   type="text"
@@ -77,6 +96,7 @@
                 </b-form-group>
 
                 <b-form-group
+                  :description="assignedAdmin"
                   class="col-md-6"
                   label="Assigned Admin">
                   <el-select
@@ -98,6 +118,36 @@
 
                 <b-form-group
                   class="col-md-6"
+                  label="Start Date">
+                  <client-only>
+                    <date-picker
+                      id="time"
+                      v-model="data.trial_ends_at"
+                      width="100%"
+                      input-class="form-control"
+                      lang="en"
+                      format="YYYY-MM-DD"
+                      value-type="format"
+                      confirm
+                      type="date"
+                      placeholder="Start Date"
+                    />
+                  </client-only>
+                </b-form-group>
+
+                <b-form-group
+                  class="col-md-6"
+                  label="Trial Days"
+                  description="Number of days before member is charged">
+                  <b-form-input
+                    v-model="data.trial_days"
+                    min="0"
+                    type="number"
+                    required/>
+                </b-form-group>
+
+                <b-form-group
+                  class="col-md-6"
                   label="Paid for">
                   <b-form-checkbox
                     v-model="data.paid_for"
@@ -105,12 +155,6 @@
                     :unchecked-value="false">Yes</b-form-checkbox>
                 </b-form-group>
 
-                <!-- <b-form-group class="col-md-6">
-                  <b-form-checkbox
-                    v-model="data.founding_member"
-                    :value="true"
-                    :unchecked-value="false">Founding Member</b-form-checkbox>
-                </b-form-group> -->
                 <b-form-group
                   v-if="data.paid_for"
                   class="col-md-6"
@@ -133,16 +177,6 @@
                   </el-select>
                 </b-form-group>
 
-                <!-- <b-form-group
-                  v-if="data.paid_for"
-                  class="col-md-6"
-                  label="Payment Source">
-                  <b-form-select
-                    v-model="data.card_nonce"
-                    :options="cards"
-                    :required="true" />
-                </b-form-group> -->
-
                 <div class="col-md-12">
                   <b-button
                     :disabled="loading"
@@ -158,6 +192,10 @@
 
       </div>
     </b-form>
+    <b-button
+      variant="transparent"
+      class="text-primary ml-2 mb-2"
+      @click="$router.go(-1)"><i class="fas fa-chevron-left"/> Back</b-button>
   </div>
 </template>
 <script>
@@ -165,6 +203,7 @@ import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
 import { Select, Option } from 'element-ui'
 import { mapState } from 'vuex'
+import { displayError } from '../../../../util/errors'
 
 export default {
   name: 'DirectoryEdit',
@@ -177,11 +216,27 @@ export default {
   },
   async asyncData({ store, params, $membership, error, $moment }) {
     try {
-      return await $membership.getAMembership(params.id).then(({ data }) => {
-        return {
-          data
-        }
-      })
+      let paid_by = null
+      let members = []
+
+      return await $membership
+        .getAMembership(params.id)
+        .then(async ({ data }) => {
+          data.trial_days = data.primary_plan[0].pivot.trial_days
+
+          if (data.paid_by) {
+            const result = await $membership.getAMembership(data.paid_by)
+
+            members.push(result.data)
+            paid_by = data.paid_by
+          }
+
+          return {
+            data,
+            members,
+            paid_by
+          }
+        })
     } catch (e) {
       error({
         statusCode: e.statusCode,
@@ -241,7 +296,12 @@ export default {
   computed: {
     ...mapState({
       space: state => state.space.currentSpace
-    })
+    }),
+    assignedAdmin() {
+      if (this.data.assigned_admin) {
+        return `Current: ${this.data.assigned_admin.name}`
+      }
+    }
   },
   methods: {
     updateMembership() {
@@ -286,9 +346,7 @@ export default {
       }, 350)()
     },
     searchAdmins(query) {
-      const link = `${process.env.base_url}/${
-        this.space.subdomain
-      }/admins?filter[name]=${query}`
+      const link = `/${this.space.subdomain}/admins?filter[name]=${query}`
 
       this.$admin
         .getAllAdmins(link)
@@ -329,6 +387,53 @@ export default {
             variant: 'danger',
             title: 'Error'
           })
+        })
+    },
+    cancelMembership() {
+      if (!confirm('Are you sure?')) return
+
+      this.loading = !this.loading
+      const { id } = this.$route.params
+      this.$membership
+        .deleteMembership(id)
+        .then(({ data }) => {
+          this.$bvToast.toast('Member deleted successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+
+          this.$router.go(-1)
+        })
+        .catch(e => {
+          this.loading = !this.loading
+
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+
+          this.$bvToast.toast(message, {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
+    },
+    onboardBrivo() {
+      this.loading = !this.loading
+      const { id } = this.$route.params
+
+      this.$membership
+        .onboardBrivo(id)
+        .then(res => {
+          this.loading = !this.loading
+          this.$bvToast.toast('Brivo onboarding successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+        })
+        .catch(e => {
+          displayError(e, this)
         })
     }
   }

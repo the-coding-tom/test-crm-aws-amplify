@@ -14,7 +14,7 @@
         class="d-flex justify-content-between"
       >
         <div class="sh-acc-title">
-          {{ plan.name }} ({{ plan.price | currency(space.currency_symbol) }} {{ getCycleDuration(plan.cycle_duration) }}) <i class="fa fa-angle-down" />
+          {{ plan.name }} ({{ plan.price | currency(space.currency_symbol) }} {{ getCycleDuration(plan.invoice_period) }}) <i class="fa fa-angle-down" />
         </div>
         <b-form-radio
           v-model="selectedPlan"

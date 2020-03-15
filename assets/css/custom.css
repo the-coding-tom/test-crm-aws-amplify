@@ -461,3 +461,6 @@ table .fa.fa-circle {
 .table td.activity {
   white-space: normal;
 }
+.dashed {
+	border-style: dashed;
+}

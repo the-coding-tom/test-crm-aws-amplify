@@ -32,10 +32,20 @@
         <div class="col-md-6 mr-l-child-10 text-right">
 
           <b-button
-            :to="{name: 'space-directory-id-notes', params: {id: $route.params.id}}"
+            :to="{name: 'space-memberships-id', params: {id: data.id}}"
             variant="transparent"
-            class="text-primary">
-            <i class="fa fa-sticky-note" /> View Notes
+            class="text-primary"
+          >
+            <i class="fas fa-edit"/> Edit Membership
+          </b-button>
+          <b-button
+            variant="transparent"
+            class="text-primary"
+            @click="drawer = true"
+          >
+            <i
+              class="fa fa-sticky-note"
+            /> View Notes
           </b-button>
           <b-button
             variant="transparent"
@@ -52,7 +62,7 @@
         <div class="col-md-6">
           <div class="card">
             <ProfileHead
-              :status="data.founding_member"
+              :status="data.prefix_type"
               :img="data.user_profile ? data.user_profile.picture : null"
               :name="data.user_profile ? data.user_profile.full_name : `${data.first_name} ${data.last_name}`"
               :company="data.user_profile ? data.user_profile.company : null"
@@ -61,12 +71,29 @@
             />
             <div class="card-body">
               <div class="row">
-                <div class="col">
+                <div class="col-md-6">
                   <i class="fa fa-envelope" /> {{ data.email }}
                 </div>
-                <div class="col">
+                <div class="col-md-6">
                   <i class="fa fa-phone" /> {{ data.user_profile && data.user_profile.phone }}
                 </div>
+
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <i class="fa fa-venus-mars" /> {{ data.user_profile && data.user_profile.gender }}
+                </div>
+                <div class="col-md-6">
+                  <i class="fa fa-globe" /> {{ data.user_profile && data.user_profile.nationality }}
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <i class="fa fa-user" /> {{ data.user_profile && data.user_profile.ethnicity }}
+                </div>
+                <!-- <div class="col-md-6">
+                  <i class="fa fa-globe" /> {{ data.user_profile && data.user_profile.nationality }}
+                </div> -->
               </div>
               <div class="mt-4">
                 <div class="text-muted">
@@ -135,7 +162,7 @@
               <div class="sh-dls">
                 <span> Paying for:</span> <span
                   v-for="paid in paid_for"
-                  :key="paid.id"><nuxt-link 
+                  :key="paid.id"><nuxt-link
                     v-if="paid_for.length > 0"
                     :to="{name: 'space-memberships-id', params: {id: paid.id}}">{{ paid.first_name }} {{ paid.last_name }}</nuxt-link>, </span>
               </div>
@@ -148,7 +175,7 @@
           <card header-classes="bg-transparent">
             <div
               slot="header"
-              class="d-flex justify-content-between">
+              class="d-flex justify-content-between align-items-center">
               <div class="txt-upper">
                 Card Details
               </div>
@@ -200,7 +227,7 @@
           <card>
             <div
               slot="header"
-              class="d-flex justify-content-between">
+              class="d-flex justify-content-between align-items-center">
               <div class="txt-upper">
                 MEMBERSHIP PLAN
               </div>
@@ -222,6 +249,20 @@
                     <td>Until {{ getSubDetails(subscription) }}</td>
                     <td>
                       <b-button
+                        id="popover-1-top"
+                        size="sm"
+                        variant="transparent"
+                        class="text-primary"
+                        @click="makePlanPrimary(subscription)">
+                        <i class="fas fa-user-shield"/>
+                      </b-button>
+                      <b-popover
+                        placement="top"
+                        target="popover-1-top"
+                        content="Make plan primary"
+                        triggers="hover focus"
+                      />
+                      <b-button
                         size="sm"
                         variant="transparent"
                         class="text-primary"
@@ -237,7 +278,7 @@
               </table>
             </div>
           </card>
-
+          <check-in/>
           <card>
             <div
               slot="header"
@@ -268,6 +309,7 @@
                   :per-page="perPage"
                   v-model="currentPage"
                   :total-rows="rows"
+                  align="center"
                   aria-controls="my-table"
                 />
               </div>
@@ -291,15 +333,25 @@
         :toggle-loading="toggleLoading"
         :loading="loading"
         @addCard="addCard" /></b-modal>
+    <el-drawer
+      :visible.sync="drawer"
+      :direction="direction"
+      title="Notes">
+      <MembershipNotes :membership_id="data.id" />
+    </el-drawer>
   </div>
 </template>
 <script>
 import MainTitle from '~/components/shack/MainTitle.vue'
 import ProfileHead from '~/components/shack/ProfileHead.vue'
+import MembershipNotes from '~/components/shack/MembershipNotes.vue'
 import ChangePlan from '~/components/directory/ChangePlan'
 import AddPlan from '~/components/directory/AddPlan'
 import AddCard from '~/components/directory/AddCard'
+import CheckIn from '~/components/shack/CheckIn'
 import { mapState } from 'vuex'
+import { Drawer } from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 export default {
   name: 'DirectoryProfile',
@@ -309,7 +361,10 @@ export default {
     ProfileHead,
     ChangePlan,
     AddPlan,
-    AddCard
+    AddCard,
+    [Drawer.name]: Drawer,
+    MembershipNotes,
+    CheckIn
   },
   async asyncData({ store, params, $membership, error, $moment }) {
     try {
@@ -362,7 +417,9 @@ export default {
       checked: false,
       cards: [],
       currentPage: 1,
-      perPage: 5
+      perPage: 5,
+      drawer: false,
+      direction: 'rtl'
     }
   },
   computed: {
@@ -544,6 +601,7 @@ export default {
       this.$membership
         .cancelSubscription(this.$route.params.id, {
           plan_id: subscription.plan_id,
+          slug: subscription.slug,
           immediate: true
         })
         .then(res => {
@@ -567,6 +625,27 @@ export default {
             title: 'Error',
             variant: 'danger'
           })
+        })
+    },
+    makePlanPrimary(subscription) {
+      this.loading = !this.loading
+
+      this.$membership
+        .makePlanPrimary(this.$route.params.id, {
+          plan_id: subscription.plan_id
+        })
+        .then(res => {
+          this.loading = !this.loading
+
+          this.$bvToast.toast('Plan made primary', {
+            title: 'Success',
+            variant: 'success'
+          })
+        })
+        .catch(e => {
+          this.loading = !this.loading
+
+          displayError(e, this)
         })
     }
   }
@@ -617,5 +696,12 @@ export default {
 }
 .hidden_header {
   display: none;
+}
+.card-footer .b-pagination {
+  margin-bottom: 0;
+}
+tr td button.btn {
+  margin-top: -15px;
+  margin-bottom: -15px;
 }
 </style>

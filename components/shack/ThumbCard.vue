@@ -1,7 +1,9 @@
 <template>
   <div class="col-md-3 sh-thumb">
     <card>
-      <span class="label label-default">
+      <span
+        v-show="getMembershipType"
+        class="label label-default">
         <template>
           <i class="fa fa-star" /> {{ getMembershipType }}
         </template>
@@ -54,18 +56,6 @@ export default {
       {
         text: 'Founding Member',
         value: '0'
-      },
-      {
-        text: 'Fast Track',
-        value: '1'
-      },
-      {
-        text: 'Early Invite',
-        value: '2'
-      },
-      {
-        text: 'General Member',
-        value: '3'
       }
     ]
   }),
