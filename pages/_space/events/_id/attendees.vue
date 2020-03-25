@@ -9,6 +9,9 @@
           :loading="loading"
           :required="false"
           @search="searchAttendees" />
+        <b-button
+          v-b-modal.appreciation
+          variant="primary">Send Appreciation</b-button>
       </div>
     </base-header>
 
@@ -137,6 +140,8 @@
           </card>
         </div>
       </div>
+
+      <appreciation-modal/>
     </div>
   </div>
 </template>
@@ -147,6 +152,7 @@ import MainTitle from '@/components/shack/MainTitle.vue'
 import SectionTitle from '@/components/shack/SectionTitle.vue'
 import { Select, Option } from 'element-ui'
 import SearchForm from '~/components/shack/SearchForm.vue'
+import AppreciationModal from '~/components/shack/AppreciationModal'
 
 import { mapState } from 'vuex'
 
@@ -158,7 +164,8 @@ export default {
     SectionTitle,
     SearchForm,
     [Select.name]: Select,
-    [Option.name]: Option
+    [Option.name]: Option,
+    AppreciationModal
   },
   async asyncData({ store, $event, error, params }) {
     const { id } = params

@@ -72,6 +72,12 @@ export default function(ctx, inject) {
       return ctx.$axios.$get(
         `/${subdomain()}/events/${eventId}/attendees?filter[search]=${term}`
       )
+    },
+    sendAppreciation(eventId, payload) {
+      return ctx.$axios.$put(
+        `/${subdomain()}/events/${eventId}/post-event-notify`,
+        payload
+      )
     }
   }
   ;(ctx.$event = Event), inject('event', Event)

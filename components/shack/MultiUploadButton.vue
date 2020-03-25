@@ -40,12 +40,13 @@ export default {
     },
     url: {
       type: Array,
-      default: null
+      default: () => []
     }
   },
   data() {
     return {
-      publicUrl: null
+      publicUrl: null,
+      images: []
     }
   },
   methods: {
@@ -55,8 +56,6 @@ export default {
       if (!files) {
         return
       }
-
-      this.url = []
 
       for (var i = 0; i < files.length; i++) {
         if (files[i].size > 500000) {
@@ -79,7 +78,8 @@ export default {
         //upload image here
         let uploadUrl = await this.uploadUrl(upload.signed_url, file, mime)
           .then(res => {
-            this.$emit('input', this.publicUrl)
+            this.images.push(this.publicUrl)
+            this.$emit('input', this.images)
 
             this.$bvToast.toast('Image uploaded successfully', {
               variant: 'success',
