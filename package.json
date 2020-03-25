@@ -10,8 +10,7 @@
     "start": "cross-env NODE_ENV=production node server/index.js",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "yarn lint --fix",
-    "heroku-postbuild": "yarn build",
-    "prestart": "yarn build"
+    "heroku-postbuild": "yarn build"
   },
   "engines": {
     "node": "x.x",
