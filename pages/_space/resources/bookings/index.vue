@@ -93,11 +93,11 @@
                       :value="option.name"/>
                   </el-select>
                 </b-form-group>
-                <b-form-group 
+                <b-form-group
                   v-if="newBooking.source == 'card'"
                   class="col-md-12"
                   label="Choose card">
-                  <el-select  
+                  <el-select
                     v-model="newBooking.payment_method"
                     required
                     placeholder="Choose card"
@@ -168,6 +168,7 @@
               :events="bookings"
               :views="views"
               :right="calendarPlugin"
+              :time-zone="space.timezone"
               default-view="timeGridWeek"
               @eventClick="eventClick"
               @dateClick="bookDate"
@@ -305,9 +306,9 @@ export default {
       this.bookdata.from = this.$moment(e.start).format('YYYY-MM-DD HH:mm')
       this.bookdata.to = this.$moment(e.end).format('YYYY-MM-DD HH:mm')
       this.bookdata.title = e.title
-      this.bookdata.membership_id = e.extendedProps.extendProps.uuid
+      this.bookdata.membership_id = e.extendedProps.extendProps.membership.id
       this.bookdata.room_id = e.extendedProps.extendProps.room.id
-      this.bookdata.booking_id = e.extendedProps.extendProps.uuid
+      this.bookdata.booking_id = e.extendedProps.extendProps.id
       this.modalText = 'Update Booking'
       this.modalUpdate = true
       this.$bvModal.show('booking-modal')
@@ -385,16 +386,18 @@ export default {
     },
     async cancelBook() {
       await this.$resource.cancelRoomBooking(this.bookdata.booking_id)
-      this.$bvToast.toast('Booking cancelled successful', {
+      this.$bvToast.toast('Booking cancelled', {
         title: 'Success',
         variant: 'success'
       })
       this.$bvModal.hide('booking-modal')
       location.reload()
     },
-    updateBooking(data) {
-      this.$store.dispatch('resources/updateRoomBooking', data)
-      this.$bvModal.hide('booking-modal')
+    async updateBooking(data) {
+      await this.$store.dispatch('resources/updateRoomBooking', data)
+
+      location.reload()
+      // this.$bvModal.hide('booking-modal')
     },
     async getPaymentMethods(e) {
       if (e == 'card') {

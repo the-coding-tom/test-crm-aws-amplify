@@ -46,7 +46,8 @@
         prop="method"
         sortable>
         <template v-slot="{row}">
-          Credit Card ({{ upperFirst(row.card_brand) }} - {{ row.card_last_four }})
+          <span v-if="row.member_since">Credit Card - **** {{ row.card_last_four }})</span>
+          <span v-else>n/a</span>
         </template>
       </el-table-column>
 

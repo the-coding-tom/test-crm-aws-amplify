@@ -13,29 +13,19 @@ export default function(ctx, inject) {
         return ctx.$axios.$get(link)
       }
 
-      return ctx.$axios.$get(`${subdomain()}/admins`).catch(e => {
-        ctx.error({ statusCode: e.statusCode, message: getError(e) })
-      })
+      return ctx.$axios.$get(`${subdomain()}/admins`)
     },
     getAnAdmin: id => {
-      return ctx.$axios.$get(`${baseUrl}/${id}`).catch(e => {
-        ctx.error({ statusCode: e.statusCode, message: getError(e) })
-      })
+      return ctx.$axios.$get(`${baseUrl}/${id}`)
     },
     updateAnAdmin: (id, payload) => {
-      return ctx.$axios.$patch(`${baseUrl}/${id}`, payload).catch(e => {
-        ctx.error({ statusCode: e.statusCode, message: getError(e) })
-      })
+      return ctx.$axios.$patch(`${baseUrl}/${id}`, payload)
     },
     deleteAnAdmin: id => {
-      return ctx.$axios.$delete(`${baseUrl}/${id}`).catch(e => {
-        ctx.error({ statusCode: e.statusCode, message: getError(e) })
-      })
+      return ctx.$axios.$delete(`${baseUrl}/${id}`)
     },
     addAnAdmin: payload => {
-      return ctx.$axios.$post(baseUrl, payload).catch(e => {
-        ctx.error({ statusCode: e.statusCode, message: getError(e) })
-      })
+      return ctx.$axios.$post(baseUrl, payload)
     }
   }
   ;(ctx.$admin = Admin), inject('admin', Admin)

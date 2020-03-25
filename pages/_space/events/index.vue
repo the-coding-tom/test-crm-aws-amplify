@@ -42,7 +42,7 @@
 
             <p class="d-flex align-items-center text-muted">{{ $moment(currentEvent.start).format('MMMM DD YYYY') }}, {{ $moment(currentEvent.start).format('HH:mm') }} - {{ $moment(currentEvent.end).format('HH:mm') }} <i
               class="fa fa-circle mx-2"
-              style="font-size: 5px;"/> {{ currentEvent.extendedProps && (currentEvent.extendedProps.room) ? currentEvent.extendedProps.room.name : null }} </p>
+              style="font-size: 5px;"/> {{ getRoomDetail(currentEvent) }} </p>
           </b-col>
         </b-row>
         <b-row>
@@ -132,6 +132,15 @@ export default {
     })
   },
   methods: {
+    getRoomDetail(event) {
+      if (event.extendedProps) {
+        if (event.extendedProps.room) {
+          return event.extendedProps.room.name
+        } else {
+          return event.extendedProps.external_location
+        }
+      }
+    },
     showEvent(event) {
       this.currentEvent = event
       this.$bvModal.show('eventModal')

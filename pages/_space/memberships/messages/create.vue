@@ -82,6 +82,7 @@ import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
 import { Select, Option } from 'element-ui'
 import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
+import { convertMarkdownToHtml } from '@/util/convertMarkdownToHtml'
 
 export default {
   name: 'CreateMessage',
@@ -148,8 +149,11 @@ export default {
 
       this.loading = !this.loading
       const { emails, subject, content } = this
+
+      const body = convertMarkdownToHtml(content)
+
       this.$email
-        .createEmail({ emails, subject, content })
+        .createEmail({ emails, subject, content: body })
         .then(res => {
           this.$bvToast.toast('Email sent successfully', {
             title: 'Success',

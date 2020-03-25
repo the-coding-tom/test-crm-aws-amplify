@@ -136,6 +136,27 @@ export default function(ctx, inject) {
     },
     getPaidFor: id => {
       return ctx.$axios.$get(`/${subdomain()}/memberships/${id}/paid-for`)
+    },
+    expiringSubscriptions: day => {
+      return ctx.$axios.$get(`/${subdomain()}/expiring-subscriptions/${day}`)
+    },
+    renewSubscription: (id, data) => {
+      return ctx.$axios.$post(
+        `/${subdomain()}/memberships/${id}/renew-subscription`,
+        data
+      )
+    },
+    onboardBrivo: id => {
+      return ctx.$axios.$put(`/${subdomain()}/memberships/${id}/onboard-brivo`)
+    },
+    export: () => {
+      return ctx.$axios.$get(`/${subdomain()}/memberships/export-to-csv`)
+    },
+    makePlanPrimary: (id, data) => {
+      return ctx.$axios.$put(
+        `/${subdomain()}/memberships/${id}/make-plan-primary`,
+        data
+      )
     }
   }
   ;(ctx.$membership = Membership), inject('membership', Membership)

@@ -7,6 +7,19 @@
         <MainTitle
           :subtitle="`${meta.total} Profiles`"
           title="Community Directory"/>
+
+        <el-select
+          v-model="filter"
+          placeholder="Filter by..."
+          @change="filterBy">
+          <el-option
+            v-for="option in options"
+            :key="option.value"
+            :label="option.text"
+            :value="option.value"/>
+        </el-select>
+
+
         <SearchForm
           :loading="loading"
           @search="searchMember" />
@@ -46,12 +59,16 @@
 import MainTitle from '~/components/shack/MainTitle.vue'
 import ThumbCard from '~/components/shack/ThumbCard.vue'
 import SearchForm from '~/components/shack/SearchForm.vue'
+import { Select, Option } from 'element-ui'
+import { getQueryParams } from '../../../util/url'
 
 export default {
   name: 'Directory',
   layout: 'ShackDash',
-  async asyncData({ store, $membership }) {
-    const link = 'filter[status]=accepted&include=profile,primaryPlan'
+  async asyncData({ store, $membership, route }) {
+    const link = `filter[status]=accepted&include=profile,primaryPlan&page=${
+      route.query.page
+    }`
     return await $membership
       .getAllMemberships(link)
       .then(({ data, meta, links }) => {
@@ -65,27 +82,68 @@ export default {
   components: {
     MainTitle,
     SearchForm,
-    ThumbCard
+    ThumbCard,
+    [Select.name]: Select,
+    [Option.name]: Option
   },
   data: () => ({
-    loading: false
+    loading: false,
+    filter: '',
+    options: [
+      {
+        text: 'All',
+        value: ''
+      },
+      {
+        text: 'Founding Member',
+        value: '0'
+      },
+      {
+        text: 'Fast Track',
+        value: '1'
+      },
+      {
+        text: 'Early Invite',
+        value: '2'
+      },
+      {
+        text: 'General Member',
+        value: '3'
+      }
+    ]
   }),
   methods: {
     next() {
       const { next } = this.links
+
+      const params = getQueryParams(next)
+
+      this.$router.push(params)
+
       this.$membership.getAllMemberships(
-        `${next}&filter[status]=accepted&include=profile,primaryPlan`
+        `${next}&filter[status]=accepted&include=profile,primaryPlan&filter[prefix_type]=${
+          this.filter
+        }`
       )
     },
     prev() {
       const { prev } = this.links
+
+      const params = getQueryParams(prev)
+
+      this.$router.push(params)
+
       this.$membership.getAllMemberships(
-        `${prev}&filter[status]=accepted&include=profile,primaryPlan`
+        `${prev}&filter[status]=accepted&include=profile,primaryPlan&filter[prefix_type]=${
+          this.filter
+        }`
       )
     },
     searchMember(query) {
       this.loading = !this.loading
-      const link = `filter[status]=accepted&include=profile&filter[search]=${query}`
+      const link = `filter[status]=accepted&include=profile&filter[search]=${query}&filter[prefix_type]=${
+        this.filter
+      }`
 
       this.$membership
         .getAllMemberships(link)
@@ -95,6 +153,29 @@ export default {
           this.links = links
 
           this.loading = !this.loading
+        })
+        .catch(e => {
+          this.loading = !this.loading
+          const message = e.response ? e.response.data.message : e.message
+          this.$bvToast.toast(message, {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
+    },
+    filterBy() {
+      this.loading = !this.loading
+      const link = `filter[status]=accepted&include=profile,primaryPlan&filter[prefix_type]=${
+        this.filter
+      }`
+      this.$membership
+        .getAllMemberships(link)
+        .then(res => {
+          this.loading = !this.loading
+
+          this.data = res.data
+          this.links = res.links
+          this.meta = this.meta
         })
         .catch(e => {
           this.loading = !this.loading

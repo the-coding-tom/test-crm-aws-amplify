@@ -8,6 +8,7 @@
           <b-form-select
             :options="members"
             v-model="membership_id"
+            :value="membership_id"
             required />
         </b-form-group>
       </b-row>
@@ -18,6 +19,7 @@
           <b-form-select
             :options="rooms"
             v-model="room_id"
+            :value="room_id"
             required />
         </b-form-group>
       </b-row>
@@ -37,7 +39,7 @@
               format="YYYY-MM-DD HH:mm"
               value-type="format"
               confirm
-              type="time"
+              type="datetime"
               @change="changeDate"
             />
           </client-only>
@@ -57,7 +59,7 @@
               format="YYYY-MM-DD HH:mm"
               value-type="format"
               confirm
-              type="time"
+              type="datetime"
             />
           </client-only>
         </b-form-group>
@@ -82,7 +84,7 @@
             class="float-right"
             variant="default"
             @click="cancelBooking">Cancel Booking</b-button>
-          
+
         </b-form-group>
       </b-row>
     </b-form>
@@ -157,8 +159,6 @@ export default {
             value: o.id
           }
         })
-
-        this.membership_id = this.members[0].value
       })
     },
     getRooms() {
@@ -169,7 +169,7 @@ export default {
             value: o.id
           }
         })
-        this.room_id = this.rooms[0].value
+        // this.room_id = this.rooms[0].value
       })
     },
     changeDate(e) {

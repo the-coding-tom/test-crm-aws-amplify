@@ -1,11 +1,12 @@
 <template>
   <div class="sh-p-header">
-    <span class="label label-default sh-label">
-      <template v-if="status">
-        <i class="fa fa-star" /> Founding Member
-      </template>
-      <template v-else>
-        <i class="fa fa-unlock" /> Member
+    <span
+      v-show="getMembershipType"
+      class="label label-default sh-label">
+      <template>
+        <i 
+          v-show="getMembershipType == 'Founding Member'" 
+          class="fa fa-star" /> {{ getMembershipType }}
       </template>
     </span>
     <div class="d-flex align-items-center pd-20 mr-5 mr-tb-20">
@@ -33,7 +34,7 @@ export default {
       default: null
     },
     status: {
-      type: Boolean,
+      type: String,
       default: null
     },
     img: {
@@ -55,6 +56,38 @@ export default {
     extras: {
       type: Array,
       default: () => []
+    }
+  },
+  data: () => ({
+    prefix_type: [
+      {
+        text: 'Founding Member',
+        value: '0'
+      },
+      {
+        text: 'Fast Track',
+        value: '1'
+      },
+      {
+        text: 'Early Invite',
+        value: '2'
+      },
+      {
+        text: 'General Member',
+        value: '3'
+      }
+    ]
+  }),
+  computed: {
+    getMembershipType() {
+      let type = null
+      _.each(this.prefix_type, o => {
+        if (o.value == this.status) {
+          type = o.text
+        }
+      })
+
+      return type
     }
   },
   methods: {

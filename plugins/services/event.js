@@ -67,10 +67,18 @@ export default function(ctx, inject) {
     },
     getEventsByName(name) {
       return ctx.$axios.get(`/${subdomain()}/events?filter[search]=${name}`)
+    },
+    searchAttendees(eventId, term) {
+      return ctx.$axios.$get(
+        `/${subdomain()}/events/${eventId}/attendees?filter[search]=${term}`
+      )
+    },
+    sendAppreciation(eventId, payload) {
+      return ctx.$axios.$put(
+        `/${subdomain()}/events/${eventId}/post-event-notify`,
+        payload
+      )
     }
-    // deleteEvent(eventId) {
-    //   return ctx.$axios.delete(`/${subdomain()}/events/${eventId}/`)
-    // }
   }
   ;(ctx.$event = Event), inject('event', Event)
 }

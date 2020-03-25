@@ -67,12 +67,6 @@
                           placeholder="Comments to save on this member"/>
                       </b-form-group>
 
-                      <!-- <b-form-group>
-                        <b-form-checkbox
-                          v-model="membership.founding_member"
-                          :value="true"
-                          :unchecked-value="false">Founding Member</b-form-checkbox>
-                      </b-form-group> -->
                     </div>
                     <div class="col-md-1"/>
                     <div class="col-md-5">
@@ -109,6 +103,23 @@
                         </el-select>
                       </b-form-group>
 
+                      <b-form-group label="Start Date">
+                        <client-only>
+                          <date-picker
+                            id="time"
+                            v-model="membership.trial_ends_at"
+                            width="100%"
+                            input-class="form-control"
+                            lang="en"
+                            format="YYYY-MM-DD"
+                            value-type="format"
+                            confirm
+                            type="date"
+                            placeholder="Start Date"
+                          />
+                        </client-only>
+                      </b-form-group>
+
                       <b-form-group label="On Trial">
                         <b-form-checkbox
                           v-model="membership.trial"
@@ -123,7 +134,7 @@
                         description="Number of days before member is charged">
                         <b-form-input
                           v-model="membership.trial_days"
-                          :min="membership.trial && 1"
+                          min="0"
                           type="number"
                           required/>
                       </b-form-group>
@@ -154,15 +165,6 @@
                             :value="option.id"/>
                         </el-select>
                       </b-form-group>
-
-                      <!-- <b-form-group
-                        v-if="membership.paid_for"
-                        label="Payment Source">
-                        <b-form-select
-                          v-model="membership.card_nonce"
-                          :options="cards"
-                          :required="true" />
-                      </b-form-group> -->
 
                     </div>
                     <div class="col-md-1"/>
@@ -289,7 +291,8 @@ export default {
         prefix_type: '0',
         prefix_locality: 'A',
         paid_by: null,
-        assigned_admin: null
+        assigned_admin: null,
+        trial_ends_at: null
       }
     }
   },
@@ -367,19 +370,20 @@ export default {
         .catch(e => {
           this.loading = !this.loading
 
-          this.$bvToast.toast(
-            `${
-              e.response ? JSON.stringify(e.response.data.errors) : e.message
-            }`,
-            {
-              title: 'Error',
-              variant: 'danger'
-            }
-          )
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+
+          this.$bvToast.toast(message, {
+            title: 'Error',
+            variant: 'danger'
+          })
         })
     },
     searchMembers(query) {
-      const link = `filter[search]=${query}&filter[status]=accepted`
+      const link = `filter[search]=${query}`
 
       this.searching = !this.searching
 
@@ -393,9 +397,7 @@ export default {
       }, 350)()
     },
     searchAdmins(query) {
-      const link = `${process.env.base_url}/${
-        this.space.subdomain
-      }/admins?filter[name]=${query}`
+      const link = `/${this.space.subdomain}/admins?filter[name]=${query}`
 
       this.$admin
         .getAllAdmins(link)

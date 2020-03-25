@@ -2,9 +2,15 @@ const pkg = require('./package')
 const webpack = require('webpack')
 const config = require('dotenv').config()
 
-console.log(config.parsed.base_url)
+let baseURL = config.parsed.base_url
 
-const baseURL = config.parsed.base_url
+if (process.env.NODE_ENV == 'development') {
+  baseURL = config.parsed.staging_base_url
+}
+
+console.log('------------------------------------')
+console.log(baseURL)
+console.log('------------------------------------')
 
 module.exports = {
   mode: 'universal',
@@ -94,21 +100,37 @@ module.exports = {
     '~/plugins/services/eatry',
     '~/plugins/services/space',
     '~/plugins/services/settings',
+    '~/plugins/services/zoomrooms',
+    '~/plugins/services/accesspoint',
     { src: '~/plugins/vue2-datepicker', ssr: false },
-    { src: '~/plugins/vue2-filters', ssr: false }
+    { src: '~/plugins/vue2-filters', ssr: true },
+    {
+      src: '~/plugins/tui-editor',
+      ssr: false
+    }
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/dotenv',
+    ['@nuxtjs/dotenv', { systemvars: true }],
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     '@nuxtjs/auth',
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
+    [
+      'nuxt-rollbar-module',
+      {
+        serverAccessToken: 'f6992963cbab499890c235f6e446d353',
+        clientAccessToken: 'e25d4776e2cb4dd385dbe74ffd47cb43',
+        config: {
+          // Addtional config
+        }
+      }
+    ]
   ],
   /*
   ** Axios module configuration

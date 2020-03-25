@@ -33,14 +33,12 @@
                 />
                 <div class="form-group col-md-12">
                   <label>Event Description</label>
-                  <textarea
+                  <html-editor
                     v-model="description"
-                    placeholder="Add details about the event"
-                    rows="4"
-                    max-rows="6"
-                    description="description"
-                    class="form-control"
-                  />
+                    placeholder="Add details about the event" />
+                    <!-- <editor
+                    v-model="description"
+                    mode="markdown" /> -->
                 </div>
                 <b-form-group
                   label="Start Date"
@@ -87,6 +85,13 @@
                   step="0.01"
                   placeholder="0.00"
                 />
+                <base-input
+                  v-model="max_ticket_per_person"
+                  class="col-md-6"
+                  label="Max Ticket Per Person"
+                  type="number"
+                  placeholder="3"
+                />
               </div>
             </div>
 
@@ -105,17 +110,27 @@
                     />
                   </el-select>
                 </div>
+
                 <div class="form-group col-md-12">
-                  <b-form-group label="Rooms Available">
-                    <b-form-radio
-                      v-for="room in rooms"
-                      v-model="selectedRoom"
-                      :value="room.id"
-                      :key="room.id"
-                      name="room"
-                    >{{ room.name }}</b-form-radio>
-                  </b-form-group>
+
+                  <b-form-checkbox
+                    id="external-1"
+                    v-model="external"
+                    :value="true"
+                    :unchecked-value="null"
+                    name="external-1"
+                  >
+                    Host at an external location
+                  </b-form-checkbox>
+                  <b-form-input
+                    v-if="external"
+                    v-model="external_location"
+                    placeholder="External Location"
+                    required />
                 </div>
+                <room
+                  v-if="!external"
+                  v-model="selectedRoom" />
 
                 <div class="form-group col-md-12">
                   <b-form-checkbox
@@ -143,7 +158,12 @@
           <UploadButton
             v-model="eventLogo"
             service="event"
-            label="Upload Event Banner (<500KB & size 1125x582)"
+            label="Upload Event Image (<500KB & size 1125x582)"
+          />
+          <UploadButton
+            v-model="banner_image"
+            service="event"
+            label="Upload Event Banner (<500KB)"
           />
           <UploadButton
             v-model="hostLogo"
@@ -164,9 +184,11 @@ import UploadButton from '@/components/shack/UploadButton.vue'
 import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
 import { mapState } from 'vuex'
 import { Select, Option } from 'element-ui'
+import Room from '@/components/events/Room'
 
 export default {
   layout: 'ShackDash',
+  name: 'EventAdd',
   components: {
     BaseHeader,
     MainTitle,
@@ -174,17 +196,10 @@ export default {
     SectionTitle,
     HtmlEditor,
     [Select.name]: Select,
-    [Option.name]: Option
+    [Option.name]: Option,
+    Room
   },
   async asyncData({ store, $event }) {
-    await $event
-      .getRooms()
-      .then(({ data }) => {
-        store.commit('events/setRooms', data)
-      })
-      .catch(err => {
-        error({ statusCode: 404, message: 'Server Error. Try Again !!!' })
-      })
     await $event
       .getEventCategories()
       .then(({ data }) => {
@@ -206,14 +221,17 @@ export default {
       eventLogo: '',
       hostLogo: '',
       sendMail: false,
-      emailSubject: '',
+      emailSubject: 'Booking Confirmed',
       emailMessage: '',
-      selectedRoom: ''
+      selectedRoom: null,
+      max_ticket_per_person: 3,
+      external: false,
+      external_location: null,
+      banner_image: ''
     }
   },
   computed: {
     ...mapState({
-      rooms: state => state.events.rooms,
       categories: state => state.events.categories,
       space: state => state.space.currentSpace.subdomain
     })
@@ -231,11 +249,27 @@ export default {
         .add(1, 'hour')
         .format('YYYY-MM-DD HH:mm:ss')
     },
+    convertTextToHtml(text) {
+      const showdown = require('showdown')
+      const converter = new showdown.Converter()
+
+      return converter.makeHtml(text)
+    },
     async addEvent() {
       const start_time = this.$moment(this.startTime).format(
         'YYYY-MM-DD HH:mm:ss'
       )
       const end_time = this.$moment(this.endTime).format('YYYY-MM-DD HH:mm:ss')
+
+      const emailMessage = this.convertTextToHtml(this.emailMessage)
+
+      if (this.external) {
+        this.selectedRoom = null
+      } else {
+        this.external_location = null
+      }
+
+      this.description = this.description.replace(/(?:<br>)/g, '\n')
 
       const eventDetails = {
         name: this.title,
@@ -248,11 +282,13 @@ export default {
         type: 'event',
         room_id: this.selectedRoom,
         event_category_id: this.category,
-        max_ticket_per_person: 3,
+        max_ticket_per_person: this.max_ticket_per_person,
         total_tickets: this.capacity,
         send_mail: this.sendMail === 'true' ? true : false,
         email_subject: this.emailSubject,
-        email_message: this.emailMessage
+        email_message: emailMessage,
+        external_location: this.external_location,
+        banner_image: this.banner_image
       }
 
       await this.$event

@@ -45,6 +45,7 @@
                   placeholder="First Name"/>
                 <base-input
                   v-model="last_name"
+                  :required="false"
                   class="col-md-6"
                   label="Last Name"
                   placeholder="Last Name"/>
@@ -189,23 +190,20 @@ export default {
 
       this.$admin
         .updateAnAdmin(id, { first_name, last_name, picture })
-        .then(({ data }) => {
+        .then(res => {
           this.loading = !this.loading
-          this.$bvToast.toast(
-            `${first_name} ${last_name} updated successfully`,
-            {
-              title: 'Success',
-              variant: 'success',
-              solid: true
-            }
-          )
+          this.$bvToast.toast(`Profile updated successfully`, {
+            title: 'Success',
+            variant: 'success',
+            solid: true
+          })
           this.$router.push({
             name: 'space-admins'
           })
         })
         .catch(e => {
           const message = e.response
-            ? `${e.response.data.message} ${JSON.stringify(
+            ? `${e.response.data.message} ~ ${JSON.stringify(
                 e.response.data.errors
               )}`
             : e.message

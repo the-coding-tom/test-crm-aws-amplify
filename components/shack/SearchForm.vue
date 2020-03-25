@@ -8,11 +8,11 @@
       <template slot="prepend"><i class="fa fa-search"/></template>
       <input
         v-model="searchTerm"
+        :required="required"
         type="text"
         class="form-control"
         placeholder="Looking for ..."
         aria-describedby="button-addon2"
-        required
       >
       <div class="input-group-append">
         <button
@@ -33,6 +33,10 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    required: {
+      type: Boolean,
+      default: true
     }
   },
   data: () => ({
