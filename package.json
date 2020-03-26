@@ -11,7 +11,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "yarn lint --fix",
     "heroku-postbuild": "yarn build",
-    "prestart": "yarn build"
+    "prestart": "sudo yarn build"
   },
   "engines": {
     "node": "x.x",
