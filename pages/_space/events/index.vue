@@ -47,7 +47,7 @@
         </b-row>
         <!-- <b-row> -->
         <!-- <b-col md="12"> -->
-        <span v-html="currentEvent.extendedProps ? currentEvent.extendedProps.description : null"/>
+        <span v-html="currentEvent.extendedProps ? convertMarkdown(currentEvent.extendedProps.description) : null"/>
         <!-- </b-col> -->
         <!-- </b-row> -->
         <b-row class="mt-2">
@@ -138,6 +138,13 @@ export default {
     })
   },
   methods: {
+    convertMarkdown(text) {
+      var showdown = require('showdown')
+      var converter = new showdown.Converter()
+      var html = converter.makeHtml(text)
+
+      return html
+    },
     getRoomDetail(event) {
       if (event.extendedProps) {
         if (event.extendedProps.room) {
