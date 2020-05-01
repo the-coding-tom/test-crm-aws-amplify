@@ -40,17 +40,17 @@
           <b-col
             md="12">
 
-            <p class="d-flex align-items-center text-muted">{{ $moment(currentEvent.start).format('MMMM DD YYYY') }}, {{ $moment(currentEvent.start).format('HH:mm') }} - {{ $moment(currentEvent.end).format('HH:mm') }} <i
+            <p class="d-flex align-items-center text-muted">{{ $moment(currentEvent.start).format('MMMM DD YYYY') }}, {{ formatTime(currentEvent.start) }} - {{ formatTime(currentEvent.end) }} <i
               class="fa fa-circle mx-2"
               style="font-size: 5px;"/> {{ getRoomDetail(currentEvent) }} </p>
           </b-col>
         </b-row>
-        <b-row>
-          <b-col md="12">
-            <p>{{ currentEvent.extendedProps ? currentEvent.extendedProps.description: null }}</p>
-          </b-col>
-        </b-row>
-        <b-row>
+        <!-- <b-row> -->
+        <!-- <b-col md="12"> -->
+        <span v-html="currentEvent.extendedProps ? currentEvent.extendedProps.description : null"/>
+        <!-- </b-col> -->
+        <!-- </b-row> -->
+        <b-row class="mt-2">
           <b-col md="12">
             <p>Price: {{ currentEvent.extendedProps && currentEvent.extendedProps.price | currency(space.currency_symbol) }}</p>
           </b-col>
@@ -67,6 +67,11 @@
               class="float-left"
               variant="primary"
             >Edit Event</b-button>
+            <b-button
+              :to="{name: 'space-events-id', params: {id: currentEvent.id}}"
+              variant="transparent"
+              class="text-primary float-left"
+            ><i class="fa fa-eye"/> Preview</b-button>
             <b-button
               :to="{name: 'space-events-id-attendees', params: {id: currentEvent.id}}"
               variant="transparent"
@@ -93,6 +98,7 @@ import MainTitle from '@/components/shack/MainTitle.vue'
 import SectionTitle from '@/components/shack/SectionTitle.vue'
 
 import { mapState } from 'vuex'
+import mz from 'moment-timezone'
 
 export default {
   layout: 'ShackDash',
@@ -140,6 +146,11 @@ export default {
           return event.extendedProps.external_location
         }
       }
+    },
+    formatTime(time) {
+      return mz(time)
+        .tz('Africa/Accra')
+        .format('HH:mm')
     },
     showEvent(event) {
       this.currentEvent = event
