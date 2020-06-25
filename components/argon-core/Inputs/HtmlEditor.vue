@@ -4,7 +4,8 @@
       <editor
         v-model="text"
         :options="editorOptions"
-        mode="wysiwyg"
+        initial-edit-type="wysiwyg"
+        preview-style="tab"
       />
     </client-only>
   </div>
@@ -22,7 +23,29 @@ export default {
     return {
       editorOptions: {
         usageStatistics: false,
-        hideModeSwitch: true
+        hideModeSwitch: true,
+        toolbarItems: [
+          'heading',
+          'bold',
+          // 'italic',
+          'strike',
+          'divider',
+          'hr',
+          'quote',
+          'divider',
+          'ul',
+          'ol',
+          'task',
+          'indent',
+          'outdent',
+          'divider',
+          'table',
+          'image',
+          'link',
+          'divider',
+          'code',
+          'codeblock'
+        ]
       },
       text: this.value
     }
