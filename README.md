@@ -1,6 +1,4 @@
-# shack15new
-
-> My stunning Nuxt.js project
+# SHACK15 CRM
 
 ## Build Setup
 
@@ -20,3 +18,9 @@ $ yarn run generate
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+
+## Deployment
+Refer to (AWS EBS CLI)[https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html] for the cli setup
+
+To deploy...Access the save configurations .elasticbeanstalk (shack15-cdn/configs/CRM)
+`eb deploy` from the master branch
