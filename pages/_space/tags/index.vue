@@ -91,7 +91,8 @@
     <div>
       <b-modal
         id="edit-modal"
-        hide-footer>
+        hide-footer
+        :static="true">
         <template v-slot:modal-title>Edit Tag</template>
 
         <b-form @submit.prevent>
