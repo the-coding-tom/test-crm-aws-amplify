@@ -1,0 +1,22 @@
+{
+  "address": "One Ferry Building",
+  "city": "San Francisco",
+  "country": "US",
+  "created_at": "2019-11-05 08:49:10",
+  "currency": "USD",
+  "currency_symbol": "$",
+  "description": "SHACK15 is a new kind of social space dedicated to entrepreneurship, community and big ideas. We create inspired gathering space and bring together passionate founders, innovators, and changemakers from across the world.",
+  "id": "b1ae8f75-0681-4169-9a59-8493dfe5234e",
+  "in_eu": false,
+  "latitude": 0,
+  "longitude": 0,
+  "name": "San Francisco",
+  "neighborhood": "The Embarcadero",
+  "payment_instructions": null,
+  "space_url": null,
+  "state": "CA",
+  "subdomain": "san-francisco",
+  "tax_rate": 0,
+  "timezone": "America/Los_Angeles",
+  "timezone_name": "Pacific Standard Time"
+}
