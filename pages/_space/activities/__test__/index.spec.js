@@ -70,8 +70,6 @@ describe('Page: /:space/activities/ | Activities Index Page', () => {
     expect(wrapArr.length).toBe(2)
     expect(wrapArr.at(0).text()).toBe(activities.data[0].description)
     expect(wrapArr.at(1).text()).toBe(activities.data[1].description)
-
-    expect(wrapper.html()).toMatchSnapshot()
   })
 
   it('renders next page', async () => {
