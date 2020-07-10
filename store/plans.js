@@ -1,5 +1,13 @@
 export const state = () => ({
-  plans: [],
+  plans: {
+    data: [],
+    meta: {
+      total: 1,
+      per_page: 1,
+      current_page: 1
+    },
+    links: {}
+  },
   currentPlan: {}
 })
 
