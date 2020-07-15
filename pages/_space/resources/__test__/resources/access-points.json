@@ -1,0 +1,24 @@
+[
+  {
+    "id": 24633465,
+    "name": "001 Geirangerfjord",
+    "controlPanelId": 20652703,
+    "siteId": 24520382,
+    "siteName": "SHACK15 Ferry Building",
+    "activationEnabled": true,
+    "type": "Door",
+    "twoFactorEnabled": false,
+    "reportLiveStatus": false
+  },
+  {
+    "id": 24633585,
+    "name": "002 Hardangerfjord",
+    "controlPanelId": 20652703,
+    "siteId": 24520382,
+    "siteName": "SHACK15 Ferry Building",
+    "activationEnabled": true,
+    "type": "Door",
+    "twoFactorEnabled": false,
+    "reportLiveStatus": false
+  }
+]

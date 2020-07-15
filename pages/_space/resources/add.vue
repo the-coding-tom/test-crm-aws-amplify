@@ -25,6 +25,7 @@
               <div class="col-md-6">
                 <div class="row pd-r-20">
                   <base-input
+                    id="name"
                     v-model="name"
                     class="col-md-6"
                     label="Name"
@@ -33,6 +34,7 @@
                   <div class="form-group col-md-6">
                     <label>Category</label>
                     <el-select
+                      id="category"
                       v-model="category"
                       name="category"
                       required>
@@ -44,6 +46,7 @@
                     </el-select>
                   </div>
                   <base-input
+                    id="pricePerHour"
                     v-model="price_per_hour"
                     class="col-md-6"
                     label="Price per hour"
@@ -53,6 +56,7 @@
                     placeholder="0.00"/>
                   <div class="col-md-6">
                     <base-input
+                      id="capacity"
                       v-model="capacity"
                       label="Number of Units"
                       type="number"
@@ -63,6 +67,7 @@
                   <div class="form-group col-md-12">
                     <label>Description</label>
                     <textarea
+                      id="description"
                       v-model="description"
                       placeholder="Add details about this resource"
                       rows="4"
@@ -72,6 +77,7 @@
                   </div>
 
                   <base-input
+                    id="minBookingDuration"
                     v-model="min_booking_duration"
                     class="col-md-6"
                     label="Minimum Booking Duration"
@@ -83,6 +89,7 @@
                   </base-input>
 
                   <base-input
+                    id="maxBookingDuration"
                     v-model="max_booking_duration"
                     class="col-md-6"
                     label="Maximum Booking Duration"
@@ -96,6 +103,7 @@
               <div class="col-md-6">
                 <div class="row pd-l-20">
                   <base-input
+                    id="availableBookingTime"
                     v-model="available_booking_time"
                     class="col-md-12"
                     label="Available Booking Time"
@@ -106,6 +114,7 @@
                   <div class="col-md-12 form-group">
                     <label>Amenities</label>
                     <TagsInput
+                      id="amenities"
                       v-model="amenities"
                       type="Text"
                       required />
@@ -116,6 +125,7 @@
                     label="Zoom Rooms"
                   >
                     <b-form-select
+                      id="zoomRoomId"
                       v-model="zoom_room_id"
                       :options="zoom_rooms"
                       value-field="id"
@@ -129,6 +139,7 @@
                     class="col-md-12"
                     label="Brivo Access Point">
                     <b-form-select
+                      id="accessPointId"
                       v-model="access_point_id"
                       :options="access_points"
                       value-field="id"
@@ -139,7 +150,9 @@
 
                   <div class="form-group col-md-12">
                     <label>Resource Settings</label>
-                    <b-form-checkbox v-model="can_book">Room is bookable</b-form-checkbox>
+                    <b-form-checkbox 
+                      id="canBook" 
+                      v-model="can_book">Room is bookable</b-form-checkbox>
                   </div>
                 </div>
               </div>

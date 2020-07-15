@@ -1,0 +1,174 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/resources/ | Resources Add Page renders properly 1`] = `
+<div>
+  <form class="">
+    <div class="header pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="d-flex justify-content-between py-4">
+            <h1 class="page-title"><span>Update Resource</span> <b style="display: none;">•</b> </h1> <button type="submit" class="btn btn-primary">
+              Save Resource
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--6">
+      <div class="card-deck flex-column flex-xl-row">
+        <div class="card">
+          <!---->
+          <div class="card-body">
+            <h3 class="mr-b-20">Resource Details</h3>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row pd-r-20">
+                  <div class="form-group col-md-6"><label class="form-control-label">
+                      Name
+                    </label>
+                    <div class="input-group has-label">
+                      <!----> <input type="text" valid="true" required="required" id="name" placeholder="Name of Resource" class="form-control">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6"><label>Category</label>
+                    <div class="el-select" required="required">
+                      <!---->
+                      <div class="el-input el-input--suffix">
+                        <!----><input type="text" readonly="readonly" autocomplete="off" placeholder="请选择" id="category" class="el-input__inner">
+                        <!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-arrow-up"></i><!----><!----><!----><!----><!----></span>
+                        <!----></span>
+                        <!---->
+                        <!---->
+                      </div>
+                      <div class="el-select-dropdown el-popper" style="display: none;">
+                        <div class="el-scrollbar" style="">
+                          <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default">
+                            <ul class="el-scrollbar__view el-select-dropdown__list">
+                              <!---->
+                              <li class="el-select-dropdown__item selected"><span>conference</span></li>
+                              <li class="el-select-dropdown__item"><span>meeting</span></li>
+                            </ul>
+                          </div>
+                          <div class="el-scrollbar__bar is-horizontal">
+                            <div class="el-scrollbar__thumb" style="transform: translateX(0%); webkit-transform: translateX(0%);"></div>
+                          </div>
+                          <div class="el-scrollbar__bar is-vertical">
+                            <div class="el-scrollbar__thumb" style="transform: translateY(0%); webkit-transform: translateY(0%);"></div>
+                          </div>
+                        </div>
+                        <!---->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6"><label class="form-control-label">
+                      Price per hour
+                    </label>
+                    <div class="input-group has-label">
+                      <!----> <input type="number" valid="true" required="required" id="pricePerHour" step="0.01" placeholder="0.00" class="form-control">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group"><label class="form-control-label">
+                        Number of Units
+                      </label>
+                      <div class="input-group has-label">
+                        <!----> <input type="number" valid="true" required="required" id="capacity" placeholder="0" class="form-control">
+                        <!---->
+                        <!---->
+                        <!---->
+                      </div>
+                    </div> <small class="form-text text-muted">How many people can book this at the same time</small>
+                  </div>
+                  <div class="form-group col-md-12"><label>Description</label> <textarea id="description" placeholder="Add details about this resource" rows="4" max-rows="6" class="form-control"></textarea></div>
+                  <div class="form-group col-md-6"><label class="form-control-label">
+                      Minimum Booking Duration
+                    </label>
+                    <div class="input-group has-label">
+                      <!----> <input type="number" valid="true" required="required" id="minBookingDuration" min="0" placeholder="60" class="form-control">
+                      <div class="input-group-append"><span class="input-group-text"><div>min</div></span></div>
+                      <!---->
+                      <!---->
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6"><label class="form-control-label">
+                      Maximum Booking Duration
+                    </label>
+                    <div class="input-group has-label">
+                      <!----> <input type="number" valid="true" required="required" id="maxBookingDuration" placeholder="120" class="form-control">
+                      <div class="input-group-append"><span class="input-group-text"><div>max</div></span></div>
+                      <!---->
+                      <!---->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row pd-l-20">
+                  <div class="form-group col-md-12"><label class="form-control-label">
+                      Available Booking Time
+                    </label>
+                    <div class="input-group has-label">
+                      <!----> <input type="text" valid="true" required="required" id="availableBookingTime" placeholder="0" class="form-control">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </div> <small class="col-md-12 form-text text-muted">You can enter multiple time frames separated by comma, e.g. e.g. mo-fr 9-17, sa 10-3.</small>
+                  <div class="col-md-12 form-group"><label>Amenities</label>
+                    <div class="tags-input__wrapper" id="amenities" type="Text" required="required"><span class="el-tag el-tag--primary el-tag--small el-tag--light">
+    wifi
+  <i class="el-tag__close el-icon-close"></i></span><span class="el-tag el-tag--primary el-tag--small el-tag--light">
+    zoom room
+  <i class="el-tag__close el-icon-close"></i></span><span class="el-tag el-tag--primary el-tag--small el-tag--light">
+    game room
+  <i class="el-tag__close el-icon-close"></i></span> <input type="text" placeholder="Add amenities" size="mini" class="form-control"></div>
+                  </div>
+                  <fieldset class="form-group col-md-12" id="__BVID__31">
+                    <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__31__BV_label_">Zoom Rooms</legend>
+                    <div tabindex="-1" role="group"><select id="zoomRoomId" class="custom-select">
+                        <option value="sqxuaM7URRK3CuNQWH2lra">001 ORD</option>
+                        <option value="Gasam9e9iTZSTEdZXL0PnJg">021 HJORD</option>
+                        <option value="">Choose a zoom room</option>
+                      </select>
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </fieldset>
+                  <fieldset class="form-group col-md-12" id="__BVID__33">
+                    <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__33__BV_label_">Brivo Access Point</legend>
+                    <div tabindex="-1" role="group"><select id="accessPointId" class="custom-select">
+                        <option value="24633465">001 Geirangerfjord</option>
+                        <option value="24633585">002 Hardangerfjord</option>
+                        <option value="">Choose a zoom room</option>
+                      </select>
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </fieldset>
+                  <div class="form-group col-md-12"><label>Resource Settings</label>
+                    <div class="custom-control custom-checkbox"><input id="canBook" type="checkbox" autocomplete="off" class="custom-control-input" value="true"><label for="canBook" class="custom-control-label">Room is bookable</label></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div value="https://d3mym26vamg9ol.cloudfront.net/resources/1572951811_5548b730-0d96-4897-92d8-90323785ef0a.jpeg">
+              <div id="preview" class="mr-b-20"><img src="https://d3mym26vamg9ol.cloudfront.net/resources/1572951811_5548b730-0d96-4897-92d8-90323785ef0a.jpeg"></div>
+              <div class="bg-lgray pd-10 pd-l-20 upload-btn-wrapper pd-0"><button class="btn"><i class="fa fa-paperclip mr-r-10"></i> Upload File (&lt;500KB &amp; size 1125x582)</button> <input type="file" accept="image/*"></div>
+            </div>
+          </div>
+          <!---->
+          <!---->
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;

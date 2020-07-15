@@ -1,0 +1,31 @@
+{
+  "data": {
+    "data": [
+      {
+        "id": "a2cc76b7-9907-4d86-8072-c1b9ef276a0a",
+        "name": "conference",
+        "color": "#00b2b2"
+      },
+      {
+        "id": "aa9c7423-4022-491f-ad3e-401eec72b8d8",
+        "name": "meeting",
+        "color": "#021540"
+      }
+    ],
+    "links": {
+      "first": "",
+      "last": "",
+      "prev": null,
+      "next": null
+    },
+    "meta": {
+      "current_page": 1,
+      "from": 1,
+      "last_page": 1,
+      "path": "",
+      "per_page": 15,
+      "to": 3,
+      "total": 3
+    }
+  }
+}

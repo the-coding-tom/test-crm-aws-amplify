@@ -1,6 +1,14 @@
 import helper from './../util/helper'
 export const state = () => ({
-  rooms: [],
+  rooms: {
+    data: [],
+    meta: {
+      current_page: 1,
+      per_page: 15,
+      total: 1
+    },
+    links: {}
+  },
   oneroom: '',
   categories: [],
   activateButton: true,

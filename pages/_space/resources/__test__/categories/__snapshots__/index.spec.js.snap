@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/resources/categories | Categories Index Page get all categories 1`] = `
+<div>
+  <form class="">
+    <div class="header pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="d-flex justify-content-between py-4">
+            <h1 class="page-title"><span>Resource Categories</span> <b style="display: none;">•</b> </h1>
+            <div><button type="button" disabled="disabled" class="btn text-danger mr-r-20 btn-transparent disabled"><i class="fa fa-times"></i> Remove Category</button> <button type="submit" class="btn btn btn-primary btn-secondary" style="color: white;">Update Category</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--6">
+      <div class="card-deck flex-column flex-xl-row">
+        <div class="card">
+          <!---->
+          <div class="card-body">
+            <h3 class="mr-b-20">Update Category</h3>
+            <div class="row">
+              <div class="form-group col-md-4"><label class="form-control-label">
+                  Name
+                </label>
+                <div class="input-group has-label">
+                  <!----> <input type="text" valid="true" required="required" id="name" name="name" placeholder="Category Name" class="form-control">
+                  <!---->
+                  <!---->
+                  <!---->
+                </div>
+              </div>
+              <div class="form-group col-md-3"><label class="form-control-label">
+                  Color Tag
+                </label>
+                <div class="input-group has-label">
+                  <!----> <input type="text" valid="true" required="required" id="color" placeholder="#4C4D4F" class="form-control">
+                  <!---->
+                  <!---->
+                  <!---->
+                </div>
+              </div>
+            </div>
+            <div class="row mr-t-40">
+              <div role="radiogroup" tabindex="-1" class="col-md-6" id="__BVID__21">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="custom-control custom-control-inline custom-radio"><input type="radio" name="__BVID__21" autocomplete="off" class="custom-control-input" value="a2cc76b7-9907-4d86-8072-c1b9ef276a0a" id="__BVID__22"><label class="custom-control-label" for="__BVID__22">conference</label></div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="custom-control custom-control-inline custom-radio"><input type="radio" name="__BVID__21" autocomplete="off" class="custom-control-input" value="aa9c7423-4022-491f-ad3e-401eec72b8d8" id="__BVID__23"><label class="custom-control-label" for="__BVID__23">meeting</label></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!---->
+          <!---->
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Page: /:space/resources/categories | Categories Index Page renders properly 1`] = `
+<div>
+  <form class="">
+    <div class="header pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="d-flex justify-content-between py-4">
+            <h1 class="page-title"><span>Resource Categories</span> <b style="display: none;">•</b> </h1>
+            <div><button type="button" disabled="disabled" class="btn text-danger mr-r-20 btn-transparent disabled"><i class="fa fa-times"></i> Remove Category</button> <button type="submit" class="btn btn btn-primary btn-secondary" style="color: white;">Update Category</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--6">
+      <div class="card-deck flex-column flex-xl-row">
+        <div class="card">
+          <!---->
+          <div class="card-body">
+            <h3 class="mr-b-20">Update Category</h3>
+            <div class="row">
+              <div class="form-group col-md-4"><label class="form-control-label">
+                  Name
+                </label>
+                <div class="input-group has-label">
+                  <!----> <input type="text" valid="true" required="required" id="name" name="name" placeholder="Category Name" class="form-control">
+                  <!---->
+                  <!---->
+                  <!---->
+                </div>
+              </div>
+              <div class="form-group col-md-3"><label class="form-control-label">
+                  Color Tag
+                </label>
+                <div class="input-group has-label">
+                  <!----> <input type="text" valid="true" required="required" id="color" placeholder="#4C4D4F" class="form-control">
+                  <!---->
+                  <!---->
+                  <!---->
+                </div>
+              </div>
+            </div>
+            <div class="row mr-t-40">
+              <div role="radiogroup" tabindex="-1" class="col-md-6" id="__BVID__11">
+                <div class="row"></div>
+              </div>
+            </div>
+          </div>
+          <!---->
+          <!---->
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;

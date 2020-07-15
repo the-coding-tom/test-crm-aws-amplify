@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": "sqYuaM7URRK3CuNdsWH2lrQ",
+      "room_id": "MFJm8rLrRpyds54dDtarYtQ",
+      "name": "001 GEIRARD",
+      "location_id": "",
+      "status": "Available"
+    },
+    {
+      "id": "G2xm9e9iTEdZXL0PnJg",
+      "room_id": "JYLFGvsgQmalM2wqcH_Akg",
+      "name": "002 HARJORD",
+      "location_id": "",
+      "status": "Available"
+    },
+    {
+      "id": "B54sVSjUR-q2IQTwrJA6_g",
+      "room_id": "Q9VvCnp0QaKKizxRzVtCjw",
+      "name": "003 OYFJØRD",
+      "location_id": "",
+      "status": "Available"
+    }
+  ]
+}

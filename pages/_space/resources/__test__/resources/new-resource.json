@@ -1,0 +1,9 @@
+{
+  "name": "Conference Room X",
+  "pricePerHour": 20,
+  "capacity": 50,
+  "description": "A place for the heavenly",
+  "minBookingDuration": 30,
+  "maxBookingDuration": 60,
+  "availableBookingTime": "mo-fr 9-17"
+}
