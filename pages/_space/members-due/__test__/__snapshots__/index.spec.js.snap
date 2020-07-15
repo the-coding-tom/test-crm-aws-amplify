@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/members-due/ | Members Due Index Page renders properly 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h1 class="page-title"><span>Members Due</span> <b>•</b> Expiring Memberships</h1>
+          <div id="dropdown-1" class="dropdown btn-group b-dropdown m-md-2">
+            <!----><button id="dropdown-1__BV_toggle_" aria-haspopup="true" aria-expanded="false" type="button" class="btn dropdown-toggle btn-secondary">30 days</button>
+            <ul role="menu" tabindex="-1" aria-labelledby="dropdown-1__BV_toggle_" class="dropdown-menu">
+              <li role="presentation"><a role="menuitem" target="_self" href="#" class="dropdown-item">30 days</a></li>
+              <li role="presentation"><a role="menuitem" target="_self" href="#" class="dropdown-item">15 days</a></li>
+              <li role="presentation"><a role="menuitem" target="_self" href="#" class="dropdown-item">5 days</a></li>
+              <li role="presentation"><a role="menuitem" target="_self" href="#" class="dropdown-item">Today</a></li>
+              <li role="presentation"><a role="menuitem" target="_self" href="#" class="dropdown-item">Expired</a></li>
+              <li role="presentation">
+                <hr role="separator" aria-orientation="horizontal" class="dropdown-divider">
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6">
+    <div class="card">
+      <!---->
+      <div class="card-body">
+        <table role="table" aria-busy="false" aria-colcount="5" class="table b-table table-striped" id="__BVID__20">
+          <!---->
+          <!---->
+          <thead role="rowgroup" class="">
+            <!---->
+            <tr role="row" class="">
+              <th role="columnheader" scope="col" aria-colindex="1" class="">Full Name</th>
+              <th role="columnheader" scope="col" aria-colindex="2" class="">Plan</th>
+              <th role="columnheader" scope="col" aria-colindex="3" class="">Start Date</th>
+              <th role="columnheader" scope="col" aria-colindex="4" class="">End Date</th>
+              <th role="columnheader" scope="col" aria-colindex="5" class="">Options</th>
+            </tr>
+          </thead>
+          <tbody role="rowgroup">
+            <!---->
+            <tr role="row" class="b-table-empty-row">
+              <td colspan="5" role="cell" class="">
+                <div role="alert" aria-live="polite">
+                  <div class="text-center my-2">There are no records to show</div>
+                </div>
+              </td>
+            </tr>
+            <!---->
+          </tbody>
+          <!---->
+        </table>
+        <ul role="menubar" aria-disabled="false" aria-label="Pagination" class="pagination text-center b-pagination justify-content-center">
+          <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to first page" aria-controls="my-table" aria-disabled="true" class="page-link">«</span></li>
+          <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to previous page" aria-controls="my-table" aria-disabled="true" class="page-link">‹</span></li>
+          <!---->
+          <li role="presentation" class="page-item active"><a role="menuitemradio" aria-controls="my-table" aria-label="Go to page 1" aria-checked="true" aria-posinset="1" aria-setsize="1" tabindex="0" target="_self" href="#" class="page-link">1</a></li>
+          <!---->
+          <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to next page" aria-controls="my-table" aria-disabled="true" class="page-link">›</span></li>
+          <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to last page" aria-controls="my-table" aria-disabled="true" class="page-link">»</span></li>
+        </ul>
+      </div>
+      <!---->
+      <!---->
+    </div>
+  </div>
+  <!---->
+</div>
+`;
