@@ -21,7 +21,7 @@
         min-width="140px">
         <template v-slot="{row}">
           <span>
-            {{ row.price || currency(space.currency_symbol) }} every
+            {{ row.price | currency(space.currency_symbol) }} every
             <span
               v-if="row.cycle_duration === 12"
             >year</span>

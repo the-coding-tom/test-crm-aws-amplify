@@ -3,6 +3,7 @@ import IndexPage from '@/pages/_space/plans/index.vue'
 import BaseInput from '~/components/argon-core/Inputs/BaseInput.vue'
 import BootstrapVue from 'bootstrap-vue'
 import BasePagination from '~/components/argon-core/BasePagination'
+import Vue2Filters from 'vue2-filters'
 
 import VueRouter from 'vue-router'
 import cloneDeep from 'lodash/cloneDeep'
@@ -58,6 +59,7 @@ describe('Page: /:space/plans/ | Plans Index Page', () => {
       {},
       vueInstance => {
         vueInstance.use(BootstrapVue)
+        vueInstance.use(Vue2Filters)
         vueInstance.component(BasePagination.name, BasePagination)
         vueInstance.component(BaseInput.name, BaseInput)
         vueInstance.prototype.$plan = $plan
