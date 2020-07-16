@@ -1,0 +1,30 @@
+{
+  "id": "8880f445-122a-45bb-9476-a615d7492881",
+  "name": "SHACK15 CONVERSATIONS: LISA KRISTINE",
+  "description": "A CONVERSATION AND GUIDED ART GALLERY TOUR WITH HUMANITARIAN PHOTOGRAPHER LISA KRISTINE. Join us for a SHACK15 Conversation with Lisa Kristine, an internationally acclaimed humanitarian photographer and social entrepreneur who has documented indigenous peoples and social causes in more than 150 countries across six continents.",
+  "banner_url": "https://d3mym26vamg9ol.cloudfront.net/event/1593010166_d2b06fae-7f1c-43fc-b9d3-1f7ec9493beb.png",
+  "host_logo": "https://d3mym26vamg9ol.cloudfront.net/event/1593010176_d743ff8d-28c1-4636-8d6d-f2a8140599a2.png",
+  "host_name": null,
+  "type": "event",
+  "start_time": "2020-06-30 14:00:00",
+  "end_time": "2020-06-30 15:00:00",
+  "price": 10,
+  "total_tickets": 10,
+  "max_ticket_per_person": 3,
+  "send_email": false,
+  "email_subject": "Booking Confirmed",
+  "email_content": null,
+  "attendees_count": 0,
+  "event_category": {
+    "id": "8e42f835-74b2-475f-b7f3-cf72c6b792ed",
+    "name": "talks",
+    "color": "#83ac0c",
+    "disable": false,
+    "created_at": "2019-11-05 08:49:10",
+    "updated_at": "2019-11-05 08:49:10"
+  },
+  "room": null,
+  "external_location": "Lounge",
+  "related_attendees": [],
+  "banner_image": "https://d3mym26vamg9ol.cloudfront.net/event/1593010170_53b0a7de-b4b5-4018-82cb-4468088d4001.png"
+}
