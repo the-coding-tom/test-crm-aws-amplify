@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/checkins/settings | Checkins Settings Index Page renders properly 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h1 class="page-title"><span>Check-in</span> <b>•</b> Settings</h1> <button id="add-setting-modal" type="button" class="btn btn-primary">New Setting</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <!---->
+          <!---->
+          <table role="table" aria-busy="false" aria-colcount="3" class="table b-table table-striped table-hover" id="__BVID__8">
+            <!---->
+            <!---->
+            <thead role="rowgroup" class="">
+              <!---->
+              <tr role="row" class="">
+                <th role="columnheader" scope="col" aria-colindex="1" class="">Membership Type</th>
+                <th role="columnheader" scope="col" aria-colindex="2" class="">Number of Guests</th>
+                <th role="columnheader" scope="col" aria-colindex="3" aria-label="Action" class=""></th>
+              </tr>
+            </thead>
+            <tbody role="rowgroup">
+              <!---->
+              <tr role="row" class="">
+                <td role="cell" aria-colindex="1" class=""><span>Founding Member</span></td>
+                <td role="cell" aria-colindex="2" class="">6</td>
+                <td role="cell" aria-colindex="3" class=""><button type="button" class="btn btn-primary btn-sm">Edit</button> <button type="button" class="btn text-danger btn-transparent btn-sm"><i class="ti ti-trash"></i> Remove</button></td>
+              </tr>
+              <tr role="row" class="">
+                <td role="cell" aria-colindex="1" class=""><span>Fast Track</span></td>
+                <td role="cell" aria-colindex="2" class="">3</td>
+                <td role="cell" aria-colindex="3" class=""><button type="button" class="btn btn-primary btn-sm">Edit</button> <button type="button" class="btn text-danger btn-transparent btn-sm"><i class="ti ti-trash"></i> Remove</button></td>
+              </tr>
+              <tr role="row" class="">
+                <td role="cell" aria-colindex="1" class=""><span>General Member</span></td>
+                <td role="cell" aria-colindex="2" class="">3</td>
+                <td role="cell" aria-colindex="3" class=""><button type="button" class="btn btn-primary btn-sm">Edit</button> <button type="button" class="btn text-danger btn-transparent btn-sm"><i class="ti ti-trash"></i> Remove</button></td>
+              </tr>
+              <tr role="row" class="">
+                <td role="cell" aria-colindex="1" class=""><span>Early Invite</span></td>
+                <td role="cell" aria-colindex="2" class="">3</td>
+                <td role="cell" aria-colindex="3" class=""><button type="button" class="btn btn-primary btn-sm">Edit</button> <button type="button" class="btn text-danger btn-transparent btn-sm"><i class="ti ti-trash"></i> Remove</button></td>
+              </tr>
+              <!---->
+              <!---->
+            </tbody>
+            <!---->
+          </table>
+          <!---->
+          <!---->
+        </div>
+      </div>
+    </div> <button type="button" class="btn mb-2 text-primary btn-transparent"><i class="fas fa-chevron-left"></i> Back</button>
+  </div>
+  <div id="modal-1___BV_modal_outer_" style="position: absolute; z-index: 1040;">
+    <transition-stub enterclass="" leaveclass="" entertoclass="" leavetoclass="" enteractiveclass="" leaveactiveclass="">
+      <div id="modal-1" role="dialog" aria-hidden="true" aria-labelledby="modal-1___BV_modal_title_" aria-describedby="modal-1___BV_modal_body_" class="modal fade" style="display: none;">
+        <div class="modal-dialog modal-md">
+          <!---->
+          <div role="document" id="modal-1___BV_modal_content_" tabindex="-1" class="modal-content">
+            <header id="modal-1___BV_modal_header_" class="modal-header">
+              <h5 id="modal-1___BV_modal_title_" class="modal-title">Settings</h5><button type="button" aria-label="Close" class="close">×</button>
+            </header>
+            <div id="modal-1___BV_modal_body_" class="modal-body">
+              <form class="">
+                <fieldset class="form-group" id="__BVID__33">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__33__BV_label_">Membership Type</legend>
+                  <div tabindex="-1" role="group"><select required="required" aria-required="true" class="custom-select" id="__BVID__34">
+                      <option value="" disabled="disabled">-- Choose a membership --</option>
+                      <option value="0">Founding Member</option>
+                      <option value="1">Fast Track</option>
+                      <option value="2">Early Invite</option>
+                      <option value="3">General Member</option>
+                    </select>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+                <fieldset class="form-group" id="__BVID__35" aria-describedby="__BVID__35__BV_description_">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__35__BV_label_">Number of Guests</legend>
+                  <div tabindex="-1" role="group"><input type="number" placeholder="1" required="required" aria-required="true" class="form-control" id="__BVID__36">
+                    <!---->
+                    <!----><small tabindex="-1" class="form-text text-muted" id="__BVID__35__BV_description_">This is the number of guests the membership type can bring to the space as a general guest</small></div>
+                </fieldset> <button type="submit" class="btn float-right btn-primary">Save</button>
+              </form>
+            </div>
+            <!---->
+          </div>
+          <!---->
+        </div>
+      </div>
+    </transition-stub>
+    <transition-stub name="" css="true" enterclass="" leaveclass="show" entertoclass="show" leavetoclass="" enteractiveclass="fade" leaveactiveclass="fade">
+      <!---->
+    </transition-stub>
+  </div>
+</div>
+`;

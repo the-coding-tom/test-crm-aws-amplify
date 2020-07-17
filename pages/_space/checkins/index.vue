@@ -31,6 +31,7 @@
     <b-modal
       id="checkin"
       title="Checkin"
+      :static="true"
       hide-footer>
       <b-tabs
         v-model="type"
@@ -40,7 +41,7 @@
         <b-tab
           active
           title="Member">
-          <b-form @submit.prevent="checkinMember">
+          <b-form class="member-checkin-form" @submit.prevent="checkinMember">
             <b-form-group label="Member">
               <el-select
                 v-model="membership_id"
@@ -61,12 +62,12 @@
             <b-button
               :disabled="loading"
               type="submit"
-              class="float-right"
+              class="float-right member-checkin-btn"
               variant="primary">Checkin</b-button>
           </b-form>
         </b-tab>
         <b-tab
-          title="Guest"><b-form @submit.prevent="checkinGuest">
+          title="Guest"><b-form class="guest-checkin-form" @submit.prevent="checkinGuest">
             <b-form-group label="Member">
               <el-select
                 v-model="membership_id"
@@ -86,18 +87,21 @@
             </b-form-group>
             <b-form-group label="First Name">
               <b-form-input
+                id="firstName"
                 v-model="first_name"
                 placeholder="John"
                 required/>
             </b-form-group>
             <b-form-group label="Last Name">
               <b-form-input
+                id="lastName"
                 v-model="last_name"
                 placeholder="Doe"
                 required/>
             </b-form-group>
             <b-form-group label="Email">
               <b-form-input
+                id="email"
                 v-model="email"
                 type="email"
                 placeholder="john@doe.com"
@@ -105,11 +109,13 @@
             </b-form-group>
             <b-form-group label="Company">
               <b-form-input
+                id="company"
                 v-model="company"
                 placeholder="SHACK15"
                 required/>
             </b-form-group>
             <b-form-checkbox
+              id="meetingGuest"
               v-model="meeting_guest"
               :value="true"
               :unchecked-value="false"> Is a meeting guest</b-form-checkbox>
