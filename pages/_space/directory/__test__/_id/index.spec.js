@@ -48,7 +48,12 @@ describe('Page: /:space/directory/ | Directory Id Index Page', () => {
 
     $checkin = {
       checkin: jest.fn().mockResolvedValue(),
-      checkout: jest.fn().mockResolvedValue()
+      checkout: jest.fn().mockResolvedValue(),
+      checkins: jest.fn().mockResolvedValue({
+        data: [],
+        meta: { total: 1, per_page: 15, current_page: 1 },
+        links: {}
+      })
     }
 
     $plan = {
@@ -58,7 +63,7 @@ describe('Page: /:space/directory/ | Directory Id Index Page', () => {
     global._ = lodash
   })
 
-  beforeEach(async () => {
+  beforeEach(async done => {
     store = await NuxtStore.createStore()
 
     router = new VueRouter({
@@ -108,7 +113,7 @@ describe('Page: /:space/directory/ | Directory Id Index Page', () => {
           'nuxt-link': true,
           'no-ssr': true,
           transition: false,
-          CheckIn: true
+          'b-popover': true
         },
         mocks: {
           $membership: $membership,
@@ -128,8 +133,8 @@ describe('Page: /:space/directory/ | Directory Id Index Page', () => {
       }
     )
 
-    // popover evaluates early, wait!!!
-    await wrapper.vm.$nextTick()
+    await flushPromises()
+    wrapper.vm.$nextTick(done)
   })
 
   it('renders properly', async () => {
