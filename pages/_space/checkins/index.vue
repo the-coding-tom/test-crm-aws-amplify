@@ -30,8 +30,8 @@
     </div>
     <b-modal
       id="checkin"
-      title="Checkin"
       :static="true"
+      title="Checkin"
       hide-footer>
       <b-tabs
         v-model="type"
@@ -41,7 +41,9 @@
         <b-tab
           active
           title="Member">
-          <b-form class="member-checkin-form" @submit.prevent="checkinMember">
+          <b-form 
+            class="member-checkin-form" 
+            @submit.prevent="checkinMember">
             <b-form-group label="Member">
               <el-select
                 v-model="membership_id"
@@ -67,7 +69,9 @@
           </b-form>
         </b-tab>
         <b-tab
-          title="Guest"><b-form class="guest-checkin-form" @submit.prevent="checkinGuest">
+          title="Guest"><b-form 
+            class="guest-checkin-form" 
+            @submit.prevent="checkinGuest">
             <b-form-group label="Member">
               <el-select
                 v-model="membership_id"
