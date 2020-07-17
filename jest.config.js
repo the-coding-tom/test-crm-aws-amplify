@@ -18,7 +18,8 @@ module.exports = {
   moduleNameMapper: {
     '^~/(.*)$': '<rootDir>/$1',
     '^~~/(.*)$': '<rootDir>/$1',
-    '^@/(.*)$': '<rootDir>/$1'
+    '^@/(.*)$': '<rootDir>/$1',
+    '\\.(css|sass)$': 'identity-obj-proxy'
   },
   // A map from regular expressions to paths to transformers
   transform: {

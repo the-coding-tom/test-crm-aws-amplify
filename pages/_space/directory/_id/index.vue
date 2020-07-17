@@ -48,6 +48,7 @@
             /> View Notes
           </b-button>
           <b-button
+            id="deleteMember"
             variant="transparent"
             class="text-danger"
             @click="deleteMember">
@@ -232,6 +233,7 @@
                 MEMBERSHIP PLAN
               </div>
               <b-button
+                id="addPlanBtn"
                 variant="transparent"
                 class="text-primary"
                 @click="toggleModal('add-plan')">
@@ -243,36 +245,37 @@
                 <tbody>
                   <tr
                     v-for="subscription in data.subscriptions"
-                    v-if="!subscription.canceled_at"
                     :key="subscription.id">
-                    <td>{{ getSubName(subscription)['name'] }}</td>
-                    <td>Until {{ getSubDetails(subscription) }}</td>
-                    <td>
-                      <b-button
-                        id="popover-1-top"
-                        size="sm"
-                        variant="transparent"
-                        class="text-primary"
-                        @click="makePlanPrimary(subscription)">
-                        <i class="fas fa-user-shield"/>
-                      </b-button>
-                      <b-popover
-                        placement="top"
-                        target="popover-1-top"
-                        content="Make plan primary"
-                        triggers="hover focus"
-                      />
-                      <b-button
-                        size="sm"
-                        variant="transparent"
-                        class="text-primary"
-                        @click="changePlan(subscription)"><i class="fa fa-exchange-alt"/></b-button>
-                      <b-button
-                        size="sm"
-                        variant="transparent"
-                        class="text-danger"
-                        @click="cancelPlan(subscription)"><i class="fa fa-trash"/></b-button>
-                    </td>
+                    <div v-if="!subscription.canceled_at">
+                      <td>{{ getSubName(subscription)['name'] }}</td>
+                      <td>Until {{ getSubDetails(subscription) }}</td>
+                      <td>
+                        <b-button
+                          id="popover-1-top"
+                          size="sm"
+                          variant="transparent"
+                          class="text-primary"
+                          @click="makePlanPrimary(subscription)">
+                          <i class="fas fa-user-shield"/>
+                        </b-button>
+                        <b-popover
+                          placement="top"
+                          target="popover-1-top"
+                          content="Make plan primary"
+                          triggers="hover focus"
+                        />
+                        <b-button
+                          size="sm"
+                          variant="transparent"
+                          class="text-primary"
+                          @click="changePlan(subscription)"><i class="fa fa-exchange-alt"/></b-button>
+                        <b-button
+                          size="sm"
+                          variant="transparent"
+                          class="text-danger"
+                          @click="cancelPlan(subscription)"><i class="fa fa-trash"/></b-button>
+                      </td>
+                    </div>
                   </tr>
                 </tbody>
               </table>
@@ -324,6 +327,7 @@
       hide-footer><ChangePlan :plan_id="plan_id" /></b-modal>
     <b-modal
       id="add-plan"
+      :static="true"
       title="Add New Plan"
       hide-footer><AddPlan :cards="cards" /></b-modal>
     <b-modal
