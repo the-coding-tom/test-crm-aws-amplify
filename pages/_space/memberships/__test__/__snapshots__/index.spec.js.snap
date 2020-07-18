@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h1 class="page-title"><span>Members</span> <b>•</b> Pending Invitation</h1>
+          <form class="" value="">
+            <div class="form-group mb-0">
+              <!---->
+              <div class="input-group input-group-merge sh-search">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div> <input required="required" type="text" placeholder="Looking for ..." aria-describedby="button-addon2" class="form-control">
+                <div class="input-group-append"><button id="button-addon2" type="submit" class="btn btn-default"><span> Search</span></button></div>
+                <!---->
+                <!---->
+                <!---->
+              </div>
+            </div>
+          </form>
+          <div><a href="#_space/memberships/messages" class="btn text-primary btn-transparent" target="_self"><i class="fa fa-envelope"></i> Send Message</a> <a href="#_space/memberships/add" class="btn btn-primary" target="_self">Add Member</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="el-table table table-hover table-striped el-table--fit el-table--scrollable-x el-table--enable-row-hover el-table--enable-row-transition">
+            <div class="hidden-columns">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div class="el-table__header-wrapper">
+              <table cellspacing="0" cellpadding="0" border="0" class="el-table__header" style="width: 320px;">
+                <colgroup>
+                  <col name="el-table_1_column_1" width="80">
+                  <col name="el-table_1_column_2" width="80">
+                  <col name="el-table_1_column_3" width="80">
+                  <col name="el-table_1_column_4" width="80">
+                </colgroup>
+                <thead class="">
+                  <tr class="thead-light">
+                    <th colspan="1" rowspan="1" class="el-table_1_column_1     is-leaf is-sortable">
+                      <div class="cell">Name / Company<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                    </th>
+                    <th colspan="1" rowspan="1" class="el-table_1_column_2     is-leaf is-sortable">
+                      <div class="cell">Plan / Price<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                    </th>
+                    <th colspan="1" rowspan="1" class="el-table_1_column_3     is-leaf is-sortable">
+                      <div class="cell">Payment Method<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                    </th>
+                    <th colspan="1" rowspan="1" class="el-table_1_column_4     is-leaf">
+                      <div class="cell">Status</div>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="el-table__body-wrapper is-scrolling-left">
+              <table cellspacing="0" cellpadding="0" border="0" class="el-table__body" style="width: 320px;">
+                <colgroup>
+                  <col name="el-table_1_column_1" width="80">
+                  <col name="el-table_1_column_2" width="80">
+                  <col name="el-table_1_column_3" width="80">
+                  <col name="el-table_1_column_4" width="80">
+                </colgroup>
+                <tbody>
+                  <tr class="el-table__row">
+                    <td rowspan="1" colspan="1" class="el-table_1_column_1  ">
+                      <div class="cell">
+                        <div class="sh-vflex">
+                          <div><img src="/img/placeholder.jpg" alt="Image placeholder" height="40px" width="40px" class="mr-r-20 rounded-circle"></div> <a target="_self" href="#" class=""><a href="#_space/memberships/e8c25a13-362e-4072-8440-687ccb5d0cb3" class="" target="_self">Leslie Akorful</a> <br> <span style="color: grey;"></span></a>
+                        </div>
+                      </div>
+                    </td>
+                    <td rowspan="1" colspan="1" class="el-table_1_column_2  ">
+                      <div class="cell">
+                        <div class="float-left">Individual Membership</div>
+                        <div class="float-right text-muted">
+                          $1,560.00
+                        </div>
+                      </div>
+                    </td>
+                    <td rowspan="1" colspan="1" class="el-table_1_column_3  ">
+                      <div class="cell"><span>n/a</span></div>
+                    </td>
+                    <td rowspan="1" colspan="1" class="el-table_1_column_4  ">
+                      <div class="cell">
+                        <div class="row"><button type="button" class="btn btn-purple btn-primary">Confirm</button> <button type="button" class="btn ml-2 text-danger btn-transparent"><i class="fa fa-times"></i> Cancel Membership</button></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="el-table__row">
+                    <td rowspan="1" colspan="1" class="el-table_1_column_1  ">
+                      <div class="cell">
+                        <div class="sh-vflex">
+                          <div><img src="/img/placeholder.jpg" alt="Image placeholder" height="40px" width="40px" class="mr-r-20 rounded-circle"></div> <a target="_self" href="#" class=""><a href="#_space/memberships/3f2eb46b-cf0c-4660-8d48-c111b86b844a" class="" target="_self">Leslie Akorful</a> <br> <span style="color: grey;"></span></a>
+                        </div>
+                      </div>
+                    </td>
+                    <td rowspan="1" colspan="1" class="el-table_1_column_2  ">
+                      <div class="cell">
+                        <div class="float-left">Individual Membership</div>
+                        <div class="float-right text-muted">
+                          $1,560.00
+                        </div>
+                      </div>
+                    </td>
+                    <td rowspan="1" colspan="1" class="el-table_1_column_3  ">
+                      <div class="cell"><span>n/a</span></div>
+                    </td>
+                    <td rowspan="1" colspan="1" class="el-table_1_column_4  ">
+                      <div class="cell">
+                        <div class="row"><button type="button" class="btn btn-purple btn-primary">Confirm</button> <button type="button" class="btn ml-2 text-danger btn-transparent"><i class="fa fa-times"></i> Cancel Membership</button></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <!---->
+                </tbody>
+              </table>
+              <!---->
+              <!---->
+            </div>
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+            <div class="el-table__column-resize-proxy" style="display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <ul class="pagination justify-content-center">
+        <li class="page-item prev-page disabled"><a aria-label="Previous" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-left"></i></span></a></li>
+        <li class="page-item active"><a class="page-link">1</a></li>
+        <li class="page-item next-page disabled"><a aria-label="Next" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-right"></i></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

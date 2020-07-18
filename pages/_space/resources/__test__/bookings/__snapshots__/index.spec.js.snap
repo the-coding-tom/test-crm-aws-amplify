@@ -47,8 +47,8 @@ exports[`Page: /:space/resources | Resources Index Page renders properly 1`] = `
                                   <th class="fc-day-header fc-widget-header fc-tue fc-past" data-date="2020-07-14"><span>Tue 7/14</span></th>
                                   <th class="fc-day-header fc-widget-header fc-wed fc-past" data-date="2020-07-15"><span>Wed 7/15</span></th>
                                   <th class="fc-day-header fc-widget-header fc-thu fc-past" data-date="2020-07-16"><span>Thu 7/16</span></th>
-                                  <th class="fc-day-header fc-widget-header fc-fri fc-today" data-date="2020-07-17"><span>Fri 7/17</span></th>
-                                  <th class="fc-day-header fc-widget-header fc-sat fc-future" data-date="2020-07-18"><span>Sat 7/18</span></th>
+                                  <th class="fc-day-header fc-widget-header fc-fri fc-past" data-date="2020-07-17"><span>Fri 7/17</span></th>
+                                  <th class="fc-day-header fc-widget-header fc-sat fc-today" data-date="2020-07-18"><span>Sat 7/18</span></th>
                                 </tr>
                               </thead>
                             </table>
@@ -71,8 +71,8 @@ exports[`Page: /:space/resources | Resources Index Page renders properly 1`] = `
                                       <td class="fc-day fc-widget-content fc-tue fc-past" data-date="2020-07-14"></td>
                                       <td class="fc-day fc-widget-content fc-wed fc-past" data-date="2020-07-15"></td>
                                       <td class="fc-day fc-widget-content fc-thu fc-past" data-date="2020-07-16"></td>
-                                      <td class="fc-day fc-widget-content fc-fri fc-today " data-date="2020-07-17"></td>
-                                      <td class="fc-day fc-widget-content fc-sat fc-future" data-date="2020-07-18"></td>
+                                      <td class="fc-day fc-widget-content fc-fri fc-past" data-date="2020-07-17"></td>
+                                      <td class="fc-day fc-widget-content fc-sat fc-today " data-date="2020-07-18"></td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -108,8 +108,8 @@ exports[`Page: /:space/resources | Resources Index Page renders properly 1`] = `
                                       <td class="fc-day fc-widget-content fc-tue fc-past" data-date="2020-07-14"></td>
                                       <td class="fc-day fc-widget-content fc-wed fc-past" data-date="2020-07-15"></td>
                                       <td class="fc-day fc-widget-content fc-thu fc-past" data-date="2020-07-16"></td>
-                                      <td class="fc-day fc-widget-content fc-fri fc-today " data-date="2020-07-17"></td>
-                                      <td class="fc-day fc-widget-content fc-sat fc-future" data-date="2020-07-18"></td>
+                                      <td class="fc-day fc-widget-content fc-fri fc-past" data-date="2020-07-17"></td>
+                                      <td class="fc-day fc-widget-content fc-sat fc-today " data-date="2020-07-18"></td>
                                     </tr>
                                   </tbody>
                                 </table>

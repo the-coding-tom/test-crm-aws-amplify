@@ -163,12 +163,12 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
             <div style="width: 200px;">
               <no-ssr-stub>
                 <div class="mx-datepicker mx-datepicker-range" style="width: 100%;" id="time">
-                  <div class="mx-input-wrapper"><input name="date" type="text" autocomplete="off" placeholder="Start Date" class="form-control"> <span class="mx-input-append mx-clear-wrapper"><i class="mx-input-icon mx-clear-icon"></i></span> <span class="mx-input-append"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 200 200" class="mx-calendar-icon"><rect x="13" y="29" rx="14" ry="14" width="174" height="158" fill="transparent"></rect> <line x1="46" x2="46" y1="8" y2="50"></line> <line x1="154" x2="154" y1="8" y2="50"></line> <line x1="13" x2="187" y1="70" y2="70"></line> <text x="50%" y="135" font-size="90" stroke-width="1" text-anchor="middle" dominant-baseline="middle">17</text></svg></span></div>
+                  <div class="mx-input-wrapper"><input name="date" type="text" autocomplete="off" placeholder="Start Date" class="form-control"> <span class="mx-input-append mx-clear-wrapper"><i class="mx-input-icon mx-clear-icon"></i></span> <span class="mx-input-append"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 200 200" class="mx-calendar-icon"><rect x="13" y="29" rx="14" ry="14" width="174" height="158" fill="transparent"></rect> <line x1="46" x2="46" y1="8" y2="50"></line> <line x1="154" x2="154" y1="8" y2="50"></line> <line x1="13" x2="187" y1="70" y2="70"></line> <text x="50%" y="135" font-size="90" stroke-width="1" text-anchor="middle" dominant-baseline="middle">18</text></svg></span></div>
                   <div class="mx-datepicker-popup" style="display: none;">
                     <div class="mx-shortcuts-wrapper"><button type="button" class="mx-shortcuts">next 7 days</button><button type="button" class="mx-shortcuts">next 30 days</button><button type="button" class="mx-shortcuts">previous 7 days</button><button type="button" class="mx-shortcuts">previous 30 days</button></div>
                     <div class="mx-range-wrapper">
                       <div class="mx-calendar mx-calendar-panel-none" id="time" style="box-shadow: 1px 0 rgba(0, 0, 0, .1);">
-                        <div class="mx-calendar-header"><a class="mx-icon-last-year">«</a> <a class="mx-icon-last-month" style="display: none;">‹</a> <a class="mx-icon-next-year">»</a> <a class="mx-icon-next-month" style="display: none;">›</a> <a class="mx-current-month" style="display: none;">Jun</a> <a class="mx-current-year" style="display: none;">2020</a> <a class="mx-current-year" style="display: none;">2020 ~ 2029</a> <a class="mx-time-header" style="display: none;">2020-06-17</a></div>
+                        <div class="mx-calendar-header"><a class="mx-icon-last-year">«</a> <a class="mx-icon-last-month" style="display: none;">‹</a> <a class="mx-icon-next-year">»</a> <a class="mx-icon-next-month" style="display: none;">›</a> <a class="mx-current-month" style="display: none;">Jun</a> <a class="mx-current-year" style="display: none;">2020</a> <a class="mx-current-year" style="display: none;">2020 ~ 2029</a> <a class="mx-time-header" style="display: none;">2020-06-18</a></div>
                         <div class="mx-calendar-content">
                           <table class="mx-panel mx-panel-date" style="display: none;">
                             <thead>
@@ -205,8 +205,8 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
                                 <td data-year="2020" data-month="5" title="2020-06-14" class="cell cur-month">14</td>
                                 <td data-year="2020" data-month="5" title="2020-06-15" class="cell cur-month">15</td>
                                 <td data-year="2020" data-month="5" title="2020-06-16" class="cell cur-month">16</td>
-                                <td data-year="2020" data-month="5" title="2020-06-17" class="cell cur-month actived">17</td>
-                                <td data-year="2020" data-month="5" title="2020-06-18" class="cell cur-month inrange">18</td>
+                                <td data-year="2020" data-month="5" title="2020-06-17" class="cell cur-month">17</td>
+                                <td data-year="2020" data-month="5" title="2020-06-18" class="cell cur-month actived">18</td>
                                 <td data-year="2020" data-month="5" title="2020-06-19" class="cell cur-month inrange">19</td>
                                 <td data-year="2020" data-month="5" title="2020-06-20" class="cell cur-month inrange">20</td>
                               </tr>
@@ -396,7 +396,7 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
                         </div>
                       </div>
                       <div class="mx-calendar mx-calendar-panel-none" id="time">
-                        <div class="mx-calendar-header"><a class="mx-icon-last-year">«</a> <a class="mx-icon-last-month" style="display: none;">‹</a> <a class="mx-icon-next-year">»</a> <a class="mx-icon-next-month" style="display: none;">›</a> <a class="mx-current-month" style="display: none;">Jul</a> <a class="mx-current-year" style="display: none;">2020</a> <a class="mx-current-year" style="display: none;">2020 ~ 2029</a> <a class="mx-time-header" style="display: none;">2020-07-18</a></div>
+                        <div class="mx-calendar-header"><a class="mx-icon-last-year">«</a> <a class="mx-icon-last-month" style="display: none;">‹</a> <a class="mx-icon-next-year">»</a> <a class="mx-icon-next-month" style="display: none;">›</a> <a class="mx-current-month" style="display: none;">Jul</a> <a class="mx-current-year" style="display: none;">2020</a> <a class="mx-current-year" style="display: none;">2020 ~ 2029</a> <a class="mx-time-header" style="display: none;">2020-07-19</a></div>
                         <div class="mx-calendar-content">
                           <table class="mx-panel mx-panel-date" style="display: none;">
                             <thead>
@@ -435,11 +435,11 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
                                 <td data-year="2020" data-month="6" title="2020-07-14" class="cell cur-month inrange">14</td>
                                 <td data-year="2020" data-month="6" title="2020-07-15" class="cell cur-month inrange">15</td>
                                 <td data-year="2020" data-month="6" title="2020-07-16" class="cell cur-month inrange">16</td>
-                                <td data-year="2020" data-month="6" title="2020-07-17" class="cell cur-month today inrange">17</td>
-                                <td data-year="2020" data-month="6" title="2020-07-18" class="cell cur-month actived">18</td>
+                                <td data-year="2020" data-month="6" title="2020-07-17" class="cell cur-month inrange">17</td>
+                                <td data-year="2020" data-month="6" title="2020-07-18" class="cell cur-month today inrange">18</td>
                               </tr>
                               <tr>
-                                <td data-year="2020" data-month="6" title="2020-07-19" class="cell cur-month">19</td>
+                                <td data-year="2020" data-month="6" title="2020-07-19" class="cell cur-month actived">19</td>
                                 <td data-year="2020" data-month="6" title="2020-07-20" class="cell cur-month">20</td>
                                 <td data-year="2020" data-month="6" title="2020-07-21" class="cell cur-month">21</td>
                                 <td data-year="2020" data-month="6" title="2020-07-22" class="cell cur-month">22</td>
