@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/events/categories/ | Events Categories Index Page renders properly 1`] = `
+<div>
+  <form class="">
+    <div class="header pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="d-flex justify-content-between py-4">
+            <h1 class="page-title"><span>Resource Categories</span> <b style="display: none;">•</b> </h1>
+            <div><button type="button" disabled="disabled" class="btn text-danger mr-r-20 btn-transparent disabled"><i class="fa fa-times"></i> Remove Category
+              </button> <button type="submit" class="btn btn btn-primary btn-secondary" style="color: white;">Update Category</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--6">
+      <div class="card-deck flex-column flex-xl-row">
+        <div class="card">
+          <!---->
+          <div class="card-body">
+            <h3 class="mr-b-20">Update Category</h3>
+            <div class="row">
+              <div class="form-group col-md-4"><label class="form-control-label">
+                  Name
+                </label>
+                <div class="input-group has-label">
+                  <!----> <input type="text" valid="true" required="required" id="name" name="name" placeholder="Category Name" class="form-control">
+                  <!---->
+                  <!---->
+                  <!---->
+                </div>
+              </div>
+              <div class="form-group col-md-3"><label class="form-control-label">
+                  Color Tag
+                </label>
+                <div class="input-group has-label">
+                  <!----> <input type="text" valid="true" required="required" id="color" placeholder="#4C4D4F" class="form-control">
+                  <!---->
+                  <!---->
+                  <!---->
+                </div>
+              </div>
+              <div role="group" class="form-group" id="__BVID__11"><label for="input-1" class="d-block" id="__BVID__11__BV_label_">Disabled</label>
+                <div>
+                  <div class="custom-control custom-checkbox"><input id="checkbox-1" type="checkbox" name="checkbox-1" autocomplete="off" class="custom-control-input" value="true"><label for="checkbox-1" class="custom-control-label"></label></div>
+                  <!---->
+                  <!---->
+                  <!---->
+                </div>
+              </div>
+            </div>
+            <div class="row mr-t-40">
+              <div role="radiogroup" tabindex="-1" class="col-md-6" id="__BVID__13">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="category__item custom-control custom-control-inline custom-radio"><input type="radio" name="__BVID__13" autocomplete="off" class="custom-control-input" value="8e42f835-74b2-475f-b7f3-cf72c6b792ed" id="__BVID__14"><label class="custom-control-label" for="__BVID__14">talks</label></div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="category__item custom-control custom-control-inline custom-radio"><input type="radio" name="__BVID__13" autocomplete="off" class="custom-control-input" value="4f24fb3b-b8cc-4db6-a2d2-bbc4874f12d3" id="__BVID__15"><label class="custom-control-label" for="__BVID__15">meetups</label></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!---->
+          <!---->
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;

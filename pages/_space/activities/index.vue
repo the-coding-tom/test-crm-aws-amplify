@@ -85,6 +85,11 @@ export default {
     SectionTitle,
     MainTitle
   },
+  data() {
+    return {
+      data: []
+    }
+  },
   computed: {
     ...mapState({
       space: state => state.space.currentSpace

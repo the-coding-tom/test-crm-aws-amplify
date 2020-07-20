@@ -21,6 +21,7 @@
               <div class="col-md-6">
                 <div class="row pd-r-20">
                   <base-input
+                    id="name"
                     v-model="name"
                     class="col-md-12"
                     label="Name of Plan"
@@ -32,6 +33,7 @@
                     label="Plan Description"
                     description="Description should not exceed 22 characters">
                     <b-form-input
+                      id="description"
                       v-model="description"
                       maxlength="22"
                       placeholder="Add details about the plan"
@@ -41,6 +43,7 @@
                     label="Price per cycle"
                     class="col-md-6">
                     <b-form-input
+                      id="price_per_cycle"
                       v-model="price_per_cycle"
                       type="number"
                       placeholder="0.00"
@@ -51,6 +54,7 @@
                     description="Charge cycle denotes the number of months before charging"
                     class="col-md-6">
                     <b-form-input
+                      id="cycle_duration"
                       v-model="cycle_duration"
                       type="number"
                       label="Charge Cycle"
@@ -69,6 +73,7 @@
                       <b-row>
                         <b-col md="10">
                           <b-form-checkbox
+                            id="planVisibility"
                             v-model="hidden"
                             :value="false"
                             :unchecked-value="true"

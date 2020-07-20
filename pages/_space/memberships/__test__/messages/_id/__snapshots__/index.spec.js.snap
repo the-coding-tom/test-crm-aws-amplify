@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/memberships/:id/ | Memberships View Messsage Page renders properly 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h1 class="page-title"><span>Message</span> <b>•</b> Preview</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6 mr-b-30">
+    <div class="card-deck flex-column flex-xl-row">
+      <div class="card">
+        <!---->
+        <div class="card-body">
+          <h2 class="mr-b-20">some subject</h2>
+          <p class="send-to">Sent To: <a href="#">gerhard@meltwater.org </a></p> <span><p>some email template check some email template check some email template check some email template check</p></span>
+        </div>
+        <!---->
+        <!---->
+      </div>
+    </div> <a target="_self" href="#" class=""><i class="fa fa-angle-left mr-r-10"></i> Back</a>
+  </div>
+</div>
+`;

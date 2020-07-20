@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/admins/:id/edit | Admins Edit Page renders properly 1`] = `
+<div>
+  <form class="">
+    <div class="header pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="d-flex justify-content-between align-items-center py-4">
+            <h1 class="page-title"><span>Adminstrators</span> <b>•</b> Update Admin</h1> <button type="submit" class="btn btn btn-primary text-white btn-secondary">Update Adminstrator</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <!---->
+            <div class="card-body">
+              <div class="d-flex align-items-center mr-b-20"><img src="/img/placeholder.jpg" class="mr-r-20 rounded-circle avatar-xl">
+                <div>
+                  <div class="upload-btn-wrapper"><button class="btn btn-outline-primary sh-btn-outline"> UPLOAD PHOTO </button> <input type="file"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6"><label class="form-control-label">
+                    First Name
+                  </label>
+                  <div class="input-group has-label">
+                    <!----> <input type="text" valid="true" required="required" id="firstName" placeholder="First Name" class="form-control">
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </div>
+                <div class="form-group col-md-6"><label class="form-control-label">
+                    Last Name
+                  </label>
+                  <div class="input-group has-label">
+                    <!----> <input type="text" valid="true" id="lastName" placeholder="Last Name" class="form-control">
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </div>
+                <div class="form-group col-md-6"><label class="form-control-label">
+                    Password
+                  </label>
+                  <div class="input-group has-label">
+                    <!----> <input type="password" valid="true" required="required" id="#password" placeholder="********" class="form-control">
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!---->
+            <!---->
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;

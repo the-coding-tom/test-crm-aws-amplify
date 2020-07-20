@@ -1,6 +1,8 @@
 <template>
   <div class="form-group col-md-12">
-    <b-form-group label="Rooms Available">
+    <b-form-group 
+      id="rooms" 
+      label="Rooms Available">
       <b-form-radio
         v-for="room in rooms"
         :value="room.id"

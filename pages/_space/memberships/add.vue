@@ -26,6 +26,7 @@
                       <h3 class="mb-4">Personal Details</h3>
                       <b-form-group label="First Name">
                         <b-form-input
+                          id="firstName"
                           v-model="membership.first_name"
                           placeholder="First Name"
                           required/>
@@ -33,6 +34,7 @@
 
                       <b-form-group label="Last Name">
                         <b-form-input
+                          id="lastName"
                           v-model="membership.last_name"
                           placeholder="Last Name"
                           required/>
@@ -40,6 +42,7 @@
 
                       <b-form-group label="Email">
                         <b-form-input
+                          id="email"
                           v-model="membership.email"
                           type="email"
                           autocomplete="Email"
@@ -48,6 +51,7 @@
                       </b-form-group>
 
                       <base-input
+                        id="linkedinURL"
                         v-model="membership.linkedin_url"
                         :required="false"
                         type="url"
@@ -57,12 +61,14 @@
                       <b-form-group label="Source of Invitation">
 
                         <b-form-select
+                          id="invitationSource"
                           :options="options"
                           v-model="membership.extras[0].type"/>
                       </b-form-group>
 
                       <b-form-group label="Comments">
                         <b-form-textarea
+                          id="comments"
                           v-model="membership.extras[0].comment"
                           placeholder="Comments to save on this member"/>
                       </b-form-group>
@@ -74,12 +80,14 @@
 
                       <b-form-group label="Membership Type">
                         <b-form-select
+                          id="memberType"
                           v-model="membership.prefix_type"
                           :options="prefix_type" />
                       </b-form-group>
 
                       <b-form-group label="Region">
                         <b-form-select
+                          id="region"
                           v-model="membership.prefix_locality"
                           :options="prefix_locality" />
                       </b-form-group>
@@ -87,6 +95,7 @@
                       <b-form-group
                         label="Assigned Admin">
                         <el-select
+                          id="chooseAdmin"
                           v-model="membership.assigned_admin"
                           :remote-method="searchAdmins"
                           :loading="searching"
@@ -106,7 +115,7 @@
                       <b-form-group label="Start Date">
                         <client-only>
                           <date-picker
-                            id="time"
+                            id="startDate"
                             v-model="membership.trial_ends_at"
                             width="100%"
                             input-class="form-control"
@@ -122,6 +131,7 @@
 
                       <b-form-group label="On Trial">
                         <b-form-checkbox
+                          id="isOnTrial"
                           v-model="membership.trial"
                           :value="true"
                           :unchecked-value="false">Yes</b-form-checkbox>
@@ -133,6 +143,7 @@
                         label="Trial Days"
                         description="Number of days before member is charged">
                         <b-form-input
+                          id="trialDays"
                           v-model="membership.trial_days"
                           min="0"
                           type="number"
@@ -141,6 +152,7 @@
 
                       <b-form-group label="Paid for">
                         <b-form-checkbox
+                          id="isPaidFor"
                           v-model="membership.paid_for"
                           :value="true"
                           :unchecked-value="false">Yes</b-form-checkbox>
@@ -174,6 +186,7 @@
                 <div class="col-md-5">
                   <h3 class="mb-4">Pick Membership Plan</h3>
                   <MembershipPlans
+                    id="plan"
                     :plans="plans"
                     v-model="membership.plan_id" />
                   <div class="mr-t-20">

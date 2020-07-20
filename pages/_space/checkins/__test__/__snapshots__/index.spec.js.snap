@@ -1,0 +1,241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/checkins/ | Checkins Index Page renders properly 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h1 class="page-title"><span>Members</span> <b>•</b> Check-in</h1>
+          <div><a href="#_space/checkins/settings" class="btn btn-transparent" target="_self"><i class="fa fa-cogs"></i> Settings</a> <button type="button" class="btn btn-primary">Manual Check-in</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="el-table table table-hover table-striped table-responsive el-table--fit el-table--scrollable-x el-table--enable-row-hover">
+            <div class="hidden-columns">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div class="el-table__header-wrapper">
+              <table cellspacing="0" cellpadding="0" border="0" class="el-table__header" style="width: 500px;">
+                <colgroup>
+                  <col name="el-table_1_column_1" width="80">
+                  <col name="el-table_1_column_2" width="80">
+                  <col name="el-table_1_column_3" width="80">
+                  <col name="el-table_1_column_4" width="80">
+                  <col name="el-table_1_column_5" width="100">
+                  <col name="el-table_1_column_6" width="80">
+                </colgroup>
+                <thead class="">
+                  <tr class="thead-light">
+                    <th colspan="1" rowspan="1" class="el-table_1_column_1     is-leaf is-sortable">
+                      <div class="cell">Name / Company<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                    </th>
+                    <th colspan="1" rowspan="1" class="el-table_1_column_2     is-leaf is-sortable">
+                      <div class="cell">Type<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                    </th>
+                    <th colspan="1" rowspan="1" class="el-table_1_column_3     is-leaf is-sortable">
+                      <div class="cell">For<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                    </th>
+                    <th colspan="1" rowspan="1" class="el-table_1_column_4     is-leaf is-sortable">
+                      <div class="cell">Meeting Guest<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                    </th>
+                    <th colspan="1" rowspan="1" class="el-table_1_column_5     is-leaf is-sortable">
+                      <div class="cell">Timestamp: Check-in / Check-out<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                    </th>
+                    <th colspan="1" rowspan="1" class="el-table_1_column_6     is-leaf is-sortable">
+                      <div class="cell">Check<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="el-table__body-wrapper is-scrolling-left">
+              <table cellspacing="0" cellpadding="0" border="0" class="el-table__body" style="width: 500px;">
+                <colgroup>
+                  <col name="el-table_1_column_1" width="80">
+                  <col name="el-table_1_column_2" width="80">
+                  <col name="el-table_1_column_3" width="80">
+                  <col name="el-table_1_column_4" width="80">
+                  <col name="el-table_1_column_5" width="100">
+                  <col name="el-table_1_column_6" width="80">
+                </colgroup>
+                <tbody>
+                  <!---->
+                </tbody>
+              </table>
+              <div class="el-table__empty-block" style="height: 100%; width: 500px;"><span class="el-table__empty-text">暂无数据</span></div>
+              <!---->
+            </div>
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+            <div class="el-table__column-resize-proxy" style="display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="checkin___BV_modal_outer_" style="position: absolute; z-index: 1040;">
+    <div id="checkin" role="dialog" aria-hidden="true" aria-labelledby="checkin___BV_modal_title_" aria-describedby="checkin___BV_modal_body_" class="modal fade" style="display: none;">
+      <div class="modal-dialog modal-md">
+        <!---->
+        <div role="document" id="checkin___BV_modal_content_" tabindex="-1" class="modal-content">
+          <header id="checkin___BV_modal_header_" class="modal-header">
+            <h5 id="checkin___BV_modal_title_" class="modal-title">Checkin</h5><button type="button" aria-label="Close" class="close">×</button>
+          </header>
+          <div id="checkin___BV_modal_body_" class="modal-body">
+            <div class="tabs nav-fill flex-column flex-sm-row" id="__BVID__25">
+              <!---->
+              <div class="card-header">
+                <ul role="tablist" class="nav nav-pills card-header-pills" id="__BVID__25__BV_tab_controls_">
+                  <!---->
+                  <li role="presentation" class="nav-item"><a role="tab" aria-selected="true" aria-setsize="2" aria-posinset="1" target="_self" href="#" class="nav-link active" id="__BVID__26___BV_tab_button__" aria-controls="__BVID__26">Member</a></li>
+                  <li role="presentation" class="nav-item"><a role="tab" tabindex="-1" aria-selected="false" aria-setsize="2" aria-posinset="2" target="_self" href="#" class="nav-link" id="__BVID__38___BV_tab_button__" aria-controls="__BVID__38">Guest</a></li>
+                  <!---->
+                </ul>
+              </div>
+              <div class="tab-content" id="__BVID__25__BV_tab_container_">
+                <div role="tabpanel" tabindex="-1" aria-hidden="false" class="tab-pane active card-body" id="__BVID__26" aria-labelledby="__BVID__26___BV_tab_button__">
+                  <form class="member-checkin-form">
+                    <fieldset class="form-group" id="__BVID__28">
+                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__28__BV_label_">Member</legend>
+                      <div tabindex="-1" role="group">
+                        <div class="el-select" required="required">
+                          <!---->
+                          <div class="el-input el-input--suffix">
+                            <!----><input type="text" readonly="readonly" autocomplete="off" placeholder="Choose a member" class="el-input__inner">
+                            <!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-"></i><!----><!----><!----><!----><!----></span>
+                            <!----></span>
+                            <!---->
+                            <!---->
+                          </div>
+                          <div class="el-select-dropdown el-popper" style="display: none;">
+                            <div class="el-scrollbar" style="">
+                              <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default">
+                                <ul class="el-scrollbar__view el-select-dropdown__list">
+                                  <!---->
+                                  <li class="el-select-dropdown__item"><span>Ashwin Ravichandran</span></li>
+                                  <li class="el-select-dropdown__item"><span>Bubu Nyavor</span></li>
+                                </ul>
+                              </div>
+                              <div class="el-scrollbar__bar is-horizontal">
+                                <div class="el-scrollbar__thumb" style="transform: translateX(0%); webkit-transform: translateX(0%);"></div>
+                              </div>
+                              <div class="el-scrollbar__bar is-vertical">
+                                <div class="el-scrollbar__thumb" style="transform: translateY(0%); webkit-transform: translateY(0%);"></div>
+                              </div>
+                            </div>
+                            <!---->
+                          </div>
+                        </div>
+                        <!---->
+                        <!---->
+                        <!---->
+                      </div>
+                    </fieldset> <button type="submit" class="btn float-right member-checkin-btn btn-primary">Checkin</button>
+                  </form>
+                </div>
+                <div role="tabpanel" aria-hidden="true" class="tab-pane card-body" style="display: none;" id="__BVID__38" aria-labelledby="__BVID__38___BV_tab_button__">
+                  <form class="guest-checkin-form">
+                    <fieldset class="form-group" id="__BVID__40">
+                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__40__BV_label_">Member</legend>
+                      <div tabindex="-1" role="group">
+                        <div class="el-select" required="required">
+                          <!---->
+                          <div class="el-input el-input--suffix">
+                            <!----><input type="text" readonly="readonly" autocomplete="off" placeholder="Choose a member" class="el-input__inner">
+                            <!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-"></i><!----><!----><!----><!----><!----></span>
+                            <!----></span>
+                            <!---->
+                            <!---->
+                          </div>
+                          <div class="el-select-dropdown el-popper" style="display: none;">
+                            <div class="el-scrollbar" style="">
+                              <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default">
+                                <ul class="el-scrollbar__view el-select-dropdown__list">
+                                  <!---->
+                                  <li class="el-select-dropdown__item"><span>Ashwin Ravichandran</span></li>
+                                  <li class="el-select-dropdown__item"><span>Bubu Nyavor</span></li>
+                                </ul>
+                              </div>
+                              <div class="el-scrollbar__bar is-horizontal">
+                                <div class="el-scrollbar__thumb" style="transform: translateX(0%); webkit-transform: translateX(0%);"></div>
+                              </div>
+                              <div class="el-scrollbar__bar is-vertical">
+                                <div class="el-scrollbar__thumb" style="transform: translateY(0%); webkit-transform: translateY(0%);"></div>
+                              </div>
+                            </div>
+                            <!---->
+                          </div>
+                        </div>
+                        <!---->
+                        <!---->
+                        <!---->
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group" id="__BVID__50">
+                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__50__BV_label_">First Name</legend>
+                      <div tabindex="-1" role="group"><input id="firstName" type="text" placeholder="John" required="required" aria-required="true" class="form-control">
+                        <!---->
+                        <!---->
+                        <!---->
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group" id="__BVID__52">
+                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__52__BV_label_">Last Name</legend>
+                      <div tabindex="-1" role="group"><input id="lastName" type="text" placeholder="Doe" required="required" aria-required="true" class="form-control">
+                        <!---->
+                        <!---->
+                        <!---->
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group" id="__BVID__54">
+                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__54__BV_label_">Email</legend>
+                      <div tabindex="-1" role="group"><input id="email" type="email" placeholder="john@doe.com" required="required" aria-required="true" class="form-control">
+                        <!---->
+                        <!---->
+                        <!---->
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group" id="__BVID__56">
+                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__56__BV_label_">Company</legend>
+                      <div tabindex="-1" role="group"><input id="company" type="text" placeholder="SHACK15" required="required" aria-required="true" class="form-control">
+                        <!---->
+                        <!---->
+                        <!---->
+                      </div>
+                    </fieldset>
+                    <div class="custom-control custom-checkbox"><input id="meetingGuest" type="checkbox" autocomplete="off" class="custom-control-input" value="true"><label for="meetingGuest" class="custom-control-label"> Is a meeting guest</label></div> <button type="submit" class="btn float-right btn-primary">Checkin</button>
+                  </form>
+                </div>
+                <!---->
+              </div>
+            </div>
+          </div>
+          <!---->
+        </div>
+        <!---->
+      </div>
+    </div>
+    <!---->
+  </div>
+  <div>
+    <ul class="pagination justify-content-center">
+      <li class="page-item prev-page disabled"><a aria-label="Previous" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-left"></i></span></a></li>
+      <li class="page-item active"><a class="page-link">1</a></li>
+      <li class="page-item next-page disabled"><a aria-label="Next" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-right"></i></span></a></li>
+    </ul>
+  </div>
+</div>
+`;

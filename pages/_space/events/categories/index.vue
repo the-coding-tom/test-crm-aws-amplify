@@ -29,6 +29,7 @@
             <h3 class="mr-b-20">Update Category</h3>
             <div class="row">
               <base-input
+                id="name"
                 v-model="name"
                 class="col-md-4"
                 label="Name"
@@ -38,6 +39,7 @@
               />
 
               <base-input
+                id="color"
                 v-model="color"
                 class="col-md-3"
                 required
@@ -68,6 +70,7 @@
                     <b-form-radio
                       v-model="cat"
                       :value="category.id"
+                      class="category__item"
                       @change="changeCategory(category)"
                     >{{ category.name }}</b-form-radio>
                   </div>

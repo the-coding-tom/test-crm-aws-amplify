@@ -9,6 +9,7 @@
           subtitle="Settings"/>
         <b-button
           v-b-modal.modal-1
+          id="add-setting-modal"
           variant="primary">New Setting</b-button>
       </div>
     </base-header>
@@ -48,6 +49,7 @@
     </div>
     <b-modal
       id="modal-1"
+      :static="true"
       title="Settings"
       hide-footer>
       <b-form @submit.prevent="saveSetting">

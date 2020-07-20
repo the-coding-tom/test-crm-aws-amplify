@@ -49,7 +49,9 @@
 
             <div slot="footer">
               <div class="d-flex justify-content-between">
-                <nuxt-link :to="{ name: 'space-resources-id', params: { id: rooms.id }}">
+                <nuxt-link 
+                  :to="{ name: 'space-resources-id', params: { id: rooms.id }}" 
+                  class="edit-link">
                   <i class="ti-pencil" /> Edit Resource
                 </nuxt-link>
                 <a

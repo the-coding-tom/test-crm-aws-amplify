@@ -1,0 +1,67 @@
+{
+  "data": {
+    "data": [
+      {
+        "id": "68aa0500-4984-44c9-8963-ccaaae03ba4c",
+        "name": "Conference Room 1",
+        "price_per_hour": 20,
+        "capacity": 5,
+        "description": "Some description of the room",
+        "photo": "https://d3mym26vamg9ol.cloudfront.net/resources/1572951811_5548b730-0d96-4897-92d8-90323785ef0a.jpeg",
+        "min_booking_duration": 30,
+        "max_booking_duration": 120,
+        "booking_url": "https://staging.bdgic76uiy.us-east-1.elasticbeanstalk.com/api/v1/rooms/68aa0500-4984-44c9-8963-ccaaae03ba4c/bookings",
+        "amenities": ["wifi", "zoom room", "game room"],
+        "room_availability": [
+          { "from": "06:00", "to": "05:00", "weekdays": [1, 6] }
+        ],
+        "can_book": false,
+        "category": {
+          "id": "a2cc76b7-9907-4d86-8072-c1b9ef276a0a",
+          "name": "conference",
+          "color": "#00b2b2"
+        },
+        "zoom_room_id": "sqYuaM7URRK3CuNQWH2lrQ",
+        "access_point_id": "24633465"
+      },
+      {
+        "id": "fc551d7d-27da-4872-bc6a-df1a9fb6eb52",
+        "name": "Conference Rooms",
+        "price_per_hour": 10,
+        "capacity": 25,
+        "description": "The conference room is a spacious and light filled room perfect for small to medium sized conferences. This has seats for 30 guests include wireless projection and is fully airconditioned.",
+        "photo": "https://www.hourlyspaces.com/images/Friendspg_Banner.jpg",
+        "min_booking_duration": 60,
+        "max_booking_duration": 120,
+        "booking_url": "https://staging.bdgic76uiy.us-east-1.elasticbeanstalk.com/api/v1/rooms/fc551d7d-27da-4872-bc6a-df1a9fb6eb52/bookings",
+        "amenities": ["projector", "wifi", "whiteboard"],
+        "room_availability": [
+          { "from": "00:00", "to": "23:00", "weekdays": [1, 6] }
+        ],
+        "can_book": true,
+        "category": {
+          "id": "a2cc76b7-9907-4d86-8072-c1b9ef276a0a",
+          "name": "conference",
+          "color": "#00b2b2"
+        },
+        "zoom_room_id": "sqYuaM7URRK3CuNQWH2lrQ",
+        "access_point_id": null
+      }
+    ],
+    "links": {
+      "first": "",
+      "last": "",
+      "prev": null,
+      "next": null
+    },
+    "meta": {
+      "current_page": 1,
+      "from": 1,
+      "last_page": 2,
+      "path": "",
+      "per_page": 15,
+      "to": 15,
+      "total": 16
+    }
+  }
+}

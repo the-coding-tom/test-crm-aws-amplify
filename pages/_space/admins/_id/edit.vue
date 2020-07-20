@@ -39,17 +39,20 @@
               <div class="row">
 
                 <base-input
+                  id="firstName"
                   v-model="first_name"
                   class="col-md-6"
                   label="First Name"
                   placeholder="First Name"/>
                 <base-input
+                  id="lastName"
                   v-model="last_name"
                   :required="false"
                   class="col-md-6"
                   label="Last Name"
                   placeholder="Last Name"/>
                 <base-input
+                  id="#password"
                   v-model="password"
                   type="password"
                   class="col-md-6"

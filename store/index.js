@@ -1,5 +1,8 @@
 import { getField, updateField } from 'vuex-map-fields'
 
+// make strict mode false
+export const strict = false
+
 export const getters = {
   getField
 }

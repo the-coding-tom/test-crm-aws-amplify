@@ -1,0 +1,69 @@
+{
+  "data": {
+    "data": [
+      {
+        "id": 3,
+        "slug": "household-membership",
+        "name": "Household Membership",
+        "description": "For two members",
+        "is_active": true,
+        "price": 2560,
+        "signup_fee": 0,
+        "currency": "USD",
+        "trial_period": 0,
+        "trial_interval": "day",
+        "invoice_period": 12,
+        "invoice_interval": "month",
+        "grace_period": 0,
+        "grace_interval": "day",
+        "prorate_day": null,
+        "prorate_period": null,
+        "prorate_extend_due": null,
+        "active_subscribers_limit": null,
+        "sort_order": 3,
+        "created_at": "2019-11-11 19:02:06",
+        "updated_at": "2019-11-11 19:02:06",
+        "deleted_at": null
+      },
+      {
+        "id": 4,
+        "slug": "admin-plan",
+        "name": "Admin Plan",
+        "description": "This plan is the admin",
+        "is_active": true,
+        "price": 1,
+        "signup_fee": 0,
+        "currency": "USD",
+        "trial_period": 0,
+        "trial_interval": "day",
+        "invoice_period": 12,
+        "invoice_interval": "month",
+        "grace_period": 0,
+        "grace_interval": "day",
+        "prorate_day": null,
+        "prorate_period": null,
+        "prorate_extend_due": null,
+        "active_subscribers_limit": null,
+        "sort_order": 4,
+        "created_at": "2019-11-13 21:32:57",
+        "updated_at": "2019-11-13 21:32:57",
+        "deleted_at": null
+      }
+    ],
+    "links": {
+      "first": "",
+      "last": "",
+      "prev": null,
+      "next": null
+    },
+    "meta": {
+      "current_page": 1,
+      "from": 1,
+      "last_page": 1,
+      "path": "",
+      "per_page": 15,
+      "to": 5,
+      "total": 4
+    }
+  }
+}

@@ -39,28 +39,31 @@
               <div class="row">
 
                 <base-input
+                  id="firstName"
                   v-model="first_name"
                   class="col-md-6"
                   label="First Name"
                   placeholder="First Name"/>
                 <base-input
+                  id="lastName"
                   v-model="last_name"
                   class="col-md-6"
                   label="Last Name"
                   placeholder="Last Name"/>
                 <base-input
+                  id="email"
                   v-model="email"
                   class="col-md-6"
                   label="Email"
                   placeholder="Email"
                   type="email"/>
                 <base-input
+                  id="password"
                   v-model="password"
                   type="password"
                   class="col-md-6"
                   label="Password"
                   placeholder="********"/>
-
               </div>
             </card>
           </div>

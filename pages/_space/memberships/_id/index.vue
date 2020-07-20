@@ -32,6 +32,7 @@
             <card>
               <div class="row">
                 <base-input
+                  id="email"
                   v-model="data.email"
                   :disabled="true"
                   type="text"
@@ -39,23 +40,27 @@
                   label="Email"
                   placeholder="Email"/>
                 <base-input
+                  id="firstName"
                   v-model="data.first_name"
                   type="text"
                   class="col-md-6"
                   label="First Name"
                   placeholder="First Name"/>
                 <base-input
+                  id="lastName"
                   v-model="data.last_name"
                   class="col-md-6"
                   label="Last Name"
                   placeholder="Last Name"
                   type="text"/>
                 <base-input
+                  id="membershipNumber"
                   v-model="data.membership_number"
                   class="col-md-6"
                   label="Membership #"
                   placeholder="0000000"/>
                 <base-input
+                  id="linkedinURL"
                   v-model="data.linkedin_url"
                   :required="false"
                   class="col-md-6"
@@ -65,6 +70,7 @@
                   label="Source of Invitation"
                   class="col-md-6">
                   <b-form-select
+                    id="invitationSource"
                     v-model="data.extras[0].type"
                     :options="options"
                   />
@@ -74,6 +80,7 @@
                   class="col-md-6">
 
                   <b-form-textarea
+                    id="comment"
                     v-model="data.extras[0].comment"
                     label="Comments"
                     placeholder="Comments"/>
@@ -83,6 +90,7 @@
                   class="col-md-6"
                   label="Membership Type">
                   <b-form-select
+                    id="memberType"
                     v-model="data.prefix_type"
                     :options="prefix_type" />
                 </b-form-group>
@@ -91,6 +99,7 @@
                   class="col-md-6"
                   label="Region">
                   <b-form-select
+                    id="region"
                     v-model="data.prefix_locality"
                     :options="prefix_locality" />
                 </b-form-group>

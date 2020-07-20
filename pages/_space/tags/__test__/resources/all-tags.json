@@ -1,0 +1,20 @@
+{
+  "data": {
+    "data": [
+      {
+        "name": "abakaliki (nigeria)",
+        "type": "cities"
+      },
+      {
+        "name": "accra (ghana)",
+        "type": "cities"
+      }
+    ],
+    "meta": {
+      "total": 1,
+      "per_page": 20,
+      "current_page": 1
+    },
+    "links": {}
+  }
+}

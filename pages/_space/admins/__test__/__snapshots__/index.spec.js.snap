@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/admins/ | Admins Index Page renders properly 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h1 class="page-title"><span>Adminstrators</span> <b>•</b> Current Admins</h1> <a href="#_space/admins/add" class="btn text-white btn-primary rounded-0" target="_self">Add Adminstrator</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6">
+    <div class="card-deck flex-column flex-xl-row">
+      <div class="card">
+        <div class="el-table table-responsive align-items-center table-flush table-striped el-table--fit el-table--scrollable-x el-table--enable-row-hover">
+          <div class="hidden-columns">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="el-table__header-wrapper">
+            <table cellspacing="0" cellpadding="0" border="0" class="el-table__header" style="width: 810px;">
+              <colgroup>
+                <col name="el-table_1_column_1" width="310">
+                <col name="el-table_1_column_2" width="140">
+                <col name="el-table_1_column_3" width="180">
+                <col name="el-table_1_column_4" width="180">
+              </colgroup>
+              <thead class="">
+                <tr class="thead-light">
+                  <th colspan="1" rowspan="1" class="el-table_1_column_1     is-leaf is-sortable">
+                    <div class="cell">Name<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                  </th>
+                  <th colspan="1" rowspan="1" class="el-table_1_column_2     is-leaf is-sortable">
+                    <div class="cell">Email<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                  </th>
+                  <th colspan="1" rowspan="1" class="el-table_1_column_3  is-center   is-leaf">
+                    <div class="cell"></div>
+                  </th>
+                  <th colspan="1" rowspan="1" class="el-table_1_column_4  is-center   is-leaf">
+                    <div class="cell"></div>
+                  </th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="el-table__body-wrapper is-scrolling-left">
+            <table cellspacing="0" cellpadding="0" border="0" class="el-table__body" style="width: 810px;">
+              <colgroup>
+                <col name="el-table_1_column_1" width="310">
+                <col name="el-table_1_column_2" width="140">
+                <col name="el-table_1_column_3" width="180">
+                <col name="el-table_1_column_4" width="180">
+              </colgroup>
+              <tbody>
+                <!---->
+              </tbody>
+            </table>
+            <div class="el-table__empty-block" style="height: 100%; width: 810px;"><span class="el-table__empty-text">暂无数据</span></div>
+            <!---->
+          </div>
+          <!---->
+          <!---->
+          <!---->
+          <!---->
+          <div class="el-table__column-resize-proxy" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ul class="pagination justify-content-center">
+      <li class="page-item prev-page disabled"><a aria-label="Previous" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-left"></i></span></a></li>
+      <li class="page-item active"><a class="page-link">1</a></li>
+      <li class="page-item next-page disabled"><a aria-label="Next" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-right"></i></span></a></li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Page: /:space/admins/ | Admins Index Page shows all admins 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h1 class="page-title"><span>Adminstrators</span> <b>•</b> Current Admins</h1> <a href="#_space/admins/add" class="btn text-white btn-primary rounded-0" target="_self">Add Adminstrator</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6">
+    <div class="card-deck flex-column flex-xl-row">
+      <div class="card">
+        <div class="el-table table-responsive align-items-center table-flush table-striped el-table--fit el-table--scrollable-x el-table--enable-row-hover el-table--enable-row-transition">
+          <div class="hidden-columns">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="el-table__header-wrapper">
+            <table cellspacing="0" cellpadding="0" border="0" class="el-table__header" style="width: 810px;">
+              <colgroup>
+                <col name="el-table_2_column_5" width="310">
+                <col name="el-table_2_column_6" width="140">
+                <col name="el-table_2_column_7" width="180">
+                <col name="el-table_2_column_8" width="180">
+              </colgroup>
+              <thead class="">
+                <tr class="thead-light">
+                  <th colspan="1" rowspan="1" class="el-table_2_column_5     is-leaf is-sortable">
+                    <div class="cell">Name<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                  </th>
+                  <th colspan="1" rowspan="1" class="el-table_2_column_6     is-leaf is-sortable">
+                    <div class="cell">Email<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                  </th>
+                  <th colspan="1" rowspan="1" class="el-table_2_column_7  is-center   is-leaf">
+                    <div class="cell"></div>
+                  </th>
+                  <th colspan="1" rowspan="1" class="el-table_2_column_8  is-center   is-leaf">
+                    <div class="cell"></div>
+                  </th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="el-table__body-wrapper is-scrolling-left">
+            <table cellspacing="0" cellpadding="0" border="0" class="el-table__body" style="width: 810px;">
+              <colgroup>
+                <col name="el-table_2_column_5" width="310">
+                <col name="el-table_2_column_6" width="140">
+                <col name="el-table_2_column_7" width="180">
+                <col name="el-table_2_column_8" width="180">
+              </colgroup>
+              <tbody>
+                <tr class="el-table__row">
+                  <td rowspan="1" colspan="1" class="el-table_2_column_5  ">
+                    <div class="cell">
+                      <h4>Leslie Akorful</h4>
+                    </div>
+                  </td>
+                  <td rowspan="1" colspan="1" class="el-table_2_column_6  ">
+                    <div class="cell"><span>anotheradmin@shack15.com</span></div>
+                  </td>
+                  <td rowspan="1" colspan="1" class="el-table_2_column_7 is-center ">
+                    <div class="cell"><a href="#_space/admins/9c8e28a5-00a9-478b-88c6-ded7180b6653/edit" class="btn text-primary btn-transparent" target="_self"><i class="fa fa-pen"></i> Edit
+                      </a></div>
+                  </td>
+                  <td rowspan="1" colspan="1" class="el-table_2_column_8 is-center ">
+                    <div class="cell"><button type="submit" class="btn text-danger btn-transparent"><i class="fa fa-times"></i> Remove
+                      </button></div>
+                  </td>
+                </tr>
+                <tr class="el-table__row">
+                  <td rowspan="1" colspan="1" class="el-table_2_column_5  ">
+                    <div class="cell">
+                      <h4>Admin</h4>
+                    </div>
+                  </td>
+                  <td rowspan="1" colspan="1" class="el-table_2_column_6  ">
+                    <div class="cell"><span>admin@shack15.com</span></div>
+                  </td>
+                  <td rowspan="1" colspan="1" class="el-table_2_column_7 is-center ">
+                    <div class="cell"><a href="#_space/admins/5ffaab91-d886-4fb6-a080-5b10eb94ca4b/edit" class="btn text-primary btn-transparent" target="_self"><i class="fa fa-pen"></i> Edit
+                      </a></div>
+                  </td>
+                  <td rowspan="1" colspan="1" class="el-table_2_column_8 is-center ">
+                    <div class="cell"><button type="submit" class="btn text-danger btn-transparent"><i class="fa fa-times"></i> Remove
+                      </button></div>
+                  </td>
+                </tr>
+                <!---->
+              </tbody>
+            </table>
+            <!---->
+            <!---->
+          </div>
+          <!---->
+          <!---->
+          <!---->
+          <!---->
+          <div class="el-table__column-resize-proxy" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ul class="pagination justify-content-center">
+      <li class="page-item prev-page disabled"><a aria-label="Previous" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-left"></i></span></a></li>
+      <li class="page-item active"><a class="page-link">1</a></li>
+      <li class="page-item next-page disabled"><a aria-label="Next" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-right"></i></span></a></li>
+    </ul>
+  </div>
+</div>
+`;

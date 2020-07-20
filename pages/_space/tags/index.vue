@@ -91,6 +91,7 @@
     <div>
       <b-modal
         id="edit-modal"
+        :static="true"
         hide-footer>
         <template v-slot:modal-title>Edit Tag</template>
 
