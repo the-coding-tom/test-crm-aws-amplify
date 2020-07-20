@@ -1,0 +1,379 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row py-4">
+          <div class="col-md-6">
+            <div class="d-flex justify-content-between">
+              <h1 class="page-title"><span>Directory</span> <b>•</b> Profile</h1>
+              <div class="d-flex align-items-center">
+                <div class="custom-control custom-switch b-custom-control-lg"><input variant="success" type="checkbox" autocomplete="off" class="custom-control-input" value="checkin" id="__BVID__8"><label class="custom-control-label" for="__BVID__8"><span class="text-muted">Checked Out</span></label></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mr-l-child-10 text-right"><a href="#_space/memberships/_id" class="btn text-primary btn-transparent" target="_self"><i class="fas fa-edit"></i> Edit Membership
+            </a> <button type="button" class="btn text-primary btn-transparent"><i class="fa fa-sticky-note"></i> View Notes
+            </button> <button id="deleteMember" type="button" class="btn text-danger btn-transparent"><i class="fa fa-trash"></i> Delete Member
+            </button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="sh-p-header"><span class="label label-default sh-label"><i class="fa fa-star"></i> Founding Member
+    </span>
+            <div class="d-flex align-items-center pd-20 mr-5 mr-tb-20"><img src="https://d3mym26vamg9ol.cloudfront.net/profile/1572967236_44ab6978-e4fd-4985-8ec1-0bbfc2a0f2f9." class="mr-r-20 rounded-circle avatar-xxl">
+              <div>
+                <h1>Ashwin Ravichandran</h1>
+                <h3 class="mr-b-10">MEST</h3> <i class="ti-location-pin"></i>
+                123, 456, SF, 0, India
+                <br> <i class="ti-calendar"></i>
+                1990-07-10
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6"><i class="fa fa-envelope"></i> ashwin@meltwater.org
+              </div>
+              <div class="col-md-6"><i class="fa fa-phone"></i> +233266563950
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6"><i class="fa fa-venus-mars"></i> male
+              </div>
+              <div class="col-md-6"><i class="fa fa-globe"></i> India
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6"><i class="fa fa-user"></i>
+              </div>
+            </div>
+            <div class="mt-4">
+              <div class="text-muted">
+                Profile
+              </div>
+              <p>
+                The world.
+              </p>
+              <div>
+                <div class="text-muted">
+                  Cities
+                </div>
+                <div class="text-muted">
+                  Interests
+                </div> <span class="badge mr-1 badge-default">startups</span><span class="badge mr-1 badge-default">investors</span>
+                <div class="text-muted mt-2">Offers</div> <span class="badge mr-1 badge-default">investments</span><span class="badge mr-1 badge-default">venture capital</span>
+                <div class="text-muted mt-2">Skills</div> <span class="badge mr-1 badge-default">venture</span><span class="badge mr-1 badge-default">invest</span>
+              </div>
+            </div>
+            <div class="mt-4">
+              <p><i class="ti-id-badge"></i> 001000</p>
+              <p><i class="ti-twitter-alt"></i> https://twitter.com/ashwin107</p>
+              <p><i class="ti-linkedin"></i> http://www.linkedin.com/in/ashwinravichandran</p>
+              <p><i class="ti-world"></i> </p>
+            </div>
+            <div class="sh-dls"><span> Joined on:</span> November 05, 2019
+            </div>
+            <div class="sh-dls"><span>Renewal due by:</span> November 06, 2020
+            </div>
+            <div class="sh-dls"><span>Last Checkin Timestamp:</span> January 16, 2020 02:40:55
+            </div>
+            <hr align="left" class="w-25 bg-dark3 text-default"> <span><div class="sh-dls"><span>Reference:</span>
+          </div></span>
+          <div class="sh-dls"><span> Paid by:</span>
+            <nuxt-link-stub to="[object Object]">Gerhard Malah</nuxt-link-stub>
+          </div>
+          <div class="sh-dls"><span> Paying for:</span> </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-transparent">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="txt-upper">
+              Card Details
+            </div> <button type="button" class="btn text-primary btn-transparent"><i class="fa fa-credit-card"></i> Add New Card
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="m-n25">
+            <table class="table table-hover table-striped">
+              <tbody>
+                <tr>
+                  <td>
+                    MASTERCARD
+                  </td>
+                  <td>
+                    Jun 2022
+                  </td>
+                  <td><button type="button" class="btn text-danger btn-transparent btn-
+                        sm"><i class="fa fa-trash"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!---->
+        <!---->
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="txt-upper">
+              MEMBERSHIP PLAN
+            </div> <button id="addPlanBtn" type="button" class="btn text-primary btn-transparent"><i class="fa fa-plus"></i> Add New Plan
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="m-n25">
+            <table class="table table-hover table-striped">
+              <tbody>
+                <tr>
+                  <div>
+                    <td>Individual Membership</td>
+                    <td>Until 06 Nov, 2020</td>
+                    <td><button id="popover-1-top" type="button" class="btn text-primary btn-transparent btn-sm"><i class="fas fa-user-shield"></i></button>
+                      <b-popover-stub target="popover-1-top" triggers="hover focus" placement="top" fallbackplacement="flip" delay="50" boundary="scrollParent" boundarypadding="5" offset="0" content="Make plan primary"></b-popover-stub> <button type="button" class="btn text-primary btn-transparent btn-sm"><i class="fa fa-exchange-alt"></i></button> <button type="button" class="btn text-danger btn-transparent btn-sm"><i class="fa fa-trash"></i></button>
+                    </td>
+                  </div>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!---->
+        <!---->
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="txt-upper">
+              CheckIn
+            </div>
+            <div style="width: 200px;">
+              <no-ssr-stub>
+                <date-picker-stub id="time" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD" value-type="format" confirm="" range="" type="date" placeholder="Start Date" value="2020-06-20,2020-07-21"></date-picker-stub>
+              </no-ssr-stub>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="m-n25">
+            <table role="table" aria-busy="false" aria-colcount="5" class="table b-table table-striped" id="__BVID__26">
+              <!---->
+              <!---->
+              <thead role="rowgroup" class="">
+                <!---->
+                <tr role="row" class="">
+                  <th role="columnheader" scope="col" aria-colindex="1" class="">Full Name</th>
+                  <th role="columnheader" scope="col" aria-colindex="2" class="">Type</th>
+                  <th role="columnheader" scope="col" aria-colindex="3" class="">Company</th>
+                  <th role="columnheader" scope="col" aria-colindex="4" class="">Checkin Timestamp</th>
+                  <th role="columnheader" scope="col" aria-colindex="5" class="">Checkout Timestamp</th>
+                </tr>
+              </thead>
+              <tbody role="rowgroup">
+                <!---->
+                <tr role="row" class="b-table-empty-row">
+                  <td colspan="5" role="cell" class="">
+                    <div role="alert" aria-live="polite">
+                      <div class="text-center my-2">There are no records to show</div>
+                    </div>
+                  </td>
+                </tr>
+                <!---->
+              </tbody>
+              <!---->
+            </table>
+          </div>
+        </div>
+        <!---->
+        <div class="card-footer">
+          <div>
+            <ul class="pagination justify-content-center">
+              <li class="page-item prev-page disabled"><a aria-label="Previous" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-left"></i></span></a></li>
+              <li class="page-item active"><a class="page-link">1</a></li>
+              <li class="page-item next-page disabled"><a aria-label="Next" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-right"></i></span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex justify-content-between">
+            <div class="txt-upper">
+              Events
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="m-n25">
+            <div class="overflow-auto">
+              <table id="my-table" role="table" aria-busy="false" aria-colcount="0" class="table b-table table-striped">
+                <!---->
+                <!---->
+                <!---->
+                <tbody role="rowgroup">
+                  <!---->
+                  <tr role="row" class="b-table-empty-row">
+                    <td role="cell" class="">
+                      <div role="alert" aria-live="polite">
+                        <div class="text-center my-2">There are no records to show</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <!---->
+                </tbody>
+                <!---->
+              </table>
+            </div>
+          </div>
+        </div>
+        <!---->
+        <div class="card-footer">
+          <div>
+            <ul role="menubar" aria-disabled="false" aria-label="Pagination" class="pagination b-pagination justify-content-center">
+              <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to first page" aria-controls="my-table" aria-disabled="true" class="page-link">«</span></li>
+              <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to previous page" aria-controls="my-table" aria-disabled="true" class="page-link">‹</span></li>
+              <!---->
+              <li role="presentation" class="page-item active"><a role="menuitemradio" aria-controls="my-table" aria-label="Go to page 1" aria-checked="true" aria-posinset="1" aria-setsize="1" tabindex="0" target="_self" href="#" class="page-link">1</a></li>
+              <!---->
+              <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to next page" aria-controls="my-table" aria-disabled="true" class="page-link">›</span></li>
+              <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to last page" aria-controls="my-table" aria-disabled="true" class="page-link">»</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!---->
+<div id="add-plan___BV_modal_outer_" style="position: absolute; z-index: 1040;">
+  <div id="add-plan" role="dialog" aria-hidden="true" aria-labelledby="add-plan___BV_modal_title_" aria-describedby="add-plan___BV_modal_body_" class="modal fade" style="display: none;">
+    <div class="modal-dialog modal-md">
+      <!---->
+      <div role="document" id="add-plan___BV_modal_content_" tabindex="-1" class="modal-content">
+        <header id="add-plan___BV_modal_header_" class="modal-header">
+          <h5 id="add-plan___BV_modal_title_" class="modal-title">Add New Plan</h5><button type="button" aria-label="Close" class="close">×</button>
+        </header>
+        <div id="add-plan___BV_modal_body_" class="modal-body">
+          <div>
+            <form class="">
+              <div class="row">
+                <fieldset id="selectPlan" class="form-group col-md-12">
+                  <legend id="selectPlan__BV_label_" tabindex="-1" class="col-form-label pt-0">Plan</legend>
+                  <div tabindex="-1" role="group">
+                    <div class="el-select">
+                      <!---->
+                      <div class="el-input el-input--suffix">
+                        <!----><input type="text" readonly="readonly" autocomplete="off" placeholder="Choose New Plan" class="el-input__inner">
+                        <!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-"></i><!----><!----><!----><!----><!----></span>
+                        <!----></span>
+                        <!---->
+                        <!---->
+                      </div>
+                      <div class="el-select-dropdown el-popper" style="display: none;">
+                        <div class="el-scrollbar" style="">
+                          <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default">
+                            <ul class="el-scrollbar__view el-select-dropdown__list">
+                              <!---->
+                              <li class="el-select-dropdown__item"><span>Household Membership</span></li>
+                              <li class="el-select-dropdown__item"><span>Admin Plan</span></li>
+                            </ul>
+                          </div>
+                          <div class="el-scrollbar__bar is-horizontal">
+                            <div class="el-scrollbar__thumb" style="transform: translateX(0%); webkit-transform: translateX(0%);"></div>
+                          </div>
+                          <div class="el-scrollbar__bar is-vertical">
+                            <div class="el-scrollbar__thumb" style="transform: translateY(0%); webkit-transform: translateY(0%);"></div>
+                          </div>
+                        </div>
+                        <!---->
+                      </div>
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+                <fieldset id="memberCard" class="form-group col-md-12">
+                  <legend id="memberCard__BV_label_" tabindex="-1" class="col-form-label pt-0">Payment Source</legend>
+                  <div tabindex="-1" role="group">
+                    <div class="el-select">
+                      <!---->
+                      <div class="el-input el-input--suffix">
+                        <!----><input type="text" readonly="readonly" autocomplete="off" placeholder="Choose Card" class="el-input__inner">
+                        <!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-arrow-up"></i><!----><!----><!----><!----><!----></span>
+                        <!----></span>
+                        <!---->
+                        <!---->
+                      </div>
+                      <div class="el-select-dropdown el-popper" style="display: none;">
+                        <div class="el-scrollbar" style="">
+                          <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default">
+                            <ul class="el-scrollbar__view el-select-dropdown__list">
+                              <!---->
+                              <li class="el-select-dropdown__item"><span>MASTERCARD ~ **** 9399</span></li>
+                            </ul>
+                          </div>
+                          <div class="el-scrollbar__bar is-horizontal">
+                            <div class="el-scrollbar__thumb" style="transform: translateX(0%); webkit-transform: translateX(0%);"></div>
+                          </div>
+                          <div class="el-scrollbar__bar is-vertical">
+                            <div class="el-scrollbar__thumb" style="transform: translateY(0%); webkit-transform: translateY(0%);"></div>
+                          </div>
+                        </div>
+                        <!---->
+                      </div>
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+              </div>
+              <div class="row">
+                <fieldset class="form-group col-md-6" id="__BVID__66">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__66__BV_label_">Trial</legend>
+                  <div tabindex="-1" role="group">
+                    <div class="custom-control custom-checkbox"><input id="checkbox-1" type="checkbox" name="checkbox-1" autocomplete="off" class="custom-control-input" value="true"><label for="checkbox-1" class="custom-control-label">
+                        Yes
+                      </label></div>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+                <!---->
+              </div> <button type="submit" class="btn float-right btn-primary">Add Plan</button>
+            </form>
+          </div>
+        </div>
+        <!---->
+      </div>
+      <!---->
+    </div>
+  </div>
+  <!---->
+</div>
+<!---->
+<div role="presentation" class="el-dialog__wrapper" style="display: none;">
+  <div role="document" tabindex="-1" class="el-drawer__container">
+    <div aria-modal="true" aria-labelledby="el-drawer__title" role="presentation" class="el-drawer rtl" style="width: 30%;">
+      <header id="el-drawer__title" class="el-drawer__header"><span role="heading">Notes</span><button aria-label="close Notes" type="button" class="el-drawer__close-btn"><i class="el-dialog__close el-icon el-icon-close"></i></button></header>
+      <!---->
+    </div>
+  </div>
+</div>
+</div>
+`;

@@ -20,12 +20,14 @@
             <card>
               <div class="row">
                 <base-input
+                  id="currentPassword"
                   v-model="old_password"
                   type="password"
                   class="col-md-6"
                   label="Current Password"
                   placeholder="Current Password"/>
                 <base-input
+                  id="newPassword"
                   v-model="new_password"
                   type="password"
                   class="col-md-6"

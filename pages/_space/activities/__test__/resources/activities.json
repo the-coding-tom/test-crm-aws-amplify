@@ -1,0 +1,43 @@
+{
+  "data": [
+    {
+      "id": 215,
+      "log_name": "default",
+      "description": "Kidd Bubu booked Conference Rooms",
+      "subject_id": 68,
+      "subject_type": "App\\RoomBooking",
+      "causer_id": 27,
+      "causer_type": "App\\User",
+      "properties": { "attributes": { "space_id": 1 } },
+      "created_at": "2020-03-24T19:17:38.000000Z",
+      "updated_at": "2020-03-24T19:17:38.000000Z"
+    },
+    {
+      "id": 214,
+      "log_name": "default",
+      "description": "Kidd Bubu purchased a ticket for The Next Frontier",
+      "subject_id": 9,
+      "subject_type": "App\\Event",
+      "causer_id": 27,
+      "causer_type": "App\\User",
+      "properties": { "attributes": { "space_id": 1 } },
+      "created_at": "2020-03-23T16:54:03.000000Z",
+      "updated_at": "2020-03-23T16:54:03.000000Z"
+    }
+  ],
+  "meta": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 14,
+    "path": "https://staging.bdgic76uiy.us-east-1.elasticbeanstalk.com/api/v1/san-francisco/activities",
+    "per_page": 15,
+    "to": 15,
+    "total": 209
+  },
+  "links": {
+    "first": "https://staging.bdgic76uiy.us-east-1.elasticbeanstalk.com/api/v1/san-francisco/activities?page=1",
+    "last": "https://staging.bdgic76uiy.us-east-1.elasticbeanstalk.com/api/v1/san-francisco/activities?page=14",
+    "prev": null,
+    "next": "https://staging.bdgic76uiy.us-east-1.elasticbeanstalk.com/api/v1/san-francisco/activities?page=2"
+  }
+}

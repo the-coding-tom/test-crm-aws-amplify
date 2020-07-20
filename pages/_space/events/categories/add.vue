@@ -15,6 +15,7 @@
             <h3 class="mr-b-20">New Category</h3>
             <div class="row">
               <base-input
+                id="name"
                 v-model="name"
                 class="col-md-3"
                 label="Name"
@@ -22,6 +23,7 @@
                 placeholder="Name of Category"
               />
               <base-input
+                id="color"
                 v-model="color"
                 class="col-md-3"
                 required

@@ -4,6 +4,7 @@
       <b-row>
 
         <b-form-group
+          id="selectPlan"
           class="col-md-12"
           label="Plan"
           description="">
@@ -24,6 +25,7 @@
           </el-select>
         </b-form-group>
         <b-form-group
+          id="memberCard"
           class="col-md-12"
           label="Payment Source"
           description="">

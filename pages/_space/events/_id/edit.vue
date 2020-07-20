@@ -32,12 +32,14 @@
               <div class="col-md-6">
                 <div class="row pd-r-20">
                   <base-input
+                    id="title"
                     v-model="event.name"
                     class="col-md-6"
                     label="Event Title"
                     placeholder="Awesome Co"
                   />
                   <base-input
+                    id="capacity"
                     v-model="event.total_tickets"
                     class="col-md-6"
                     label="Capacity"
@@ -47,6 +49,7 @@
                   <div class="form-group col-md-12">
                     <label>Event Description</label>
                     <html-editor
+                      id="description"
                       v-model="event.description"
                       placeholder="Add details about the event" />
                   </div>
@@ -55,7 +58,7 @@
                     class="col-md-6">
                     <client-only>
                       <date-picker
-                        id="time"
+                        id="startTime"
                         v-model="event.start_time"
                         width="100%"
                         input-class="form-control"
@@ -74,7 +77,7 @@
                     class="col-md-6">
                     <client-only>
                       <date-picker
-                        id="time"
+                        id="endTime"
                         v-model="event.end_time"
                         width="100%"
                         input-class="form-control"
@@ -88,6 +91,7 @@
                     </client-only>
                   </b-form-group>
                   <base-input
+                    id="price"
                     v-model="event.price"
                     class="col-md-6"
                     label="Price"
@@ -96,6 +100,7 @@
                     placeholder="0.00"
                   />
                   <base-input
+                    id="maxTicketPerPerson"
                     v-model="event.max_ticket_per_person"
                     class="col-md-6"
                     label="Max Ticket Per Person"
@@ -144,6 +149,7 @@
 
                   <div class="form-group col-md-12">
                     <b-form-checkbox
+                      id="sendEmailCheckbox"
                       v-model="event.send_email"
                       :value="true">Send email to attendees</b-form-checkbox>
                   </div>
@@ -152,12 +158,14 @@
                     v-if="event.send_email"
                     class="form-group col-md-12">
                     <base-input
+                      id="emailSubject"
                       v-model="event.email_subject"
                       label="Email Subject"
                       placeholder="Add subject of Email"
                     />
                     <b-form-group label="Email Content">
                       <html-editor
+                        id="emailMessage"
                         v-model="event.email_content"
                         placeholder="Message body for attendees email" />
                     </b-form-group>

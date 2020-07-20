@@ -52,6 +52,7 @@
                           for=""
                           class="mr-r-10">Subject</label>
                         <input
+                          id="subject"
                           v-model="subject"
                           type="text"
                           class="fg-1 form-control"

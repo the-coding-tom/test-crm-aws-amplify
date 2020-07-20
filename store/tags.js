@@ -1,5 +1,9 @@
 export const state = () => ({
-  tags: []
+  tags: {
+    links: {},
+    meta: {},
+    data: []
+  }
 })
 
 export const mutations = {

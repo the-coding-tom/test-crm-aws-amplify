@@ -11,7 +11,9 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "yarn lint --fix",
     "heroku-postbuild": "yarn build",
-    "aws-eb:prod": "node -e \"console.log('aws-eb:prod');\""
+    "aws-eb:prod": "node -e \"console.log('aws-eb:prod');\"",
+    "test": "jest",
+    "test:coverage": "jest --no-cache --coverage"
   },
   "engines": {
     "node": "x.x",
@@ -55,16 +57,25 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.10.4",
+    "@vue/test-utils": "^1.0.3",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.1",
+    "babel-jest": "^26.1.0",
     "babel-plugin-component": "^1.1.0",
     "eslint": "^5.0.1",
     "eslint-config-prettier": "^3.1.0",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-prettier": "2.6.2",
     "eslint-plugin-vue": "^4.0.0",
+    "flush-promises": "^1.0.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.1.0",
+    "jest-serializer-vue": "^2.0.2",
     "node-sass": "^4.12.0",
     "nodemon": "^1.11.0",
     "prettier": "1.14.3",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "vue-jest": "^3.0.5"
   }
 }

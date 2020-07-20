@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/events/ | Events Index Page renders properly 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h1 class="page-title"><span>Events</span> <b>•</b> All</h1>
+          <nuxt-link-stub to="[object Object]" class="btn btn-primary">Add Event</nuxt-link-stub>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6">
+    <div class="card-deck flex-column flex-xl-row">
+      <div class="card">
+        <!---->
+        <div class="card-body">
+          <client-only-stub>
+            <div data-fc-render-id="0" class="fc fc-ltr fc-unthemed" style="">
+              <div class="fc-toolbar fc-header-toolbar">
+                <div class="fc-left">
+                  <div class="fc-button-group"><button type="button" class="fc-prev-button fc-button fc-button-primary" aria-label="prev"><span class="fc-icon fc-icon-chevron-left"></span></button><button type="button" class="fc-next-button fc-button fc-button-primary" aria-label="next"><span class="fc-icon fc-icon-chevron-right"></span></button></div><button type="button" class="fc-today-button fc-button fc-button-primary" disabled="">today</button>
+                </div>
+                <div class="fc-center">
+                  <h2>&nbsp;</h2>
+                </div>
+                <div class="fc-right">
+                  <div class="fc-button-group"><button type="button" class="fc-dayGridMonth-button fc-button fc-button-primary">month</button><button type="button" class="fc-timeGridWeek-button fc-button fc-button-primary">week</button><button type="button" class="fc-listWeek-button fc-button fc-button-primary fc-button-active">list</button></div>
+                </div>
+              </div>
+              <div class="fc-view-container">
+                <div class="fc-view fc-listWeek-view fc-list-view fc-widget-content" style="">
+                  <div class="fc-scroller" style="overflow-x: hidden; overflow-y: auto; height: 0px;">
+                    <div class="fc-list-empty-wrap2">
+                      <div class="fc-list-empty-wrap1">
+                        <div class="fc-list-empty">No events to display</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </client-only-stub>
+        </div>
+        <!---->
+        <!---->
+      </div>
+    </div>
+    <!---->
+  </div>
+</div>
+`;

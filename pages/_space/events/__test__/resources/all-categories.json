@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": "8e42f835-74b2-475f-b7f3-cf72c6b792ed",
+      "name": "talks",
+      "color": "#83ac0c",
+      "disable": false,
+      "created_at": "2019-11-05 08:49:10",
+      "updated_at": "2019-11-05 08:49:10"
+    },
+    {
+      "id": "4f24fb3b-b8cc-4db6-a2d2-bbc4874f12d3",
+      "name": "meetups",
+      "color": "#ca368b",
+      "disable": false,
+      "created_at": "2019-11-05 08:49:10",
+      "updated_at": "2019-11-05 08:49:10"
+    }
+  ]
+}

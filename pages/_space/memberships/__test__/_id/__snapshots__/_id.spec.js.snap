@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/memberships/_id/ | Memberships Id Page renders properly 1`] = `
+<div>
+  <form class="">
+    <div class="header pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="d-flex justify-content-between align-items-center py-4">
+            <h1 class="page-title"><span>Membership</span> <b>•</b> Leslie Akorful</h1>
+            <div><button type="button" class="btn text-primary btn-transparent"><i class="fas fa-user-lock"></i> Brivo Onboard
+              </button> <button type="button" class="btn text-danger btn-transparent"><i class="fa fa-trash"></i> Cancel Membership</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <!---->
+            <div class="card-body">
+              <div class="row">
+                <div class="form-group col-md-6"><label class="form-control-label">
+                    Email
+                  </label>
+                  <div class="input-group has-label">
+                    <!----> <input type="text" valid="true" required="required" id="email" disabled="disabled" placeholder="Email" class="form-control">
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </div>
+                <div class="form-group col-md-6"><label class="form-control-label">
+                    First Name
+                  </label>
+                  <div class="input-group has-label">
+                    <!----> <input type="text" valid="true" required="required" id="firstName" placeholder="First Name" class="form-control">
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </div>
+                <div class="form-group col-md-6"><label class="form-control-label">
+                    Last Name
+                  </label>
+                  <div class="input-group has-label">
+                    <!----> <input type="text" valid="true" required="required" id="lastName" placeholder="Last Name" class="form-control">
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </div>
+                <div class="form-group col-md-6"><label class="form-control-label">
+                    Membership #
+                  </label>
+                  <div class="input-group has-label">
+                    <!----> <input type="text" valid="true" required="required" id="membershipNumber" placeholder="0000000" class="form-control">
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </div>
+                <div class="form-group col-md-6"><label class="form-control-label">
+                    Linkedin
+                  </label>
+                  <div class="input-group has-label">
+                    <!----> <input type="text" valid="true" id="linkedinURL" placeholder="https://linkedin.com/in/someone" class="form-control">
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </div>
+                <fieldset class="form-group col-md-6" id="__BVID__14">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__14__BV_label_">Source of Invitation</legend>
+                  <div tabindex="-1" role="group"><select id="invitationSource" class="custom-select">
+                      <option value="referral">Referral</option>
+                      <option value="application">Application</option>
+                    </select>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-md-6" id="__BVID__16">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__16__BV_label_">Comments</legend>
+                  <div tabindex="-1" role="group"><textarea id="comment" placeholder="Comments" rows="2" wrap="soft" class="form-control" label="Comments"></textarea>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-md-6" id="__BVID__18">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__18__BV_label_">Membership Type</legend>
+                  <div tabindex="-1" role="group"><select id="memberType" class="custom-select">
+                      <option value="0">Founding Member</option>
+                      <option value="1">Fast Track</option>
+                      <option value="2">Early Invite</option>
+                      <option value="3">General Member</option>
+                    </select>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-md-6" id="__BVID__20">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__20__BV_label_">Region</legend>
+                  <div tabindex="-1" role="group"><select id="region" class="custom-select">
+                      <option value="A">Bay Area</option>
+                      <option value="B">US outside of the Bay</option>
+                      <option value="C">EMEA</option>
+                      <option value="D">APAC</option>
+                    </select>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-md-6" id="__BVID__22">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__22__BV_label_">Assigned Admin</legend>
+                  <div tabindex="-1" role="group">
+                    <div class="el-select">
+                      <!---->
+                      <div class="el-input el-input--suffix">
+                        <!----><input type="text" readonly="readonly" autocomplete="off" placeholder="Choose an admin" class="el-input__inner">
+                        <!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-"></i><!----><!----><!----><!----><!----></span>
+                        <!----></span>
+                        <!---->
+                        <!---->
+                      </div>
+                      <div class="el-select-dropdown el-popper" style="display: none;">
+                        <div class="el-scrollbar" style="display: none;">
+                          <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default">
+                            <ul class="el-scrollbar__view el-select-dropdown__list"></ul>
+                          </div>
+                          <div class="el-scrollbar__bar is-horizontal">
+                            <div class="el-scrollbar__thumb" style="transform: translateX(0%); webkit-transform: translateX(0%);"></div>
+                          </div>
+                          <div class="el-scrollbar__bar is-vertical">
+                            <div class="el-scrollbar__thumb" style="transform: translateY(0%); webkit-transform: translateY(0%);"></div>
+                          </div>
+                        </div>
+                        <!---->
+                      </div>
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-md-6" id="__BVID__30">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__30__BV_label_">Start Date</legend>
+                  <div tabindex="-1" role="group">
+                    <client-only-stub>
+                      <date-picker-stub id="time" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD" value-type="format" confirm="" type="date" placeholder="Start Date" value=""></date-picker-stub>
+                    </client-only-stub>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-md-6" id="__BVID__33" aria-describedby="__BVID__33__BV_description_">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__33__BV_label_">Trial Days</legend>
+                  <div tabindex="-1" role="group"><input type="number" required="required" min="0" aria-required="true" class="form-control" id="__BVID__34">
+                    <!---->
+                    <!----><small tabindex="-1" class="form-text text-muted" id="__BVID__33__BV_description_">Number of days before member is charged</small></div>
+                </fieldset>
+                <fieldset class="form-group col-md-6" id="__BVID__35">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__35__BV_label_">Paid for</legend>
+                  <div tabindex="-1" role="group">
+                    <div class="custom-control custom-checkbox"><input type="checkbox" autocomplete="off" class="custom-control-input" value="true" id="__BVID__36"><label class="custom-control-label" for="__BVID__36">Yes</label></div>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+                <!---->
+                <div class="col-md-12"><button type="submit" class="btn btn-primary btn-block">Save</button></div>
+              </div>
+            </div>
+            <!---->
+            <!---->
+          </div>
+        </div>
+      </div>
+    </div>
+  </form> <button type="button" class="btn text-primary ml-2 mb-2 btn-transparent"><i class="fas fa-chevron-left"></i> Back</button>
+</div>
+`;

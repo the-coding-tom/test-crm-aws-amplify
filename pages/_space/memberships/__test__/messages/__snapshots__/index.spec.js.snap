@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/memberships/messages | Memberships View All Messages Page renders properly 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h1 class="page-title"><span>Messages</span> <b>•</b> All</h1> <a href="#_space/memberships/messages/create" class="btn btn-primary" target="_self"><i class="fa fa-paper-plane"></i> New Email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6 mr-b-30">
+    <div class="card-deck flex-column flex-xl-row">
+      <div class="card">
+        <table role="table" aria-busy="false" aria-colcount="3" class="table b-table table-striped table-hover" id="__BVID__10">
+          <!---->
+          <!---->
+          <thead role="rowgroup" class="">
+            <!---->
+            <tr role="row" class="">
+              <th role="columnheader" scope="col" tabindex="0" aria-colindex="1" class="">Emails</th>
+              <th role="columnheader" scope="col" tabindex="0" aria-colindex="2" aria-label="Click to sort Ascending" aria-sort="none" class="">Subject</th>
+              <th role="columnheader" scope="col" tabindex="0" aria-colindex="3" aria-label="Click to sort Ascending" aria-sort="none" class="">Created At</th>
+            </tr>
+          </thead>
+          <tbody role="rowgroup">
+            <!---->
+            <tr role="row" tabindex="0" class="">
+              <td role="cell" aria-colindex="1" class="">
+                edwin@devless.io +0
+              </td>
+              <td role="cell" aria-colindex="2" class="">Some test subject</td>
+              <td role="cell" aria-colindex="3" class="">2019-12-06 16:01:58</td>
+            </tr>
+            <tr role="row" tabindex="0" class="">
+              <td role="cell" aria-colindex="1" class="">
+                paynegreen@yahoo.com +0
+              </td>
+              <td role="cell" aria-colindex="2" class="">get some email</td>
+              <td role="cell" aria-colindex="3" class="">2019-11-08 16:54:28</td>
+            </tr>
+            <tr role="row" tabindex="0" class="">
+              <td role="cell" aria-colindex="1" class="">
+                gerhard@meltwater.org +0
+              </td>
+              <td role="cell" aria-colindex="2" class="">some subject</td>
+              <td role="cell" aria-colindex="3" class="">2019-11-08 16:52:05</td>
+            </tr>
+            <!---->
+            <!---->
+          </tbody>
+          <!---->
+        </table>
+      </div>
+    </div>
+    <div>
+      <ul class="pagination justify-content-center">
+        <li class="page-item prev-page disabled"><a aria-label="Previous" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-left"></i></span></a></li>
+        <li class="page-item active"><a class="page-link">1</a></li>
+        <li class="page-item next-page disabled"><a aria-label="Next" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-right"></i></span></a></li>
+      </ul>
+    </div> <a target="_self" href="#" class=""><i class="fa fa-angle-left mr-r-10"></i> Back</a>
+  </div>
+</div>
+`;

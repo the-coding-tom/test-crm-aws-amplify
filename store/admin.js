@@ -1,5 +1,16 @@
 export const state = () => ({
-  admins: {}
+  admins: {
+    data: [],
+    meta: {
+      total: 0,
+      per_page: 1,
+      current_page: 1
+    },
+    links: {
+      prev: null,
+      next: null
+    }
+  }
 })
 
 export const mutations = {

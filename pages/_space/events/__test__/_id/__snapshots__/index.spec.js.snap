@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/events/:id | Events Id Index Page renders properly 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h1 class="page-title"><span>Preview Event</span> <b style="display: none;">•</b> </h1> <a href="#_sapce/events/8880f445-122a-45bb-9476-a615d7492881/edit" class="btn btn-primary" target="_self"><i class="ti-pencil"></i> Edit Event
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card sh-eventpv">
+          <!---->
+          <div class="card-body">
+            <div class="m-n25 img-wrap"><img src="https://d3mym26vamg9ol.cloudfront.net/event/1593010166_d2b06fae-7f1c-43fc-b9d3-1f7ec9493beb.png" alt="" class="img-fluid"></div>
+            <div class="pv-content">
+              <h3>SHACK15 CONVERSATIONS: LISA KRISTINE</h3> <span><p>A CONVERSATION AND GUIDED ART GALLERY TOUR WITH HUMANITARIAN PHOTOGRAPHER LISA KRISTINE. Join us for a SHACK15 Conversation with Lisa Kristine, an internationally acclaimed humanitarian photographer and social entrepreneur who has documented indigenous peoples and social causes in more than 150 countries across six continents.</p></span> <span class="badge badge-info">talks</span>
+            </div>
+            <div class="pv-footer">
+              <p>
+                Price: $10.00 /
+                <span class="text-muted">ticket</span></p>
+              <p>June 30 2020, 14:00 - 15:00 </p>
+              <div>
+                <p>Lounge</p>
+              </div>
+            </div>
+          </div>
+          <!---->
+          <!---->
+        </div>
+        <div class="mr-b-30"><a href="#_space/events" class="btn text-primary btn-transparent" target="_self"><i class="fa fa-angle-left mr-r-10"></i> Back
+          </a></div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

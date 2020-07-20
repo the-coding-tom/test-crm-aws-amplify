@@ -1,0 +1,388 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/events/:id/edit | Events Edit Page renders properly 1`] = `
+<div>
+  <form class="">
+    <div class="header pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="d-flex justify-content-between align-items-center py-4">
+            <h1 class="page-title"><span>Event</span> <b>•</b> Update</h1>
+            <div><button type="submit" class="btn btn btn-primary text-white btn-secondary">Update Event</button> <button type="button" class="btn text-danger btn-transparent"><i class="fa fa-angle-left"></i> Cancel Update</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--6">
+      <div class="card-deck flex-column flex-xl-row">
+        <div class="card">
+          <!---->
+          <div class="card-body">
+            <h3 class="mr-b-20">Event Details</h3>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row pd-r-20">
+                  <div class="form-group col-md-6"><label class="form-control-label">
+                      Event Title
+                    </label>
+                    <div class="input-group has-label">
+                      <!----> <input type="text" valid="true" required="required" id="title" placeholder="Awesome Co" class="form-control">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6"><label class="form-control-label">
+                      Capacity
+                    </label>
+                    <div class="input-group has-label">
+                      <!----> <input type="number" valid="true" required="required" id="capacity" placeholder="0" class="form-control">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </div>
+                  <div class="form-group col-md-12"><label>Event Description</label>
+                    <div id="description" placeholder="Add details about the event">
+                      <client-only-stub>
+                        <div style="box-sizing: border-box; height: 300px;">
+                          <div class="tui-editor-defaultUI">
+                            <div class="te-toolbar-section">
+                              <div class="te-markdown-tab-section" style="display: none;">
+                                <div class="te-tab"><button type="button" data-index="0" class="te-tab-active">Write</button><button type="button" data-index="1">Preview</button></div>
+                              </div>
+                              <div class="tui-editor-defaultUI-toolbar"><button class="tui-heading tui-toolbar-icons" type="button"></button><button class="tui-bold tui-toolbar-icons" type="button"></button><button class="tui-italic tui-toolbar-icons" type="button"></button><button class="tui-strike tui-toolbar-icons" type="button"></button>
+                                <div class="tui-toolbar-divider"></div><button class="tui-hrline tui-toolbar-icons" type="button"></button><button class="tui-quote tui-toolbar-icons" type="button"></button>
+                                <div class="tui-toolbar-divider"></div><button class="tui-ul tui-toolbar-icons" type="button"></button><button class="tui-ol tui-toolbar-icons" type="button"></button><button class="tui-task tui-toolbar-icons" type="button"></button><button class="tui-indent tui-toolbar-icons" type="button"></button><button class="tui-outdent tui-toolbar-icons" type="button"></button>
+                                <div class="tui-toolbar-divider"></div><button class="tui-table tui-toolbar-icons" type="button"></button><button class="tui-image tui-toolbar-icons" type="button"></button><button class="tui-link tui-toolbar-icons" type="button"></button>
+                                <div class="tui-toolbar-divider"></div><button class="tui-code tui-toolbar-icons" type="button"></button><button class="tui-codeblock tui-toolbar-icons" type="button"></button>
+                                <div class="tui-popup-wrapper te-dropdown-toolbar" style="display: none;">
+                                  <div class="tui-popup-body">
+                                    <div class="tui-editor-defaultUI-toolbar"></div>
+                                  </div>
+                                </div>
+                                <div class="tui-popup-wrapper te-popup-add-table" style="display: none; position: absolute; width: 181px;">
+                                  <div class="tui-popup-body">
+                                    <div class="te-table-selection">
+                                      <div class="te-table-header" style="height: 17px; width: 151px;"></div>
+                                      <div class="te-table-body" style="height: 120px; width: 151px;"></div>
+                                      <div class="te-selection-area"></div>
+                                    </div>
+                                    <p class="te-description"></p>
+                                  </div>
+                                </div>
+                                <div class="tui-popup-wrapper te-heading-add" style="display: none; position: absolute;">
+                                  <div class="tui-popup-body">
+                                    <ul>
+                                      <li data-value="1" data-type="Heading">
+                                        <h1>Heading 1</h1>
+                                      </li>
+                                      <li data-value="2" data-type="Heading">
+                                        <h2>Heading 2</h2>
+                                      </li>
+                                      <li data-value="3" data-type="Heading">
+                                        <h3>Heading 3</h3>
+                                      </li>
+                                      <li data-value="4" data-type="Heading">
+                                        <h4>Heading 4</h4>
+                                      </li>
+                                      <li data-value="5" data-type="Heading">
+                                        <h5>Heading 5</h5>
+                                      </li>
+                                      <li data-value="6" data-type="Heading">
+                                        <h6>Heading 6</h6>
+                                      </li>
+                                      <li data-type="Paragraph">
+                                        <div>Paragraph</div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="te-editor-section">
+                              <div class="tui-editor te-ww-mode">
+                                <div class="te-md-container te-preview-style-tab">
+                                  <div class="te-editor te-tab-active"><textarea style="display: none;"></textarea>
+                                    <div class="CodeMirror cm-s-default CodeMirror-wrap" style="min-height: 300px;">
+                                      <div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;" autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0"></textarea></div>
+                                      <div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true">
+                                        <div style="min-width: 1px;"></div>
+                                      </div>
+                                      <div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true">
+                                        <div style="height: 100%; min-height: 1px;"></div>
+                                      </div>
+                                      <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
+                                      <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
+                                      <div class="CodeMirror-scroll" tabindex="-1">
+                                        <div class="CodeMirror-sizer" style="margin-left: 0px;">
+                                          <div style="position: relative;">
+                                            <div class="CodeMirror-lines" role="presentation">
+                                              <div style="position: relative; outline: none;" role="presentation">
+                                                <div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre>
+                                                </div>
+                                                <div class="CodeMirror-measure"></div>
+                                                <div style="position: relative; z-index: 1;"></div>
+                                                <div class="CodeMirror-cursors"></div>
+                                                <div class="CodeMirror-code" role="presentation"></div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div style="position: absolute; height: 30px; width: 1px;"></div>
+                                        <div class="CodeMirror-gutters" style="display: none;"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="te-md-splitter"></div>
+                                  <div class="te-preview" style="min-height: 300px;">
+                                    <div class="tui-editor-contents"></div>
+                                  </div>
+                                </div>
+                                <div class="te-ww-container">
+                                  <div class="te-editor" style="position: relative;">
+                                    <div contenteditable="true" class="tui-editor-contents" style="min-height: 300px;">
+                                      <div>A CONVERSATION AND GUIDED ART GALLERY TOUR WITH HUMANITARIAN PHOTOGRAPHER LISA KRISTINE. Join us for a SHACK15 Conversation with Lisa Kristine, an internationally acclaimed humanitarian photographer and social entrepreneur who has documented indigenous peoples and social causes in more than 150 countries across six continents.<br></div>
+                                    </div>
+                                    <div class="te-ww-block-overlay code-block-header" style="position: absolute; display: none; z-index: 1;"><span>text</span><button type="button">Editor</button></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="te-mode-switch-section" style="display: none;">
+                              <div class="te-mode-switch"><button class="te-switch-button markdown" type="button">Markdown</button><button class="te-switch-button wysiwyg active" type="button">WYSIWYG</button></div>
+                            </div>
+                            <div class="tui-popup-wrapper te-popup-add-link tui-editor-popup" style="display: none;">
+                              <div class="tui-popup-header">
+                                <span class="tui-popup-title">Insert link</span>
+                                <div class="tui-popup-header-buttons">
+                                  <button type="button" class="tui-popup-close-button"></button>
+                                </div>
+                              </div>
+                              <div class="tui-popup-body"><label for="url">URL</label>
+                                <input type="text" class="te-url-input">
+                                <label for="linkText">Link text</label>
+                                <input type="text" class="te-link-text-input">
+                                <div class="te-button-section">
+                                  <button type="button" class="te-ok-button">OK</button>
+                                  <button type="button" class="te-close-button">Cancel</button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="tui-popup-wrapper te-popup-add-image tui-editor-popup" style="display: none;">
+                              <div class="tui-popup-header">
+                                <span class="tui-popup-title">Insert image</span>
+                                <div class="tui-popup-header-buttons">
+                                  <button type="button" class="tui-popup-close-button"></button>
+                                </div>
+                              </div>
+                              <div class="tui-popup-body">
+                                <div class="te-tab-section">
+                                  <div class="te-tab"><button type="button" data-index="0" class="te-tab-active">File</button><button type="button" data-index="1">URL</button></div>
+                                </div>
+                                <div class="te-url-type">
+                                  <label for="">Image URL</label>
+                                  <input type="text" class="te-image-url-input">
+                                </div>
+                                <form enctype="multipart/form-data" class="te-file-type te-tab-active">
+                                  <label for="">Select image file</label>
+                                  <input type="file" class="te-image-file-input" accept="image/*">
+                                </form>
+                                <label for="url">Description</label>
+                                <input type="text" class="te-alt-text-input">
+                                <div class="te-button-section">
+                                  <button type="button" class="te-ok-button">OK</button>
+                                  <button type="button" class="te-close-button">Cancel</button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="tui-popup-wrapper te-popup-table-utils" style="display: none;">
+                              <div class="tui-popup-body"><button type="button" class="te-table-add-row">Add row</button>
+                                <button type="button" class="te-table-add-col">Add col</button>
+                                <button type="button" class="te-table-remove-row">Remove row</button>
+                                <button type="button" class="te-table-remove-col">Remove col</button>
+                                <hr>
+                                <button type="button" class="te-table-col-align-left">Align left</button>
+                                <button type="button" class="te-table-col-align-center">Align center</button>
+                                <button type="button" class="te-table-col-align-right">Align right</button>
+                                <hr>
+                                <button type="button" class="te-table-remove">Remove table</button></div>
+                            </div>
+                            <div class="tui-popup-wrapper te-popup-code-block-languages" style="display: none; z-index: 10000;">
+                              <div class="tui-popup-body"><button type="button" class="te-popup-code-block-lang-1c active" data-lang="1c">1c</button><button type="button" class="te-popup-code-block-lang-abnf" data-lang="abnf">abnf</button><button type="button" class="te-popup-code-block-lang-accesslog" data-lang="accesslog">accesslog</button><button type="button" class="te-popup-code-block-lang-actionscript" data-lang="actionscript">actionscript</button><button type="button" class="te-popup-code-block-lang-ada" data-lang="ada">ada</button><button type="button" class="te-popup-code-block-lang-angelscript" data-lang="angelscript">angelscript</button><button type="button" class="te-popup-code-block-lang-apache" data-lang="apache">apache</button><button type="button" class="te-popup-code-block-lang-applescript" data-lang="applescript">applescript</button><button type="button" class="te-popup-code-block-lang-arcade" data-lang="arcade">arcade</button><button type="button" class="te-popup-code-block-lang-cpp" data-lang="cpp">cpp</button><button type="button" class="te-popup-code-block-lang-arduino" data-lang="arduino">arduino</button><button type="button" class="te-popup-code-block-lang-armasm" data-lang="armasm">armasm</button><button type="button" class="te-popup-code-block-lang-xml" data-lang="xml">xml</button><button type="button" class="te-popup-code-block-lang-asciidoc" data-lang="asciidoc">asciidoc</button><button type="button" class="te-popup-code-block-lang-aspectj" data-lang="aspectj">aspectj</button><button type="button" class="te-popup-code-block-lang-autohotkey" data-lang="autohotkey">autohotkey</button><button type="button" class="te-popup-code-block-lang-autoit" data-lang="autoit">autoit</button><button type="button" class="te-popup-code-block-lang-avrasm" data-lang="avrasm">avrasm</button><button type="button" class="te-popup-code-block-lang-awk" data-lang="awk">awk</button><button type="button" class="te-popup-code-block-lang-axapta" data-lang="axapta">axapta</button><button type="button" class="te-popup-code-block-lang-bash" data-lang="bash">bash</button><button type="button" class="te-popup-code-block-lang-basic" data-lang="basic">basic</button><button type="button" class="te-popup-code-block-lang-bnf" data-lang="bnf">bnf</button><button type="button" class="te-popup-code-block-lang-brainfuck" data-lang="brainfuck">brainfuck</button><button type="button" class="te-popup-code-block-lang-cal" data-lang="cal">cal</button><button type="button" class="te-popup-code-block-lang-capnproto" data-lang="capnproto">capnproto</button><button type="button" class="te-popup-code-block-lang-ceylon" data-lang="ceylon">ceylon</button><button type="button" class="te-popup-code-block-lang-clean" data-lang="clean">clean</button><button type="button" class="te-popup-code-block-lang-clojure" data-lang="clojure">clojure</button><button type="button" class="te-popup-code-block-lang-clojure-repl" data-lang="clojure-repl">clojure-repl</button><button type="button" class="te-popup-code-block-lang-cmake" data-lang="cmake">cmake</button><button type="button" class="te-popup-code-block-lang-coffeescript" data-lang="coffeescript">coffeescript</button><button type="button" class="te-popup-code-block-lang-coq" data-lang="coq">coq</button><button type="button" class="te-popup-code-block-lang-cos" data-lang="cos">cos</button><button type="button" class="te-popup-code-block-lang-crmsh" data-lang="crmsh">crmsh</button><button type="button" class="te-popup-code-block-lang-crystal" data-lang="crystal">crystal</button><button type="button" class="te-popup-code-block-lang-cs" data-lang="cs">cs</button><button type="button" class="te-popup-code-block-lang-csp" data-lang="csp">csp</button><button type="button" class="te-popup-code-block-lang-css" data-lang="css">css</button><button type="button" class="te-popup-code-block-lang-d" data-lang="d">d</button><button type="button" class="te-popup-code-block-lang-markdown" data-lang="markdown">markdown</button><button type="button" class="te-popup-code-block-lang-dart" data-lang="dart">dart</button><button type="button" class="te-popup-code-block-lang-delphi" data-lang="delphi">delphi</button><button type="button" class="te-popup-code-block-lang-diff" data-lang="diff">diff</button><button type="button" class="te-popup-code-block-lang-django" data-lang="django">django</button><button type="button" class="te-popup-code-block-lang-dns" data-lang="dns">dns</button><button type="button" class="te-popup-code-block-lang-dockerfile" data-lang="dockerfile">dockerfile</button><button type="button" class="te-popup-code-block-lang-dos" data-lang="dos">dos</button><button type="button" class="te-popup-code-block-lang-dsconfig" data-lang="dsconfig">dsconfig</button><button type="button" class="te-popup-code-block-lang-dts" data-lang="dts">dts</button><button type="button" class="te-popup-code-block-lang-dust" data-lang="dust">dust</button><button type="button" class="te-popup-code-block-lang-ebnf" data-lang="ebnf">ebnf</button><button type="button" class="te-popup-code-block-lang-elixir" data-lang="elixir">elixir</button><button type="button" class="te-popup-code-block-lang-elm" data-lang="elm">elm</button><button type="button" class="te-popup-code-block-lang-ruby" data-lang="ruby">ruby</button><button type="button" class="te-popup-code-block-lang-erb" data-lang="erb">erb</button><button type="button" class="te-popup-code-block-lang-erlang-repl" data-lang="erlang-repl">erlang-repl</button><button type="button" class="te-popup-code-block-lang-erlang" data-lang="erlang">erlang</button><button type="button" class="te-popup-code-block-lang-excel" data-lang="excel">excel</button><button type="button" class="te-popup-code-block-lang-fix" data-lang="fix">fix</button><button type="button" class="te-popup-code-block-lang-flix" data-lang="flix">flix</button><button type="button" class="te-popup-code-block-lang-fortran" data-lang="fortran">fortran</button><button type="button" class="te-popup-code-block-lang-fsharp" data-lang="fsharp">fsharp</button><button type="button" class="te-popup-code-block-lang-gams" data-lang="gams">gams</button><button type="button" class="te-popup-code-block-lang-gauss" data-lang="gauss">gauss</button><button type="button" class="te-popup-code-block-lang-gcode" data-lang="gcode">gcode</button><button type="button" class="te-popup-code-block-lang-gherkin" data-lang="gherkin">gherkin</button><button type="button" class="te-popup-code-block-lang-glsl" data-lang="glsl">glsl</button><button type="button" class="te-popup-code-block-lang-gml" data-lang="gml">gml</button><button type="button" class="te-popup-code-block-lang-go" data-lang="go">go</button><button type="button" class="te-popup-code-block-lang-golo" data-lang="golo">golo</button><button type="button" class="te-popup-code-block-lang-gradle" data-lang="gradle">gradle</button><button type="button" class="te-popup-code-block-lang-groovy" data-lang="groovy">groovy</button><button type="button" class="te-popup-code-block-lang-haml" data-lang="haml">haml</button><button type="button" class="te-popup-code-block-lang-handlebars" data-lang="handlebars">handlebars</button><button type="button" class="te-popup-code-block-lang-haskell" data-lang="haskell">haskell</button><button type="button" class="te-popup-code-block-lang-haxe" data-lang="haxe">haxe</button><button type="button" class="te-popup-code-block-lang-hsp" data-lang="hsp">hsp</button><button type="button" class="te-popup-code-block-lang-htmlbars" data-lang="htmlbars">htmlbars</button><button type="button" class="te-popup-code-block-lang-http" data-lang="http">http</button><button type="button" class="te-popup-code-block-lang-hy" data-lang="hy">hy</button><button type="button" class="te-popup-code-block-lang-inform7" data-lang="inform7">inform7</button><button type="button" class="te-popup-code-block-lang-ini" data-lang="ini">ini</button><button type="button" class="te-popup-code-block-lang-irpf90" data-lang="irpf90">irpf90</button><button type="button" class="te-popup-code-block-lang-isbl" data-lang="isbl">isbl</button><button type="button" class="te-popup-code-block-lang-java" data-lang="java">java</button><button type="button" class="te-popup-code-block-lang-javascript" data-lang="javascript">javascript</button><button type="button" class="te-popup-code-block-lang-jboss-cli" data-lang="jboss-cli">jboss-cli</button><button type="button" class="te-popup-code-block-lang-json" data-lang="json">json</button><button type="button" class="te-popup-code-block-lang-julia" data-lang="julia">julia</button><button type="button" class="te-popup-code-block-lang-julia-repl" data-lang="julia-repl">julia-repl</button><button type="button" class="te-popup-code-block-lang-kotlin" data-lang="kotlin">kotlin</button><button type="button" class="te-popup-code-block-lang-lasso" data-lang="lasso">lasso</button><button type="button" class="te-popup-code-block-lang-ldif" data-lang="ldif">ldif</button><button type="button" class="te-popup-code-block-lang-leaf" data-lang="leaf">leaf</button><button type="button" class="te-popup-code-block-lang-less" data-lang="less">less</button><button type="button" class="te-popup-code-block-lang-lisp" data-lang="lisp">lisp</button><button type="button" class="te-popup-code-block-lang-livecodeserver" data-lang="livecodeserver">livecodeserver</button><button type="button" class="te-popup-code-block-lang-livescript" data-lang="livescript">livescript</button><button type="button" class="te-popup-code-block-lang-llvm" data-lang="llvm">llvm</button><button type="button" class="te-popup-code-block-lang-lsl" data-lang="lsl">lsl</button><button type="button" class="te-popup-code-block-lang-lua" data-lang="lua">lua</button><button type="button" class="te-popup-code-block-lang-makefile" data-lang="makefile">makefile</button><button type="button" class="te-popup-code-block-lang-mathematica" data-lang="mathematica">mathematica</button><button type="button" class="te-popup-code-block-lang-matlab" data-lang="matlab">matlab</button><button type="button" class="te-popup-code-block-lang-maxima" data-lang="maxima">maxima</button><button type="button" class="te-popup-code-block-lang-mel" data-lang="mel">mel</button><button type="button" class="te-popup-code-block-lang-mercury" data-lang="mercury">mercury</button><button type="button" class="te-popup-code-block-lang-mipsasm" data-lang="mipsasm">mipsasm</button><button type="button" class="te-popup-code-block-lang-mizar" data-lang="mizar">mizar</button><button type="button" class="te-popup-code-block-lang-perl" data-lang="perl">perl</button><button type="button" class="te-popup-code-block-lang-mojolicious" data-lang="mojolicious">mojolicious</button><button type="button" class="te-popup-code-block-lang-monkey" data-lang="monkey">monkey</button><button type="button" class="te-popup-code-block-lang-moonscript" data-lang="moonscript">moonscript</button><button type="button" class="te-popup-code-block-lang-n1ql" data-lang="n1ql">n1ql</button><button type="button" class="te-popup-code-block-lang-nginx" data-lang="nginx">nginx</button><button type="button" class="te-popup-code-block-lang-nimrod" data-lang="nimrod">nimrod</button><button type="button" class="te-popup-code-block-lang-nix" data-lang="nix">nix</button><button type="button" class="te-popup-code-block-lang-nsis" data-lang="nsis">nsis</button><button type="button" class="te-popup-code-block-lang-objectivec" data-lang="objectivec">objectivec</button><button type="button" class="te-popup-code-block-lang-ocaml" data-lang="ocaml">ocaml</button><button type="button" class="te-popup-code-block-lang-openscad" data-lang="openscad">openscad</button><button type="button" class="te-popup-code-block-lang-oxygene" data-lang="oxygene">oxygene</button><button type="button" class="te-popup-code-block-lang-parser3" data-lang="parser3">parser3</button><button type="button" class="te-popup-code-block-lang-pf" data-lang="pf">pf</button><button type="button" class="te-popup-code-block-lang-pgsql" data-lang="pgsql">pgsql</button><button type="button" class="te-popup-code-block-lang-php" data-lang="php">php</button><button type="button" class="te-popup-code-block-lang-plaintext" data-lang="plaintext">plaintext</button><button type="button" class="te-popup-code-block-lang-pony" data-lang="pony">pony</button><button type="button" class="te-popup-code-block-lang-powershell" data-lang="powershell">powershell</button><button type="button" class="te-popup-code-block-lang-processing" data-lang="processing">processing</button><button type="button" class="te-popup-code-block-lang-profile" data-lang="profile">profile</button><button type="button" class="te-popup-code-block-lang-prolog" data-lang="prolog">prolog</button><button type="button" class="te-popup-code-block-lang-properties" data-lang="properties">properties</button><button type="button" class="te-popup-code-block-lang-protobuf" data-lang="protobuf">protobuf</button><button type="button" class="te-popup-code-block-lang-puppet" data-lang="puppet">puppet</button><button type="button" class="te-popup-code-block-lang-purebasic" data-lang="purebasic">purebasic</button><button type="button" class="te-popup-code-block-lang-python" data-lang="python">python</button><button type="button" class="te-popup-code-block-lang-q" data-lang="q">q</button><button type="button" class="te-popup-code-block-lang-qml" data-lang="qml">qml</button><button type="button" class="te-popup-code-block-lang-r" data-lang="r">r</button><button type="button" class="te-popup-code-block-lang-reasonml" data-lang="reasonml">reasonml</button><button type="button" class="te-popup-code-block-lang-rib" data-lang="rib">rib</button><button type="button" class="te-popup-code-block-lang-roboconf" data-lang="roboconf">roboconf</button><button type="button" class="te-popup-code-block-lang-routeros" data-lang="routeros">routeros</button><button type="button" class="te-popup-code-block-lang-rsl" data-lang="rsl">rsl</button><button type="button" class="te-popup-code-block-lang-ruleslanguage" data-lang="ruleslanguage">ruleslanguage</button><button type="button" class="te-popup-code-block-lang-rust" data-lang="rust">rust</button><button type="button" class="te-popup-code-block-lang-sas" data-lang="sas">sas</button><button type="button" class="te-popup-code-block-lang-scala" data-lang="scala">scala</button><button type="button" class="te-popup-code-block-lang-scheme" data-lang="scheme">scheme</button><button type="button" class="te-popup-code-block-lang-scilab" data-lang="scilab">scilab</button><button type="button" class="te-popup-code-block-lang-scss" data-lang="scss">scss</button><button type="button" class="te-popup-code-block-lang-shell" data-lang="shell">shell</button><button type="button" class="te-popup-code-block-lang-smali" data-lang="smali">smali</button><button type="button" class="te-popup-code-block-lang-smalltalk" data-lang="smalltalk">smalltalk</button><button type="button" class="te-popup-code-block-lang-sml" data-lang="sml">sml</button><button type="button" class="te-popup-code-block-lang-sqf" data-lang="sqf">sqf</button><button type="button" class="te-popup-code-block-lang-sql" data-lang="sql">sql</button><button type="button" class="te-popup-code-block-lang-stan" data-lang="stan">stan</button><button type="button" class="te-popup-code-block-lang-stata" data-lang="stata">stata</button><button type="button" class="te-popup-code-block-lang-step21" data-lang="step21">step21</button><button type="button" class="te-popup-code-block-lang-stylus" data-lang="stylus">stylus</button><button type="button" class="te-popup-code-block-lang-subunit" data-lang="subunit">subunit</button><button type="button" class="te-popup-code-block-lang-swift" data-lang="swift">swift</button><button type="button" class="te-popup-code-block-lang-taggerscript" data-lang="taggerscript">taggerscript</button><button type="button" class="te-popup-code-block-lang-yaml" data-lang="yaml">yaml</button><button type="button" class="te-popup-code-block-lang-tap" data-lang="tap">tap</button><button type="button" class="te-popup-code-block-lang-tcl" data-lang="tcl">tcl</button><button type="button" class="te-popup-code-block-lang-tex" data-lang="tex">tex</button><button type="button" class="te-popup-code-block-lang-thrift" data-lang="thrift">thrift</button><button type="button" class="te-popup-code-block-lang-tp" data-lang="tp">tp</button><button type="button" class="te-popup-code-block-lang-twig" data-lang="twig">twig</button><button type="button" class="te-popup-code-block-lang-typescript" data-lang="typescript">typescript</button><button type="button" class="te-popup-code-block-lang-vala" data-lang="vala">vala</button><button type="button" class="te-popup-code-block-lang-vbnet" data-lang="vbnet">vbnet</button><button type="button" class="te-popup-code-block-lang-vbscript" data-lang="vbscript">vbscript</button><button type="button" class="te-popup-code-block-lang-vbscript-html" data-lang="vbscript-html">vbscript-html</button><button type="button" class="te-popup-code-block-lang-verilog" data-lang="verilog">verilog</button><button type="button" class="te-popup-code-block-lang-vhdl" data-lang="vhdl">vhdl</button><button type="button" class="te-popup-code-block-lang-vim" data-lang="vim">vim</button><button type="button" class="te-popup-code-block-lang-x86asm" data-lang="x86asm">x86asm</button><button type="button" class="te-popup-code-block-lang-xl" data-lang="xl">xl</button><button type="button" class="te-popup-code-block-lang-xquery" data-lang="xquery">xquery</button><button type="button" class="te-popup-code-block-lang-zephir" data-lang="zephir">zephir</button></div>
+                            </div>
+                            <div class="tui-popup-modal-background tui-popup-code-block-editor" style="display: none;">
+                              <div class="tui-popup-wrapper">
+                                <div class="tui-popup-header">
+                                  <span class="tui-popup-title">CodeBlock Editor<span class="te-input-language"><input type="text" maxlength="20" placeholder="Choose language"></span></span>
+                                  <div class="tui-popup-header-buttons"><button type="button" class="popup-editor-toggle-scroll active" style="display: inline-block;"></button>
+                                    <button type="button" class="popup-editor-toggle-preview active"></button>
+                                    <button type="button" class="popup-editor-toggle-fit"></button>
+                                    <button type="button" class="tui-popup-close-button"></button></div>
+                                </div>
+                                <div class="tui-popup-body">
+                                  <div class="popup-editor-body">
+                                    <div class="tui-split-scroll scroll-sync">
+                                      <div class="tui-split-scroll-wrapper">
+                                        <div class="tui-split-scroll-content">
+                                          <div class="popup-editor-editor-wrapper tui-split-content-left"><textarea style="display: none;"></textarea>
+                                            <div class="CodeMirror cm-s-none CodeMirror-wrap">
+                                              <div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;" autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0"></textarea></div>
+                                              <div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true">
+                                                <div style="min-width: 1px;"></div>
+                                              </div>
+                                              <div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true">
+                                                <div style="height: 100%; min-height: 1px;"></div>
+                                              </div>
+                                              <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
+                                              <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
+                                              <div class="CodeMirror-scroll" tabindex="-1">
+                                                <div class="CodeMirror-sizer" style="margin-left: 0px;">
+                                                  <div style="position: relative;">
+                                                    <div class="CodeMirror-lines" role="presentation">
+                                                      <div style="position: relative; outline: none;" role="presentation">
+                                                        <div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre>
+                                                        </div>
+                                                        <div class="CodeMirror-measure"></div>
+                                                        <div style="position: relative; z-index: 1;"></div>
+                                                        <div class="CodeMirror-cursors"></div>
+                                                        <div class="CodeMirror-code" role="presentation"></div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div style="position: absolute; height: 30px; width: 1px;"></div>
+                                                <div class="CodeMirror-gutters" style="display: none;"></div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="tui-split-content-right" style="top: 0px;">
+                                            <div class="tui-editor-contents"></div>
+                                          </div>
+                                        </div>
+                                        <div class="tui-splitter"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="te-button-section">
+                                    <button type="button" class="te-ok-button">OK</button>
+                                    <button type="button" class="te-close-button">Cancel</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </client-only-stub>
+                    </div>
+                  </div>
+                  <fieldset class="form-group col-md-6" id="__BVID__14">
+                    <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__14__BV_label_">Start Date</legend>
+                    <div tabindex="-1" role="group">
+                      <client-only-stub>
+                        <date-picker-stub id="startTime" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD HH:mm:ss" value-type="format" confirm="" type="datetime" placeholder="Start Date" value="2020-06-30 14:00:00"></date-picker-stub>
+                      </client-only-stub>
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </fieldset>
+                  <fieldset class="form-group col-md-6" id="__BVID__17">
+                    <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__17__BV_label_">End Date</legend>
+                    <div tabindex="-1" role="group">
+                      <client-only-stub>
+                        <date-picker-stub id="endTime" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD HH:mm:ss" value-type="format" confirm="" type="datetime" placeholder="End Date" value="2020-06-30 15:00:00"></date-picker-stub>
+                      </client-only-stub>
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </fieldset>
+                  <div class="form-group col-md-6"><label class="form-control-label">
+                      Price
+                    </label>
+                    <div class="input-group has-label">
+                      <!----> <input type="number" valid="true" required="required" id="price" step="0.01" placeholder="0.00" class="form-control">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6"><label class="form-control-label">
+                      Max Ticket Per Person
+                    </label>
+                    <div class="input-group has-label">
+                      <!----> <input type="number" valid="true" required="required" id="maxTicketPerPerson" placeholder="3" class="form-control">
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row pd-l-20">
+                  <div class="form-group col-md-12"><label>Event Category:</label>
+                    <div class="el-select">
+                      <!---->
+                      <div class="el-input el-input--suffix">
+                        <!----><input type="text" readonly="readonly" autocomplete="off" placeholder="Select Category" class="el-input__inner">
+                        <!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-arrow-up"></i><!----><!----><!----><!----><!----></span>
+                        <!----></span>
+                        <!---->
+                        <!---->
+                      </div>
+                      <div class="el-select-dropdown el-popper" style="display: none;">
+                        <div class="el-scrollbar" style="">
+                          <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default">
+                            <ul class="el-scrollbar__view el-select-dropdown__list">
+                              <!---->
+                              <li class="el-select-dropdown__item selected"><span>talks</span></li>
+                              <li class="el-select-dropdown__item"><span>meetups</span></li>
+                            </ul>
+                          </div>
+                          <div class="el-scrollbar__bar is-horizontal">
+                            <div class="el-scrollbar__thumb" style="transform: translateX(0%); webkit-transform: translateX(0%);"></div>
+                          </div>
+                          <div class="el-scrollbar__bar is-vertical">
+                            <div class="el-scrollbar__thumb" style="transform: translateY(0%); webkit-transform: translateY(0%);"></div>
+                          </div>
+                        </div>
+                        <!---->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <div class="custom-control custom-checkbox"><input id="external-1" type="checkbox" name="external-1" autocomplete="off" class="custom-control-input" value="true"><label for="external-1" class="custom-control-label">
+                        Host at an external location
+                      </label></div> <input type="text" placeholder="External Location" required="required" aria-required="true" class="form-control" id="__BVID__32">
+                  </div>
+                  <!---->
+                  <div class="form-group col-md-12">
+                    <div class="custom-control custom-checkbox"><input id="sendEmailCheckbox" type="checkbox" autocomplete="off" class="custom-control-input" value="true"><label for="sendEmailCheckbox" class="custom-control-label">Send email to attendees</label></div>
+                  </div>
+                  <!---->
+                </div>
+              </div>
+            </div>
+            <div>
+              <div id="preview" class="mr-b-20"><img src="https://d3mym26vamg9ol.cloudfront.net/event/1593010166_d2b06fae-7f1c-43fc-b9d3-1f7ec9493beb.png"></div>
+              <div class="bg-lgray pd-10 pd-l-20 upload-btn-wrapper pd-0"><button class="btn"><i class="fa fa-paperclip mr-r-10"></i> Upload Event Image (&lt;500KB &amp; size 1125x582)</button> <input name="eventbanner" type="file" accept="image/*"></div>
+            </div>
+            <div value="https://d3mym26vamg9ol.cloudfront.net/event/1593010170_53b0a7de-b4b5-4018-82cb-4468088d4001.png">
+              <div id="preview" class="mr-b-20"><img src="https://d3mym26vamg9ol.cloudfront.net/event/1593010170_53b0a7de-b4b5-4018-82cb-4468088d4001.png"></div>
+              <div class="bg-lgray pd-10 pd-l-20 upload-btn-wrapper pd-0"><button class="btn"><i class="fa fa-paperclip mr-r-10"></i> Upload Event Banner (&lt;500KB &amp; size 1125x582)</button> <input name="eventbanner" type="file" accept="image/*"></div>
+            </div>
+            <div value="https://d3mym26vamg9ol.cloudfront.net/event/1593010176_d743ff8d-28c1-4636-8d6d-f2a8140599a2.png">
+              <div id="preview" class="mr-b-20"><img src="https://d3mym26vamg9ol.cloudfront.net/event/1593010176_d743ff8d-28c1-4636-8d6d-f2a8140599a2.png"></div>
+              <div class="bg-lgray pd-10 pd-l-20 upload-btn-wrapper pd-0"><button class="btn"><i class="fa fa-paperclip mr-r-10"></i> Upload Host Logo (&lt;500KB &amp; size 500x500)</button> <input name="hostlogo" type="file" accept="image/*"></div>
+            </div>
+          </div>
+          <!---->
+          <!---->
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;
