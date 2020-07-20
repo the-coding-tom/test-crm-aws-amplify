@@ -2,7 +2,7 @@
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ yarn install
 
@@ -15,6 +15,12 @@ $ yarn start
 
 # generate static project
 $ yarn run generate
+
+# run test
+$ yarn run test
+
+# run test coverage
+$ yarn run test:coverage
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
