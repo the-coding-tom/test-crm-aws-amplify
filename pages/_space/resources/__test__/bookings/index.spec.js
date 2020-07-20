@@ -12,7 +12,7 @@ import moment from 'moment'
 import allRooms from '../resources/all-rooms.json'
 import currentSpace from '@/pages/_space/__test__/resources/current-space.json'
 
-describe('Page: /:space/resources | Resources Index Page', () => {
+describe('Page: /:space/resources/booking | Booking Resource Page', () => {
   let NuxtStore, store, wrapper, $membership, $resource, router
 
   beforeAll(async () => {
@@ -90,14 +90,15 @@ describe('Page: /:space/resources | Resources Index Page', () => {
       },
       {
         stubs: {
-          'client-only': true
+          'client-only': true,
+          'full-calendar': true
         }
       },
       vueInstance => {
         vueInstance.use(BootstrapVue)
         vueInstance.component(BaseInput.name, BaseInput)
         vueInstance.component(Card.name, Card)
-        vueInstance.component('full-calendar', FullCalendar)
+        // vueInstance.component('full-calendar', FullCalendar)
         vueInstance.prototype.$moment = moment
       }
     )

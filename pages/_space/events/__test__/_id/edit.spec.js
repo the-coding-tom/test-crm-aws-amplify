@@ -5,7 +5,6 @@ import BootstrapVue from 'bootstrap-vue'
 import BasePagination from '~/components/argon-core/BasePagination'
 import BaseInput from '~/components/argon-core/Inputs/BaseInput.vue'
 import FullCalendar from '@/components/widgets/FullCalendar'
-import DatePicker from 'vue2-datepicker'
 import { Editor } from '@toast-ui/vue-editor'
 
 import VueRouter from 'vue-router'
@@ -74,7 +73,8 @@ describe('Page: /:space/events/:id/edit | Events Edit Page', () => {
         stubs: {
           'nuxt-link': true,
           'client-only': true,
-          transition: false
+          transition: false,
+          'date-picker': true
         }
       },
       vueInstance => {
@@ -83,7 +83,6 @@ describe('Page: /:space/events/:id/edit | Events Edit Page', () => {
         vueInstance.component(BasePagination.name, BasePagination)
         vueInstance.component(BaseInput.name, BaseInput)
         vueInstance.component('full-calendar', FullCalendar)
-        vueInstance.component('date-picker', DatePicker)
         vueInstance.component('Editor', Editor)
         vueInstance.prototype.$event = $event
         vueInstance.prototype.$moment = moment
@@ -103,12 +102,8 @@ describe('Page: /:space/events/:id/edit | Events Edit Page', () => {
     // expect(wrapper.find('#description').element.value).toBe(
     //   event.description
     // )
-    expect(
-      wrapper.find('#startTime .mx-input-wrapper input').element.value
-    ).toBe(event.start_time)
-    expect(wrapper.find('#endTime .mx-input-wrapper input').element.value).toBe(
-      event.end_time
-    )
+    expect(wrapper.vm.$data.event.start_time).toBe(event.start_time)
+    expect(wrapper.vm.$data.event.end_time).toBe(event.end_time)
     expect(parseInt(wrapper.find('#price').element.value)).toBe(event.price)
     expect(parseInt(wrapper.find('#maxTicketPerPerson').element.value)).toBe(
       event.max_ticket_per_person

@@ -6,7 +6,6 @@ import BootstrapVue from 'bootstrap-vue'
 import BasePagination from '~/components/argon-core/BasePagination'
 import Card from '~/components/argon-core/Cards/Card.vue'
 import Badge from '~/components/argon-core/Badge.vue'
-import DatePicker from 'vue2-datepicker'
 import Vue2Filters from 'vue2-filters'
 
 import VueRouter from 'vue-router'
@@ -135,7 +134,7 @@ describe('Page: /:space/memberships/add | Memberships Add Page', () => {
           'no-ssr': true,
           'client-only': true,
           transition: false,
-          'b-popover': true
+          'date-picker': true
         },
         mocks: {
           $membership: $membership,
@@ -150,7 +149,6 @@ describe('Page: /:space/memberships/add | Memberships Add Page', () => {
         vueInstance.component(BaseHeader.name, BaseHeader)
         vueInstance.component(BaseInput.name, BaseInput)
         vueInstance.component(Card.name, Card)
-        vueInstance.component('date-picker', DatePicker)
         vueInstance.component(Badge.name, Badge)
       }
     )
@@ -167,7 +165,6 @@ describe('Page: /:space/memberships/add | Memberships Add Page', () => {
       email: 'larozo@gmail.com',
       linkedinURL: 'https://linkedin.com/in/larly-ozo-21893221',
       comments: 'happy to be here',
-      startDate: '2020-02-05 10:00:00',
       isOnTrial: true,
       trialDays: 30
     }

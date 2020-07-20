@@ -6,7 +6,6 @@ import BootstrapVue from 'bootstrap-vue'
 import BasePagination from '~/components/argon-core/BasePagination'
 import Card from '~/components/argon-core/Cards/Card.vue'
 import Badge from '~/components/argon-core/Badge.vue'
-import DatePicker from 'vue2-datepicker'
 
 import VueRouter from 'vue-router'
 import cloneDeep from 'lodash/cloneDeep'
@@ -113,7 +112,8 @@ describe('Page: /:space/directory/ | Directory Id Index Page', () => {
           'nuxt-link': true,
           'no-ssr': true,
           transition: false,
-          'b-popover': true
+          'b-popover': true,
+          'date-picker': true
         },
         mocks: {
           $membership: $membership,
@@ -128,7 +128,6 @@ describe('Page: /:space/directory/ | Directory Id Index Page', () => {
         vueInstance.component(BaseHeader.name, BaseHeader)
         vueInstance.component(BaseInput.name, BaseInput)
         vueInstance.component(Card.name, Card)
-        vueInstance.component('date-picker', DatePicker)
         vueInstance.component(Badge.name, Badge)
       }
     )

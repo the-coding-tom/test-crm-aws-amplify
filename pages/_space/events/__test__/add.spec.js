@@ -5,7 +5,6 @@ import BaseInput from '~/components/argon-core/Inputs/BaseInput.vue'
 import BootstrapVue from 'bootstrap-vue'
 import FullCalendar from '@/components/widgets/FullCalendar'
 import BasePagination from '~/components/argon-core/BasePagination'
-import DatePicker from 'vue2-datepicker'
 import { Editor } from '@toast-ui/vue-editor'
 
 import VueRouter from 'vue-router'
@@ -70,8 +69,8 @@ describe('Page: /:space/events/add | Events Add Page', () => {
         description: '',
         capacity: 10,
         price: 10,
-        startTime: '',
-        endTime: '',
+        startTime: newEvent.startTime,
+        endTime: newEvent.endTime,
         eventLogo: '',
         hostLogo: '',
         sendMail: false,
@@ -86,6 +85,7 @@ describe('Page: /:space/events/add | Events Add Page', () => {
       {
         stubs: {
           'nuxt-link': true,
+          'date-picker': true,
           'client-only': true,
           transition: false
         }
@@ -96,7 +96,6 @@ describe('Page: /:space/events/add | Events Add Page', () => {
         vueInstance.component(BaseInput.name, BaseInput)
         vueInstance.component('full-calendar', FullCalendar)
         vueInstance.component(Card.name, Card)
-        vueInstance.component('date-picker', DatePicker)
         vueInstance.component('Editor', Editor)
         vueInstance.prototype.$event = $event
         vueInstance.prototype.$moment = moment
@@ -112,8 +111,6 @@ describe('Page: /:space/events/add | Events Add Page', () => {
     wrapper.find('#title').setValue(newEvent.title)
     wrapper.find('#capacity').setValue(newEvent.capacity)
     // wrapper.find('#description').setValue(newEvent.description)
-    // wrapper.find('.mx-input-wrapper input').setValue(newEvent.startTime)
-    // wrapper.find('.mx-input-wrapper input').setValue(newEvent.endTime)
     wrapper.find('#price').setValue(newEvent.price)
     wrapper.find('#maxTicketPerPerson').setValue(newEvent.maxTicketPerPerson)
     wrapper.find('#sendMailCheckbox').setChecked(false)

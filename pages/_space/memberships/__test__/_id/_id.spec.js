@@ -5,7 +5,6 @@ import BootstrapVue from 'bootstrap-vue'
 import BasePagination from '~/components/argon-core/BasePagination'
 import Card from '~/components/argon-core/Cards/Card.vue'
 import Badge from '~/components/argon-core/Badge.vue'
-import DatePicker from 'vue2-datepicker'
 import Vue2Filters from 'vue2-filters'
 
 import VueRouter from 'vue-router'
@@ -114,7 +113,8 @@ describe('Page: /:space/memberships/_id/ | Memberships Id Page', () => {
           'no-ssr': true,
           'client-only': true,
           transition: false,
-          'b-popover': true
+          'b-popover': true,
+          'date-picker': true
         },
         mocks: {
           $membership: $membership,
@@ -128,7 +128,6 @@ describe('Page: /:space/memberships/_id/ | Memberships Id Page', () => {
         vueInstance.component(BaseHeader.name, BaseHeader)
         vueInstance.component(BaseInput.name, BaseInput)
         vueInstance.component(Card.name, Card)
-        vueInstance.component('date-picker', DatePicker)
         vueInstance.component(Badge.name, Badge)
       }
     )
