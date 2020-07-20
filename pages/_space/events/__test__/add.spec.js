@@ -30,7 +30,9 @@ describe('Page: /:space/events/add | Events Add Page', () => {
       title: 'Teseralt',
       capacity: 40,
       price: 40,
-      maxTicketPerPerson: 3
+      maxTicketPerPerson: 3,
+      startTime: '2020-05-02 05:00:00',
+      endTime: '2020-05-06 02:00:00'
     }
 
     $event = {
@@ -85,9 +87,11 @@ describe('Page: /:space/events/add | Events Add Page', () => {
       {
         stubs: {
           'nuxt-link': true,
-          'date-picker': true,
           'client-only': true,
           transition: false
+        },
+        mock: {
+          'date-picker': '<div>date-picker-stub</div>'
         }
       },
       vueInstance => {
