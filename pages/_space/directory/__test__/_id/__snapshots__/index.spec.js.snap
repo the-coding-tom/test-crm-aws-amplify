@@ -162,7 +162,7 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
             </div>
             <div style="width: 200px;">
               <no-ssr-stub>
-                <date-picker-stub id="time" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD" value-type="format" confirm="" range="" type="date" placeholder="Start Date" value="2020-06-20,2020-07-21"></date-picker-stub>
+                <div id="time" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD" value-type="format" confirm="" range="" type="date" placeholder="Start Date">date-picker-stub</div>
               </no-ssr-stub>
             </div>
           </div>

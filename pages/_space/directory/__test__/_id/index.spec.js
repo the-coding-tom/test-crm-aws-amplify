@@ -113,7 +113,12 @@ describe('Page: /:space/directory/ | Directory Id Index Page', () => {
           'no-ssr': true,
           transition: false,
           'b-popover': true,
-          'date-picker': true
+          'date-picker': {
+            template: '<div>date-picker-stub</div>',
+            props: {
+              value: ''
+            }
+          }
         },
         mocks: {
           $membership: $membership,

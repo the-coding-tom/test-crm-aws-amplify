@@ -278,18 +278,18 @@ exports[`Page: /:space/events/add | Events Add Page renders properly 1`] = `
                   <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__14__BV_label_">Start Date</legend>
                   <div tabindex="-1" role="group">
                     <client-only-stub>
-                      <date-picker id="startTime" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD HH:mm:ss" value-type="format" confirm="" type="datetime" placeholder="Start Date"></date-picker>
+                      <div id="startTime" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD HH:mm:ss" value-type="format" confirm="" type="datetime" placeholder="Start Date">date-picker-stub</div>
                     </client-only-stub>
                     <!---->
                     <!---->
                     <!---->
                   </div>
                 </fieldset>
-                <fieldset class="form-group col-md-6" id="__BVID__16">
-                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__16__BV_label_">End Date</legend>
+                <fieldset class="form-group col-md-6" id="__BVID__17">
+                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__17__BV_label_">End Date</legend>
                   <div tabindex="-1" role="group">
                     <client-only-stub>
-                      <date-picker id="endTime" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD HH:mm:ss" value-type="format" confirm="" type="datetime" placeholder="End Date"></date-picker>
+                      <div id="endTime" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD HH:mm:ss" value-type="format" confirm="" type="datetime" placeholder="End Date">date-picker-stub</div>
                     </client-only-stub>
                     <!---->
                     <!---->
@@ -360,8 +360,8 @@ exports[`Page: /:space/events/add | Events Add Page renders properly 1`] = `
                   <fieldset id="rooms" class="form-group">
                     <legend id="rooms__BV_label_" tabindex="-1" class="col-form-label pt-0">Rooms Available</legend>
                     <div tabindex="-1" role="group">
-                      <div class="custom-control custom-radio"><input type="radio" name="room" autocomplete="off" class="custom-control-input" value="68aa0500-4984-44c9-8963-ccaaae03ba4c" id="__BVID__37"><label class="custom-control-label" for="__BVID__37">Conference Room 1</label></div>
-                      <div class="custom-control custom-radio"><input type="radio" name="room" autocomplete="off" class="custom-control-input" value="fc551d7d-27da-4872-bc6a-df1a9fb6eb52" id="__BVID__38"><label class="custom-control-label" for="__BVID__38">Conference Rooms</label></div>
+                      <div class="custom-control custom-radio"><input type="radio" name="room" autocomplete="off" class="custom-control-input" value="68aa0500-4984-44c9-8963-ccaaae03ba4c" id="__BVID__39"><label class="custom-control-label" for="__BVID__39">Conference Room 1</label></div>
+                      <div class="custom-control custom-radio"><input type="radio" name="room" autocomplete="off" class="custom-control-input" value="fc551d7d-27da-4872-bc6a-df1a9fb6eb52" id="__BVID__40"><label class="custom-control-label" for="__BVID__40">Conference Rooms</label></div>
                       <!---->
                       <!---->
                       <!---->
