@@ -88,10 +88,13 @@ describe('Page: /:space/events/add | Events Add Page', () => {
         stubs: {
           'nuxt-link': true,
           'client-only': true,
-          transition: false
-        },
-        mock: {
-          'date-picker': '<div>date-picker-stub</div>'
+          transition: false,
+          'date-picker': {
+            template: '<div>date-picker-stub</div>',
+            props: {
+              value: ''
+            }
+          }
         }
       },
       vueInstance => {
