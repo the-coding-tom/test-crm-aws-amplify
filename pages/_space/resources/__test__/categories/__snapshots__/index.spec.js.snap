@@ -42,7 +42,7 @@ exports[`Page: /:space/resources/categories | Categories Index Page get all cate
               </div>
             </div>
             <div class="row mr-t-40">
-              <div role="radiogroup" tabindex="-1" class="col-md-6" id="__BVID__21">
+              <div role="radiogroup" tabindex="-1" class="col-md-6 bv-no-focus-ring" id="__BVID__21">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="custom-control custom-control-inline custom-radio"><input type="radio" name="__BVID__21" autocomplete="off" class="custom-control-input" value="a2cc76b7-9907-4d86-8072-c1b9ef276a0a" id="__BVID__22"><label class="custom-control-label" for="__BVID__22">conference</label></div>
@@ -105,7 +105,7 @@ exports[`Page: /:space/resources/categories | Categories Index Page renders prop
               </div>
             </div>
             <div class="row mr-t-40">
-              <div role="radiogroup" tabindex="-1" class="col-md-6" id="__BVID__11">
+              <div role="radiogroup" tabindex="-1" class="col-md-6 bv-no-focus-ring" id="__BVID__11">
                 <div class="row"></div>
               </div>
             </div>

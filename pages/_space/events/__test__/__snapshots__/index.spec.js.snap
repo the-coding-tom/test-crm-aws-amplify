@@ -18,7 +18,7 @@ exports[`Page: /:space/events/ | Events Index Page renders properly 1`] = `
         <!---->
         <div class="card-body">
           <client-only-stub>
-            <div data-fc-render-id="0" class="fc fc-ltr fc-unthemed" style="">
+            <div data-fc-render-id="0" style="" class="fc fc-ltr fc-unthemed">
               <div class="fc-toolbar fc-header-toolbar">
                 <div class="fc-left">
                   <div class="fc-button-group"><button type="button" class="fc-prev-button fc-button fc-button-primary" aria-label="prev"><span class="fc-icon fc-icon-chevron-left"></span></button><button type="button" class="fc-next-button fc-button fc-button-primary" aria-label="next"><span class="fc-icon fc-icon-chevron-right"></span></button></div><button type="button" class="fc-today-button fc-button fc-button-primary" disabled="">today</button>

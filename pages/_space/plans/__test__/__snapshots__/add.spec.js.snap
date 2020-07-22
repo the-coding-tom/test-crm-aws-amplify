@@ -32,22 +32,22 @@ exports[`Page: /:space/plans/ | Plans Index Page renders properly 1`] = `
                     </div>
                   </div>
                   <fieldset class="form-group col-md-12" id="__BVID__10" aria-describedby="__BVID__10__BV_description_">
-                    <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__10__BV_label_">Plan Description</legend>
-                    <div tabindex="-1" role="group"><input id="description" type="text" placeholder="Add details about the plan" required="required" aria-required="true" class="form-control" maxlength="22">
+                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__10__BV_label_">Plan Description</legend>
+                    <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="description" type="text" placeholder="Add details about the plan" required="required" aria-required="true" class="form-control" maxlength="22">
                       <!---->
                       <!----><small tabindex="-1" class="form-text text-muted" id="__BVID__10__BV_description_">Description should not exceed 22 characters</small></div>
                   </fieldset>
                   <fieldset class="form-group col-md-6" id="__BVID__12">
-                    <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__12__BV_label_">Price per cycle</legend>
-                    <div tabindex="-1" role="group"><input id="price_per_cycle" type="number" placeholder="0.00" required="required" aria-required="true" class="form-control">
+                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__12__BV_label_">Price per cycle</legend>
+                    <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="price_per_cycle" type="number" placeholder="0.00" required="required" aria-required="true" class="form-control">
                       <!---->
                       <!---->
                       <!---->
                     </div>
                   </fieldset>
                   <fieldset class="form-group col-md-6" id="__BVID__14" aria-describedby="__BVID__14__BV_description_">
-                    <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__14__BV_label_">Charge Cycle</legend>
-                    <div tabindex="-1" role="group"><input id="cycle_duration" type="number" required="required" aria-required="true" class="form-control" label="Charge Cycle">
+                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__14__BV_label_">Charge Cycle</legend>
+                    <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="cycle_duration" type="number" required="required" aria-required="true" class="form-control" label="Charge Cycle">
                       <!---->
                       <!----><small tabindex="-1" class="form-text text-muted" id="__BVID__14__BV_description_">Charge cycle denotes the number of months before charging</small></div>
                   </fieldset>

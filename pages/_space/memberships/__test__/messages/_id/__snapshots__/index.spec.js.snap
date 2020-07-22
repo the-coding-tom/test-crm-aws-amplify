@@ -22,7 +22,7 @@ exports[`Page: /:space/memberships/:id/ | Memberships View Messsage Page renders
         <!---->
         <!---->
       </div>
-    </div> <a target="_self" href="#" class=""><i class="fa fa-angle-left mr-r-10"></i> Back</a>
+    </div> <a href="#" target="_self" class=""><i class="fa fa-angle-left mr-r-10"></i> Back</a>
   </div>
 </div>
 `;

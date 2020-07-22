@@ -124,8 +124,8 @@ exports[`Page: /:space/resources/ | Resources Add Page renders properly 1`] = `
                     <div class="tags-input__wrapper" id="amenities" type="Text" required="required"> <input type="text" placeholder="Add amenities" size="mini" class="form-control"></div>
                   </div>
                   <fieldset class="form-group col-md-12" id="__BVID__25">
-                    <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__25__BV_label_">Zoom Rooms</legend>
-                    <div tabindex="-1" role="group"><select id="zoomRoomId" class="custom-select">
+                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__25__BV_label_">Zoom Rooms</legend>
+                    <div tabindex="-1" role="group" class="bv-no-focus-ring"><select id="zoomRoomId" class="custom-select">
                         <option value="sqxuaM7URRK3CuNQWH2lra">001 ORD</option>
                         <option value="Gasam9e9iTZSTEdZXL0PnJg">021 HJORD</option>
                         <option value="">Choose a zoom room</option>
@@ -136,8 +136,8 @@ exports[`Page: /:space/resources/ | Resources Add Page renders properly 1`] = `
                     </div>
                   </fieldset>
                   <fieldset class="form-group col-md-12" id="__BVID__27">
-                    <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__27__BV_label_">Brivo Access Point</legend>
-                    <div tabindex="-1" role="group"><select id="accessPointId" class="custom-select">
+                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__27__BV_label_">Brivo Access Point</legend>
+                    <div tabindex="-1" role="group" class="bv-no-focus-ring"><select id="accessPointId" class="custom-select">
                         <option value="24633465">001 Geirangerfjord</option>
                         <option value="24633585">002 Hardangerfjord</option>
                         <option value="">Choose a zoom room</option>

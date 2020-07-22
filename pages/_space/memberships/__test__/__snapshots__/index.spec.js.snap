@@ -74,7 +74,7 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                     <td rowspan="1" colspan="1" class="el-table_1_column_1  ">
                       <div class="cell">
                         <div class="sh-vflex">
-                          <div><img src="/img/placeholder.jpg" alt="Image placeholder" height="40px" width="40px" class="mr-r-20 rounded-circle"></div> <a target="_self" href="#" class=""><a href="#_space/memberships/e8c25a13-362e-4072-8440-687ccb5d0cb3" class="" target="_self">Leslie Akorful</a> <br> <span style="color: grey;"></span></a>
+                          <div><img src="/img/placeholder.jpg" alt="Image placeholder" height="40px" width="40px" class="mr-r-20 rounded-circle"></div> <a href="#" target="_self" class=""><a href="#_space/memberships/e8c25a13-362e-4072-8440-687ccb5d0cb3" class="" target="_self">Leslie Akorful</a> <br> <span style="color: grey;"></span></a>
                         </div>
                       </div>
                     </td>
@@ -99,7 +99,7 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                     <td rowspan="1" colspan="1" class="el-table_1_column_1  ">
                       <div class="cell">
                         <div class="sh-vflex">
-                          <div><img src="/img/placeholder.jpg" alt="Image placeholder" height="40px" width="40px" class="mr-r-20 rounded-circle"></div> <a target="_self" href="#" class=""><a href="#_space/memberships/3f2eb46b-cf0c-4660-8d48-c111b86b844a" class="" target="_self">Leslie Akorful</a> <br> <span style="color: grey;"></span></a>
+                          <div><img src="/img/placeholder.jpg" alt="Image placeholder" height="40px" width="40px" class="mr-r-20 rounded-circle"></div> <a href="#" target="_self" class=""><a href="#_space/memberships/3f2eb46b-cf0c-4660-8d48-c111b86b844a" class="" target="_self">Leslie Akorful</a> <br> <span style="color: grey;"></span></a>
                         </div>
                       </div>
                     </td>

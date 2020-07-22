@@ -72,8 +72,8 @@ exports[`Page: /:space/memberships/_id/ | Memberships Id Page renders properly 1
                   </div>
                 </div>
                 <fieldset class="form-group col-md-6" id="__BVID__14">
-                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__14__BV_label_">Source of Invitation</legend>
-                  <div tabindex="-1" role="group"><select id="invitationSource" class="custom-select">
+                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__14__BV_label_">Source of Invitation</legend>
+                  <div tabindex="-1" role="group" class="bv-no-focus-ring"><select id="invitationSource" class="custom-select">
                       <option value="referral">Referral</option>
                       <option value="application">Application</option>
                     </select>
@@ -83,16 +83,16 @@ exports[`Page: /:space/memberships/_id/ | Memberships Id Page renders properly 1
                   </div>
                 </fieldset>
                 <fieldset class="form-group col-md-6" id="__BVID__16">
-                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__16__BV_label_">Comments</legend>
-                  <div tabindex="-1" role="group"><textarea id="comment" placeholder="Comments" rows="2" wrap="soft" class="form-control" label="Comments"></textarea>
+                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__16__BV_label_">Comments</legend>
+                  <div tabindex="-1" role="group" class="bv-no-focus-ring"><textarea id="comment" placeholder="Comments" rows="2" wrap="soft" class="form-control" label="Comments"></textarea>
                     <!---->
                     <!---->
                     <!---->
                   </div>
                 </fieldset>
                 <fieldset class="form-group col-md-6" id="__BVID__18">
-                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__18__BV_label_">Membership Type</legend>
-                  <div tabindex="-1" role="group"><select id="memberType" class="custom-select">
+                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__18__BV_label_">Membership Type</legend>
+                  <div tabindex="-1" role="group" class="bv-no-focus-ring"><select id="memberType" class="custom-select">
                       <option value="0">Founding Member</option>
                       <option value="1">Fast Track</option>
                       <option value="2">Early Invite</option>
@@ -104,8 +104,8 @@ exports[`Page: /:space/memberships/_id/ | Memberships Id Page renders properly 1
                   </div>
                 </fieldset>
                 <fieldset class="form-group col-md-6" id="__BVID__20">
-                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__20__BV_label_">Region</legend>
-                  <div tabindex="-1" role="group"><select id="region" class="custom-select">
+                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__20__BV_label_">Region</legend>
+                  <div tabindex="-1" role="group" class="bv-no-focus-ring"><select id="region" class="custom-select">
                       <option value="A">Bay Area</option>
                       <option value="B">US outside of the Bay</option>
                       <option value="C">EMEA</option>
@@ -117,8 +117,8 @@ exports[`Page: /:space/memberships/_id/ | Memberships Id Page renders properly 1
                   </div>
                 </fieldset>
                 <fieldset class="form-group col-md-6" id="__BVID__22">
-                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__22__BV_label_">Assigned Admin</legend>
-                  <div tabindex="-1" role="group">
+                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__22__BV_label_">Assigned Admin</legend>
+                  <div tabindex="-1" role="group" class="bv-no-focus-ring">
                     <div class="el-select">
                       <!---->
                       <div class="el-input el-input--suffix">
@@ -149,8 +149,8 @@ exports[`Page: /:space/memberships/_id/ | Memberships Id Page renders properly 1
                   </div>
                 </fieldset>
                 <fieldset class="form-group col-md-6" id="__BVID__30">
-                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__30__BV_label_">Start Date</legend>
-                  <div tabindex="-1" role="group">
+                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__30__BV_label_">Start Date</legend>
+                  <div tabindex="-1" role="group" class="bv-no-focus-ring">
                     <client-only-stub>
                       <date-picker-stub id="time" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD" value-type="format" confirm="" type="date" placeholder="Start Date" value=""></date-picker-stub>
                     </client-only-stub>
@@ -160,14 +160,14 @@ exports[`Page: /:space/memberships/_id/ | Memberships Id Page renders properly 1
                   </div>
                 </fieldset>
                 <fieldset class="form-group col-md-6" id="__BVID__33" aria-describedby="__BVID__33__BV_description_">
-                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__33__BV_label_">Trial Days</legend>
-                  <div tabindex="-1" role="group"><input type="number" required="required" min="0" aria-required="true" class="form-control" id="__BVID__34">
+                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__33__BV_label_">Trial Days</legend>
+                  <div tabindex="-1" role="group" class="bv-no-focus-ring"><input type="number" required="required" min="0" aria-required="true" class="form-control" id="__BVID__34">
                     <!---->
                     <!----><small tabindex="-1" class="form-text text-muted" id="__BVID__33__BV_description_">Number of days before member is charged</small></div>
                 </fieldset>
                 <fieldset class="form-group col-md-6" id="__BVID__35">
-                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__35__BV_label_">Paid for</legend>
-                  <div tabindex="-1" role="group">
+                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__35__BV_label_">Paid for</legend>
+                  <div tabindex="-1" role="group" class="bv-no-focus-ring">
                     <div class="custom-control custom-checkbox"><input type="checkbox" autocomplete="off" class="custom-control-input" value="true" id="__BVID__36"><label class="custom-control-label" for="__BVID__36">Yes</label></div>
                     <!---->
                     <!---->

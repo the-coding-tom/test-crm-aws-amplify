@@ -42,7 +42,7 @@ exports[`Page: /:space/events/categories/ | Events Categories Index Page renders
                 </div>
               </div>
               <div role="group" class="form-group" id="__BVID__11"><label for="input-1" class="d-block" id="__BVID__11__BV_label_">Disabled</label>
-                <div>
+                <div class="bv-no-focus-ring">
                   <div class="custom-control custom-checkbox"><input id="checkbox-1" type="checkbox" name="checkbox-1" autocomplete="off" class="custom-control-input" value="true"><label for="checkbox-1" class="custom-control-label"></label></div>
                   <!---->
                   <!---->
@@ -51,7 +51,7 @@ exports[`Page: /:space/events/categories/ | Events Categories Index Page renders
               </div>
             </div>
             <div class="row mr-t-40">
-              <div role="radiogroup" tabindex="-1" class="col-md-6" id="__BVID__13">
+              <div role="radiogroup" tabindex="-1" class="col-md-6 bv-no-focus-ring" id="__BVID__13">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="category__item custom-control custom-control-inline custom-radio"><input type="radio" name="__BVID__13" autocomplete="off" class="custom-control-input" value="8e42f835-74b2-475f-b7f3-cf72c6b792ed" id="__BVID__14"><label class="custom-control-label" for="__BVID__14">talks</label></div>

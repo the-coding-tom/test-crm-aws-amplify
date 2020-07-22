@@ -175,11 +175,21 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
               <thead role="rowgroup" class="">
                 <!---->
                 <tr role="row" class="">
-                  <th role="columnheader" scope="col" aria-colindex="1" class="">Full Name</th>
-                  <th role="columnheader" scope="col" aria-colindex="2" class="">Type</th>
-                  <th role="columnheader" scope="col" aria-colindex="3" class="">Company</th>
-                  <th role="columnheader" scope="col" aria-colindex="4" class="">Checkin Timestamp</th>
-                  <th role="columnheader" scope="col" aria-colindex="5" class="">Checkout Timestamp</th>
+                  <th role="columnheader" scope="col" aria-colindex="1" class="">
+                    <div>Full Name</div>
+                  </th>
+                  <th role="columnheader" scope="col" aria-colindex="2" class="">
+                    <div>Type</div>
+                  </th>
+                  <th role="columnheader" scope="col" aria-colindex="3" class="">
+                    <div>Company</div>
+                  </th>
+                  <th role="columnheader" scope="col" aria-colindex="4" class="">
+                    <div>Checkin Timestamp</div>
+                  </th>
+                  <th role="columnheader" scope="col" aria-colindex="5" class="">
+                    <div>Checkout Timestamp</div>
+                  </th>
                 </tr>
               </thead>
               <tbody role="rowgroup">
@@ -246,7 +256,9 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
               <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to first page" aria-controls="my-table" aria-disabled="true" class="page-link">«</span></li>
               <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to previous page" aria-controls="my-table" aria-disabled="true" class="page-link">‹</span></li>
               <!---->
-              <li role="presentation" class="page-item active"><a role="menuitemradio" aria-controls="my-table" aria-label="Go to page 1" aria-checked="true" aria-posinset="1" aria-setsize="1" tabindex="0" target="_self" href="#" class="page-link">1</a></li>
+              <!---->
+              <li role="presentation" class="page-item active"><button role="menuitemradio" type="button" aria-controls="my-table" aria-label="Go to page 1" aria-checked="true" aria-posinset="1" aria-setsize="1" tabindex="0" class="page-link">1</button></li>
+              <!---->
               <!---->
               <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to next page" aria-controls="my-table" aria-disabled="true" class="page-link">›</span></li>
               <li role="presentation" aria-hidden="true" class="page-item disabled"><span role="menuitem" aria-label="Go to last page" aria-controls="my-table" aria-disabled="true" class="page-link">»</span></li>
@@ -262,7 +274,7 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
   <div id="add-plan" role="dialog" aria-hidden="true" aria-labelledby="add-plan___BV_modal_title_" aria-describedby="add-plan___BV_modal_body_" class="modal fade" style="display: none;">
     <div class="modal-dialog modal-md">
       <!---->
-      <div role="document" id="add-plan___BV_modal_content_" tabindex="-1" class="modal-content">
+      <div id="add-plan___BV_modal_content_" tabindex="-1" class="modal-content">
         <header id="add-plan___BV_modal_header_" class="modal-header">
           <h5 id="add-plan___BV_modal_title_" class="modal-title">Add New Plan</h5><button type="button" aria-label="Close" class="close">×</button>
         </header>
@@ -271,8 +283,8 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
             <form class="">
               <div class="row">
                 <fieldset id="selectPlan" class="form-group col-md-12">
-                  <legend id="selectPlan__BV_label_" tabindex="-1" class="col-form-label pt-0">Plan</legend>
-                  <div tabindex="-1" role="group">
+                  <legend id="selectPlan__BV_label_" tabindex="-1" class="bv-no-focus-ring col-form-label pt-0">Plan</legend>
+                  <div tabindex="-1" role="group" class="bv-no-focus-ring">
                     <div class="el-select">
                       <!---->
                       <div class="el-input el-input--suffix">
@@ -307,8 +319,8 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
                   </div>
                 </fieldset>
                 <fieldset id="memberCard" class="form-group col-md-12">
-                  <legend id="memberCard__BV_label_" tabindex="-1" class="col-form-label pt-0">Payment Source</legend>
-                  <div tabindex="-1" role="group">
+                  <legend id="memberCard__BV_label_" tabindex="-1" class="bv-no-focus-ring col-form-label pt-0">Payment Source</legend>
+                  <div tabindex="-1" role="group" class="bv-no-focus-ring">
                     <div class="el-select">
                       <!---->
                       <div class="el-input el-input--suffix">
@@ -343,9 +355,9 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
                 </fieldset>
               </div>
               <div class="row">
-                <fieldset class="form-group col-md-6" id="__BVID__66">
-                  <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__66__BV_label_">Trial</legend>
-                  <div tabindex="-1" role="group">
+                <fieldset class="form-group col-md-6" id="__BVID__65">
+                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__65__BV_label_">Trial</legend>
+                  <div tabindex="-1" role="group" class="bv-no-focus-ring">
                     <div class="custom-control custom-checkbox"><input id="checkbox-1" type="checkbox" name="checkbox-1" autocomplete="off" class="custom-control-input" value="true"><label for="checkbox-1" class="custom-control-label">
                         Yes
                       </label></div>
@@ -367,10 +379,10 @@ exports[`Page: /:space/directory/ | Directory Id Index Page renders properly 1`]
   <!---->
 </div>
 <!---->
-<div role="presentation" class="el-dialog__wrapper" style="display: none;">
+<div tabindex="-1" class="el-drawer__wrapper" style="display: none;">
   <div role="document" tabindex="-1" class="el-drawer__container">
-    <div aria-modal="true" aria-labelledby="el-drawer__title" role="presentation" class="el-drawer rtl" style="width: 30%;">
-      <header id="el-drawer__title" class="el-drawer__header"><span role="heading">Notes</span><button aria-label="close Notes" type="button" class="el-drawer__close-btn"><i class="el-dialog__close el-icon el-icon-close"></i></button></header>
+    <div aria-modal="true" aria-labelledby="el-drawer__title" aria-label="Notes" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 30%;">
+      <header id="el-drawer__title" class="el-drawer__header"><span role="heading" tabindex="0" title="Notes">Notes</span><button aria-label="close Notes" type="button" class="el-drawer__close-btn"><i class="el-dialog__close el-icon el-icon-close"></i></button></header>
       <!---->
     </div>
   </div>

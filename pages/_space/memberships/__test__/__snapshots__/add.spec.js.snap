@@ -24,24 +24,24 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                     <div class="col-md-5">
                       <h3 class="mb-4">Personal Details</h3>
                       <fieldset class="form-group" id="__BVID__9">
-                        <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__9__BV_label_">First Name</legend>
-                        <div tabindex="-1" role="group"><input id="firstName" type="text" placeholder="First Name" required="required" aria-required="true" class="form-control">
+                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__9__BV_label_">First Name</legend>
+                        <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="firstName" type="text" placeholder="First Name" required="required" aria-required="true" class="form-control">
                           <!---->
                           <!---->
                           <!---->
                         </div>
                       </fieldset>
                       <fieldset class="form-group" id="__BVID__11">
-                        <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__11__BV_label_">Last Name</legend>
-                        <div tabindex="-1" role="group"><input id="lastName" type="text" placeholder="Last Name" required="required" aria-required="true" class="form-control">
+                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__11__BV_label_">Last Name</legend>
+                        <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="lastName" type="text" placeholder="Last Name" required="required" aria-required="true" class="form-control">
                           <!---->
                           <!---->
                           <!---->
                         </div>
                       </fieldset>
                       <fieldset class="form-group" id="__BVID__13">
-                        <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__13__BV_label_">Email</legend>
-                        <div tabindex="-1" role="group"><input id="email" type="email" placeholder="you@somemail.com" required="required" autocomplete="Email" aria-required="true" class="form-control">
+                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__13__BV_label_">Email</legend>
+                        <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="email" type="email" placeholder="you@somemail.com" required="required" autocomplete="Email" aria-required="true" class="form-control">
                           <!---->
                           <!---->
                           <!---->
@@ -58,8 +58,8 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                         </div>
                       </div>
                       <fieldset class="form-group" id="__BVID__16">
-                        <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__16__BV_label_">Source of Invitation</legend>
-                        <div tabindex="-1" role="group"><select id="invitationSource" class="custom-select">
+                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__16__BV_label_">Source of Invitation</legend>
+                        <div tabindex="-1" role="group" class="bv-no-focus-ring"><select id="invitationSource" class="custom-select">
                             <option value="referral">Referral</option>
                             <option value="application">Application</option>
                           </select>
@@ -69,8 +69,8 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                         </div>
                       </fieldset>
                       <fieldset class="form-group" id="__BVID__18">
-                        <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__18__BV_label_">Comments</legend>
-                        <div tabindex="-1" role="group"><textarea id="comments" placeholder="Comments to save on this member" rows="2" wrap="soft" class="form-control"></textarea>
+                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__18__BV_label_">Comments</legend>
+                        <div tabindex="-1" role="group" class="bv-no-focus-ring"><textarea id="comments" placeholder="Comments to save on this member" rows="2" wrap="soft" class="form-control"></textarea>
                           <!---->
                           <!---->
                           <!---->
@@ -81,8 +81,8 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                     <div class="col-md-5">
                       <h3 class="mb-4">Membership Details</h3>
                       <fieldset class="form-group" id="__BVID__20">
-                        <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__20__BV_label_">Membership Type</legend>
-                        <div tabindex="-1" role="group"><select id="memberType" class="custom-select">
+                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__20__BV_label_">Membership Type</legend>
+                        <div tabindex="-1" role="group" class="bv-no-focus-ring"><select id="memberType" class="custom-select">
                             <option value="0">Founding Member</option>
                             <option value="1">Fast Track</option>
                             <option value="2">Early Invite</option>
@@ -94,8 +94,8 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                         </div>
                       </fieldset>
                       <fieldset class="form-group" id="__BVID__22">
-                        <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__22__BV_label_">Region</legend>
-                        <div tabindex="-1" role="group"><select id="region" class="custom-select">
+                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__22__BV_label_">Region</legend>
+                        <div tabindex="-1" role="group" class="bv-no-focus-ring"><select id="region" class="custom-select">
                             <option value="A">Bay Area</option>
                             <option value="B">US outside of the Bay</option>
                             <option value="C">EMEA</option>
@@ -107,8 +107,8 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                         </div>
                       </fieldset>
                       <fieldset class="form-group" id="__BVID__24">
-                        <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__24__BV_label_">Assigned Admin</legend>
-                        <div tabindex="-1" role="group">
+                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__24__BV_label_">Assigned Admin</legend>
+                        <div tabindex="-1" role="group" class="bv-no-focus-ring">
                           <div class="el-select">
                             <!---->
                             <div class="el-input el-input--suffix">
@@ -139,8 +139,8 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                         </div>
                       </fieldset>
                       <fieldset class="form-group" id="__BVID__32">
-                        <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__32__BV_label_">Start Date</legend>
-                        <div tabindex="-1" role="group">
+                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__32__BV_label_">Start Date</legend>
+                        <div tabindex="-1" role="group" class="bv-no-focus-ring">
                           <client-only-stub>
                             <date-picker-stub id="startDate" width="100%" input-class="form-control" lang="en" format="YYYY-MM-DD" value-type="format" confirm="" type="date" placeholder="Start Date" value="2020-02-05 10:00:00"></date-picker-stub>
                           </client-only-stub>
@@ -150,8 +150,8 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                         </div>
                       </fieldset>
                       <fieldset class="form-group" id="__BVID__35">
-                        <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__35__BV_label_">On Trial</legend>
-                        <div tabindex="-1" role="group">
+                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__35__BV_label_">On Trial</legend>
+                        <div tabindex="-1" role="group" class="bv-no-focus-ring">
                           <div class="custom-control custom-checkbox"><input id="isOnTrial" type="checkbox" autocomplete="off" class="custom-control-input" value="true"><label for="isOnTrial" class="custom-control-label">Yes</label></div>
                           <!---->
                           <!---->
@@ -160,8 +160,8 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                       </fieldset>
                       <!---->
                       <fieldset class="form-group" id="__BVID__37">
-                        <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__37__BV_label_">Paid for</legend>
-                        <div tabindex="-1" role="group">
+                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__37__BV_label_">Paid for</legend>
+                        <div tabindex="-1" role="group" class="bv-no-focus-ring">
                           <div class="custom-control custom-checkbox"><input id="isPaidFor" type="checkbox" autocomplete="off" class="custom-control-input" value="true"><label for="isPaidFor" class="custom-control-label">Yes</label></div>
                           <!---->
                           <!---->
@@ -176,7 +176,7 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                 <div class="col-md-5">
                   <h3 class="mb-4">Pick Membership Plan</h3>
                   <div role="tablist" class="sh-accordion" id="plan" value="3">
-                    <div class="sh-accordion-item"><a block="" href="javascript:void(0)" class="d-flex justify-content-between" aria-controls="accordion-3" aria-expanded="true" role="button">
+                    <div class="sh-accordion-item"><a block="" href="javascript:void(0)" class="d-flex justify-content-between not-collapsed" aria-expanded="true" aria-controls="accordion-3">
                         <div class="sh-acc-title">
                           Household Membership ($2,560.00 /yr) <i class="fa fa-angle-down"></i></div>
                         <div class="custom-control custom-radio"><input type="radio" name="plan" autocomplete="off" class="custom-control-input" value="3" id="__BVID__40"><label class="custom-control-label" for="__BVID__40">Select this plan</label></div>
@@ -185,12 +185,12 @@ exports[`Page: /:space/memberships/add | Memberships Add Page renders properly 1
                         For two members
                       </div>
                     </div>
-                    <div class="sh-accordion-item"><a block="" href="javascript:void(0)" class="d-flex justify-content-between collapsed" aria-controls="accordion-4" aria-expanded="false" role="button">
+                    <div class="sh-accordion-item"><a block="" href="javascript:void(0)" class="d-flex justify-content-between collapsed" aria-expanded="false" aria-controls="accordion-4">
                         <div class="sh-acc-title">
                           Admin Plan ($1.00 /yr) <i class="fa fa-angle-down"></i></div>
                         <div class="custom-control custom-radio"><input type="radio" name="plan" autocomplete="off" class="custom-control-input" value="4" id="__BVID__43"><label class="custom-control-label" for="__BVID__43">Select this plan</label></div>
                       </a>
-                      <div id="accordion-4" class="collapsing" role="tabpanel" style="height: 0px; display: block;">
+                      <div id="accordion-4" class="collapse show collapsing" role="tabpanel" style="height: 0px; display: block;">
                         This plan is the admin
                       </div>
                     </div>

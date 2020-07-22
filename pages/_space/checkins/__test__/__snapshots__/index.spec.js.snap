@@ -90,7 +90,7 @@ exports[`Page: /:space/checkins/ | Checkins Index Page renders properly 1`] = `
     <div id="checkin" role="dialog" aria-hidden="true" aria-labelledby="checkin___BV_modal_title_" aria-describedby="checkin___BV_modal_body_" class="modal fade" style="display: none;">
       <div class="modal-dialog modal-md">
         <!---->
-        <div role="document" id="checkin___BV_modal_content_" tabindex="-1" class="modal-content">
+        <div id="checkin___BV_modal_content_" tabindex="-1" class="modal-content">
           <header id="checkin___BV_modal_header_" class="modal-header">
             <h5 id="checkin___BV_modal_title_" class="modal-title">Checkin</h5><button type="button" aria-label="Close" class="close">×</button>
           </header>
@@ -100,17 +100,17 @@ exports[`Page: /:space/checkins/ | Checkins Index Page renders properly 1`] = `
               <div class="card-header">
                 <ul role="tablist" class="nav nav-pills card-header-pills" id="__BVID__25__BV_tab_controls_">
                   <!---->
-                  <li role="presentation" class="nav-item"><a role="tab" aria-selected="true" aria-setsize="2" aria-posinset="1" target="_self" href="#" class="nav-link active" id="__BVID__26___BV_tab_button__" aria-controls="__BVID__26">Member</a></li>
-                  <li role="presentation" class="nav-item"><a role="tab" tabindex="-1" aria-selected="false" aria-setsize="2" aria-posinset="2" target="_self" href="#" class="nav-link" id="__BVID__38___BV_tab_button__" aria-controls="__BVID__38">Guest</a></li>
+                  <li role="presentation" class="nav-item"><a role="tab" aria-selected="true" aria-setsize="2" aria-posinset="1" href="#" target="_self" class="nav-link active" id="__BVID__26___BV_tab_button__" aria-controls="__BVID__26">Member</a></li>
+                  <li role="presentation" class="nav-item"><a role="tab" tabindex="-1" aria-selected="false" aria-setsize="2" aria-posinset="2" href="#" target="_self" class="nav-link" id="__BVID__38___BV_tab_button__" aria-controls="__BVID__38">Guest</a></li>
                   <!---->
                 </ul>
               </div>
               <div class="tab-content" id="__BVID__25__BV_tab_container_">
-                <div role="tabpanel" tabindex="-1" aria-hidden="false" class="tab-pane active card-body" id="__BVID__26" aria-labelledby="__BVID__26___BV_tab_button__">
+                <div role="tabpanel" aria-hidden="false" class="tab-pane active card-body" id="__BVID__26" aria-labelledby="__BVID__26___BV_tab_button__">
                   <form class="member-checkin-form">
                     <fieldset class="form-group" id="__BVID__28">
-                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__28__BV_label_">Member</legend>
-                      <div tabindex="-1" role="group">
+                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__28__BV_label_">Member</legend>
+                      <div tabindex="-1" role="group" class="bv-no-focus-ring">
                         <div class="el-select" required="required">
                           <!---->
                           <div class="el-input el-input--suffix">
@@ -149,8 +149,8 @@ exports[`Page: /:space/checkins/ | Checkins Index Page renders properly 1`] = `
                 <div role="tabpanel" aria-hidden="true" class="tab-pane card-body" style="display: none;" id="__BVID__38" aria-labelledby="__BVID__38___BV_tab_button__">
                   <form class="guest-checkin-form">
                     <fieldset class="form-group" id="__BVID__40">
-                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__40__BV_label_">Member</legend>
-                      <div tabindex="-1" role="group">
+                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__40__BV_label_">Member</legend>
+                      <div tabindex="-1" role="group" class="bv-no-focus-ring">
                         <div class="el-select" required="required">
                           <!---->
                           <div class="el-input el-input--suffix">
@@ -185,32 +185,32 @@ exports[`Page: /:space/checkins/ | Checkins Index Page renders properly 1`] = `
                       </div>
                     </fieldset>
                     <fieldset class="form-group" id="__BVID__50">
-                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__50__BV_label_">First Name</legend>
-                      <div tabindex="-1" role="group"><input id="firstName" type="text" placeholder="John" required="required" aria-required="true" class="form-control">
+                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__50__BV_label_">First Name</legend>
+                      <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="firstName" type="text" placeholder="John" required="required" aria-required="true" class="form-control">
                         <!---->
                         <!---->
                         <!---->
                       </div>
                     </fieldset>
                     <fieldset class="form-group" id="__BVID__52">
-                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__52__BV_label_">Last Name</legend>
-                      <div tabindex="-1" role="group"><input id="lastName" type="text" placeholder="Doe" required="required" aria-required="true" class="form-control">
+                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__52__BV_label_">Last Name</legend>
+                      <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="lastName" type="text" placeholder="Doe" required="required" aria-required="true" class="form-control">
                         <!---->
                         <!---->
                         <!---->
                       </div>
                     </fieldset>
                     <fieldset class="form-group" id="__BVID__54">
-                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__54__BV_label_">Email</legend>
-                      <div tabindex="-1" role="group"><input id="email" type="email" placeholder="john@doe.com" required="required" aria-required="true" class="form-control">
+                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__54__BV_label_">Email</legend>
+                      <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="email" type="email" placeholder="john@doe.com" required="required" aria-required="true" class="form-control">
                         <!---->
                         <!---->
                         <!---->
                       </div>
                     </fieldset>
                     <fieldset class="form-group" id="__BVID__56">
-                      <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__56__BV_label_">Company</legend>
-                      <div tabindex="-1" role="group"><input id="company" type="text" placeholder="SHACK15" required="required" aria-required="true" class="form-control">
+                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__56__BV_label_">Company</legend>
+                      <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="company" type="text" placeholder="SHACK15" required="required" aria-required="true" class="form-control">
                         <!---->
                         <!---->
                         <!---->
