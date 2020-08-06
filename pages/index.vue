@@ -54,7 +54,8 @@ export default {
   layout: 'ShackAuth',
   asyncData({ store }) {
     const spaces = store.state.auth.user.admin_of
-
+    console.log('Spaces:')
+    console.log(spaces)
     return {
       spaces
     }

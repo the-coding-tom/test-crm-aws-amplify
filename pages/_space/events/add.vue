@@ -7,7 +7,7 @@
         <MainTitle title="Add New Event" />
         <b-button
           class="btn btn-primary text-white"
-          @click="addEvent">Add Event</b-button>
+          @click="addEvent">Publish</b-button>
       </div>
     </base-header>
 
@@ -23,7 +23,6 @@
                   v-model="title"
                   class="col-md-6"
                   label="Event Title"
-                  placeholder="Awesome Co"
                 />
                 <base-input
                   id="capacity"
@@ -31,7 +30,6 @@
                   class="col-md-6"
                   label="Capacity"
                   type="number"
-                  placeholder="0"
                 />
                 <div class="form-group col-md-12">
                   <label>Event Description</label>
@@ -50,14 +48,19 @@
                     <date-picker
                       id="startTime"
                       v-model="startTime"
+                      :time-picker-options="{
+                        start: '00:30',
+                        step: '00:15',
+                        end: '23:30',
+                        format: 'hh:mm a'
+                      }"
                       width="100%"
                       input-class="form-control"
                       lang="en"
-                      format="YYYY-MM-DD HH:mm:ss"
+                      format="MMM DD, YYYY HH:mm"
                       value-type="format"
-                      confirm
                       type="datetime"
-                      placeholder="Start Date"
+                      placeholder="Select Date"
                       @change="startChange"
                     />
                   </client-only>
@@ -69,14 +72,18 @@
                     <date-picker
                       id="endTime"
                       v-model="endTime"
+                      :time-picker-options="{
+                        start: '00:30',
+                        step: '00:15',
+                        end: '23:30',
+                        format: 'hh:mm a'
+                      }"
                       width="100%"
                       input-class="form-control"
                       lang="en"
-                      format="YYYY-MM-DD HH:mm:ss"
+                      format="MMM DD, YYYY HH:mm"
                       value-type="format"
-                      confirm
                       type="datetime"
-                      placeholder="End Date"
                     />
                   </client-only>
                 </b-form-group>
@@ -87,7 +94,6 @@
                   label="Price"
                   type="number"
                   step="0.01"
-                  placeholder="0.00"
                 />
                 <base-input
                   id="maxTicketPerPerson"
@@ -95,11 +101,9 @@
                   class="col-md-6"
                   label="Max Ticket Per Person"
                   type="number"
-                  placeholder="3"
                 />
               </div>
             </div>
-
             <div class="col-md-6">
               <div class="row pd-l-20">
                 <div class="form-group col-md-12">
@@ -222,8 +226,8 @@ export default {
       category: '',
       title: '',
       description: '',
-      capacity: 10,
-      price: 10,
+      capacity: null, //10,
+      price: null, //10,
       startTime: '',
       endTime: '',
       eventLogo: '',
@@ -232,7 +236,7 @@ export default {
       emailSubject: 'Booking Confirmed',
       emailMessage: '',
       selectedRoom: null,
-      max_ticket_per_person: 3,
+      max_ticket_per_person: null, //3,
       external: false,
       external_location: null,
       banner_image: ''
@@ -244,18 +248,18 @@ export default {
       space: state => state.space.currentSpace.subdomain
     })
   },
-  mounted() {
+  /*mounted() {
     this.startTime = this.$moment().format('YYYY-MM-DD HH:00:00')
     this.endTime = this.$moment(this.startTime)
       .add(1, 'hour')
       .format('YYYY-MM-DD HH:mm:ss')
     this.category = this.categories[0].id
-  },
+  },*/
   methods: {
     startChange(e) {
       this.endTime = this.$moment(e)
         .add(1, 'hour')
-        .format('YYYY-MM-DD HH:mm:ss')
+        .format('MMM-DD-YYYY HH:mm a')
     },
     convertTextToHtml(text) {
       const showdown = require('showdown')
@@ -264,10 +268,11 @@ export default {
       return converter.makeHtml(text)
     },
     async addEvent() {
+      // Change to preferred display format -- 'YYYY-MM-DD HH:mm:ss'
       const start_time = this.$moment(this.startTime).format(
-        'YYYY-MM-DD HH:mm:ss'
+        'MMM-DD-YYYY HH:mm a'
       )
-      const end_time = this.$moment(this.endTime).format('YYYY-MM-DD HH:mm:ss')
+      const end_time = this.$moment(this.endTime).format('MMM-DD-YYYY HH:mm a')
 
       const emailMessage = this.convertTextToHtml(this.emailMessage)
 

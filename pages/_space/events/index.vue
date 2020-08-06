@@ -10,7 +10,7 @@
         <nuxt-link
           :to="{ name: 'space-events-add'}"
           class="btn btn-primary"
-        >Add Event</nuxt-link>
+        >New Event</nuxt-link>
       </div>
     </base-header>
 
