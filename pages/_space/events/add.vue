@@ -37,9 +37,6 @@
                     id="description"
                     v-model="description"
                     placeholder="Add details about the event" />
-                    <!-- <editor
-                    v-model="description"
-                    mode="markdown" /> -->
                 </div>
                 <b-form-group
                   label="Start Date"
@@ -57,7 +54,7 @@
                       width="100%"
                       input-class="form-control"
                       lang="en"
-                      format="MMM DD, YYYY HH:mm"
+                      format="YYYY-MM-DD HH:mm:ss"
                       value-type="format"
                       type="datetime"
                       placeholder="Select Date"
@@ -81,7 +78,7 @@
                       width="100%"
                       input-class="form-control"
                       lang="en"
-                      format="MMM DD, YYYY HH:mm"
+                      format="YYYY-MM-DD HH:mm:ss"
                       value-type="format"
                       type="datetime"
                     />
@@ -259,7 +256,7 @@ export default {
     startChange(e) {
       this.endTime = this.$moment(e)
         .add(1, 'hour')
-        .format('MMM-DD-YYYY HH:mm a')
+        .format('YYYY-MM-DD HH:mm:ss')
     },
     convertTextToHtml(text) {
       const showdown = require('showdown')
@@ -270,9 +267,9 @@ export default {
     async addEvent() {
       // Change to preferred display format -- 'YYYY-MM-DD HH:mm:ss'
       const start_time = this.$moment(this.startTime).format(
-        'MMM-DD-YYYY HH:mm a'
+        'YYYY-MM-DD HH:mm:ss'
       )
-      const end_time = this.$moment(this.endTime).format('MMM-DD-YYYY HH:mm a')
+      const end_time = this.$moment(this.endTime).format('YYYY-MM-DD HH:mm:ss')
 
       const emailMessage = this.convertTextToHtml(this.emailMessage)
 
