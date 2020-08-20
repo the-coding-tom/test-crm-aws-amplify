@@ -59,14 +59,10 @@ export default {
   },
   methods: {
     onEditorChange() {
-      // implement your code
       let html = this.$refs.toastuiEditor.invoke('getHtml')
       let desc = this.$refs.toastuiEditor.invoke('getValue')
       let markdown = this.$refs.toastuiEditor.invoke('getMarkdown')
       this.text = markdown
-      // console.log('html', html)
-      console.log('text', desc)
-      console.log('markdown', markdown)
     }
   }
 }

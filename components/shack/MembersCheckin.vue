@@ -43,7 +43,7 @@
         prop="meeting_guest"
         sortable>
         <template v-slot="{row}">
-          <b-badge 
+          <b-badge
             v-if="row.meeting_guest"
             variant="primary">Yes</b-badge>
         </template>

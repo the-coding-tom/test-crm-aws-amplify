@@ -194,6 +194,7 @@ import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
 import { mapState } from 'vuex'
 import { Select, Option } from 'element-ui'
 import Room from '@/components/events/Room'
+import { convertMarkdownToHtml } from '@/util/convertMarkdownToHtml.js'
 
 export default {
   layout: 'ShackDash',
@@ -259,10 +260,7 @@ export default {
         .format('YYYY-MM-DD HH:mm:ss')
     },
     convertTextToHtml(text) {
-      const showdown = require('showdown')
-      const converter = new showdown.Converter()
-
-      return converter.makeHtml(text)
+      return convertMarkdownToHtml(text)
     },
     async addEvent() {
       // Change to preferred display format -- 'YYYY-MM-DD HH:mm:ss'
@@ -279,11 +277,10 @@ export default {
         this.external_location = null
       }
 
-      this.description = this.description.replace(/(?:<br>)/g, '\n')
-
+      const eventDescription = this.description.replace(/(?:<br>)/g, '\n')
       const eventDetails = {
         name: this.title,
-        description: this.description,
+        description: eventDescription,
         price: this.price,
         start_time,
         end_time,
@@ -300,7 +297,7 @@ export default {
         external_location: this.external_location,
         banner_image: this.banner_image
       }
-
+      // console.log('event details', eventDetails)
       await this.$event
         .addEvent(eventDetails)
         .then(({ data }) => {
