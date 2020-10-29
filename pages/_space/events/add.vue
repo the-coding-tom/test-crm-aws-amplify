@@ -5,9 +5,15 @@
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Add New Event" />
-        <b-button
-          class="btn btn-primary text-white"
-          @click="addEvent">Add Event</b-button>
+        <div>
+          <b-button
+            variant="transparent"
+            class="text-danger"
+          ><i class="fa fa-save"/> Save As Draft & Close</b-button>
+          <b-button
+            class="btn btn-primary text-white"
+            @click="addEvent">Add Event</b-button>
+        </div>
       </div>
     </base-header>
 

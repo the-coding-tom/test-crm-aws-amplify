@@ -230,6 +230,81 @@
               slot="header"
               class="d-flex justify-content-between align-items-center">
               <div class="txt-upper">
+                SHACK15 CREDIT
+              </div>
+              <b-button
+                id="addPlanBtn"
+                variant="transparent"
+                class="text-primary"
+                @click="toggleModal('add-credit')">
+                <i class="fa fa-plus" /> Add Credit
+              </b-button>
+            </div>
+            <div class="m-n25">
+              <table class="table table-hover table-striped">
+                <tbody>
+                  <tr
+                    v-for="subscription in data.subscriptions"
+                    :key="subscription.id">
+                    <div v-if="!subscription.canceled_at">
+                      <td 
+                        id="balance"><div 
+                          style="display:inline-block" 
+                          @click="disabled = false" 
+                          @change="disabled = true"><input 
+                            v-model="creditBalance"
+                            :disabled="disabled?'disabled':none" 
+                            type="number"
+                        ></div>
+                        <b-popover
+                          target="balance"
+                          placement="top"
+                          content="Click on the amount to edit"
+                          triggers="hover focus"
+                        />
+                      </td>
+                      <td>Last updated {{ getSubDetails(subscription) }}</td>
+                      <td>
+                        <b-button 
+                          v-if="creditBalance !== previousCreditBalance"
+                          id="save-credit"
+                          size="sm"
+                          variant="transparent"
+                          class="text-primary"
+                          @click="saveChanges"><i class="fa fa-save"/></b-button>
+                        <b-popover
+                          v-if="creditBalance !== previousCreditBalance"
+                          target="save-credit"
+                          placement="top"
+                          content="Save changes"
+                          triggers="hover focus"
+                        />
+                        <b-button
+                          v-if="creditBalance === previousCreditBalance"
+                          id="edit-credit"
+                          size="sm"
+                          variant="transparent"
+                          class="text-danger"
+                          @click="disabled = false"><i class="fa fa-edit"/></b-button>
+                        <b-popover
+                          v-if="creditBalance === previousCreditBalance"
+                          target="edit-credit"
+                          placement="top"
+                          content="Edit credit"
+                          triggers="hover focus"
+                        />
+                      </td>
+                    </div>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </card>
+          <card>
+            <div
+              slot="header"
+              class="d-flex justify-content-between align-items-center">
+              <div class="txt-upper">
                 MEMBERSHIP PLAN
               </div>
               <b-button
@@ -331,6 +406,11 @@
       title="Add New Plan"
       hide-footer><AddPlan :cards="cards" /></b-modal>
     <b-modal
+      id="add-credit"
+      :static="true"
+      title="Add Credit"
+      hide-footer><AddCredit :cards="cards" /></b-modal>
+    <b-modal
       id="add-card"
       title="Add New Card"
       hide-footer><AddCard
@@ -351,6 +431,7 @@ import ProfileHead from '~/components/shack/ProfileHead.vue'
 import MembershipNotes from '~/components/shack/MembershipNotes.vue'
 import ChangePlan from '~/components/directory/ChangePlan'
 import AddPlan from '~/components/directory/AddPlan'
+import AddCredit from '~/components/directory/AddCredit'
 import AddCard from '~/components/directory/AddCard'
 import CheckIn from '~/components/shack/CheckIn'
 import { mapState } from 'vuex'
@@ -364,6 +445,7 @@ export default {
     MainTitle,
     ProfileHead,
     ChangePlan,
+    AddCredit,
     AddPlan,
     AddCard,
     [Drawer.name]: Drawer,
@@ -423,7 +505,10 @@ export default {
       currentPage: 1,
       perPage: 5,
       drawer: false,
-      direction: 'rtl'
+      direction: 'rtl',
+      creditBalance: 500.0,
+      previousCreditBalance: 500.0,
+      disabled: true
     }
   },
   computed: {
@@ -446,6 +531,9 @@ export default {
     }
   },
   methods: {
+    saveChanges() {
+      this.previousCreditBalance = this.creditBalance
+    },
     toggleModal(type) {
       this.$bvModal.show(type)
     },

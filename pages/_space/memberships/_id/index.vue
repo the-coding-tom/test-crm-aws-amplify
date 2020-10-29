@@ -109,7 +109,7 @@
                   class="col-md-6"
                   label="Assigned Admin">
                   <el-select
-                    v-model="data.assigned_admin"
+                    v-model="selectedAdmin"
                     :remote-method="searchAdmins"
                     :loading="searching"
                     filterable
@@ -127,7 +127,7 @@
 
                 <b-form-group
                   class="col-md-6"
-                  label="Start Date">
+                  label="Date Member Joined Shack15">
                   <client-only>
                     <date-picker
                       id="time"
@@ -154,7 +154,45 @@
                     type="number"
                     required/>
                 </b-form-group>
-
+                <div 
+                  style="width: 100%; display: flex; background-color: #e9ecef; padding-top: 30px; margin-bottom: 30px">
+                  <b-form-group
+                    class="col-md-6"
+                    label="Subscription Start Date">
+                    <client-only>
+                      <date-picker
+                        id="time"
+                        v-model="data.subscriptions[0].starts_at"
+                        width="100%"
+                        input-class="form-control"
+                        lang="en"
+                        format="YYYY-MM-DD"
+                        value-type="format"
+                        confirm
+                        type="date"
+                        placeholder="Start Date"
+                      />
+                    </client-only>
+                  </b-form-group>
+                  <b-form-group
+                    class="col-md-6"
+                    label="Subscription Expiry Date">
+                    <client-only>
+                      <date-picker
+                        id="time"
+                        v-model="data.subscriptions[0].ends_at"
+                        width="100%"
+                        input-class="form-control"
+                        lang="en"
+                        format="YYYY-MM-DD"
+                        value-type="format"
+                        confirm
+                        type="date"
+                        placeholder="Start Date"
+                      />
+                    </client-only>
+                  </b-form-group>
+                </div>
                 <b-form-group
                   class="col-md-6"
                   label="Paid for">
@@ -163,7 +201,6 @@
                     :value="true"
                     :unchecked-value="false">Yes</b-form-checkbox>
                 </b-form-group>
-
                 <b-form-group
                   v-if="data.paid_for"
                   class="col-md-6"
@@ -256,6 +293,7 @@ export default {
   data() {
     return {
       loading: false,
+      selectedAdmin: null,
       admins: [],
       options: [
         { text: 'Referral', value: 'referral' },
@@ -316,9 +354,18 @@ export default {
     updateMembership() {
       const { id } = this.$route.params
       this.loading = !this.loading
-
       this.data.membership_id = this.data.membership_number
+      this.data.user_profile.first_name = this.data.first_name
+      this.data.user_profile.last_name = this.data.last_name
+      this.data.user_profile.full_name = `${this.data.first_name} ${
+        this.data.last_name
+      }`
+
       this.data.paid_by = this.paid_by
+      // Fixed bug using this line
+      this.data.assigned_admin = this.selectedAdmin
+        ? this.selectedAdmin
+        : this.data.assigned_admin.uuid
 
       this.$membership
         .updateMembership(id, this.data)

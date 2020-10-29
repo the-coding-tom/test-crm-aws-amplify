@@ -4,8 +4,9 @@
       <editor
         v-model="text"
         :options="editorOptions"
+        :initial-value="text"
         initial-edit-type="wysiwyg"
-        preview-style="tab"
+        preview-style="none"
       />
     </client-only>
   </div>
@@ -27,7 +28,7 @@ export default {
         toolbarItems: [
           'heading',
           'bold',
-          // 'italic',
+          'italic',
           'strike',
           'divider',
           'hr',
@@ -39,7 +40,7 @@ export default {
           'indent',
           'outdent',
           'divider',
-          'table',
+          //'table',
           'image',
           'link',
           'divider',

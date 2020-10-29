@@ -82,8 +82,6 @@ export default {
       this.$store.commit('space/setSpace', selectedSpace)
 
       location.href = `/${selectedSpace.subdomain}`
-
-      // this.$router.push(`/${selectedSpace.subdomain}`)
     }
   }
 }
