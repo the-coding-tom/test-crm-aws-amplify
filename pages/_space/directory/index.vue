@@ -23,6 +23,21 @@
         <SearchForm
           :loading="loading"
           @search="searchMember" />
+        <div><b-button
+          variant="transparent"
+          class="text-primary"
+          @click="toggleModal('add-credit')"
+        >
+          <i class="fas fa-plus"/> Credit
+        </b-button>
+          <b-button
+            variant="transparent"
+            class="text-primary"
+            @click="toggleModal('add-free-months')"
+          >
+            <i class="fas fa-plus"/> Free Months
+          </b-button>
+        </div>
       </div>
     </base-header>
     <div class="container-fluid mt--6">
@@ -53,12 +68,24 @@
         @prev="prev"
       />
     </div>
+    <b-modal
+      id="add-credit"
+      :static="true"
+      title="Add Credit For All Members"
+      hide-footer><AddCreditAll :data="data" /></b-modal>
+    <b-modal
+      id="add-free-months"
+      :static="true"
+      title="Add Free Months For All Members"
+      hide-footer><AddFreeMonths :data="data" /></b-modal>
   </div>
 </template>
 <script>
 import MainTitle from '~/components/shack/MainTitle.vue'
 import ThumbCard from '~/components/shack/ThumbCard.vue'
 import SearchForm from '~/components/shack/SearchForm.vue'
+import AddCreditAll from '~/components/directory/AddCreditAll'
+import AddFreeMonths from '~/components/directory/AddFreeMonths'
 import { Select, Option } from 'element-ui'
 import { getQueryParams } from '../../../util/url'
 
@@ -83,6 +110,8 @@ export default {
     MainTitle,
     SearchForm,
     ThumbCard,
+    AddCreditAll,
+    AddFreeMonths,
     [Select.name]: Select,
     [Option.name]: Option
   },
@@ -113,6 +142,9 @@ export default {
     ]
   }),
   methods: {
+    toggleModal(type) {
+      this.$bvModal.show(type)
+    },
     next() {
       const { next } = this.links
 

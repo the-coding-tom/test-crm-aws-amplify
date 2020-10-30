@@ -33,7 +33,7 @@
 import { Select, Option } from 'element-ui'
 
 export default {
-  name: 'AddCredit',
+  name: 'AddCreditAll',
   components: {
     [Select.name]: Select,
     [Option.name]: Option
@@ -50,8 +50,7 @@ export default {
     plans: [],
     credit: {
       amount: null,
-      description: null,
-      membership_id: null
+      description: null
     }
   }),
   mounted() {},
@@ -60,9 +59,8 @@ export default {
       this.loading = !this.loading
 
       this.credit.description = 'Credit bonus for member'
-      this.credit.membership_id = this.data.id
       this.$membership
-        .addCredit(this.credit)
+        .addCreditAll(this.credit)
         .then(res => {
           this.$bvToast.toast('Credit assigned to member successfully', {
             title: 'Success',

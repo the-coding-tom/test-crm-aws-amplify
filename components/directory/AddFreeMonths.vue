@@ -6,17 +6,17 @@
         <b-form-group
           id="selectPlan"
           class="col-md-12"
-          label="Enter the amount"
+          label="Enter number of months"
           description="">
           <el-input
-            v-model="credit.amount"
+            v-model="freeMonths.numberOfMonths"
             :remote-method="getPlans"
             :loading="loading"
             type="number"
             filterable
             remote
             reserve-keyword
-            placeholder="$0.00"/>
+            placeholder="number of months"/>
         </b-form-group>
         
       </b-row>
@@ -24,7 +24,7 @@
         :disabled="loading"
         class="float-right"
         type="submit"
-        variant="primary">Add Credit</b-button>
+        variant="primary">Add</b-button>
     </b-form>
   </div>
 </template>
@@ -33,7 +33,7 @@
 import { Select, Option } from 'element-ui'
 
 export default {
-  name: 'AddCredit',
+  name: 'AddFreeMonths',
   components: {
     [Select.name]: Select,
     [Option.name]: Option
@@ -48,10 +48,8 @@ export default {
     loading: false,
     search: '',
     plans: [],
-    credit: {
-      amount: null,
-      description: null,
-      membership_id: null
+    freeMonths: {
+      numberOfMonths: null
     }
   }),
   mounted() {},
@@ -59,10 +57,8 @@ export default {
     addCredit() {
       this.loading = !this.loading
 
-      this.credit.description = 'Credit bonus for member'
-      this.credit.membership_id = this.data.id
       this.$membership
-        .addCredit(this.credit)
+        .addFreeMonths(this.freeMonths)
         .then(res => {
           this.$bvToast.toast('Credit assigned to member successfully', {
             title: 'Success',

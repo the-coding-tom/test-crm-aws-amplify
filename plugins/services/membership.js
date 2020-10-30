@@ -55,6 +55,32 @@ export default function(ctx, inject) {
           getError(e)
         })
     },
+    addFreeMonths: payload => {
+      return ctx.$axios
+        .$post(`/${subdomain()}/memberships/addfreemonths`, payload)
+        .catch(e => {
+          getError(e)
+        })
+    },
+    addCredit: payload => {
+      return ctx.$axios.$post(`/${subdomain()}/deposits`, payload).catch(e => {
+        getError(e)
+      })
+    },
+    addCreditAll: payload => {
+      return ctx.$axios
+        .$post(`/${subdomain()}/deposits/all-users`, payload)
+        .catch(e => {
+          getError(e)
+        })
+    },
+    editCredit: payload => {
+      return ctx.$axios
+        .$put(`/${subdomain()}/deposits/edit`, payload)
+        .catch(e => {
+          getError(e)
+        })
+    },
     deletePaymentMethod: (id, payload) => {
       return ctx.$axios.$delete(
         `/${subdomain()}/memberships/${id}/removepaymentmethod`,

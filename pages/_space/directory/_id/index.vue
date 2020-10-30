@@ -252,7 +252,7 @@
                           style="display:inline-block" 
                           @click="disabled = false" 
                           @change="disabled = true"><input 
-                            v-model="creditBalance"
+                            v-model="data.credits"
                             :disabled="disabled?'disabled':none" 
                             type="number"
                         ></div>
@@ -266,28 +266,28 @@
                       <td>Last updated {{ getSubDetails(subscription) }}</td>
                       <td>
                         <b-button 
-                          v-if="creditBalance !== previousCreditBalance"
+                          v-if="data.credits !== previousCreditBalance"
                           id="save-credit"
                           size="sm"
                           variant="transparent"
                           class="text-primary"
                           @click="saveChanges"><i class="fa fa-save"/></b-button>
                         <b-popover
-                          v-if="creditBalance !== previousCreditBalance"
+                          v-if="data.credits !== previousCreditBalance"
                           target="save-credit"
                           placement="top"
                           content="Save changes"
                           triggers="hover focus"
                         />
                         <b-button
-                          v-if="creditBalance === previousCreditBalance"
+                          v-if="data.credits === previousCreditBalance"
                           id="edit-credit"
                           size="sm"
                           variant="transparent"
                           class="text-danger"
                           @click="disabled = false"><i class="fa fa-edit"/></b-button>
                         <b-popover
-                          v-if="creditBalance === previousCreditBalance"
+                          v-if="data.credits === previousCreditBalance"
                           target="edit-credit"
                           placement="top"
                           content="Edit credit"
@@ -409,7 +409,7 @@
       id="add-credit"
       :static="true"
       title="Add Credit"
-      hide-footer><AddCredit :cards="cards" /></b-modal>
+      hide-footer><AddCredit :data="data" /></b-modal>
     <b-modal
       id="add-card"
       title="Add New Card"
@@ -483,6 +483,7 @@ export default {
         return {
           checkin: data.checkin.length > 0 ? data.checkin[0] : {},
           data,
+          previousCreditBalance: data.credits,
           cards,
           events,
           subscriptions,
@@ -506,9 +507,13 @@ export default {
       perPage: 5,
       drawer: false,
       direction: 'rtl',
-      creditBalance: 500.0,
       previousCreditBalance: 500.0,
-      disabled: true
+      disabled: true,
+      credit: {
+        amount: null,
+        description: null,
+        membership_id: null
+      }
     }
   },
   computed: {
@@ -532,7 +537,31 @@ export default {
   },
   methods: {
     saveChanges() {
-      this.previousCreditBalance = this.creditBalance
+      this.loading = !this.loading
+
+      this.credit.description = 'Credit bonus for member'
+      this.credit.membership_id = this.data.id
+      this.credit.amount = this.data.credits
+      this.$membership
+        .editCredit(this.credit)
+        .then(res => {
+          this.$bvToast.toast('Credit assigned to member successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+          this.previousCreditBalance = this.data.credits
+          location.reload()
+        })
+        .catch(e => {
+          this.loading = !this.loading
+          const message = e.response
+            ? `${e.response.data.message} ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+
+          this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
+        })
     },
     toggleModal(type) {
       this.$bvModal.show(type)
