@@ -127,7 +127,7 @@
 
                 <b-form-group
                   class="col-md-6"
-                  label="Date Member Joined Shack15">
+                  label="Date Joined">
                   <client-only>
                     <date-picker
                       id="time"
@@ -155,7 +155,7 @@
                     required/>
                 </b-form-group>
                 <div 
-                  style="width: 100%; display: flex; background-color: #e9ecef; padding-top: 30px; margin-bottom: 30px">
+                  style="width: 100%; display: flex;">
                   <b-form-group
                     class="col-md-6"
                     label="Subscription Start Date">

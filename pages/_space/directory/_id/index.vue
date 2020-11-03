@@ -356,6 +356,44 @@
               </table>
             </div>
           </card>
+          <card>
+            <div
+              slot="header"
+              class="d-flex justify-content-between align-items-center">
+              <div class="txt-upper">
+                CUSTOM CHARGES
+              </div>
+              <b-button
+                id="addPlanBtn"
+                variant="transparent"
+                class="text-primary"
+                @click="toggleModal('add-custom-charge')">
+                <i class="fa fa-plus" /> Add New Charge
+              </b-button>
+            </div>
+            <div class="m-n25">
+              <table class="table table-hover table-striped">
+                <tbody>
+                  <tr
+                    v-for="charge in customCharges"
+                    :key="charge.id">
+                    <div v-if="charge.state !== 'settled'">
+                      <td><div style="text-overflow: ellipsis; max-width: 150px; overflow: hidden">{{ charge.description }}</div></td>
+                      <td>Charge: ${{ charge.amount }}</td>
+                      <td>Due on {{ charge.due_date.split(" ")[0] }}</td>
+                      <td>
+                        <b-button
+                          size="sm"
+                          variant="transparent"
+                          class="text-danger"
+                          @click="toggleModal('edit-custom-charge', charge)"><i class="fa fa-edit"/></b-button>
+                      </td>
+                    </div>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </card>
           <check-in/>
           <card>
             <div
@@ -417,6 +455,16 @@
         :toggle-loading="toggleLoading"
         :loading="loading"
         @addCard="addCard" /></b-modal>
+    <b-modal
+      id="add-custom-charge"
+      title="Add Custom Charge"
+      hide-footer><AddCustomCharge
+        :data="data" /></b-modal>
+    <b-modal
+      id="edit-custom-charge"
+      title="Edit Charge"
+      hide-footer><EditCustomCharge
+        :data="selctedItemData" /></b-modal>
     <el-drawer
       :visible.sync="drawer"
       :direction="direction"
@@ -433,6 +481,8 @@ import ChangePlan from '~/components/directory/ChangePlan'
 import AddPlan from '~/components/directory/AddPlan'
 import AddCredit from '~/components/directory/AddCredit'
 import AddCard from '~/components/directory/AddCard'
+import AddCustomCharge from '~/components/directory/AddCustomCharge'
+import EditCustomCharge from '~/components/directory/EditCustomCharge'
 import CheckIn from '~/components/shack/CheckIn'
 import { mapState } from 'vuex'
 import { Drawer } from 'element-ui'
@@ -447,6 +497,8 @@ export default {
     ChangePlan,
     AddCredit,
     AddPlan,
+    AddCustomCharge,
+    EditCustomCharge,
     AddCard,
     [Drawer.name]: Drawer,
     MembershipNotes,
@@ -470,26 +522,35 @@ export default {
         return res.data
       })
 
-      return await $membership.getAMembership(params.id).then(({ data }) => {
-        const events = _.map(data.events_attended, o => {
+      return await $membership
+        .getAMembership(params.id)
+        .then(async ({ data }) => {
+          const customCharges = await $membership
+            .getCustomCharges({ spaceId: 1, user_id: data.user_id })
+            .then(data => {
+              return data
+            })
+
+          const events = _.map(data.events_attended, o => {
+            return {
+              name: o.event.name,
+              ticket: o.number_of_tickets + ' tickets',
+              price:
+                store.state.space.currentSpace.currency_symbol + o.total_amount,
+              start: $moment(o.event.start_time).format('MMM DD, YY')
+            }
+          })
           return {
-            name: o.event.name,
-            ticket: o.number_of_tickets + ' tickets',
-            price:
-              store.state.space.currentSpace.currency_symbol + o.total_amount,
-            start: $moment(o.event.start_time).format('MMM DD, YY')
+            checkin: data.checkin.length > 0 ? data.checkin[0] : {},
+            data,
+            previousCreditBalance: data.credits,
+            cards,
+            events,
+            subscriptions,
+            customCharges: customCharges.returnedData,
+            paid_for
           }
         })
-        return {
-          checkin: data.checkin.length > 0 ? data.checkin[0] : {},
-          data,
-          previousCreditBalance: data.credits,
-          cards,
-          events,
-          subscriptions,
-          paid_for
-        }
-      })
     } catch (e) {
       error({
         statusCode: e.statusCode,
@@ -504,11 +565,13 @@ export default {
       checked: false,
       cards: [],
       currentPage: 1,
+      selctedItemData: {},
       perPage: 5,
       drawer: false,
       direction: 'rtl',
       previousCreditBalance: 500.0,
       disabled: true,
+      customCharges: [],
       credit: {
         amount: null,
         description: null,
@@ -563,7 +626,8 @@ export default {
           this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
         })
     },
-    toggleModal(type) {
+    toggleModal(type, data) {
+      this.selctedItemData = data
       this.$bvModal.show(type)
     },
     getSubName(subscription) {

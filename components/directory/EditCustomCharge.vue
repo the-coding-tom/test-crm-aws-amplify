@@ -6,25 +6,61 @@
         <b-form-group
           id="selectPlan"
           class="col-md-12"
-          label=""
+          label="Charge Details"
           description="">
           <el-input
-            v-model="freeMonths.numberOfMonths"
+            v-model="data.amount"
             :remote-method="getPlans"
             :loading="loading"
             type="number"
             filterable
             remote
             reserve-keyword
-            placeholder="number of months"/>
+            required
+            placeholder="amount $"/>
         </b-form-group>
-        
+        <b-form-group
+          id="selectPlan"
+          class="col-md-12"
+          label=""
+          description="">
+          <el-input
+            v-model="data.description"
+            :remote-method="getPlans"
+            :loading="loading"
+            type="text"
+            filterable
+            remote
+            reserve-keyword
+            required
+            placeholder="Description"/>
+        </b-form-group>
+        <b-form-group
+          id="selectPlan"
+          class="col-md-12"
+          label=""
+          description="">
+          <client-only>
+            <date-picker
+              id="time"
+              v-model="data.due_date"
+              width="100%"
+              input-class="form-control"
+              lang="en"
+              format="YYYY-MM-DD"
+              value-type="format"
+              confirm
+              type="date"
+              placeholder="Start Date"
+            />
+          </client-only>
+        </b-form-group>
       </b-row>
       <b-button
         :disabled="loading"
         class="float-right"
         type="submit"
-        variant="primary">Add</b-button>
+        variant="primary">Save</b-button>
     </b-form>
   </div>
 </template>
@@ -56,11 +92,13 @@ export default {
   methods: {
     addCredit() {
       this.loading = !this.loading
-
+      // add other charge details to this.data.currentCharge before sending
+      this.data.spaceId = this.data.space_id
+      this.data.chargeId = this.data.id
       this.$membership
-        .addFreeMonths(this.freeMonths)
+        .editCustomCharge(this.data)
         .then(res => {
-          this.$bvToast.toast('Credit assigned to member successfully', {
+          this.$bvToast.toast('Charge updated successfully', {
             title: 'Success',
             variant: 'success'
           })
