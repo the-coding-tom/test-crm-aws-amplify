@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form @submit.prevent="addCredit">
+    <b-form @submit.prevent="onSubmit">
       <b-row>
 
         <b-form-group
@@ -58,6 +58,12 @@
       </b-row>
       <b-button
         :disabled="loading"
+        class="float-left"
+        type="submit"
+        variant="outline-primary"
+        @click="billMember = true">Charge Now</b-button>
+      <b-button
+        :disabled="loading"
         class="float-right"
         type="submit"
         variant="primary">Save</b-button>
@@ -84,12 +90,22 @@ export default {
     loading: false,
     search: '',
     plans: [],
+    billMember: false,
     freeMonths: {
       numberOfMonths: null
     }
   }),
   mounted() {},
   methods: {
+    onSubmit(data) {
+      if (this.billMember) {
+        this.billNow()
+        console.log('called bill')
+      } else {
+        this.addCredit()
+        console.log('called save')
+      }
+    },
     addCredit() {
       this.loading = !this.loading
       // add other charge details to this.data.currentCharge before sending
@@ -99,6 +115,31 @@ export default {
         .editCustomCharge(this.data)
         .then(res => {
           this.$bvToast.toast('Charge updated successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+          location.reload()
+        })
+        .catch(e => {
+          this.loading = !this.loading
+          const message = e.response
+            ? `${e.response.data.message} ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+
+          this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
+        })
+    },
+    billNow() {
+      this.loading = !this.loading
+      // add other charge details to this.data.currentCharge before sending
+      this.data.spaceId = this.data.space_id
+      this.data.chargeId = this.data.id
+      this.$membership
+        .billCustomCharge(this.data)
+        .then(res => {
+          this.$bvToast.toast('Member billed successfully', {
             title: 'Success',
             variant: 'success'
           })

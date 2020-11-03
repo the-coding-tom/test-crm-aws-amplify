@@ -84,6 +84,14 @@ export default function(ctx, inject) {
           getError(e)
         })
     },
+    billCustomCharge: payload => {
+      return ctx.$axios
+        .$post(`/${subdomain()}/membership/customcharge/settle`, payload)
+        .catch(e => {
+          console.log(e)
+          getError(e)
+        })
+    },
     addCredit: payload => {
       return ctx.$axios.$post(`/${subdomain()}/deposits`, payload).catch(e => {
         getError(e)
