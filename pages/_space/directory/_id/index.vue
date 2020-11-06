@@ -170,6 +170,8 @@
 
             </div>
           </div>
+          <check-in/>
+
         </div>
 
         <div class="col-md-6">
@@ -419,7 +421,6 @@
               </div>
             </template>
           </card>
-          <check-in/>
           <card>
             <div
               slot="header"
