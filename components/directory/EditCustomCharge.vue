@@ -12,6 +12,7 @@
             v-model="data.amount"
             :remote-method="getPlans"
             :loading="loading"
+            :disabled="data.state === 'settled'?true:false"
             type="number"
             filterable
             remote
@@ -28,6 +29,7 @@
             v-model="data.description"
             :remote-method="getPlans"
             :loading="loading"
+            :disabled="data.state === 'settled'?true:false"
             type="text"
             filterable
             remote
@@ -44,6 +46,7 @@
             <date-picker
               id="time"
               v-model="data.due_date"
+              :disabled="data.state === 'settled'?true:false"
               width="100%"
               input-class="form-control"
               lang="en"
@@ -56,17 +59,19 @@
           </client-only>
         </b-form-group>
       </b-row>
-      <b-button
-        :disabled="loading"
-        class="float-left"
-        type="submit"
-        variant="outline-primary"
-        @click="billMember = true">Charge Now</b-button>
-      <b-button
-        :disabled="loading"
-        class="float-right"
-        type="submit"
-        variant="primary">Save</b-button>
+      <template v-if="data.state === 'unsettled'">
+        <b-button
+          :disabled="loading"
+          class="float-left"
+          type="submit"
+          variant="outline-primary"
+          @click="billMember = true">Charge Now</b-button>
+        <b-button
+          :disabled="loading"
+          class="float-right"
+          type="submit"
+          variant="primary">Save</b-button>
+      </template>
     </b-form>
   </div>
 </template>

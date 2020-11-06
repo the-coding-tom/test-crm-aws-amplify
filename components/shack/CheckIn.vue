@@ -31,6 +31,7 @@
         :fields="fields"
         show-empty
         striped
+        responsive="sm"
         hover/>
     </div>
     <div

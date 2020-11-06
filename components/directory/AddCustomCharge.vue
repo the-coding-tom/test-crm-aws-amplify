@@ -106,7 +106,7 @@ export default {
       this.$membership
         .addCustomCharge(this.charge)
         .then(res => {
-          this.$bvToast.toast('Credit assigned to member successfully', {
+          this.$bvToast.toast('Custom charge billed to member successfully', {
             title: 'Success',
             variant: 'success'
           })

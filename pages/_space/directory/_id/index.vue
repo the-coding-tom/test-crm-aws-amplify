@@ -371,28 +371,53 @@
                 <i class="fa fa-plus" /> Add New Charge
               </b-button>
             </div>
-            <div class="m-n25">
-              <table class="table table-hover table-striped">
-                <tbody>
-                  <tr
-                    v-for="charge in customCharges"
-                    :key="charge.id">
-                    <div v-if="charge.state !== 'settled'">
-                      <td><div style="text-overflow: ellipsis; max-width: 150px; overflow: hidden">{{ charge.description }}</div></td>
-                      <td>Charge: ${{ charge.amount }}</td>
-                      <td>Due on {{ charge.due_date.split(" ")[0] }}</td>
-                      <td>
-                        <b-button
-                          size="sm"
-                          variant="transparent"
-                          class="text-danger"
-                          @click="toggleModal('edit-custom-charge', charge)"><i class="fa fa-edit"/></b-button>
-                      </td>
-                    </div>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <template>
+              <div class="m-n25">
+                <div class="overflow-auto">
+                  <b-table
+                    id="my-table"
+                    :items="customChargesList"
+                    striped
+                    hover
+                    show-empty
+                    responsive="sm"
+                    @row-clicked="rowClicked"
+                  >
+                    <!-- A custom formatted column -->
+                    <template #cell(description)="data">
+                      <div style="text-overflow: ellipsis; max-width: 150px; overflow: hidden">{{ data.value }}</div>
+                    </template>
+                    <template #cell(customItem)="data"/>
+                    <template #cell(current_status)="data">
+                      <b-badge 
+                        v-if="data.value.toUpperCase()=='SETTLED'"
+                        pill 
+                        variant="success">{{ "PAID" }}</b-badge>
+                      <b-badge 
+                        v-if="data.value.toUpperCase()=='UNSETTLED'"
+                        pill 
+                        variant="danger">{{ "NOT PAID" }}</b-badge>
+                      <b-badge 
+                        v-if="data.value.toUpperCase()=='UNSETTLED'"
+                        pill 
+                        variant="warning">{{ "PENDING" }}</b-badge>
+                    </template>
+                  </b-table>
+                </div>
+              </div>
+              <div
+                slot="footer"
+                class="" 
+                style="visibility: hidden">
+                <b-pagination
+                  :per-page="perPage"
+                  v-model="currentPage"
+                  :total-rows="rows"
+                  align="center"
+                  aria-controls="my-table"
+                />
+              </div>
+            </template>
           </card>
           <check-in/>
           <card>
@@ -531,6 +556,20 @@ export default {
               return data
             })
 
+          const customChargesList = customCharges.returnedData.map(
+            customCharge => {
+              return {
+                description: customCharge.description,
+                charge: customCharge.amount,
+                due_date: customCharge.due_date.split(' ')[0],
+                current_status: customCharge.state
+              }
+              return customCharge
+            }
+          )
+
+          console.log(customChargesList)
+
           const events = _.map(data.events_attended, o => {
             return {
               name: o.event.name,
@@ -548,6 +587,7 @@ export default {
             events,
             subscriptions,
             customCharges: customCharges.returnedData,
+            customChargesList,
             paid_for
           }
         })
@@ -566,7 +606,25 @@ export default {
       cards: [],
       currentPage: 1,
       selctedItemData: {},
+      customChargesList: [],
       perPage: 5,
+      fields: ['description', 'charge', 'due_date', 'current_status', '_'],
+      items: [
+        {
+          description: 'Requested for 40 chairs',
+          charge: '500',
+          due_date: '2020-02-22',
+          current_status: 'Settled',
+          _: ''
+        },
+        {
+          description: 'Requested for extra chairs',
+          charge: '500',
+          due_date: '2020-02-22',
+          current_status: 'Unsettled',
+          _: ''
+        }
+      ],
       drawer: false,
       direction: 'rtl',
       previousCreditBalance: 500.0,
@@ -599,6 +657,11 @@ export default {
     }
   },
   methods: {
+    rowClicked(item, index, event) {
+      // open modal here
+      this.selctedItemData = this.customCharges[index]
+      this.$bvModal.show('edit-custom-charge')
+    },
     saveChanges() {
       this.loading = !this.loading
 
