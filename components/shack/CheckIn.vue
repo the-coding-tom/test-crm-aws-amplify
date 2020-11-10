@@ -25,7 +25,7 @@
         </no-ssr>
       </div>
     </div>
-    <div class="m-n25">
+    <div class="m-n25 overflow-auto">
       <b-table
         :items="data"
         :fields="fields"

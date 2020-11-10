@@ -171,7 +171,6 @@
             </div>
           </div>
           <check-in/>
-
         </div>
 
         <div class="col-md-6">
@@ -387,7 +386,7 @@
                   >
                     <!-- A custom formatted column -->
                     <template #cell(description)="data">
-                      <div style="text-overflow: ellipsis; max-width: 150px; overflow: hidden">{{ data.value }}</div>
+                      <div style="text-overflow: ellipsis; max-width: 170px; overflow: hidden">{{ data.value }}</div>
                     </template>
                     <template #cell(customItem)="data"/>
                     <template #cell(current_status)="data">
