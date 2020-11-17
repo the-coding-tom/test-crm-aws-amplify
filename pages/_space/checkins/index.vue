@@ -45,8 +45,8 @@
         <b-tab
           active
           title="Member">
-          <b-form 
-            class="member-checkin-form" 
+          <b-form
+            class="member-checkin-form"
             @submit.prevent="checkinMember">
             <b-form-group label="Member">
               <el-select
@@ -73,8 +73,8 @@
           </b-form>
         </b-tab>
         <b-tab
-          title="Guest"><b-form 
-            class="guest-checkin-form" 
+          title="Guest"><b-form
+            class="guest-checkin-form"
             @submit.prevent="checkinGuest">
             <b-form-group label="Member">
               <el-select
@@ -122,11 +122,12 @@
                 placeholder="SHACK15"
                 required/>
             </b-form-group>
-            <b-form-checkbox
+            <!-- <b-form-checkbox
               id="meetingGuest"
               v-model="meeting_guest"
               :value="true"
-              :unchecked-value="false"> Is a meeting guest</b-form-checkbox>
+              :unchecked-value="false"> Is a meeting guest
+            </b-form-checkbox> -->
             <b-button
               :disabled="loading"
               type="submit"
@@ -298,8 +299,13 @@ export default {
         .catch(e => {
           this.loading = !this.loading
           const message = e.response ? e.response.data.message : e.message
+          // console.log(e.message)
+          // this.$bvToast.toast(e.message, { title: 'Error', variant: 'danger' })
 
-          this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
+          this.$bvToast.toast(`Guest checkin error - ${message}`, {
+            title: 'Error',
+            variant: 'danger'
+          })
         })
     },
     checkinMember() {

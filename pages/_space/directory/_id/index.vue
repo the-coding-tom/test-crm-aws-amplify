@@ -248,13 +248,15 @@
                     v-for="subscription in data.subscriptions"
                     :key="subscription.id">
                     <div v-if="!subscription.canceled_at">
-                      <td 
-                        id="balance"><div 
-                          style="display:inline-block" 
-                          @click="disabled = false" 
-                          @change="disabled = true"><input 
+                      <td
+                        id="balance">
+                        <div
+                          style="display:inline-block"
+                          @click="disabled = false"
+                          @change="disabled = true">
+                          <input
                             v-model="data.credits"
-                            :disabled="disabled?'disabled':none" 
+                            :disabled="disabled?'disabled':none"
                             type="number"
                         ></div>
                         <b-popover
@@ -266,7 +268,7 @@
                       </td>
                       <td>Last updated {{ getSubDetails(subscription) }}</td>
                       <td>
-                        <b-button 
+                        <b-button
                           v-if="data.credits !== previousCreditBalance"
                           id="save-credit"
                           size="sm"
@@ -301,6 +303,65 @@
               </table>
             </div>
           </card>
+          <!-- Allowed number of guests view -->
+          <card>
+            <div
+              slot="header"
+              class="d-flex justify-content-between align-items-center">
+              <div class="txt-upper">
+                NUMBER OF GUESTS ALLOWED
+              </div>
+            </div>
+            <div class="m-n25">
+              <table class="table table-hover table-striped">
+                <tbody>
+                  <tr>
+                    <div>
+                      <td
+                        id="member_guests"><div
+                          style="display:inline-block"
+                          @click="guestsDisabled = false"
+                          @change="guestsDisabled = true">
+                          <input
+                            v-model="member_guests"
+                            :disabled="guestsDisabled ? 'disabled': none"
+                            type="number"
+                        ></div>
+                        <b-popover
+                          target="member_guests"
+                          placement="top"
+                          triggers="hover focus"
+                        />
+                      </td>
+                      <td>
+                        <b-button
+                          id="edit-guests"
+                          size="sm"
+                          variant="transparent"
+                          class="text-danger"
+                          @click="guestsDisabled = false"><i class="fa fa-edit"/>
+                        </b-button>
+                        <b-button
+                          id="save-member_guests"
+                          size="sm"
+                          variant="transparent"
+                          class="text-primary"
+                          @click="saveMemberGuests"><i class="fa fa-save"/>
+                        </b-button>
+                        <b-popover
+                          target="edit-guests"
+                          placement="top"
+                          content="Edit guests"
+                          triggers="hover focus"
+                        />
+                      </td>
+                    </div>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </card>
+
           <card>
             <div
               slot="header"
@@ -410,17 +471,17 @@
                     </template>
                     <template #cell(customItem)="data"/>
                     <template #cell(current_status)="data">
-                      <b-badge 
+                      <b-badge
                         v-if="data.value.toUpperCase()=='SETTLED'"
-                        pill 
+                        pill
                         variant="success">{{ "PAID" }}</b-badge>
-                      <b-badge 
+                      <b-badge
                         v-if="data.value.toUpperCase()=='UNSETTLED'"
-                        pill 
+                        pill
                         variant="danger">{{ "NOT PAID" }}</b-badge>
-                      <b-badge 
+                      <b-badge
                         v-if="data.value.toUpperCase()=='UNSETTLED'"
-                        pill 
+                        pill
                         variant="warning">{{ "PENDING" }}</b-badge>
                     </template>
                   </b-table>
@@ -428,7 +489,7 @@
               </div>
               <div
                 slot="footer"
-                class="" 
+                class=""
                 style="visibility: hidden">
                 <b-pagination
                   :per-page="perPage"
@@ -581,6 +642,7 @@ export default {
       return await $membership
         .getAMembership(params.id)
         .then(async ({ data }) => {
+          const member_guests = data.guests_allowed
           const customCharges = await $membership
             .getCustomCharges({ spaceId: 1, user_id: data.user_id })
             .then(data => {
@@ -599,8 +661,6 @@ export default {
             }
           )
 
-          console.log(customChargesList)
-
           const events = _.map(data.events_attended, o => {
             return {
               name: o.event.name,
@@ -610,6 +670,9 @@ export default {
               start: $moment(o.event.start_time).format('MMM DD, YY')
             }
           })
+
+          // console.log(JSON.stringify(data))
+
           return {
             checkin: data.checkin.length > 0 ? data.checkin[0] : {},
             data,
@@ -619,7 +682,8 @@ export default {
             subscriptions,
             customCharges: customCharges.returnedData,
             customChargesList,
-            paid_for
+            paid_for,
+            member_guests
           }
         })
     } catch (e) {
@@ -635,6 +699,7 @@ export default {
       loading: false,
       checked: false,
       cards: [],
+      member_guests: 3,
       autoRenewStatus: false,
       currentPage: 1,
       selctedItemData: {},
@@ -661,6 +726,7 @@ export default {
       direction: 'rtl',
       previousCreditBalance: 500.0,
       disabled: true,
+      guestsDisabled: true,
       customCharges: [],
       credit: {
         amount: null,
@@ -721,6 +787,34 @@ export default {
           this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
         })
     },
+
+    saveMemberGuests() {
+      this.loading = !this.loading
+
+      this.$membership
+        .editGuests(this.data.id, {
+          member_guests: this.member_guests,
+          space_id: this.data.space.id
+        })
+        .then(res => {
+          this.$bvToast.toast('Number of guests updated successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+          // location.reload()
+        })
+        .catch(e => {
+          this.loading = !this.loading
+          const message = e.response
+            ? `${e.response.data.message} ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+
+          this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
+        })
+    },
+
     toggleModal(type, data) {
       this.selctedItemData = data
       this.$bvModal.show(type)
@@ -946,7 +1040,6 @@ export default {
         })
         .catch(e => {
           this.loading = !this.loading
-
           displayError(e, this)
         })
     }

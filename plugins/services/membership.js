@@ -169,6 +169,13 @@ export default function(ctx, inject) {
         payload
       )
     },
+    editGuests: (id, payload) => {
+      return ctx.$axios
+        .$patch(`/${subdomain()}/memberships/${id}/guests`, payload)
+        .catch(e => {
+          getError(e)
+        })
+    },
     getAllNotes: (id, link = null) => {
       if (link) {
         return ctx.$axios.$get(link).catch(e => getError(e))
