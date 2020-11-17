@@ -1,14 +1,14 @@
 <template>
   <div>
     <b-form @submit.prevent="updateSpace">
-      <base-header 
-        class="pb-6" 
+      <base-header
+        class="pb-6"
         type>
         <div class="d-flex justify-content-between align-items-center py-4">
           <MainTitle title="Update Space" />
-          <b-button 
-            :disabled="loading" 
-            class="btn btn-primary text-white" 
+          <b-button
+            :disabled="loading"
+            class="btn btn-primary text-white"
             type="submit">Update</b-button>
         </div>
       </base-header>
@@ -27,10 +27,10 @@
                     label="Name"
                     placeholder="SHACK15"
                   />
-                  <base-input 
-                    v-model="unit" 
-                    class="col-md-6" 
-                    label="Unit" 
+                  <base-input
+                    v-model="unit"
+                    class="col-md-6"
+                    label="Unit"
                     placeholder="Suite 201" />
                   <div class="form-group col-md-12">
                     <label>Description</label>
@@ -116,10 +116,10 @@
                     label="Address"
                     placeholder="19 Ella Street"
                   />
-                  <base-input 
-                    v-model="city" 
-                    class="col-md-6" 
-                    label="City" 
+                  <base-input
+                    v-model="city"
+                    class="col-md-6"
+                    label="City"
                     placeholder="Palo Alto" />
 
                   <base-input
@@ -152,6 +152,13 @@
                     label="Longitude"
                     placeholder="74.0445° W"
                   />
+                  <base-input
+                    v-model="capacity"
+                    class="col-md-3"
+                    label="Capacity"
+                    placeholder="100"
+                    type="number"
+                  />
                 </div>
               </div>
             </div>
@@ -178,7 +185,6 @@ export default {
   },
   async asyncData({ store }) {
     const space = store.state.space.currentSpace
-
     return {
       ...space
     }
@@ -207,6 +213,7 @@ export default {
         timezone_name,
         wifi_name,
         wifi_password,
+        capacity,
         in_eu,
         address,
         city,
@@ -230,6 +237,7 @@ export default {
         timezone_name,
         wifi_name,
         wifi_password,
+        capacity,
         in_eu: Boolean(in_eu),
         address,
         city,

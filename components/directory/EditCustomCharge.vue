@@ -105,10 +105,8 @@ export default {
     onSubmit(data) {
       if (this.billMember) {
         this.billNow()
-        console.log('called bill')
       } else {
         this.addCredit()
-        console.log('called save')
       }
     },
     addCredit() {

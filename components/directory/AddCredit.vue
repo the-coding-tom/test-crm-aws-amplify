@@ -10,7 +10,6 @@
           description="">
           <el-input
             v-model="credit.amount"
-            :remote-method="getPlans"
             :loading="loading"
             type="number"
             filterable
@@ -18,7 +17,7 @@
             reserve-keyword
             placeholder="$0.00"/>
         </b-form-group>
-        
+
       </b-row>
       <b-button
         :disabled="loading"
