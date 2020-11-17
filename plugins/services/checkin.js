@@ -9,7 +9,7 @@ export default function(ctx, inject) {
     },
     checkin: payload => {
       return ctx.$axios.$post(subdomain, payload).catch(e => {
-        console.log(e)
+        return e
       })
     },
     checkout: (id, payload) => {

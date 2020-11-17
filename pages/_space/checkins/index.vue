@@ -142,7 +142,7 @@
       hide-footer>
       <qrcode-stream 
         v-if="!scanComplete"
-        @decode="onDecode"/>
+        @onDecode="onDecode"/>
       <div v-else>
         <b-spinner 
           variant="primary" 
@@ -172,7 +172,6 @@ import SectionTitle from '~/components/shack/SectionTitle.vue'
 import SearchForm from '~/components/shack/SearchForm.vue'
 import { Select, Option } from 'element-ui'
 import { displayError } from '../../../util/errors'
-import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
 
 export default {
   name: 'Checkin',
@@ -185,9 +184,7 @@ export default {
     RouteBreadCrumb,
     [Select.name]: Select,
     [Option.name]: Option,
-    QrcodeStream,
-    QrcodeDropZone,
-    QrcodeCapture
+    QrcodeStream: () => import('@/components/qrscanner/qrscanner.vue')
   },
   async asyncData({ $membership, $checkin, error }) {
     try {
@@ -231,16 +228,14 @@ export default {
     scanComplete: false,
     meeting_guest: false
   }),
-  mounted() {
-    this.$root.$on('scanqrcode::modal::show', (bvEvent, modalId) => {
-      console.log('Modal is about to be shown', bvEvent, modalId)
-    })
-  },
+  mounted() {},
   methods: {
     onDecode(data) {
-      //this.$bvModal.hide('scanqrcode')
-      this.scanComplete = true
-      console.log(data)
+      if (data) {
+        this.scanComplete = true
+        this.membership_id = new URL(data).pathname.replace('//', '')
+        this.checkinMember()
+      }
     },
     next() {
       const { next } = this.links
@@ -326,6 +321,8 @@ export default {
               title: 'Success',
               variant: 'success'
             })
+
+            this.$bvModal.hide('scanqrcode')
 
             this.$bvModal.hide('checkin')
             location.reload()

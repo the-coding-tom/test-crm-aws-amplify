@@ -568,12 +568,6 @@
       <AddCustomCharge
         :data="data" /></b-modal>
     <b-modal
-      id="scan-qr-code"
-      title="Show QR Code To The Camera"
-      hide-footer>
-      <qrcode-stream @decode="onDecode"/>
-    </b-modal>
-    <b-modal
       id="edit-custom-charge"
       title="Edit Charge"
       hide-footer><EditCustomCharge
@@ -599,7 +593,6 @@ import EditCustomCharge from '~/components/directory/EditCustomCharge'
 import CheckIn from '~/components/shack/CheckIn'
 import { mapState } from 'vuex'
 import { Drawer } from 'element-ui'
-import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
 import 'element-ui/lib/theme-chalk/index.css'
 
 export default {
@@ -616,10 +609,7 @@ export default {
     AddCard,
     [Drawer.name]: Drawer,
     MembershipNotes,
-    CheckIn,
-    QrcodeStream,
-    QrcodeDropZone,
-    QrcodeCapture
+    CheckIn
   },
   async asyncData({ store, params, $membership, error, $moment }) {
     try {
