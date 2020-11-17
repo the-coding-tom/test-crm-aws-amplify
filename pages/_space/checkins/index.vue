@@ -13,6 +13,10 @@
             variant="transparent"
           ><i class="fa fa-cogs"/> Settings</b-button>
           <b-button
+            variant="transparent"
+            @click="toggleModal('scanqrcode')"
+          ><i class="fas fa-qrcode"/> Scan QR Code</b-button>
+          <b-button
             v-b-modal.checkin
             variant="primary">Manual Check-in</b-button>
         </div>
@@ -131,6 +135,21 @@
         </b-form></b-tab>
       </b-tabs>
     </b-modal>
+    <b-modal
+      id="scanqrcode"
+      :title="scanComplete?'Please Wait':'Show QR Code To The Camera'"
+      hide-footer>
+      <qrcode-stream 
+        v-if="!scanComplete"
+        @decode="onDecode"/>
+      <div v-else>
+        <b-spinner 
+          variant="primary" 
+          type="grow" 
+          label="Spinning"/>
+        <span>Processing...</span>
+      </div>
+    </b-modal>
     <div>
       <base-pagination
         :total="meta.total"
@@ -152,6 +171,7 @@ import SectionTitle from '~/components/shack/SectionTitle.vue'
 import SearchForm from '~/components/shack/SearchForm.vue'
 import { Select, Option } from 'element-ui'
 import { displayError } from '../../../util/errors'
+import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
 
 export default {
   name: 'Checkin',
@@ -163,7 +183,10 @@ export default {
     MembersCheckin,
     RouteBreadCrumb,
     [Select.name]: Select,
-    [Option.name]: Option
+    [Option.name]: Option,
+    QrcodeStream,
+    QrcodeDropZone,
+    QrcodeCapture
   },
   async asyncData({ $membership, $checkin, error }) {
     try {
@@ -204,9 +227,20 @@ export default {
     email: '',
     membership_id: '',
     loading: false,
+    scanComplete: false,
     meeting_guest: false
   }),
+  mounted() {
+    this.$root.$on('scanqrcode::modal::show', (bvEvent, modalId) => {
+      console.log('Modal is about to be shown', bvEvent, modalId)
+    })
+  },
   methods: {
+    onDecode(data) {
+      //this.$bvModal.hide('scanqrcode')
+      this.scanComplete = true
+      console.log(data)
+    },
     next() {
       const { next } = this.links
       this.$checkin.checkins(`${next}`)
@@ -299,6 +333,10 @@ export default {
     },
     togggleLoading() {
       this.loading = !this.loading
+    },
+    toggleModal(id) {
+      this.$bvModal.show(id)
+      this.scanComplete = false
     }
   }
 }

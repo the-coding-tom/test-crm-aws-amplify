@@ -316,7 +316,7 @@
                 <i class="fa fa-plus" /> Add New Plan
               </b-button>
             </div>
-            <div class="m-n25">
+            <div class="m-n25 overflow-auto">
               <table class="table table-hover table-striped">
                 <tbody>
                   <tr
@@ -326,6 +326,12 @@
                       <td>{{ getSubName(subscription)['name'] }}</td>
                       <td>Until {{ getSubDetails(subscription) }}</td>
                       <td>
+                       
+                        <b-button
+                          size="sm"
+                          variant="transparent"
+                          class="text-primary"
+                          @click="changePlan(subscription)"><i class="fa fa-exchange-alt"/></b-button>
                         <b-button
                           id="popover-1-top"
                           size="sm"
@@ -343,14 +349,28 @@
                         <b-button
                           size="sm"
                           variant="transparent"
-                          class="text-primary"
-                          @click="changePlan(subscription)"><i class="fa fa-exchange-alt"/></b-button>
-                        <b-button
-                          size="sm"
-                          variant="transparent"
                           class="text-danger"
                           @click="cancelPlan(subscription)"><i class="fa fa-trash"/></b-button>
+                        <div style="display: inline-block;">
+                          <b-form-checkbox
+                            v-model="subscription.state"
+                            switch
+                            value="active"
+                            unchecked-value="manual-active"
+                            size="lg"
+                            variant="success"
+                            @change="autoRenewSubscriptionToggle"
+                          >
+                            <span
+                              v-if="subscription.state == 'active'"
+                              class="text-success">Auto Renew</span>
+                            <span
+                              v-else
+                              class="text-muted">Manual Renewal</span>
+                          </b-form-checkbox>
+                        </div>
                       </td>
+                     
                     </div>
                   </tr>
                 </tbody>
@@ -483,8 +503,15 @@
     <b-modal
       id="add-custom-charge"
       title="Add Custom Charge"
-      hide-footer><AddCustomCharge
+      hide-footer>
+      <AddCustomCharge
         :data="data" /></b-modal>
+    <b-modal
+      id="scan-qr-code"
+      title="Show QR Code To The Camera"
+      hide-footer>
+      <qrcode-stream @decode="onDecode"/>
+    </b-modal>
     <b-modal
       id="edit-custom-charge"
       title="Edit Charge"
@@ -511,6 +538,7 @@ import EditCustomCharge from '~/components/directory/EditCustomCharge'
 import CheckIn from '~/components/shack/CheckIn'
 import { mapState } from 'vuex'
 import { Drawer } from 'element-ui'
+import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
 import 'element-ui/lib/theme-chalk/index.css'
 
 export default {
@@ -527,7 +555,10 @@ export default {
     AddCard,
     [Drawer.name]: Drawer,
     MembershipNotes,
-    CheckIn
+    CheckIn,
+    QrcodeStream,
+    QrcodeDropZone,
+    QrcodeCapture
   },
   async asyncData({ store, params, $membership, error, $moment }) {
     try {
@@ -604,6 +635,7 @@ export default {
       loading: false,
       checked: false,
       cards: [],
+      autoRenewStatus: false,
       currentPage: 1,
       selctedItemData: {},
       customChargesList: [],
@@ -703,6 +735,28 @@ export default {
       })
 
       return { name, price }
+    },
+    autoRenewSubscriptionToggle(e) {
+      //
+      this.$membership
+        .changeSubscriptionRenewalState({
+          id: this.data.id,
+          spaceId: this.data.spaceId,
+          subscriptionState: this.data.subscriptions[0].state
+        })
+        .then(({ data }) => {
+          this.$bvToast.toast('Member checked in successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+          location.reload()
+        })
+        .catch(e => {
+          this.$bvToast.toast('Member checkin failed', {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
     },
     checkinToggle(e) {
       if (e == 'checkin') {
