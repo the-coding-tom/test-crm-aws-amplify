@@ -140,13 +140,13 @@
       id="scanqrcode"
       :title="scanComplete?'Please Wait':'Show QR Code To The Camera'"
       hide-footer>
-      <qrcode-stream 
+      <qrcode-stream
         v-if="!scanComplete"
         @onDecode="onDecode"/>
       <div v-else>
-        <b-spinner 
-          variant="primary" 
-          type="grow" 
+        <b-spinner
+          variant="primary"
+          type="grow"
           label="Spinning"/>
         <span>Processing...</span>
       </div>
@@ -282,8 +282,7 @@ export default {
         .then(({ data }) => {
           this.loadiing = !this.loading
           // this.checkins.push(data)
-
-          this.$bvToast.toast('Guest checked in successfully', {
+          this.$bvToast.toast(`Guest checked in successfully`, {
             title: 'Success',
             variant: 'success'
           })
@@ -297,7 +296,7 @@ export default {
           // console.log(e.message)
           // this.$bvToast.toast(e.message, { title: 'Error', variant: 'danger' })
 
-          this.$bvToast.toast(`Guest checkin error - ${message}`, {
+          this.$bvToast.toast(`Error - ${message}`, {
             title: 'Error',
             variant: 'danger'
           })
