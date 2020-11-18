@@ -5,11 +5,11 @@
     class="navbar-top border-bottom navbar-expand"
   >
     <!-- Navbar links -->
-    <ul class="navbar-nav align-items-center ml-md-auto">
+    <ul class="navbar-nav align-items-center mr-md-auto">
       <li class="nav-item d-xl-none">
         <!-- Sidenav toggler -->
         <div
-          :class="{active: $sidebar.showSidebar, 'sidenav-toggler-dark': type === 'default', 'sidenav-toggler-light': type === 'light'}"
+          :class="{active: $sidebar.showSidebar, 'sidenav-toggler-light': type === 'default', 'sidenav-toggler-light': type === 'light'}"
           class="pr-3 sidenav-toggler"
           @click="toggleSidebar">
           <div class="sidenav-toggler-inner">
