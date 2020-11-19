@@ -233,7 +233,7 @@ export default {
     onDecode(data) {
       if (data) {
         this.scanComplete = true
-        this.membership_id = new URL(data).pathname.replace('//', '')
+        this.membership_id = data.split('//')[1]
         this.checkinMember('scan')
       }
     },
