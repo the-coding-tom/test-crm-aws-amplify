@@ -13,7 +13,13 @@
         <template v-slot="{row}">
           <div class="sh-vflex">
             <div v-if="row.membership"><nuxt-link :to="{name: 'space-directory-id', params: {id: row.membership}}" >
-              {{ row.first_name + " "+ row.last_name }}</nuxt-link> <br> {{ row.company }}
+                
+              {{ row.first_name + " "+ row.last_name }}<b-badge 
+                v-if="row.member.prefix_type === '0'"
+                pill 
+                variant="secondary"> <i 
+                  class="fa fa-star" 
+                  style=""/></b-badge></nuxt-link> <br> {{ row.company }}
             </div>
             <div v-else>
               {{ row.first_name + " "+ row.last_name }} <br> {{ row.company }}
@@ -104,6 +110,10 @@ export default {
     toggleLoading: {
       type: Function,
       default: () => {}
+    },
+    status: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -112,8 +122,25 @@ export default {
         classic: false,
         notice: false,
         form: false
-      }
+      },
+      prefix_type: [
+        {
+          text: 'Founding Member',
+          value: '0'
+        }
+      ]
     }
+  },
+  computed: {
+    // getMembershipType() {
+    //   let type = null
+    //   _.each(this.prefix_type, o => {
+    //     if (o.value == this.member.status.prefix_type) {
+    //       type = o.text
+    //     }
+    //   })
+    //   return type
+    // }
   },
   methods: {
     checkout(d) {
