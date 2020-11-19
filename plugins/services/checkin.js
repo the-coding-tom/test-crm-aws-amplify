@@ -3,19 +3,13 @@ export default function(ctx, inject) {
 
   const Checkin = {
     checkins: filter => {
-      return ctx.$axios.$get(`${subdomain}${filter}`).catch(e => {
-        console.log(e)
-      })
+      return ctx.$axios.$get(`${subdomain}${filter}`)
     },
     checkin: payload => {
-      return ctx.$axios.$post(subdomain, payload).catch(e => {
-        return e
-      })
+      return ctx.$axios.$post(subdomain, payload)
     },
     checkout: (id, payload) => {
-      return ctx.$axios.$patch(`${subdomain}/${id}`, payload).catch(e => {
-        console.log(e)
-      })
+      return ctx.$axios.$patch(`${subdomain}/${id}`, payload)
     },
     settings: link => {
       return ctx.$axios.$get(link)

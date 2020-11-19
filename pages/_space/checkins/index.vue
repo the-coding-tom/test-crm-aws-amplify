@@ -47,7 +47,7 @@
           title="Member">
           <b-form
             class="member-checkin-form"
-            @submit.prevent="checkinMember">
+            @submit.prevent="checkinMember('manual')">
             <b-form-group label="Member">
               <el-select
                 v-model="membership_id"
@@ -140,13 +140,13 @@
       id="scanqrcode"
       :title="scanComplete?'Please Wait':'Show QR Code To The Camera'"
       hide-footer>
-      <qrcode-stream 
+      <qrcode-stream
         v-if="!scanComplete"
         @onDecode="onDecode"/>
       <div v-else>
-        <b-spinner 
-          variant="primary" 
-          type="grow" 
+        <b-spinner
+          variant="primary"
+          type="grow"
           label="Spinning"/>
         <span>Processing...</span>
       </div>
@@ -234,7 +234,7 @@ export default {
       if (data) {
         this.scanComplete = true
         this.membership_id = new URL(data).pathname.replace('//', '')
-        this.checkinMember()
+        this.checkinMember('scan')
       }
     },
     next() {
@@ -282,8 +282,7 @@ export default {
         .then(({ data }) => {
           this.loadiing = !this.loading
           // this.checkins.push(data)
-
-          this.$bvToast.toast('Guest checked in successfully', {
+          this.$bvToast.toast(`Guest checked in successfully`, {
             title: 'Success',
             variant: 'success'
           })
@@ -297,19 +296,20 @@ export default {
           // console.log(e.message)
           // this.$bvToast.toast(e.message, { title: 'Error', variant: 'danger' })
 
-          this.$bvToast.toast(`Guest checkin error - ${message}`, {
+          this.$bvToast.toast(`Error - ${message}`, {
             title: 'Error',
             variant: 'danger'
           })
         })
     },
-    checkinMember() {
+    checkinMember(source = 'manual') {
       this.loading = !this.loading
       const { membership_id } = this
       try {
         this.$checkin
           .checkin({
             type: 'member',
+            checkin_type: source,
             membership_id,
             membership: membership_id
           })
