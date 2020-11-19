@@ -47,7 +47,7 @@
           title="Member">
           <b-form
             class="member-checkin-form"
-            @submit.prevent="checkinMember">
+            @submit.prevent="checkinMember('manual')">
             <b-form-group label="Member">
               <el-select
                 v-model="membership_id"
@@ -234,7 +234,7 @@ export default {
       if (data) {
         this.scanComplete = true
         this.membership_id = new URL(data).pathname.replace('//', '')
-        this.checkinMember()
+        this.checkinMember('scan')
       }
     },
     next() {
@@ -302,13 +302,14 @@ export default {
           })
         })
     },
-    checkinMember() {
+    checkinMember(source = 'manual') {
       this.loading = !this.loading
       const { membership_id } = this
       try {
         this.$checkin
           .checkin({
             type: 'member',
+            checkin_type: source,
             membership_id,
             membership: membership_id
           })
