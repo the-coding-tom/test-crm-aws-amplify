@@ -273,8 +273,10 @@ export default {
   },
   mounted() {
     const data = {
-      from: this.$moment('2020-02-21T12:00:00.000000Z').format('YYYY-MM-DD'),
-      to: this.$moment('2020-02-22T12:00:00.000000Z').format('YYYY-MM-DD')
+      from: this.$moment().format('YYYY-MM-DD'),
+      to: this.$moment()
+        .add(1, 'days')
+        .format('YYYY-MM-DD')
     }
 
     this.$store.dispatch('resources/getAllBookingsByDate', data)
