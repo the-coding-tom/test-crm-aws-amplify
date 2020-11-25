@@ -278,7 +278,6 @@ export default {
         .add(1, 'days')
         .format('YYYY-MM-DD')
     }
-
     this.$store.dispatch('resources/getAllBookingsByDate', data)
   },
   methods: {
