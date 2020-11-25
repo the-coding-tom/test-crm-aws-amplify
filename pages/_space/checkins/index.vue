@@ -385,10 +385,19 @@ export default {
             this.$bvModal.hide('checkin')
             location.reload()
           })
+          .catch(error => {
+            this.$bvModal.hide('scanqrcode')
+
+            this.loading = !this.loading
+            const message = error.response
+              ? error.response.data.message
+              : error.message
+            this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
+          })
       } catch (e) {
         this.loading = !this.loading
         const message = e.response ? e.response.data.message : e.message
-
+        this.$bvModal.hide('scanqrcode')
         this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
       }
     },
