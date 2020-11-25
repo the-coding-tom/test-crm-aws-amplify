@@ -93,6 +93,17 @@
                   :value="option.id"/>
               </el-select>
             </b-form-group>
+            <b-form-group label="Bookings">
+              <el-select
+                v-model="booking_info"
+                placeholder="Choose a booking">
+                <el-option
+                  v-for="option in bookings"
+                  :key="option.id"
+                  :label="option.title"
+                  :value="option.id + ' ' + option.membership.id"/>
+              </el-select>
+            </b-form-group>
             <b-form-group label="First Name">
               <b-form-input
                 id="firstName"
@@ -172,6 +183,7 @@ import SectionTitle from '~/components/shack/SectionTitle.vue'
 import SearchForm from '~/components/shack/SearchForm.vue'
 import { Select, Option } from 'element-ui'
 import { displayError } from '../../../util/errors'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Checkin',
@@ -206,6 +218,7 @@ export default {
           ilinks = links
           return data
         })
+
       return await $membership.getAllMemberships(link).then(({ data }) => {
         return { data, checkins, meta: imeta, links: ilinks }
       })
@@ -224,11 +237,48 @@ export default {
     company: '',
     email: '',
     membership_id: '',
+    booking_id: '',
+    booking_info: '',
     loading: false,
     scanComplete: false,
-    meeting_guest: false
+    meeting_guest: false,
+    options: [
+      {
+        value: 'Option1',
+        label: 'Option1'
+      },
+      {
+        value: 'Option2',
+        label: 'Option2'
+      },
+      {
+        value: 'Option3',
+        label: 'Option3'
+      },
+      {
+        value: 'Option4',
+        label: 'Option4'
+      },
+      {
+        value: 'Option5',
+        label: 'Option5'
+      }
+    ],
+    value: ''
   }),
-  mounted() {},
+  computed: {
+    ...mapState({
+      bookings: state => state.resources.bookings
+    })
+  },
+  mounted() {
+    const data = {
+      from: this.$moment('2020-02-21T12:00:00.000000Z').format('YYYY-MM-DD'),
+      to: this.$moment('2020-02-22T12:00:00.000000Z').format('YYYY-MM-DD')
+    }
+
+    this.$store.dispatch('resources/getAllBookingsByDate', data)
+  },
   methods: {
     onDecode(data) {
       if (data) {
@@ -261,12 +311,17 @@ export default {
     },
     checkinGuest() {
       this.loading = !this.loading
+      this.booking_id = this.booking_info.split(' ')[0]
+      this.membership_id = this.membership_id
+        ? this.membership_id
+        : this.booking_info.split(' ')[1]
       const {
         first_name,
         last_name,
         email,
         company,
         membership_id,
+        booking_id,
         meeting_guest
       } = this
       this.$checkin
@@ -277,6 +332,7 @@ export default {
           email,
           company,
           membership_id,
+          booking_id,
           meeting_guest
         })
         .then(({ data }) => {

@@ -318,7 +318,9 @@ export const actions = {
           end: o.end_timestamp,
           backgroundColor: o.room && `${o.room.category.color}2A`,
           borderColor: o.room && `${o.room.category.color}2A`,
-          extendProps: o
+          extendProps: o,
+          id: o.id,
+          membership: o.membership
         }
       })
       commit('setBookings', calendarBookings)
