@@ -268,7 +268,7 @@ export default {
   }),
   computed: {
     ...mapState({
-      bookings: state => state.resources.bookings
+      bookings: state => state.resources.bookingsForDate
     })
   },
   mounted() {
@@ -278,7 +278,7 @@ export default {
         .add(1, 'days')
         .format('YYYY-MM-DD')
     }
-    this.$store.dispatch('resources/getAllBookingsByDate', data)
+    this.$store.dispatch('resources/getBookingsByDate', data)
   },
   methods: {
     onDecode(data) {

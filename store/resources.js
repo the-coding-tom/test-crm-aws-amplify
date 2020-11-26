@@ -18,6 +18,7 @@ export const state = () => ({
     color: helper.randomColor()
   },
   bookings: [],
+  bookingsForDate: [],
   addBooking: {
     id: null,
     from: null,
@@ -77,6 +78,9 @@ export const mutations = {
   },
   setBookings(state, booking) {
     state.bookings = booking
+  },
+  setBookingsForDate(state, booking) {
+    state.bookingsForDate = booking
   },
   setRoomAvailabilty(state, available) {
     state.addRoom.room_availability = available
@@ -324,6 +328,31 @@ export const actions = {
         }
       })
       commit('setBookings', calendarBookings)
+    } catch (error) {
+      this._vm.$bvToast.toast({
+        statusCode: error.statusCode,
+        message: error.response
+          ? JSON.stringify(error.response.data.errors)
+          : error.message
+      })
+    }
+  },
+  async getBookingsByDate({ commit }, payload) {
+    try {
+      const { data } = await this.$resource.getBookingByDate(payload)
+      const calendarBookings = _.map(data.data, o => {
+        return {
+          title: o.title,
+          start: o.start_timestamp,
+          end: o.end_timestamp,
+          backgroundColor: o.room && `${o.room.category.color}2A`,
+          borderColor: o.room && `${o.room.category.color}2A`,
+          extendProps: o,
+          id: o.id,
+          membership: o.membership
+        }
+      })
+      commit('setBookingsForDate', calendarBookings)
     } catch (error) {
       this._vm.$bvToast.toast({
         statusCode: error.statusCode,
