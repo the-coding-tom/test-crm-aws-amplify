@@ -96,6 +96,7 @@
             <b-form-group label="Bookings">
               <el-select
                 v-model="booking_info"
+                filterable
                 placeholder="Choose a booking">
                 <el-option
                   v-for="option in bookings"
