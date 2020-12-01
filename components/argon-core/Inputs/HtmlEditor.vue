@@ -1,12 +1,20 @@
 <template>
   <div>
     <client-only>
-      <editor
+      <!-- <editor
         v-model="text"
         :options="editorOptions"
         :initial-value="text"
         initial-edit-type="wysiwyg"
         preview-style="none"
+      /> -->
+      <editor
+        ref="toastuiEditor"
+        v-model="text"
+        :options="editorOptions"
+        initial-edit-type="wysiwyg"
+        preview-style="tab"
+        @change="onEditorChange"
       />
     </client-only>
   </div>
@@ -54,6 +62,14 @@ export default {
   watch: {
     text() {
       this.$emit('input', this.text)
+    }
+  },
+  methods: {
+    onEditorChange() {
+      let html = this.$refs.toastuiEditor.invoke('getHtml')
+      let desc = this.$refs.toastuiEditor.invoke('getValue')
+      let markdown = this.$refs.toastuiEditor.invoke('getMarkdown')
+      this.text = markdown
     }
   }
 }

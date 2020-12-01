@@ -367,7 +367,11 @@
               slot="header"
               class="d-flex justify-content-between align-items-center">
               <div class="txt-upper">
-                MEMBERSHIP PLAN
+                <span>MEMBERSHIP PLAN</span> <b-badge
+                  v-if="data.subscriptions[0].state === 'paused'"
+                  pill
+                  style="margin-left: 20px"
+                  variant="danger">{{ "Paused" }}</b-badge>
               </div>
               <b-button
                 id="addPlanBtn"
@@ -387,7 +391,19 @@
                       <td>{{ getSubName(subscription)['name'] }}</td>
                       <td>Until {{ getSubDetails(subscription) }}</td>
                       <td>
-                       
+                        <b-button
+                          v-if="subscription.state != 'paused'"
+                          size="sm"
+                          variant="transparent"
+                          class="text-primary"
+                          @click="autoRenewSubscriptionToggle('paused')"><i class="fa fa-pause"/></b-button>
+                        <b-button
+                          v-else
+                          id="resume-membership"
+                          size="sm"
+                          variant="transparent"
+                          class="text-primary"
+                          @click="autoRenewSubscriptionToggle('active')"><i class="fa fa-play"/></b-button>
                         <b-button
                           size="sm"
                           variant="transparent"
@@ -412,6 +428,9 @@
                           variant="transparent"
                           class="text-danger"
                           @click="cancelPlan(subscription)"><i class="fa fa-trash"/></b-button>
+                        <div style="display: inline-block;">  
+                          Auto Renew
+                        </div>
                         <div style="display: inline-block;">
                           <b-form-checkbox
                             v-model="subscription.state"
@@ -424,10 +443,12 @@
                           >
                             <span
                               v-if="subscription.state == 'active'"
-                              class="text-success">Auto Renew</span>
+                              style="visibility: hidden"
+                              class="text-success">A</span>
                             <span
                               v-else
-                              class="text-muted">Manual Renewal</span>
+                              style="visibility: hidden"
+                              class="text-muted">M</span>
                           </b-form-checkbox>
                         </div>
                       </td>
@@ -820,23 +841,23 @@ export default {
 
       return { name, price }
     },
-    autoRenewSubscriptionToggle(e) {
+    autoRenewSubscriptionToggle(state) {
       //
       this.$membership
-        .changeSubscriptionRenewalState({
+        .changeSubscriptionRenewalState(this.$route.params.id, {
           id: this.data.id,
-          spaceId: this.data.spaceId,
-          subscriptionState: this.data.subscriptions[0].state
+          spaceId: this.data.space_id,
+          subscriptionState: state
         })
         .then(({ data }) => {
-          this.$bvToast.toast('Member checked in successfully', {
+          this.$bvToast.toast('State updated successfully', {
             title: 'Success',
             variant: 'success'
           })
           location.reload()
         })
         .catch(e => {
-          this.$bvToast.toast('Member checkin failed', {
+          this.$bvToast.toast('State update failed', {
             title: 'Error',
             variant: 'danger'
           })
