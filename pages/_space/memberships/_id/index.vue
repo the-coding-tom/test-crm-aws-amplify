@@ -1,32 +1,35 @@
 <template>
   <div>
     <b-form @submit.prevent="updateMembership">
-      <base-header
-        class="pb-6"
+      <base-header 
+        class="pb-6" 
         type="">
         <div class="d-flex justify-content-between align-items-center py-4">
           <MainTitle
             :subtitle="`${data.first_name} ${data.last_name}`"
-            title="Membership"/>
+            title="Membership"
+          />
 
           <div>
             <b-button
               variant="transparent"
               class="text-primary"
-              @click="onboardBrivo">
-              <i class="fas fa-user-lock"/> Brivo Onboard
+              @click="onboardBrivo"
+            >
+              <i class="fas fa-user-lock" /> Brivo Onboard
             </b-button>
 
             <b-button
               variant="transparent"
               class="text-danger"
-              @click="cancelMembership"><i class="fa fa-trash"/> Cancel Membership</b-button>
+              @click="cancelMembership"
+            ><i class="fa fa-trash" /> Cancel Membership</b-button
+            >
           </div>
         </div>
       </base-header>
 
       <div class="container-fluid mt--6">
-
         <div class="row">
           <div class="col-md-6">
             <card>
@@ -38,36 +41,41 @@
                   type="text"
                   class="col-md-6"
                   label="Email"
-                  placeholder="Email"/>
+                  placeholder="Email"
+                />
                 <base-input
                   id="firstName"
                   v-model="data.first_name"
                   type="text"
                   class="col-md-6"
                   label="First Name"
-                  placeholder="First Name"/>
+                  placeholder="First Name"
+                />
                 <base-input
                   id="lastName"
                   v-model="data.last_name"
                   class="col-md-6"
                   label="Last Name"
                   placeholder="Last Name"
-                  type="text"/>
+                  type="text"
+                />
                 <base-input
                   id="membershipNumber"
                   v-model="data.membership_number"
                   class="col-md-6"
                   label="Membership #"
-                  placeholder="0000000"/>
+                  placeholder="0000000"
+                />
                 <base-input
                   id="linkedinURL"
                   v-model="data.linkedin_url"
                   :required="false"
                   class="col-md-6"
                   label="Linkedin"
-                  placeholder="https://linkedin.com/in/someone" />
-                <b-form-group
-                  label="Source of Invitation"
+                  placeholder="https://linkedin.com/in/someone"
+                />
+                <b-form-group 
+                  label="Source of Invitation" 
                   class="col-md-6">
                   <b-form-select
                     id="invitationSource"
@@ -75,39 +83,42 @@
                     :options="options"
                   />
                 </b-form-group>
-                <b-form-group
-                  label="Comments"
+                <b-form-group 
+                  label="Comments" 
                   class="col-md-6">
-
                   <b-form-textarea
                     id="comment"
                     v-model="data.extras[0].comment"
                     label="Comments"
-                    placeholder="Comments"/>
+                    placeholder="Comments"
+                  />
                 </b-form-group>
 
-                <b-form-group
-                  class="col-md-6"
+                <b-form-group 
+                  class="col-md-6" 
                   label="Membership Type">
                   <b-form-select
                     id="memberType"
                     v-model="data.prefix_type"
-                    :options="prefix_type" />
+                    :options="prefix_type"
+                  />
                 </b-form-group>
 
-                <b-form-group
-                  class="col-md-6"
+                <b-form-group 
+                  class="col-md-6" 
                   label="Region">
                   <b-form-select
                     id="region"
                     v-model="data.prefix_locality"
-                    :options="prefix_locality" />
+                    :options="prefix_locality"
+                  />
                 </b-form-group>
 
                 <b-form-group
                   :description="assignedAdmin"
                   class="col-md-6"
-                  label="Assigned Admin">
+                  label="Assigned Admin"
+                >
                   <el-select
                     v-model="selectedAdmin"
                     :remote-method="searchAdmins"
@@ -121,12 +132,13 @@
                       v-for="option in admins"
                       :key="option.id"
                       :label="option.name"
-                      :value="option.id"/>
+                      :value="option.id"
+                    />
                   </el-select>
                 </b-form-group>
 
-                <b-form-group
-                  class="col-md-6"
+                <b-form-group 
+                  class="col-md-6" 
                   label="Date Joined">
                   <client-only>
                     <date-picker
@@ -147,18 +159,23 @@
                 <b-form-group
                   class="col-md-6"
                   label="Trial Days"
-                  description="Number of days before member is charged">
+                  description="Number of days before member is charged"
+                >
                   <b-form-input
                     v-model="data.trial_days"
                     min="0"
                     type="number"
-                    required/>
+                    required
+                  />
                 </b-form-group>
-                <div 
-                  style="width: 100%; display: flex;">
+                <div
+                  v-if="data.subscriptions[0].starts_at !== '0000-00-00'"
+                  style="width: 100%; display: flex"
+                >
                   <b-form-group
                     class="col-md-6"
-                    label="Subscription Start Date">
+                    label="Subscription Start Date"
+                  >
                     <client-only>
                       <date-picker
                         id="time"
@@ -176,7 +193,8 @@
                   </b-form-group>
                   <b-form-group
                     class="col-md-6"
-                    label="Subscription Expiry Date">
+                    label="Subscription Expiry Date"
+                  >
                     <client-only>
                       <date-picker
                         id="time"
@@ -193,18 +211,21 @@
                     </client-only>
                   </b-form-group>
                 </div>
-                <b-form-group
-                  class="col-md-6"
+                <b-form-group 
+                  class="col-md-6" 
                   label="Paid for">
                   <b-form-checkbox
                     v-model="data.paid_for"
                     :value="true"
-                    :unchecked-value="false">Yes</b-form-checkbox>
+                    :unchecked-value="false"
+                  >Yes</b-form-checkbox
+                  >
                 </b-form-group>
                 <b-form-group
                   v-if="data.paid_for"
                   class="col-md-6"
-                  label="Paid by">
+                  label="Paid by"
+                >
                   <el-select
                     v-model="paid_by"
                     :remote-method="searchMembers"
@@ -219,7 +240,8 @@
                       v-for="option in members"
                       :key="option.id"
                       :label="option.first_name + ' ' + option.last_name"
-                      :value="option.id"/>
+                      :value="option.id"
+                    />
                   </el-select>
                 </b-form-group>
 
@@ -229,19 +251,21 @@
                     type="submit"
                     variant="primary"
                     block
-                  >Save</b-button>
+                  >Save</b-button
+                  >
                 </div>
               </div>
             </card>
           </div>
         </div>
-
       </div>
     </b-form>
     <b-button
       variant="transparent"
       class="text-primary ml-2 mb-2"
-      @click="$router.go(-1)"><i class="fas fa-chevron-left"/> Back</b-button>
+      @click="$router.go(-1)"
+    ><i class="fas fa-chevron-left" /> Back</b-button
+    >
   </div>
 </template>
 <script>
@@ -275,6 +299,14 @@ export default {
 
             members.push(result.data)
             paid_by = data.paid_by
+          }
+
+          // Bug Fix: Missing subscription info for invited member who hasn't subscribed yet cos account is pending.
+          if (!data.subscriptions[0]) {
+            data.subscriptions[0] = {
+              starts_at: '0000-00-00',
+              ends_at: '0000-00-00'
+            }
           }
 
           return {
