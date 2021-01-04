@@ -1,13 +1,13 @@
 <template>
   <div>
-    <base-header
-      class="pb-6"
+    <base-header 
+      class="pb-6" 
       type="">
       <div class="row py-4">
         <div class="col-md-6">
           <div class="d-flex justify-content-between">
-            <MainTitle
-              title="Directory"
+            <MainTitle 
+              title="Directory" 
               subtitle="Profile" />
             <div class="d-flex align-items-center">
               <b-form-checkbox
@@ -19,39 +19,39 @@
                 variant="success"
                 @change="checkinToggle"
               >
-                <span
-                  v-if="checkin.status == 'checkin'"
-                  class="text-success">Checked in</span>
-                <span
-                  v-else
+                <span 
+                  v-if="checkin.status == 'checkin'" 
+                  class="text-success"
+                >Checked in</span
+                >
+                <span 
+                  v-else 
                   class="text-muted">Checked Out</span>
               </b-form-checkbox>
             </div>
           </div>
         </div>
         <div class="col-md-6 mr-l-child-10 text-right">
-
           <b-button
-            :to="{name: 'space-memberships-id', params: {id: data.id}}"
+            :to="{ name: 'space-memberships-id', params: { id: data.id } }"
             variant="transparent"
             class="text-primary"
           >
-            <i class="fas fa-edit"/> Edit Membership
+            <i class="fas fa-edit" /> Edit Membership
           </b-button>
           <b-button
             variant="transparent"
             class="text-primary"
             @click="drawer = true"
           >
-            <i
-              class="fa fa-sticky-note"
-            /> View Notes
+            <i class="fa fa-sticky-note" /> View Notes
           </b-button>
           <b-button
             id="deleteMember"
             variant="transparent"
             class="text-danger"
-            @click="deleteMember">
+            @click="deleteMember"
+          >
             <i class="fa fa-trash" /> Delete Member
           </b-button>
         </div>
@@ -65,7 +65,11 @@
             <ProfileHead
               :status="data.prefix_type"
               :img="data.user_profile ? data.user_profile.picture : null"
-              :name="data.user_profile ? data.user_profile.full_name : `${data.first_name} ${data.last_name}`"
+              :name="
+                data.user_profile
+                  ? data.user_profile.full_name
+                  : `${data.first_name} ${data.last_name}`
+              "
               :company="data.user_profile ? data.user_profile.company : null"
               :address="data.user_profile ? data.user_profile.addresses : null"
               :date="data.user_profile ? data.user_profile.date_of_birth : null"
@@ -76,140 +80,179 @@
                   <i class="fa fa-envelope" /> {{ data.email }}
                 </div>
                 <div class="col-md-6">
-                  <i class="fa fa-phone" /> {{ data.user_profile && data.user_profile.phone }}
-                </div>
-
-              </div>
-              <div class="row mt-2">
-                <div class="col-md-6">
-                  <i class="fa fa-venus-mars" /> {{ data.user_profile && data.user_profile.gender }}
-                </div>
-                <div class="col-md-6">
-                  <i class="fa fa-globe" /> {{ data.user_profile && data.user_profile.nationality }}
+                  <i class="fa fa-phone" />
+                  {{ data.user_profile && data.user_profile.phone }}
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col-md-6">
-                  <i class="fa fa-user" /> {{ data.user_profile && data.user_profile.ethnicity }}
+                  <i class="fa fa-venus-mars" />
+                  {{ data.user_profile && data.user_profile.gender }}
                 </div>
-                <!-- <div class="col-md-6">
-                  <i class="fa fa-globe" /> {{ data.user_profile && data.user_profile.nationality }}
-                </div> -->
+                <div class="col-md-6">
+                  <i class="fa fa-globe" />
+                  {{ data.user_profile && data.user_profile.nationality }}
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <i class="fa fa-user" />
+                  {{ data.user_profile && data.user_profile.ethnicity }}
+                </div>
+                <div class="col-md-6">
+                  <i class="fa fa-globe" />
+                  {{ data.user_profile && data.user_profile.nationality }}
+                  <template>
+                    <i
+                      v-show="data.covid_declaration_completed != null"
+                      class="fa fa-star"
+                    />
+                    {{ 'Covid declaration form not filled out' }}
+                  </template>
+                </div>
               </div>
               <div class="mt-4">
-                <div class="text-muted">
-                  Profile
-                </div>
+                <div class="text-muted">Profile</div>
                 <p>
                   {{ data.user_profile && data.user_profile.bio }}
                 </p>
                 <div v-if="data.user_profile">
-                  <div class="text-muted">
-                    Cities
-                  </div>
+                  <div class="text-muted">Cities</div>
                   <badge
                     v-for="(city, i) in data.user_profile.cities"
-
                     :key="`${city}-${i}`"
-                    class="mr-1">{{ city }}</badge>
-                  <div class="text-muted">
-                    Interests
-                  </div>
+                    class="mr-1"
+                  >{{ city }}</badge
+                  >
+                  <div class="text-muted">Interests</div>
                   <badge
                     v-for="(interest, i) in data.user_profile.interests"
-
                     :key="`${interest}-${i}`"
-                    class="mr-1">{{ interest }}</badge>
+                    class="mr-1"
+                  >{{ interest }}</badge
+                  >
                   <div class="text-muted mt-2">Offers</div>
                   <badge
                     v-for="(offer, i) in data.user_profile.offers"
                     :key="`${offer}-${i}`"
-                    class="mr-1">{{ offer }}</badge>
+                    class="mr-1"
+                  >{{ offer }}</badge
+                  >
                   <div class="text-muted mt-2">Skills</div>
                   <badge
                     v-for="(skill, i) in data.user_profile.skills"
                     :key="`${skill}-${i}`"
-                    class="mr-1">{{ skill }}</badge>
+                    class="mr-1"
+                  >{{ skill }}</badge
+                  >
                 </div>
-
-
               </div>
               <div class="mt-4">
-                <p><i class="ti-id-badge" /> {{ data && data.membership_id }}</p>
-                <p><i class="ti-twitter-alt" /> {{ data.user_profile && data.user_profile.twitter }}</p>
-                <p><i class="ti-linkedin" /> {{ data.user_profile && data.user_profile.linkedin }}</p>
-                <p><i class="ti-world" /> {{ data.user_profile && data.user_profile.website }}</p>
+                <p>
+                  <i class="ti-id-badge" /> {{ data && data.membership_id }}
+                </p>
+                <p>
+                  <i class="ti-twitter-alt" />
+                  {{ data.user_profile && data.user_profile.twitter }}
+                </p>
+                <p>
+                  <i class="ti-linkedin" />
+                  {{ data.user_profile && data.user_profile.linkedin }}
+                </p>
+                <p>
+                  <i class="ti-world" />
+                  {{ data.user_profile && data.user_profile.website }}
+                </p>
               </div>
               <div class="sh-dls">
-                <span> Joined on:</span> {{ $moment(data.member_since).format('MMMM DD, YYYY') }}
+                <span> Joined on:</span>
+                {{ $moment(data.member_since).format('MMMM DD, YYYY') }}
               </div>
 
               <div class="sh-dls">
                 <span>Renewal due by:</span> {{ getSubscription }}
               </div>
               <div class="sh-dls">
-                <span>Last Checkin Timestamp:</span> {{ data.last_checkin[0] && $moment(data.last_checkin[0].checkin_timestamp).format('MMMM DD, YYYY HH:mm:ss') }}
+                <span>Last Checkin Timestamp:</span>
+                {{
+                  data.last_checkin[0] &&
+                    $moment(data.last_checkin[0].checkin_timestamp).format(
+                      'MMMM DD, YYYY HH:mm:ss'
+                    )
+                }}
               </div>
 
-              <hr
-                class="w-25 bg-dark3 text-default"
+              <hr 
+                class="w-25 bg-dark3 text-default" 
                 align="left" >
 
-              <span v-html="getExtras(data.extras)"/>
+              <span v-html="getExtras(data.extras)" />
 
               <div class="sh-dls">
-                <span> Paid by:</span> <nuxt-link :to="{name: 'space-memberships-id', params: {id: data.paid_by}}">{{ data.payee_name }}</nuxt-link>
+                <span> Paid by:</span>
+                <nuxt-link
+                  :to="{
+                    name: 'space-memberships-id',
+                    params: { id: data.paid_by },
+                  }"
+                >{{ data.payee_name }}</nuxt-link
+                >
               </div>
               <div class="sh-dls">
-                <span> Paying for:</span> <span
-                  v-for="paid in paid_for"
-                  :key="paid.id"><nuxt-link
-                    v-if="paid_for.length > 0"
-                    :to="{name: 'space-memberships-id', params: {id: paid.id}}">{{ paid.first_name }} {{ paid.last_name }}</nuxt-link>, </span>
+                <span> Paying for:</span>
+                <span 
+                  v-for="paid in paid_for" 
+                  :key="paid.id"
+                ><nuxt-link
+                  v-if="paid_for.length > 0"
+                  :to="{
+                    name: 'space-memberships-id',
+                    params: { id: paid.id },
+                  }"
+                >{{ paid.first_name }} {{ paid.last_name }}</nuxt-link
+                >,
+                </span>
               </div>
-
             </div>
           </div>
-          <check-in/>
+          <check-in />
         </div>
 
         <div class="col-md-6">
           <card header-classes="bg-transparent">
             <div
               slot="header"
-              class="d-flex justify-content-between align-items-center">
-              <div class="txt-upper">
-                Card Details
-              </div>
+              class="d-flex justify-content-between align-items-center"
+            >
+              <div class="txt-upper">Card Details</div>
               <template>
                 <b-button
                   variant="transparent"
                   class="text-primary"
-                  @click="toggleModal('add-card')">
+                  @click="toggleModal('add-card')"
+                >
                   <i class="fa fa-credit-card" /> Add New Card
                 </b-button>
               </template>
             </div>
             <template v-if="cards.length == 0">
               <div class="text-center">
-                <div class="text-muted">
-                  No card added for member
-                </div>
+                <div class="text-muted">No card added for member</div>
               </div>
             </template>
             <template v-else>
               <div class="m-n25">
                 <table class="table table-hover table-striped">
                   <tbody>
-                    <tr
-                      v-for="(card, i) in cards"
-                      :key="card.id"
-                    >
+                    <tr 
+                      v-for="(card, i) in cards" 
+                      :key="card.id">
                       <td>
                         {{ card.card_brand }}
                       </td>
                       <td>
-                        {{ $moment(card.exp_month, "M").format('MMM') }} {{ card.exp_year }}
+                        {{ $moment(card.exp_month, 'M').format('MMM') }}
+                        {{ card.exp_year }}
                       </td>
                       <td>
                         <b-button
@@ -218,7 +261,10 @@
                           sm"
                           variant="transparent"
                           class="text-danger"
-                          @click="removeMemberSource(i)"><i class="fa fa-trash"/></b-button>
+                          @click="removeMemberSource(i)"
+                        ><i 
+                          class="fa fa-trash"
+                        /></b-button>
                       </td>
                     </tr>
                   </tbody>
@@ -229,15 +275,15 @@
           <card>
             <div
               slot="header"
-              class="d-flex justify-content-between align-items-center">
-              <div class="txt-upper">
-                SHACK15 CREDIT
-              </div>
+              class="d-flex justify-content-between align-items-center"
+            >
+              <div class="txt-upper">SHACK15 CREDIT</div>
               <b-button
                 id="addPlanBtn"
                 variant="transparent"
                 class="text-primary"
-                @click="toggleModal('add-credit')">
+                @click="toggleModal('add-credit')"
+              >
                 <i class="fa fa-plus" /> Add Credit
               </b-button>
             </div>
@@ -246,19 +292,21 @@
                 <tbody>
                   <tr
                     v-for="subscription in data.subscriptions"
-                    :key="subscription.id">
+                    :key="subscription.id"
+                  >
                     <div v-if="!subscription.canceled_at">
-                      <td
-                        id="balance">
+                      <td id="balance">
                         <div
-                          style="display:inline-block"
+                          style="display: inline-block"
                           @click="disabled = false"
-                          @change="disabled = true">
+                          @change="disabled = true"
+                        >
                           <input
                             v-model="data.credits"
-                            :disabled="disabled?'disabled':none"
+                            :disabled="disabled ? 'disabled' : none"
                             type="number"
-                        ></div>
+                          >
+                        </div>
                         <b-popover
                           target="balance"
                           placement="top"
@@ -274,7 +322,10 @@
                           size="sm"
                           variant="transparent"
                           class="text-primary"
-                          @click="saveChanges"><i class="fa fa-save"/></b-button>
+                          @click="saveChanges"
+                        ><i 
+                          class="fa fa-save"
+                        /></b-button>
                         <b-popover
                           v-if="data.credits !== previousCreditBalance"
                           target="save-credit"
@@ -288,7 +339,10 @@
                           size="sm"
                           variant="transparent"
                           class="text-danger"
-                          @click="disabled = false"><i class="fa fa-edit"/></b-button>
+                          @click="disabled = false"
+                        ><i 
+                          class="fa fa-edit"
+                        /></b-button>
                         <b-popover
                           v-if="data.credits === previousCreditBalance"
                           target="edit-credit"
@@ -307,26 +361,27 @@
           <card>
             <div
               slot="header"
-              class="d-flex justify-content-between align-items-center">
-              <div class="txt-upper">
-                NUMBER OF GUESTS ALLOWED
-              </div>
+              class="d-flex justify-content-between align-items-center"
+            >
+              <div class="txt-upper">NUMBER OF GUESTS ALLOWED</div>
             </div>
             <div class="m-n25">
               <table class="table table-hover table-striped">
                 <tbody>
                   <tr>
                     <div>
-                      <td
-                        id="member_guests"><div
-                          style="display:inline-block"
+                      <td id="member_guests">
+                        <div
+                          style="display: inline-block"
                           @click="guestsDisabled = false"
-                          @change="guestsDisabled = true">
+                          @change="guestsDisabled = true"
+                        >
                           <input
                             v-model="member_guests"
-                            :disabled="guestsDisabled ? 'disabled': none"
+                            :disabled="guestsDisabled ? 'disabled' : none"
                             type="number"
-                        ></div>
+                          >
+                        </div>
                         <b-popover
                           target="member_guests"
                           placement="top"
@@ -339,14 +394,16 @@
                           size="sm"
                           variant="transparent"
                           class="text-danger"
-                          @click="guestsDisabled = false"><i class="fa fa-edit"/>
+                          @click="guestsDisabled = false"
+                        ><i class="fa fa-edit" />
                         </b-button>
                         <b-button
                           id="save-member_guests"
                           size="sm"
                           variant="transparent"
                           class="text-primary"
-                          @click="saveMemberGuests"><i class="fa fa-save"/>
+                          @click="saveMemberGuests"
+                        ><i class="fa fa-save" />
                         </b-button>
                         <b-popover
                           target="edit-guests"
@@ -365,19 +422,24 @@
           <card>
             <div
               slot="header"
-              class="d-flex justify-content-between align-items-center">
+              class="d-flex justify-content-between align-items-center"
+            >
               <div class="txt-upper">
-                <span>MEMBERSHIP PLAN</span> <b-badge
+                <span>MEMBERSHIP PLAN</span>
+                <b-badge
                   v-if="data.subscriptions[0].state === 'paused'"
                   pill
                   style="margin-left: 20px"
-                  variant="danger">{{ "Paused" }}</b-badge>
+                  variant="danger"
+                >{{ 'Paused' }}</b-badge
+                >
               </div>
               <b-button
                 id="addPlanBtn"
                 variant="transparent"
                 class="text-primary"
-                @click="toggleModal('add-plan')">
+                @click="toggleModal('add-plan')"
+              >
                 <i class="fa fa-plus" /> Add New Plan
               </b-button>
             </div>
@@ -386,7 +448,8 @@
                 <tbody>
                   <tr
                     v-for="subscription in data.subscriptions"
-                    :key="subscription.id">
+                    :key="subscription.id"
+                  >
                     <div v-if="!subscription.canceled_at">
                       <td>{{ getSubName(subscription)['name'] }}</td>
                       <td>Until {{ getSubDetails(subscription) }}</td>
@@ -396,26 +459,36 @@
                           size="sm"
                           variant="transparent"
                           class="text-primary"
-                          @click="autoRenewSubscriptionToggle('paused')"><i class="fa fa-pause"/></b-button>
+                          @click="autoRenewSubscriptionToggle('paused')"
+                        ><i 
+                          class="fa fa-pause"
+                        /></b-button>
                         <b-button
                           v-else
                           id="resume-membership"
                           size="sm"
                           variant="transparent"
                           class="text-primary"
-                          @click="autoRenewSubscriptionToggle('active')"><i class="fa fa-play"/></b-button>
+                          @click="autoRenewSubscriptionToggle('active')"
+                        ><i 
+                          class="fa fa-play"
+                        /></b-button>
                         <b-button
                           size="sm"
                           variant="transparent"
                           class="text-primary"
-                          @click="changePlan(subscription)"><i class="fa fa-exchange-alt"/></b-button>
+                          @click="changePlan(subscription)"
+                        ><i 
+                          class="fa fa-exchange-alt"
+                        /></b-button>
                         <b-button
                           id="popover-1-top"
                           size="sm"
                           variant="transparent"
                           class="text-primary"
-                          @click="makePlanPrimary(subscription)">
-                          <i class="fas fa-user-shield"/>
+                          @click="makePlanPrimary(subscription)"
+                        >
+                          <i class="fas fa-user-shield" />
                         </b-button>
                         <b-popover
                           placement="top"
@@ -427,11 +500,12 @@
                           size="sm"
                           variant="transparent"
                           class="text-danger"
-                          @click="cancelPlan(subscription)"><i class="fa fa-trash"/></b-button>
-                        <div style="display: inline-block;">  
-                          Auto Renew
-                        </div>
-                        <div style="display: inline-block;">
+                          @click="cancelPlan(subscription)"
+                        ><i 
+                          class="fa fa-trash"
+                        /></b-button>
+                        <div style="display: inline-block">Auto Renew</div>
+                        <div style="display: inline-block">
                           <b-form-checkbox
                             v-model="subscription.state"
                             switch
@@ -444,15 +518,18 @@
                             <span
                               v-if="subscription.state == 'active'"
                               style="visibility: hidden"
-                              class="text-success">A</span>
+                              class="text-success"
+                            >A</span
+                            >
                             <span
                               v-else
                               style="visibility: hidden"
-                              class="text-muted">M</span>
+                              class="text-muted"
+                            >M</span
+                            >
                           </b-form-checkbox>
                         </div>
                       </td>
-                     
                     </div>
                   </tr>
                 </tbody>
@@ -462,15 +539,15 @@
           <card>
             <div
               slot="header"
-              class="d-flex justify-content-between align-items-center">
-              <div class="txt-upper">
-                CUSTOM CHARGES
-              </div>
+              class="d-flex justify-content-between align-items-center"
+            >
+              <div class="txt-upper">CUSTOM CHARGES</div>
               <b-button
                 id="addPlanBtn"
                 variant="transparent"
                 class="text-primary"
-                @click="toggleModal('add-custom-charge')">
+                @click="toggleModal('add-custom-charge')"
+              >
                 <i class="fa fa-plus" /> Add New Charge
               </b-button>
             </div>
@@ -488,29 +565,43 @@
                   >
                     <!-- A custom formatted column -->
                     <template #cell(description)="data">
-                      <div style="text-overflow: ellipsis; max-width: 170px; overflow: hidden">{{ data.value }}</div>
+                      <div
+                        style="
+                          text-overflow: ellipsis;
+                          max-width: 170px;
+                          overflow: hidden;
+                        "
+                      >
+                        {{ data.value }}
+                      </div>
                     </template>
-                    <template #cell(customItem)="data"/>
+                    <template #cell(customItem)="data" />
                     <template #cell(current_status)="data">
                       <b-badge
-                        v-if="data.value.toUpperCase()=='SETTLED'"
+                        v-if="data.value.toUpperCase() == 'SETTLED'"
                         pill
-                        variant="success">{{ "PAID" }}</b-badge>
+                        variant="success"
+                      >{{ 'PAID' }}</b-badge
+                      >
                       <b-badge
-                        v-if="data.value.toUpperCase()=='UNSETTLED'"
+                        v-if="data.value.toUpperCase() == 'UNSETTLED'"
                         pill
-                        variant="danger">{{ "NOT PAID" }}</b-badge>
+                        variant="danger"
+                      >{{ 'NOT PAID' }}</b-badge
+                      >
                       <b-badge
-                        v-if="data.value.toUpperCase()=='UNSETTLED'"
+                        v-if="data.value.toUpperCase() == 'UNSETTLED'"
                         pill
-                        variant="warning">{{ "PENDING" }}</b-badge>
+                        variant="warning"
+                      >{{ 'PENDING' }}</b-badge
+                      >
                     </template>
                   </b-table>
                 </div>
               </div>
-              <div
-                slot="footer"
-                class=""
+              <div 
+                slot="footer" 
+                class="" 
                 style="visibility: hidden">
                 <b-pagination
                   :per-page="perPage"
@@ -523,12 +614,10 @@
             </template>
           </card>
           <card>
-            <div
-              slot="header"
+            <div 
+              slot="header" 
               class="d-flex justify-content-between">
-              <div class="txt-upper">
-                Events
-              </div>
+              <div class="txt-upper">Events</div>
             </div>
             <template>
               <div class="m-n25">
@@ -545,8 +634,8 @@
                   />
                 </div>
               </div>
-              <div
-                slot="footer"
+              <div 
+                slot="footer" 
                 class="">
                 <b-pagination
                   :per-page="perPage"
@@ -561,41 +650,55 @@
         </div>
       </div>
     </div>
-    <b-modal
-      id="change-plan"
-      title="Change Current Plan"
-      hide-footer><ChangePlan :plan_id="plan_id" /></b-modal>
-    <b-modal
-      id="add-plan"
-      :static="true"
-      title="Add New Plan"
-      hide-footer><AddPlan :cards="cards" /></b-modal>
-    <b-modal
-      id="add-credit"
-      :static="true"
-      title="Add Credit"
-      hide-footer><AddCredit :data="data" /></b-modal>
-    <b-modal
-      id="add-card"
-      title="Add New Card"
-      hide-footer><AddCard
-        :toggle-loading="toggleLoading"
-        :loading="loading"
-        @addCard="addCard" /></b-modal>
-    <b-modal
-      id="add-custom-charge"
-      title="Add Custom Charge"
+    <b-modal 
+      id="change-plan" 
+      title="Change Current Plan" 
+      hide-footer
+    ><ChangePlan 
+      :plan_id="plan_id"
+    /></b-modal>
+    <b-modal 
+      id="add-plan" 
+      :static="true" 
+      title="Add New Plan" 
+      hide-footer
+    ><AddPlan 
+      :cards="cards"
+    /></b-modal>
+    <b-modal 
+      id="add-credit" 
+      :static="true" 
+      title="Add Credit" 
+      hide-footer
+    ><AddCredit 
+      :data="data"
+    /></b-modal>
+    <b-modal 
+      id="add-card" 
+      title="Add New Card" 
+      hide-footer
+    ><AddCard
+      :toggle-loading="toggleLoading"
+      :loading="loading"
+      @addCard="addCard"
+    /></b-modal>
+    <b-modal 
+      id="add-custom-charge" 
+      title="Add Custom Charge" 
       hide-footer>
-      <AddCustomCharge
-        :data="data" /></b-modal>
-    <b-modal
-      id="edit-custom-charge"
-      title="Edit Charge"
-      hide-footer><EditCustomCharge
-        :data="selctedItemData" /></b-modal>
-    <el-drawer
-      :visible.sync="drawer"
-      :direction="direction"
+      <AddCustomCharge 
+        :data="data"
+    /></b-modal>
+    <b-modal 
+      id="edit-custom-charge" 
+      title="Edit Charge" 
+      hide-footer
+    ><EditCustomCharge 
+      :data="selctedItemData"
+    /></b-modal>
+    <el-drawer 
+      :visible.sync="drawer" 
+      :direction="direction" 
       title="Notes">
       <MembershipNotes :membership_id="data.id" />
     </el-drawer>
