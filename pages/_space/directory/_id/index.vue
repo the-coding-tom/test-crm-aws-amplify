@@ -79,9 +79,25 @@
                 <div class="col-md-6">
                   <i class="fa fa-envelope" /> {{ data.email }}
                 </div>
-                <div class="col-md-6">
-                  <i class="fa fa-phone" />
-                  {{ data.user_profile && data.user_profile.phone }}
+
+                <div 
+                  class="col-md-6" 
+                  style="color: red">
+                  <b-badge
+                    v-if="!data.covid_declaration_completed"
+                    href="#"
+                    variant="danger"
+                  >
+                    <i class="fa fa-exclamation-triangle" /> Covid declaration
+                    form not completed</b-badge
+                    >
+                  <b-badge 
+                    v-else 
+                    href="#" 
+                    variant="success">
+                    <i class="fa fa-check" /> Covid declaration form
+                    completed</b-badge
+                    >
                 </div>
               </div>
               <div class="row mt-2">
@@ -100,15 +116,8 @@
                   {{ data.user_profile && data.user_profile.ethnicity }}
                 </div>
                 <div class="col-md-6">
-                  <i class="fa fa-globe" />
-                  {{ data.user_profile && data.user_profile.nationality }}
-                  <template>
-                    <i
-                      v-show="data.covid_declaration_completed != null"
-                      class="fa fa-star"
-                    />
-                    {{ 'Covid declaration form not filled out' }}
-                  </template>
+                  <i class="fa fa-phone" />
+                  {{ data.user_profile && data.user_profile.phone }}
                 </div>
               </div>
               <div class="mt-4">
