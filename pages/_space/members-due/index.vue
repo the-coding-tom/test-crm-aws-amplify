@@ -92,7 +92,8 @@ export default {
       .expiringSubscriptions(30)
       .then(data => {
         let items = _.map(data, o => {
-          if (o.user) {
+          if (o.user != null) {
+            conlose.log(o.user)
             return {
               id: o.id,
               full_name: `${o.user.first_name} ${o.user.last_name}`,
