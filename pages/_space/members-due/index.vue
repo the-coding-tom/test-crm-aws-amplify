@@ -1,26 +1,28 @@
 <template>
   <div>
-    <base-header
-      class="pb-6"
+    <base-header 
+      class="pb-6" 
       type="">
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle
-          subtitle="Expiring Memberships"
+        <MainTitle 
+          subtitle="Expiring Memberships" 
           title="Members Due" />
         <b-dropdown
           id="dropdown-1"
           :text="`${dropdown} days`"
           class="m-md-2"
-          @click="handleClick">
+          @click="handleClick"
+        >
           <b-dropdown-item
             v-for="(day, i) in days"
             :key="i"
-            @click="handleClick(day)">{{ day }} days</b-dropdown-item>
+            @click="handleClick(day)"
+          >{{ day }} days</b-dropdown-item
+          >
           <b-dropdown-item @click="handleClick(1)">Today</b-dropdown-item>
           <b-dropdown-item @click="handleClick(-1)">Expired</b-dropdown-item>
-          <b-dropdown-divider/>
+          <b-dropdown-divider />
         </b-dropdown>
-
       </div>
     </base-header>
     <div class="container-fluid mt--6">
@@ -31,13 +33,16 @@
           :fields="fields"
           show-empty
           striped
-          hover>
+          hover
+        >
           <template v-slot:cell(options)="data">
             <b-button
               variant="transparent"
               class="text-primary"
               small
-              @click="showForm(data)"><i class="fas fa-undo-alt"/>  Renew</b-button>
+              @click="showForm(data)"
+            ><i class="fas fa-undo-alt" /> Renew</b-button
+            >
           </template>
         </b-table>
 
@@ -51,24 +56,25 @@
         />
       </card>
     </div>
-    <b-modal
-      id="renew"
-      title="Renew Subscription"
+    <b-modal 
+      id="renew" 
+      title="Renew Subscription" 
       hide-footer>
       <b-form @submit.prevent="beginRenew">
         <b-form-group
           label="Payment Source"
-          description="Card to charge for this transaction">
-          <b-form-select
-            :options="cards"
-            v-model="card"
+          description="Card to charge for this transaction"
+        >
+          <b-form-select 
+            :options="cards" 
+            v-model="card" 
             required>
             <option :value="null">Choose a payment card</option>
           </b-form-select>
         </b-form-group>
         <b-form-group>
-          <b-button
-            type="submit"
+          <b-button 
+            type="submit" 
             variant="primary">Renew</b-button>
         </b-form-group>
       </b-form>
@@ -86,15 +92,17 @@ export default {
       .expiringSubscriptions(30)
       .then(data => {
         let items = _.map(data, o => {
-          return {
-            id: o.id,
-            full_name: `${o.user.first_name} ${o.user.last_name}`,
-            plan: o.plan.name,
-            plan_id: o.plan.id,
-            slug: o.slug,
-            start_date: o.starts_at,
-            end_date: o.ends_at,
-            membership_id: o.user.uuid
+          if (o.user) {
+            return {
+              id: o.id,
+              full_name: `${o.user.first_name} ${o.user.last_name}`,
+              plan: o.plan.name,
+              plan_id: o.plan.id,
+              slug: o.slug,
+              start_date: o.starts_at,
+              end_date: o.ends_at,
+              membership_id: o.user.uuid
+            }
           }
         })
         return {
