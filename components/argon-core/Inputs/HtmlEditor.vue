@@ -10,6 +10,7 @@
       /> -->
       <editor
         ref="toastuiEditor"
+        :initial-value="editorText"
         v-model="text"
         :options="editorOptions"
         initial-edit-type="wysiwyg"
@@ -26,11 +27,16 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    editorText: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
       editorOptions: {
+        useDefaultHTMLSanitizer: false,
         usageStatistics: false,
         hideModeSwitch: true,
         toolbarItems: [

@@ -1,32 +1,32 @@
 <template>
   <div>
-    <base-header
-      class="pb-6"
+    <base-header 
+      class="pb-6" 
       type="">
       <div class="d-flex justify-content-between py-4">
-        <MainTitle
-          title="Resources"/>
-        <nuxt-link
-          :to="{ name: 'space-resources-add'}"
+        <MainTitle title="Resources" />
+        <nuxt-link 
+          :to="{ name: 'space-resources-add' }" 
           class="btn btn-primary"
-        >Add Resource</nuxt-link>
+        >Add Resource</nuxt-link
+        >
       </div>
     </base-header>
 
     <!--Charts-->
     <div class="container-fluid mt--6">
       <div class="row equal">
-        <div
-          v-for="rooms in allRooms"
-          :key="rooms.id"
+        <div 
+          v-for="rooms in allRooms" 
+          :key="rooms.id" 
           class="col-md-4">
           <card class="sh-book-res">
             <div class="m-n25 img-wrap">
-              <img
-                :src="rooms.photo"
-                class="img-fluid"
-                alt="">
-              <badge>{{ rooms.category.name }}</badge>
+              <img 
+                :src="rooms.photo" 
+                class="img-fluid" 
+                alt="" >
+                <!-- <badge>{{ rooms.category.name }}</badge> -->
             </div>
 
             <div class="mr-t-50">
@@ -39,24 +39,32 @@
 
             <div class="mr-t-30">
               <p><u>Resource Availability</u></p>
-              <p
-                v-for="(available, i) in rooms.room_availability"
+              <p 
+                v-for="(available, i) in rooms.room_availability" 
                 :key="i">
-                {{ `${daylookup[available.weekdays[0]]} - ${daylookup[available.weekdays[1]] || ''}` }}
-                {{ $moment(available.from, "HH:mm").format("hh:mm A") }} -
-                {{ $moment(available.to, "HH:mm").format("hh:mm A") }}</p>
+                {{
+                  `${daylookup[available.weekdays[0]]} - ${
+                    daylookup[available.weekdays[1]] || ''
+                  }`
+                }}
+                {{ $moment(available.from, 'HH:mm').format('hh:mm A') }} -
+                {{ $moment(available.to, 'HH:mm').format('hh:mm A') }}
+              </p>
             </div>
 
             <div slot="footer">
               <div class="d-flex justify-content-between">
-                <nuxt-link 
-                  :to="{ name: 'space-resources-id', params: { id: rooms.id }}" 
-                  class="edit-link">
+                <nuxt-link
+                  :to="{ name: 'space-resources-id', params: { id: rooms.id } }"
+                  class="edit-link"
+                >
                   <i class="ti-pencil" /> Edit Resource
                 </nuxt-link>
-                <a
-                  class="text-danger"
-                  @click="deleteRoom(rooms.id)"><i class="ti-trash"/> Delete Resource</a>
+                <a 
+                  class="text-danger" 
+                  @click="deleteRoom(rooms.id)"
+                ><i class="ti-trash" /> Delete Resource</a
+                >
               </div>
             </div>
           </card>
@@ -70,7 +78,8 @@
         :value="meta.current_page"
         align="center"
         @next="next"
-        @prev="prev"/>
+        @prev="prev"
+      />
     </div>
   </div>
 </template>

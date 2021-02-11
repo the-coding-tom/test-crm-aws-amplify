@@ -92,18 +92,15 @@ export default {
       .expiringSubscriptions(30)
       .then(data => {
         let items = _.map(data, o => {
-          if (o.user != null) {
-            console.log(o.user)
-            return {
-              id: o.id,
-              full_name: `${o.user.first_name} ${o.user.last_name}`,
-              plan: o.plan.name,
-              plan_id: o.plan.id,
-              slug: o.slug,
-              start_date: o.starts_at,
-              end_date: o.ends_at,
-              membership_id: o.user.uuid
-            }
+          return {
+            id: o.id,
+            full_name: `${o.user.first_name} ${o.user.last_name}`,
+            plan: o.plan.name,
+            plan_id: o.plan.id,
+            slug: o.slug,
+            start_date: o.starts_at,
+            end_date: o.ends_at,
+            membership_id: o.user.uuid
           }
         })
         return {

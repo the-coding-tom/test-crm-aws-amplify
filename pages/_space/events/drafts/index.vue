@@ -6,10 +6,11 @@
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle 
           title="Events" 
-          subtitle="Published" />
-        <nuxt-link 
-          :to="{ name: 'space-events-add' }" 
+          subtitle="Drafts" />
+        <nuxt-link
+          :to="{ name: 'space-events-add' }"
           class="btn btn-primary"
+          style="visibility: hidden"
         >Add Event</nuxt-link
         >
       </div>
@@ -85,9 +86,10 @@
         <template v-slot:modal-footer>
           <div class="w-100">
             <template v-if="currentEvent.extendedProps.is_drafted">
-              <b-button 
-                class="float-left" 
+              <b-button
+                class="float-left"
                 variant="primary"
+                @click="updateEvent"
               >Publish Event</b-button
               >
               <b-button
@@ -159,7 +161,8 @@ export default {
     await $event
       .getEvents()
       .then(({ data }) => {
-        store.commit('events/setEvents', data)
+        console.log(data)
+        store.commit('events/setEvents', data.filter(event => event.is_drafted))
       })
       .catch(err => {
         const message = err.response
@@ -170,6 +173,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       calendarPlugin: 'dayGridMonth,timeGridWeek,listWeek',
       currentEvent: {},
       modals: {
@@ -183,7 +187,7 @@ export default {
     ...mapState({
       events: state =>
         state.events.calendarEvents.filter(
-          event => !event.extendedProps.is_drafted
+          event => event.extendedProps.is_drafted
         ),
       space: state => state.space.currentSpace
     })
@@ -216,7 +220,7 @@ export default {
       this.$bvModal.show('eventModal')
     },
     dateChange({ startDate, endDate }) {
-      startDate = this.$moment(new Date()).format('YYYY-MM-DD')
+      startDate = this.$moment(startDate).format('YYYY-MM-DD')
       endDate = this.$moment(endDate).format('YYYY-MM-DD')
 
       this.$event
@@ -243,6 +247,38 @@ export default {
           this.$bvModal.hide('eventModal')
         })
         .catch(({ response }) => {
+          this.$bvToast.toast(JSON.stringify(response.data.errors), {
+            title: 'Error',
+            variant: 'danger',
+            solid: true
+          })
+        })
+    },
+    async updateEvent() {
+      this.loading = !this.loading
+
+      let eventUpdate = { ...this.currentEvent.extendedProps }
+      eventUpdate.is_drafted = false
+      eventUpdate.event_category_id = eventUpdate.event_category.id
+
+      await this.$event
+        .updateEvent(eventUpdate.id, {
+          ...eventUpdate
+        })
+        .then(({ data }) => {
+          this.$bvToast.toast(`Event published successfully`, {
+            title: 'Success',
+            variant: 'success',
+            solid: true
+          })
+
+          this.$router.push({
+            name: 'space-events-id',
+            params: { id: eventUpdate.id }
+          })
+        })
+        .catch(({ response }) => {
+          this.loading = !this.loading
           this.$bvToast.toast(JSON.stringify(response.data.errors), {
             title: 'Error',
             variant: 'danger',
