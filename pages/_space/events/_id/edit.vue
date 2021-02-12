@@ -52,12 +52,18 @@
                   />
                   <div class="form-group col-md-12">
                     <label>Event Description</label>
-                    <html-editor
+                    <!-- <html-editor
                       id="description"
                       v-model="event.description"
                       :editor-text="event.description"
                       placeholder="Add details about the event"
-                    />
+                    /> -->
+                    <client-only>
+                      <vue-editor v-model="event.description" />
+                    </client-only>
+                    <!-- <client-only>
+                      <Editor :value="event.description" />
+                    </client-only> -->
                   </div>
                   <b-form-group 
                     label="Start Date" 
@@ -221,6 +227,8 @@ import SectionTitle from '@/components/shack/SectionTitle.vue'
 import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
 import UploadButton from '@/components/shack/UploadButton.vue'
 import Room from '@/components/events/Room'
+import { VueEditor } from 'vue2-editor'
+import Editor from '@/components/editor/Editor'
 
 import { Select, Option } from 'element-ui'
 import moment from 'moment'
@@ -236,7 +244,9 @@ export default {
     HtmlEditor,
     [Select.name]: Select,
     [Option.name]: Option,
-    Room
+    Room,
+    VueEditor,
+    Editor
   },
   async asyncData({ store, $event, params, error }) {
     const { id } = params
@@ -283,7 +293,8 @@ export default {
       })
   },
   data: () => ({
-    loading: false
+    loading: false,
+    content: '<h1>Some initial content</h1>'
   }),
   computed: {
     ...mapState({
@@ -366,3 +377,18 @@ export default {
   }
 }
 </script>
+
+<style>
+.ql-editor {
+  min-height: 300px !important;
+}
+.ql-container.ql-snow {
+  border: 1px solid #ccc0 !important;
+}
+.ql-toolbar.ql-snow {
+  border: 1px solid #cccccc70 !important;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 8px;
+}
+</style>

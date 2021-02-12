@@ -1,6 +1,5 @@
 <template>
-  <qrcode-stream 
-    @decode="onDecode"/>
+  <qrcode-stream @decode="onDecode" />
 </template>
 <script>
 import { QrcodeStream } from 'vue-qrcode-reader'
