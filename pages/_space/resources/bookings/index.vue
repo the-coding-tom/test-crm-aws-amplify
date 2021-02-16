@@ -168,7 +168,6 @@
               :events="bookings"
               :views="views"
               :right="calendarPlugin"
-              :time-zone="space.timezone"
               default-view="timeGridWeek"
               @eventClick="eventClick"
               @dateClick="bookDate"
