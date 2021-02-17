@@ -62,7 +62,7 @@ export default function(ctx, inject) {
     },
     getEventsByDate(startDate, endDate) {
       return ctx.$axios.get(
-        `/${subdomain()}/events?filter[starts_between]=${startDate},${endDate}`
+        `/${subdomain()}/events?filter[starts_on_and_from]=${startDate}`
       )
     },
     getEventsByName(name) {

@@ -4,7 +4,7 @@
     :header="{
       left: 'prev,next today',
       center: 'title',
-      right: right
+      right: right,
     }"
     :views="views"
     :events="events"
@@ -12,7 +12,8 @@
     :dates-render="datesRender"
     :time-zone="timeZone"
     @dateClick="dateClick"
-    @eventClick="eventClick" />
+    @eventClick="eventClick"
+  />
 </template>
 
 <script>
@@ -34,7 +35,7 @@ export default {
     },
     defaultView: {
       type: String,
-      default: 'listWeek'
+      default: 'listYear'
     },
     right: {
       type: String,

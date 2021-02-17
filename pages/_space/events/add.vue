@@ -1,7 +1,7 @@
 <template>
   <div>
-    <base-header
-      class="pb-6"
+    <base-header 
+      class="pb-6" 
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Add New Event" />
@@ -9,10 +9,14 @@
           <b-button
             variant="transparent"
             class="text-danger"
-          ><i class="fa fa-save"/> Save As Draft & Close</b-button>
-          <b-button
-            class="btn btn-primary text-white"
-            @click="addEvent">Add Event</b-button>
+            @click="addEvent('draft')"
+          ><i class="fa fa-save" /> Save As Draft & Close</b-button
+          >
+          <b-button 
+            class="btn btn-primary text-white" 
+            @click="addEvent"
+          >Add Event</b-button
+          >
         </div>
       </div>
     </base-header>
@@ -44,13 +48,14 @@
                   <html-editor
                     id="description"
                     v-model="description"
-                    placeholder="Add details about the event" />
-                    <!-- <editor
+                    placeholder="Add details about the event"
+                  />
+                  <!-- <editor
                     v-model="description"
                     mode="markdown" /> -->
                 </div>
-                <b-form-group
-                  label="Start Date"
+                <b-form-group 
+                  label="Start Date" 
                   class="col-md-6">
                   <client-only>
                     <date-picker
@@ -68,8 +73,8 @@
                     />
                   </client-only>
                 </b-form-group>
-                <b-form-group
-                  label="End Date"
+                <b-form-group 
+                  label="End Date" 
                   class="col-md-6">
                   <client-only>
                     <date-picker
@@ -110,8 +115,8 @@
               <div class="row pd-l-20">
                 <div class="form-group col-md-12">
                   <label>Event Category:</label>
-                  <el-select
-                    v-model="category"
+                  <el-select 
+                    v-model="category" 
                     placeholder="Select Category">
                     <el-option
                       v-for="category in categories"
@@ -123,7 +128,6 @@
                 </div>
 
                 <div class="form-group col-md-12">
-
                   <b-form-checkbox
                     id="external-1"
                     v-model="external"
@@ -137,21 +141,24 @@
                     v-if="external"
                     v-model="external_location"
                     placeholder="External Location"
-                    required />
+                    required
+                  />
                 </div>
-                <room
-                  v-if="!external"
+                <room 
+                  v-if="!external" 
                   v-model="selectedRoom" />
 
                 <div class="form-group col-md-12">
                   <b-form-checkbox
                     id="sendMailCheckbox"
                     v-model="sendMail"
-                    value="true">Send email to attendees</b-form-checkbox>
+                    value="true"
+                  >Send email to attendees</b-form-checkbox
+                  >
                 </div>
 
-                <div
-                  v-if="sendMail"
+                <div 
+                  v-if="sendMail" 
                   class="form-group col-md-12">
                   <base-input
                     id="emailSubject"
@@ -163,7 +170,8 @@
                     <html-editor
                       id="emailMessage"
                       v-model="emailMessage"
-                      placeholder="Message body for attendees email" />
+                      placeholder="Message body for attendees email"
+                    />
                   </b-form-group>
                 </div>
               </div>
@@ -269,7 +277,7 @@ export default {
 
       return converter.makeHtml(text)
     },
-    async addEvent() {
+    async addEvent(state) {
       const start_time = this.$moment(this.startTime).format(
         'YYYY-MM-DD HH:mm:ss'
       )
@@ -305,6 +313,8 @@ export default {
         banner_image: this.banner_image
       }
 
+      if (state === 'draft') eventDetails.is_drafted = true
+
       await this.$event
         .addEvent(eventDetails)
         .then(({ data }) => {
@@ -314,7 +324,9 @@ export default {
             solid: true
           })
 
-          this.$router.push({ path: `/${this.space}/events/${data.id}` })
+          if (state === 'draft')
+            this.$router.push({ path: `/${this.space}/events/drafts` })
+          else this.$router.push({ path: `/${this.space}/events/${data.id}` })
         })
         .catch(({ response }) => {
           this.$bvToast.toast(JSON.stringify(response.data.errors), {

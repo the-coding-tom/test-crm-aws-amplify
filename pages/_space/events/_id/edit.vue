@@ -1,25 +1,29 @@
 <template>
   <div>
     <b-form @submit.prevent="updateEvent">
-
-      <base-header
-        class="pb-6"
+      <base-header 
+        class="pb-6" 
         type>
         <div class="d-flex justify-content-between align-items-center py-4">
-          <MainTitle
-            title="Event"
+          <MainTitle 
+            title="Event" 
             subtitle="Update" />
           <div>
-
-            <b-button
-              :disabled="loading"
-              type="submit"
+            <b-button 
+              type="submit" 
               class="btn btn-primary text-white"
-            >Update Event</b-button>
+            ><b-spinner 
+              v-if="loading" 
+              small 
+              label="Small Spinner" />
+            <span v-if="!loading">Update Event</span></b-button
+            >
             <b-button
               variant="transparent"
               class="text-danger"
-              @click="$router.go(-1)"><i class="fa fa-angle-left"/> Cancel Update</b-button>
+              @click="$router.go(-1)"
+            ><i class="fa fa-angle-left" /> Cancel Update</b-button
+            >
           </div>
         </div>
       </base-header>
@@ -48,13 +52,21 @@
                   />
                   <div class="form-group col-md-12">
                     <label>Event Description</label>
-                    <html-editor
+                    <!-- <html-editor
                       id="description"
                       v-model="event.description"
-                      placeholder="Add details about the event" />
+                      :editor-text="event.description"
+                      placeholder="Add details about the event"
+                    /> -->
+                    <client-only>
+                      <vue-editor v-model="event.description" />
+                    </client-only>
+                    <!-- <client-only>
+                      <Editor :value="event.description" />
+                    </client-only> -->
                   </div>
-                  <b-form-group
-                    label="Start Date"
+                  <b-form-group 
+                    label="Start Date" 
                     class="col-md-6">
                     <client-only>
                       <date-picker
@@ -72,8 +84,8 @@
                       />
                     </client-only>
                   </b-form-group>
-                  <b-form-group
-                    label="End Date"
+                  <b-form-group 
+                    label="End Date" 
                     class="col-md-6">
                     <client-only>
                       <date-picker
@@ -116,7 +128,8 @@
                     <label>Event Category:</label>
                     <el-select
                       v-model="event.event_category_id"
-                      placeholder="Select Category">
+                      placeholder="Select Category"
+                    >
                       <el-option
                         v-for="category in categories"
                         :key="category.id"
@@ -140,22 +153,25 @@
                       v-if="external"
                       v-model="event.external_location"
                       placeholder="External Location"
-                      required />
+                      required
+                    />
                   </div>
 
-                  <Room
-                    v-if="!external"
+                  <Room 
+                    v-if="!external" 
                     v-model="event.room_id" />
 
                   <div class="form-group col-md-12">
                     <b-form-checkbox
                       id="sendEmailCheckbox"
                       v-model="event.send_email"
-                      :value="true">Send email to attendees</b-form-checkbox>
+                      :value="true"
+                    >Send email to attendees</b-form-checkbox
+                    >
                   </div>
 
-                  <div
-                    v-if="event.send_email"
+                  <div 
+                    v-if="event.send_email" 
                     class="form-group col-md-12">
                     <base-input
                       id="emailSubject"
@@ -167,7 +183,8 @@
                       <html-editor
                         id="emailMessage"
                         v-model="event.email_content"
-                        placeholder="Message body for attendees email" />
+                        placeholder="Message body for attendees email"
+                      />
                     </b-form-group>
                   </div>
                 </div>
@@ -179,24 +196,27 @@
               v-model="event.event_logo"
               name="eventbanner"
               label="Upload Event Image (<500KB & size 1125x582)"
-              service="event" />
+              service="event"
+              @input="onEventLogoUploaded"
+            />
             <UploadButton
               :url="event.banner_image"
               v-model="event.banner_image"
               name="eventbanner"
               label="Upload Event Banner (<500KB & size 1125x582)"
-              service="event" />
+              service="event"
+            />
             <UploadButton
               v-model="event.host_logo"
               :url="event.host_logo"
               name="hostlogo"
               label="Upload Host Logo (<500KB & size 500x500)"
-              service="event" />
+              service="event"
+            />
           </card>
         </div>
       </div>
     </b-form>
-
   </div>
 </template>
 <script>
@@ -207,6 +227,8 @@ import SectionTitle from '@/components/shack/SectionTitle.vue'
 import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
 import UploadButton from '@/components/shack/UploadButton.vue'
 import Room from '@/components/events/Room'
+import { VueEditor } from 'vue2-editor'
+import Editor from '@/components/editor/Editor'
 
 import { Select, Option } from 'element-ui'
 import moment from 'moment'
@@ -222,7 +244,9 @@ export default {
     HtmlEditor,
     [Select.name]: Select,
     [Option.name]: Option,
-    Room
+    Room,
+    VueEditor,
+    Editor
   },
   async asyncData({ store, $event, params, error }) {
     const { id } = params
@@ -269,7 +293,8 @@ export default {
       })
   },
   data: () => ({
-    loading: false
+    loading: false,
+    content: '<h1>Some initial content</h1>'
   }),
   computed: {
     ...mapState({
@@ -292,6 +317,15 @@ export default {
 
       return converter.makeHtml(text)
     },
+    onEventLogoUploaded(e) {
+      this.event.banner_url = e
+    },
+    onEventBannerImageUploaded(e) {
+      this.event.banner_image = e
+    },
+    onEventHostLogoUploaded(e) {
+      this.event.host_logo = e
+    },
     async updateEvent() {
       this.loading = !this.loading
 
@@ -308,6 +342,11 @@ export default {
       } else {
         eventUpdate.external_location = null
       }
+
+      //update logo urls
+      eventUpdate.banner_url = this.event.banner_url
+      eventUpdate.banner_image = this.event.banner_image
+      eventUpdate.host_logo = this.event.host_logo
 
       await this.$event
         .updateEvent(this.event.id, {
@@ -338,3 +377,18 @@ export default {
   }
 }
 </script>
+
+<style>
+.ql-editor {
+  min-height: 300px !important;
+}
+.ql-container.ql-snow {
+  border: 1px solid #ccc0 !important;
+}
+.ql-toolbar.ql-snow {
+  border: 1px solid #cccccc70 !important;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 8px;
+}
+</style>
