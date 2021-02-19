@@ -144,6 +144,7 @@
 import BaseHeader from '@/components/argon-core/BaseHeader'
 import MainTitle from '@/components/shack/MainTitle.vue'
 import SectionTitle from '@/components/shack/SectionTitle.vue'
+import { convertMarkdownToHtml } from '@/util/convertMarkdownToHtml.js'
 
 import { mapState } from 'vuex'
 import mz from 'moment-timezone'
@@ -190,11 +191,7 @@ export default {
   },
   methods: {
     convertMarkdown(text) {
-      var showdown = require('showdown')
-      var converter = new showdown.Converter()
-      var html = converter.makeHtml(text)
-
-      return html
+      return convertMarkdownToHtml(text)
     },
     getRoomDetail(event) {
       if (event.extendedProps) {

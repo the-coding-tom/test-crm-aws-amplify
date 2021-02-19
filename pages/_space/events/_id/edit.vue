@@ -52,18 +52,12 @@
                   />
                   <div class="form-group col-md-12">
                     <label>Event Description</label>
-                    <!-- <html-editor
+                    <html-editor
                       id="description"
                       v-model="event.description"
                       :editor-text="event.description"
                       placeholder="Add details about the event"
-                    /> -->
-                    <client-only>
-                      <vue-editor v-model="event.description" />
-                    </client-only>
-                    <!-- <client-only>
-                      <Editor :value="event.description" />
-                    </client-only> -->
+                    />
                   </div>
                   <b-form-group 
                     label="Start Date" 
@@ -227,12 +221,11 @@ import SectionTitle from '@/components/shack/SectionTitle.vue'
 import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
 import UploadButton from '@/components/shack/UploadButton.vue'
 import Room from '@/components/events/Room'
-import { VueEditor } from 'vue2-editor'
-import Editor from '@/components/editor/Editor'
-
+import { convertMarkdownToHtml } from '@/util/convertMarkdownToHtml.js'
 import { Select, Option } from 'element-ui'
 import moment from 'moment'
 import { mapState } from 'vuex'
+import showdown from 'showdown'
 
 export default {
   layout: 'ShackDash',
@@ -244,9 +237,7 @@ export default {
     HtmlEditor,
     [Select.name]: Select,
     [Option.name]: Option,
-    Room,
-    VueEditor,
-    Editor
+    Room
   },
   async asyncData({ store, $event, params, error }) {
     const { id } = params
@@ -259,15 +250,20 @@ export default {
       .catch(err => {
         error({
           statusCode: err.statusCode,
-          message: e.response
-            ? JSON.stringify(e.response.data.message)
-            : e.message
+          message: err.response
+            ? JSON.stringify(err.response.data.message)
+            : err.message
         })
       })
 
     return await $event
       .getEvent(id)
       .then(({ data }) => {
+        const converter = new showdown.Converter()
+
+        console.log(data.description)
+        //data.description = data.description.replace(/(?:\n)/g, '<br/>')
+        data.description = converter.makeHtml(data.description)
         data.event_category_id = data.event_category.id
 
         let external = false
@@ -286,9 +282,9 @@ export default {
       .catch(err => {
         error({
           statusCode: err.statusCode,
-          message: e.response
-            ? JSON.stringify(e.response.data.message)
-            : e.message
+          message: err.response
+            ? JSON.stringify(err.response.data.message)
+            : err.message
         })
       })
   },
@@ -312,10 +308,7 @@ export default {
         .format('YYYY-MM-DD HH:mm:ss')
     },
     convertTextToHtml(text) {
-      const showdown = require('showdown')
-      const converter = new showdown.Converter()
-
-      return converter.makeHtml(text)
+      return convertMarkdownToHtml(text)
     },
     onEventLogoUploaded(e) {
       this.event.banner_url = e
@@ -329,13 +322,19 @@ export default {
     async updateEvent() {
       this.loading = !this.loading
 
-      const emailMessage = this.convertTextToHtml(this.event.email_content)
+      const emailMessage = this.convertTextToHtml(
+        this.event.email_content ?? ''
+      )
 
-      let eventUpdate = this.event
+      const converter = new showdown.Converter()
+
+      let eventUpdate = { ...this.event }
       eventUpdate.description = eventUpdate.description.replace(
         /(?:<br>)/g,
         '\n'
       )
+
+      console.log(converter.makeMarkdown(eventUpdate.description))
 
       if (this.external) {
         eventUpdate.room_id = null
@@ -390,5 +389,13 @@ export default {
   box-sizing: border-box;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 8px;
+}
+.ql-container {
+  box-sizing: border-box;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  height: 300px !important;
+  margin: 0;
+  position: relative;
 }
 </style>

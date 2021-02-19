@@ -247,7 +247,7 @@ a {
 	border-color: #dcdcdc !important;
 }
 .custom-select, .el-select .el-input .el-input__inner {
-	height: calc(1.5em + 1.25rem - 2px);
+  height: calc(1.5em + 1.25rem - 2px);
 }
 .rm-borders {}
 .input-group-text {
@@ -393,6 +393,9 @@ a {
 }
 .tags-input__wrapper input.form-control {
 	border: 1px solid;
+}
+input.form-control, input.form-control:focus, select, textarea, textarea:focus, input.el-input__inner{
+  color:#322F3D; /*#322F3D--- #4B5D67*/
 }
 strong {
 	font-weight: bold;
