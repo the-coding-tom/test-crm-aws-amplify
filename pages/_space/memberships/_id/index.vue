@@ -169,7 +169,7 @@
                   />
                 </b-form-group>
                 <div
-                  v-if="data.subscriptions[0].starts_at !== '0000-00-00'"
+                  v-if="data.subscriptions && data.subscriptions.length > 0"
                   style="width: 100%; display: flex"
                 >
                   <b-form-group
@@ -302,12 +302,6 @@ export default {
           }
 
           // Bug Fix: Missing subscription info for invited member who hasn't subscribed yet cos account is pending.
-          if (!data.subscriptions[0]) {
-            data.subscriptions[0] = {
-              starts_at: '0000-00-00',
-              ends_at: '0000-00-00'
-            }
-          }
 
           return {
             data,
@@ -387,17 +381,22 @@ export default {
       const { id } = this.$route.params
       this.loading = !this.loading
       this.data.membership_id = this.data.membership_number
-      this.data.user_profile.first_name = this.data.first_name
-      this.data.user_profile.last_name = this.data.last_name
-      this.data.user_profile.full_name = `${this.data.first_name} ${
-        this.data.last_name
-      }`
+      if (this.data.user_profile) {
+        this.data.user_profile.first_name = this.data.first_name
+        this.data.user_profile.last_name = this.data.last_name
+        this.data.user_profile.full_name = `${this.data.first_name} ${
+          this.data.last_name
+        }`
+      }
 
       this.data.paid_by = this.paid_by
+
       // Fixed bug using this line
-      this.data.assigned_admin = this.selectedAdmin
-        ? this.selectedAdmin
-        : this.data.assigned_admin.uuid
+      if (this.data.assigned_admin) {
+        this.data.assigned_admin = this.selectedAdmin
+          ? this.selectedAdmin
+          : this.data.assigned_admin.uuid
+      }
 
       this.$membership
         .updateMembership(id, this.data)

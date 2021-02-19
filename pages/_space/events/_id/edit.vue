@@ -233,6 +233,7 @@ import Editor from '@/components/editor/Editor'
 import { Select, Option } from 'element-ui'
 import moment from 'moment'
 import { mapState } from 'vuex'
+import showdown from 'showdown'
 
 export default {
   layout: 'ShackDash',
@@ -259,15 +260,20 @@ export default {
       .catch(err => {
         error({
           statusCode: err.statusCode,
-          message: e.response
-            ? JSON.stringify(e.response.data.message)
-            : e.message
+          message: err.response
+            ? JSON.stringify(err.response.data.message)
+            : err.message
         })
       })
 
     return await $event
       .getEvent(id)
       .then(({ data }) => {
+        const converter = new showdown.Converter()
+
+        console.log(data.description)
+        //data.description = data.description.replace(/(?:\n)/g, '<br/>')
+        data.description = converter.makeHtml(data.description)
         data.event_category_id = data.event_category.id
 
         let external = false
@@ -286,9 +292,9 @@ export default {
       .catch(err => {
         error({
           statusCode: err.statusCode,
-          message: e.response
-            ? JSON.stringify(e.response.data.message)
-            : e.message
+          message: err.response
+            ? JSON.stringify(err.response.data.message)
+            : err.message
         })
       })
   },
@@ -331,11 +337,10 @@ export default {
 
       const emailMessage = this.convertTextToHtml(this.event.email_content)
 
-      let eventUpdate = this.event
-      eventUpdate.description = eventUpdate.description.replace(
-        /(?:<br>)/g,
-        '\n'
-      )
+      const converter = new showdown.Converter()
+
+      // let eventUpdate = { ...this.event }
+      // eventUpdate.description = converter.makeMarkdown(eventUpdate.description)
 
       if (this.external) {
         eventUpdate.room_id = null
@@ -390,5 +395,13 @@ export default {
   box-sizing: border-box;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 8px;
+}
+.ql-container {
+  box-sizing: border-box;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  height: 300px !important;
+  margin: 0;
+  position: relative;
 }
 </style>

@@ -190,6 +190,7 @@ export default {
   },
   methods: {
     convertMarkdown(text) {
+      //text = text.replace(/(?:\n)/g, '<br>')
       var showdown = require('showdown')
       var converter = new showdown.Converter()
       var html = converter.makeHtml(text)

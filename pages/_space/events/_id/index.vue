@@ -1,12 +1,12 @@
 <template>
   <div>
-    <base-header
-      class="pb-6"
+    <base-header 
+      class="pb-6" 
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Preview Event" />
         <b-button
-          :to="{name: 'space-events-id-edit', params: {id: event.id}}"
+          :to="{ name: 'space-events-id-edit', params: { id: event.id } }"
           variant="primary"
         >
           <i class="ti-pencil" /> Edit Event
@@ -18,9 +18,9 @@
         <div class="col-md-4">
           <card class="sh-eventpv">
             <div class="m-n25 img-wrap">
-              <img
-                :src="event.banner_url"
-                class="img-fluid"
+              <img 
+                :src="event.banner_url" 
+                class="img-fluid" 
                 alt >
             </div>
             <div class="pv-content">
@@ -30,7 +30,8 @@
             </div>
             <div class="pv-footer">
               <p>
-                Price: {{ event.price | currency(currentSpace.currency_symbol) }} /
+                Price:
+                {{ event.price | currency(currentSpace.currency_symbol) }} /
                 <span class="text-muted">ticket</span>
               </p>
               <p>{{ time }}</p>
@@ -44,9 +45,10 @@
           </card>
           <div class="mr-b-30">
             <b-button
-              :to="{name: 'space-events'}"
+              :to="{ name: 'space-events' }"
               variant="transparent"
-              class="text-primary">
+              class="text-primary"
+            >
               <i class="fa fa-angle-left mr-r-10" /> Back
             </b-button>
           </div>

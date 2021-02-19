@@ -8443,10 +8443,24 @@ node-gyp@^3.8.0:
     tar "^2.0.0"
     which "1"
 
+node-html-markdown@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/node-html-markdown/-/node-html-markdown-0.1.5.tgz#a3d35a72afedb64c120e54f943d312b140e33aaf"
+  integrity sha512-N9+P5CGMypN/k/73QznH4++Co/fWMGBz45aY1wDkG8b+5xqj0dCf2Rf3XovE32cCHJLbV5dRH7zjS1ItZdKc2A==
+  dependencies:
+    node-html-parser "^2.0.1"
+
 node-html-parser@^1.3.1:
   version "1.4.9"
   resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-1.4.9.tgz#3c8f6cac46479fae5800725edb532e9ae8fd816c"
   integrity sha512-UVcirFD1Bn0O+TSmloHeHqZZCxHjvtIeGdVdGMhyZ8/PWlEiZaZ5iJzR189yKZr8p0FXN58BUeC7RHRkf/KYGw==
+  dependencies:
+    he "1.2.0"
+
+node-html-parser@^2.0.1:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-2.1.0.tgz#36345804d743a5a1f672d4821a53f6b0e60629a9"
+  integrity sha512-kbCNfqjrwHAbG+mevL8aqjwVtF0Qv66XurWHoGLOc5G9rPR1L3k602jfeczAUUBldLNnCrdsDmO5G5nqAoMW+g==
   dependencies:
     he "1.2.0"
 

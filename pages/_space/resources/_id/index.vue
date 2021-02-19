@@ -1,18 +1,14 @@
 <template>
   <div>
     <b-form @submit.prevent="updateRoom">
-      <base-header
-        class="pb-6"
+      <base-header 
+        class="pb-6" 
         type="">
         <div class="d-flex justify-content-between py-4">
-          <MainTitle
-            title="Update Resource"/>
-          <b-button
-            type="submit"
-            variant="primary"
-          >
-            Save Resource
-          </b-button>
+          <MainTitle title="Update Resource" />
+          <b-button 
+            type="submit" 
+            variant="primary"> Save Resource </b-button>
         </div>
       </base-header>
 
@@ -30,18 +26,20 @@
                     class="col-md-6"
                     label="Name"
                     required
-                    placeholder="Name of Resource"/>
+                    placeholder="Name of Resource"
+                  />
                   <div class="form-group col-md-6">
                     <label>Category</label>
-                    <el-select
-                      id="category"
-                      v-model="category"
+                    <el-select 
+                      id="category" 
+                      v-model="category" 
                       required>
                       <el-option
                         v-for="item in categories"
                         :key="item.id"
                         :label="item.name"
-                        :value="item.id"/>
+                        :value="item.id"
+                      />
                     </el-select>
                   </div>
                   <base-input
@@ -51,15 +49,17 @@
                     label="Price per hour"
                     type="number"
                     step="0.01"
-                    placeholder="0.00"/>
+                    placeholder="0.00"
+                  />
                   <div class="col-md-6">
                     <base-input
                       id="capacity"
                       v-model="capacity"
-                      label="Number of Units"
+                      label="Max Capacity"
                       type="number"
-                      placeholder="0" />
-                    <b-form-text>How many people can book this at the same time</b-form-text>
+                      placeholder="0"
+                    />
+                    <b-form-text>Maximum number of people per room</b-form-text>
                   </div>
                   <div class="form-group col-md-12">
                     <label>Description</label>
@@ -69,7 +69,8 @@
                       placeholder="Add details about this resource"
                       rows="4"
                       max-rows="6"
-                      class="form-control"/>
+                      class="form-control"
+                    />
                   </div>
 
                   <base-input
@@ -79,7 +80,9 @@
                     label="Minimum Booking Duration"
                     type="number"
                     min="0"
-                    placeholder="60">
+                    step="30"
+                    placeholder="60"
+                  >
                     <div slot="append">min</div>
                   </base-input>
 
@@ -89,7 +92,9 @@
                     class="col-md-6"
                     label="Maximum Booking Duration"
                     type="number"
-                    placeholder="120">
+                    step="30"
+                    placeholder="120"
+                  >
                     <div slot="append">max</div>
                   </base-input>
                 </div>
@@ -102,8 +107,13 @@
                     v-model="available_booking_time"
                     class="col-md-12"
                     label="Available Booking Time"
-                    placeholder="0" />
-                  <b-form-text class="col-md-12">You can enter multiple time frames separated by comma, e.g. e.g. mo-fr 9-17, sa 10-3.</b-form-text>
+                    placeholder="0"
+                  />
+                  <b-form-text 
+                    class="col-md-12"
+                  >You can enter multiple time frames separated by comma, e.g.
+                  e.g. mo-fr 9-17, sa 10-3.</b-form-text
+                  >
 
                   <div class="col-md-12 form-group">
                     <label>Amenities</label>
@@ -111,13 +121,13 @@
                       id="amenities"
                       v-model="amenities"
                       type="Text"
-                      required />
+                      required
+                    />
                   </div>
 
-                  <b-form-group
-                    class="col-md-12"
-                    label="Zoom Rooms"
-                  >
+                  <b-form-group 
+                    class="col-md-12" 
+                    label="Zoom Rooms">
                     <b-form-select
                       id="zoomRoomId"
                       v-model="zoom_room_id"
@@ -129,8 +139,8 @@
                     </b-form-select>
                   </b-form-group>
 
-                  <b-form-group
-                    class="col-md-12"
+                  <b-form-group 
+                    class="col-md-12" 
                     label="Brivo Access Point">
                     <b-form-select
                       id="accessPointId"
@@ -139,7 +149,10 @@
                       value-field="id"
                       text-field="name"
                     >
-                    <option :value="null">Choose a zoom room</option></b-form-select>
+                      <option :value="null">
+                        Choose a zoom room
+                    </option></b-form-select
+                    >
                   </b-form-group>
 
                   <div class="form-group col-md-12">
@@ -149,7 +162,8 @@
                       v-model="can_book"
                       :unchecked-value="false"
                       :checked="true"
-                    >Room is bookable</b-form-checkbox>
+                    >Room is bookable</b-form-checkbox
+                    >
                   </div>
                 </div>
               </div>
@@ -160,8 +174,9 @@
               v-model="photo"
               :url="photo"
               service="resources"
-              label="Upload File (<500KB & size 1125x582)" />
-              <!-- </div> -->
+              label="Upload File (<500KB & size 1125x582)"
+            />
+            <!-- </div> -->
           </card>
         </div>
       </div>
