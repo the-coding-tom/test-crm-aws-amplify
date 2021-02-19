@@ -62,7 +62,7 @@
 import BaseHeader from '@/components/argon-core/BaseHeader'
 import MainTitle from '@/components/shack/MainTitle.vue'
 import SectionTitle from '@/components/shack/SectionTitle.vue'
-
+import { convertMarkdownToHtml } from '@/util/convertMarkdownToHtml.js'
 import { mapState } from 'vuex'
 
 export default {
@@ -106,11 +106,7 @@ export default {
     }
   },
   mounted() {
-    var showdown = require('showdown')
-    var converter = new showdown.Converter()
-    var html = converter.makeHtml(this.event.description)
-
-    this.event.description = html
+    this.event.description = convertMarkdownToHtml(this.event.description)
   }
 }
 </script>

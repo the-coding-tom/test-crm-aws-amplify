@@ -1,8 +1,6 @@
 <template>
   <div>
-    <base-header 
-      class="pb-6" 
-      type>
+    <base-header class="pb-6" type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Add New Event" />
         <div>
@@ -10,12 +8,10 @@
             variant="transparent"
             class="text-danger"
             @click="addEvent('draft')"
-          ><i class="fa fa-save" /> Save As Draft & Close</b-button
+            ><i class="fa fa-save" /> Save As Draft & Close</b-button
           >
-          <b-button 
-            class="btn btn-primary text-white" 
-            @click="addEvent"
-          >Add Event</b-button
+          <b-button class="btn btn-primary text-white" @click="addEvent"
+            >Add Event</b-button
           >
         </div>
       </div>
@@ -33,7 +29,6 @@
                   v-model="title"
                   class="col-md-6"
                   label="Event Title"
-                  placeholder="Awesome Co"
                 />
                 <base-input
                   id="capacity"
@@ -41,7 +36,6 @@
                   class="col-md-6"
                   label="Capacity"
                   type="number"
-                  placeholder="0"
                 />
                 <div class="form-group col-md-12">
                   <label>Event Description</label>
@@ -50,44 +44,46 @@
                     v-model="description"
                     placeholder="Add details about the event"
                   />
-                  <!-- <editor
-                    v-model="description"
-                    mode="markdown" /> -->
                 </div>
-                <b-form-group 
-                  label="Start Date" 
-                  class="col-md-6">
+                <b-form-group label="Start Date" class="col-md-6">
                   <client-only>
                     <date-picker
                       id="startTime"
                       v-model="startTime"
+                      :time-picker-options="{
+                        start: '00:30',
+                        step: '00:15',
+                        end: '23:30',
+                        format: 'hh:mm a',
+                      }"
                       width="100%"
                       input-class="form-control"
                       lang="en"
                       format="YYYY-MM-DD HH:mm:ss"
                       value-type="format"
-                      confirm
                       type="datetime"
-                      placeholder="Start Date"
+                      placeholder="Select Date"
                       @change="startChange"
                     />
                   </client-only>
                 </b-form-group>
-                <b-form-group 
-                  label="End Date" 
-                  class="col-md-6">
+                <b-form-group label="End Date" class="col-md-6">
                   <client-only>
                     <date-picker
                       id="endTime"
                       v-model="endTime"
+                      :time-picker-options="{
+                        start: '00:30',
+                        step: '00:15',
+                        end: '23:30',
+                        format: 'hh:mm a',
+                      }"
                       width="100%"
                       input-class="form-control"
                       lang="en"
                       format="YYYY-MM-DD HH:mm:ss"
                       value-type="format"
-                      confirm
                       type="datetime"
-                      placeholder="End Date"
                     />
                   </client-only>
                 </b-form-group>
@@ -98,7 +94,6 @@
                   label="Price"
                   type="number"
                   step="0.01"
-                  placeholder="0.00"
                 />
                 <base-input
                   id="maxTicketPerPerson"
@@ -106,18 +101,14 @@
                   class="col-md-6"
                   label="Max Ticket Per Person"
                   type="number"
-                  placeholder="3"
                 />
               </div>
             </div>
-
             <div class="col-md-6">
               <div class="row pd-l-20">
                 <div class="form-group col-md-12">
                   <label>Event Category:</label>
-                  <el-select 
-                    v-model="category" 
-                    placeholder="Select Category">
+                  <el-select v-model="category" placeholder="Select Category">
                     <el-option
                       v-for="category in categories"
                       :key="category.id"
@@ -144,22 +135,18 @@
                     required
                   />
                 </div>
-                <room 
-                  v-if="!external" 
-                  v-model="selectedRoom" />
+                <room v-if="!external" v-model="selectedRoom" />
 
                 <div class="form-group col-md-12">
                   <b-form-checkbox
                     id="sendMailCheckbox"
                     v-model="sendMail"
                     value="true"
-                  >Send email to attendees</b-form-checkbox
+                    >Send email to attendees</b-form-checkbox
                   >
                 </div>
 
-                <div 
-                  v-if="sendMail" 
-                  class="form-group col-md-12">
+                <div v-if="sendMail" class="form-group col-md-12">
                   <base-input
                     id="emailSubject"
                     v-model="emailSubject"
@@ -207,6 +194,7 @@ import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
 import { mapState } from 'vuex'
 import { Select, Option } from 'element-ui'
 import Room from '@/components/events/Room'
+import { convertMarkdownToHtml } from '@/util/convertMarkdownToHtml.js'
 
 export default {
   layout: 'ShackDash',
@@ -236,8 +224,8 @@ export default {
       category: '',
       title: '',
       description: '',
-      capacity: 10,
-      price: 10,
+      capacity: null, //10,
+      price: null, //10,
       startTime: '',
       endTime: '',
       eventLogo: '',
@@ -246,7 +234,7 @@ export default {
       emailSubject: 'Booking Confirmed',
       emailMessage: '',
       selectedRoom: null,
-      max_ticket_per_person: 3,
+      max_ticket_per_person: null, //3,
       external: false,
       external_location: null,
       banner_image: ''
@@ -258,13 +246,13 @@ export default {
       space: state => state.space.currentSpace.subdomain
     })
   },
-  mounted() {
+  /*mounted() {
     this.startTime = this.$moment().format('YYYY-MM-DD HH:00:00')
     this.endTime = this.$moment(this.startTime)
       .add(1, 'hour')
       .format('YYYY-MM-DD HH:mm:ss')
     this.category = this.categories[0].id
-  },
+  },*/
   methods: {
     startChange(e) {
       this.endTime = this.$moment(e)
@@ -272,12 +260,14 @@ export default {
         .format('YYYY-MM-DD HH:mm:ss')
     },
     convertTextToHtml(text) {
-      const showdown = require('showdown')
-      const converter = new showdown.Converter()
-
-      return converter.makeHtml(text)
+      return convertMarkdownToHtml(text)
     },
+<<<<<<< HEAD
     async addEvent(state) {
+=======
+    async addEvent() {
+      // Change to preferred display format -- 'YYYY-MM-DD HH:mm:ss'
+>>>>>>> a98bbc6ac9fbb8e13aa38e77594f487ab1b895b9
       const start_time = this.$moment(this.startTime).format(
         'YYYY-MM-DD HH:mm:ss'
       )
@@ -291,11 +281,10 @@ export default {
         this.external_location = null
       }
 
-      this.description = this.description.replace(/(?:<br>)/g, '\n')
-
+      const eventDescription = this.description.replace(/(?:<br>)/g, '\n')
       const eventDetails = {
         name: this.title,
-        description: this.description,
+        description: eventDescription,
         price: this.price,
         start_time,
         end_time,
@@ -312,9 +301,13 @@ export default {
         external_location: this.external_location,
         banner_image: this.banner_image
       }
+<<<<<<< HEAD
 
       if (state === 'draft') eventDetails.is_drafted = true
 
+=======
+      // console.log('event details', eventDetails)
+>>>>>>> a98bbc6ac9fbb8e13aa38e77594f487ab1b895b9
       await this.$event
         .addEvent(eventDetails)
         .then(({ data }) => {

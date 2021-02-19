@@ -227,9 +227,7 @@ import SectionTitle from '@/components/shack/SectionTitle.vue'
 import HtmlEditor from '@/components/argon-core/Inputs/HtmlEditor'
 import UploadButton from '@/components/shack/UploadButton.vue'
 import Room from '@/components/events/Room'
-import { VueEditor } from 'vue2-editor'
-import Editor from '@/components/editor/Editor'
-
+import { convertMarkdownToHtml } from '@/util/convertMarkdownToHtml.js'
 import { Select, Option } from 'element-ui'
 import moment from 'moment'
 import { mapState } from 'vuex'
@@ -318,10 +316,7 @@ export default {
         .format('YYYY-MM-DD HH:mm:ss')
     },
     convertTextToHtml(text) {
-      const showdown = require('showdown')
-      const converter = new showdown.Converter()
-
-      return converter.makeHtml(text)
+      return convertMarkdownToHtml(text)
     },
     onEventLogoUploaded(e) {
       this.event.banner_url = e
