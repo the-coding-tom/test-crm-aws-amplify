@@ -260,9 +260,6 @@ export default {
       .getEvent(id)
       .then(({ data }) => {
         const converter = new showdown.Converter()
-
-        console.log(data.description)
-        //data.description = data.description.replace(/(?:\n)/g, '<br/>')
         data.description = converter.makeHtml(data.description)
         data.event_category_id = data.event_category.id
 
@@ -329,12 +326,20 @@ export default {
       const converter = new showdown.Converter()
 
       let eventUpdate = { ...this.event }
+      //Test
+      //eventUpdate.description = this.convertTextToHtml(eventUpdate.description)
       eventUpdate.description = eventUpdate.description.replace(
         /(?:<br>)/g,
         '\n'
       )
 
-      console.log(converter.makeMarkdown(eventUpdate.description))
+      //Test
+      // console.log(eventUpdate.description)
+      // console.log(converter.makeMarkdown(eventUpdate.description))
+      // //eventUpdate.description = converter.makeMarkdown(eventUpdate.description)
+      // console.log(
+      //   converter.makeHtml(converter.makeMarkdown(eventUpdate.description))
+      // )
 
       if (this.external) {
         eventUpdate.room_id = null

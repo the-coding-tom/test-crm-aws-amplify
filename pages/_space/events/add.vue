@@ -276,7 +276,7 @@ export default {
     convertTextToHtml(text) {
       return convertMarkdownToHtml(text)
     },
-    async addEvent() {
+    async addEvent(state) {
       // Change to preferred display format -- 'YYYY-MM-DD HH:mm:ss'
       const start_time = this.$moment(this.startTime).format(
         'YYYY-MM-DD HH:mm:ss'
