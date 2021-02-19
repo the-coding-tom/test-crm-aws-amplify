@@ -52,18 +52,12 @@
                   />
                   <div class="form-group col-md-12">
                     <label>Event Description</label>
-                    <!-- <html-editor
+                    <html-editor
                       id="description"
                       v-model="event.description"
                       :editor-text="event.description"
                       placeholder="Add details about the event"
-                    /> -->
-                    <client-only>
-                      <vue-editor v-model="event.description" />
-                    </client-only>
-                    <!-- <client-only>
-                      <Editor :value="event.description" />
-                    </client-only> -->
+                    />
                   </div>
                   <b-form-group 
                     label="Start Date" 
@@ -243,9 +237,7 @@ export default {
     HtmlEditor,
     [Select.name]: Select,
     [Option.name]: Option,
-    Room,
-    VueEditor,
-    Editor
+    Room
   },
   async asyncData({ store, $event, params, error }) {
     const { id } = params
@@ -334,8 +326,11 @@ export default {
 
       const converter = new showdown.Converter()
 
-      // let eventUpdate = { ...this.event }
-      // eventUpdate.description = converter.makeMarkdown(eventUpdate.description)
+      let eventUpdate = { ...this.event }
+      eventUpdate.description = eventUpdate.description.replace(
+        /(?:<br>)/g,
+        '\n'
+      )
 
       if (this.external) {
         eventUpdate.room_id = null

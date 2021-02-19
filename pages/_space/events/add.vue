@@ -1,6 +1,8 @@
 <template>
   <div>
-    <base-header class="pb-6" type>
+    <base-header 
+      class="pb-6" 
+      type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Add New Event" />
         <div>
@@ -8,10 +10,12 @@
             variant="transparent"
             class="text-danger"
             @click="addEvent('draft')"
-            ><i class="fa fa-save" /> Save As Draft & Close</b-button
+          ><i class="fa fa-save" /> Save As Draft & Close</b-button
           >
-          <b-button class="btn btn-primary text-white" @click="addEvent"
-            >Add Event</b-button
+          <b-button 
+            class="btn btn-primary text-white" 
+            @click="addEvent"
+          >Add Event</b-button
           >
         </div>
       </div>
@@ -45,7 +49,9 @@
                     placeholder="Add details about the event"
                   />
                 </div>
-                <b-form-group label="Start Date" class="col-md-6">
+                <b-form-group 
+                  label="Start Date" 
+                  class="col-md-6">
                   <client-only>
                     <date-picker
                       id="startTime"
@@ -67,7 +73,9 @@
                     />
                   </client-only>
                 </b-form-group>
-                <b-form-group label="End Date" class="col-md-6">
+                <b-form-group 
+                  label="End Date" 
+                  class="col-md-6">
                   <client-only>
                     <date-picker
                       id="endTime"
@@ -108,7 +116,9 @@
               <div class="row pd-l-20">
                 <div class="form-group col-md-12">
                   <label>Event Category:</label>
-                  <el-select v-model="category" placeholder="Select Category">
+                  <el-select 
+                    v-model="category" 
+                    placeholder="Select Category">
                     <el-option
                       v-for="category in categories"
                       :key="category.id"
@@ -135,18 +145,22 @@
                     required
                   />
                 </div>
-                <room v-if="!external" v-model="selectedRoom" />
+                <room 
+                  v-if="!external" 
+                  v-model="selectedRoom" />
 
                 <div class="form-group col-md-12">
                   <b-form-checkbox
                     id="sendMailCheckbox"
                     v-model="sendMail"
                     value="true"
-                    >Send email to attendees</b-form-checkbox
+                  >Send email to attendees</b-form-checkbox
                   >
                 </div>
 
-                <div v-if="sendMail" class="form-group col-md-12">
+                <div 
+                  v-if="sendMail" 
+                  class="form-group col-md-12">
                   <base-input
                     id="emailSubject"
                     v-model="emailSubject"
@@ -262,12 +276,8 @@ export default {
     convertTextToHtml(text) {
       return convertMarkdownToHtml(text)
     },
-<<<<<<< HEAD
-    async addEvent(state) {
-=======
     async addEvent() {
       // Change to preferred display format -- 'YYYY-MM-DD HH:mm:ss'
->>>>>>> a98bbc6ac9fbb8e13aa38e77594f487ab1b895b9
       const start_time = this.$moment(this.startTime).format(
         'YYYY-MM-DD HH:mm:ss'
       )
@@ -301,13 +311,9 @@ export default {
         external_location: this.external_location,
         banner_image: this.banner_image
       }
-<<<<<<< HEAD
 
       if (state === 'draft') eventDetails.is_drafted = true
 
-=======
-      // console.log('event details', eventDetails)
->>>>>>> a98bbc6ac9fbb8e13aa38e77594f487ab1b895b9
       await this.$event
         .addEvent(eventDetails)
         .then(({ data }) => {
