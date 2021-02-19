@@ -291,7 +291,8 @@ export default {
         this.external_location = null
       }
 
-      const eventDescription = this.description.replace(/(?:<br>)/g, '\n')
+      let eventDescription = this.description.replace(/(?:<br>)/g, '\n')
+      eventDescription = converter.makeMarkdown(eventDescription)
       const eventDetails = {
         name: this.title,
         description: eventDescription,

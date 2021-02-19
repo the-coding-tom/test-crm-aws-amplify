@@ -322,7 +322,9 @@ export default {
     async updateEvent() {
       this.loading = !this.loading
 
-      const emailMessage = this.convertTextToHtml(this.event.email_content)
+      const emailMessage = this.convertTextToHtml(
+        this.event.email_content ?? ''
+      )
 
       const converter = new showdown.Converter()
 
@@ -331,6 +333,8 @@ export default {
         /(?:<br>)/g,
         '\n'
       )
+
+      eventUpdate.description = converter.makeMarkdown(eventUpdate.description)
 
       if (this.external) {
         eventUpdate.room_id = null
