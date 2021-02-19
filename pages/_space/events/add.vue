@@ -260,13 +260,13 @@ export default {
       space: state => state.space.currentSpace.subdomain
     })
   },
-  /*mounted() {
+  mounted() {
     this.startTime = this.$moment().format('YYYY-MM-DD HH:00:00')
     this.endTime = this.$moment(this.startTime)
       .add(1, 'hour')
       .format('YYYY-MM-DD HH:mm:ss')
     this.category = this.categories[0].id
-  },*/
+  },
   methods: {
     startChange(e) {
       this.endTime = this.$moment(e)
@@ -291,8 +291,7 @@ export default {
         this.external_location = null
       }
 
-      let eventDescription = this.description.replace(/(?:<br>)/g, '\n')
-      eventDescription = converter.makeMarkdown(eventDescription)
+      const eventDescription = this.description.replace(/(?:<br>)/g, '\n')
       const eventDetails = {
         name: this.title,
         description: eventDescription,

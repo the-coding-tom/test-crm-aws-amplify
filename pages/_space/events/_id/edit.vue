@@ -334,7 +334,7 @@ export default {
         '\n'
       )
 
-      eventUpdate.description = converter.makeMarkdown(eventUpdate.description)
+      console.log(converter.makeMarkdown(eventUpdate.description))
 
       if (this.external) {
         eventUpdate.room_id = null
