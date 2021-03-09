@@ -452,7 +452,7 @@
                 <i class="fa fa-plus" /> Add New Plan
               </b-button>
             </div>
-            <div class="m-n25 overflow-auto">
+            <div class="m-n25">
               <table class="table table-hover table-striped">
                 <tbody>
                   <tr
@@ -463,7 +463,7 @@
                       <td>{{ getSubName(subscription)['name'] }}</td>
                       <td>Until {{ getSubDetails(subscription) }}</td>
                       <td>
-                        <b-button
+                        <!-- <b-button
                           v-if="subscription.state != 'paused'"
                           size="sm"
                           variant="transparent"
@@ -498,21 +498,21 @@
                           @click="makePlanPrimary(subscription)"
                         >
                           <i class="fas fa-user-shield" />
-                        </b-button>
-                        <b-popover
+                        </b-button> -->
+                        <!-- <b-popover
                           placement="top"
                           target="popover-1-top"
                           content="Make plan primary"
                           triggers="hover focus"
-                        />
-                        <b-button
+                        /> -->
+                        <!-- <b-button
                           size="sm"
                           variant="transparent"
                           class="text-danger"
                           @click="cancelPlan(subscription)"
                         ><i 
                           class="fa fa-trash"
-                        /></b-button>
+                        /></b-button> -->
                         <div style="display: inline-block">Auto Renew</div>
                         <div style="display: inline-block">
                           <b-form-checkbox
@@ -538,6 +538,44 @@
                             >
                           </b-form-checkbox>
                         </div>
+                        <b-dropdown
+                          right
+                          no-caret="true"
+                          style="padding: 0px"
+                          variant="transparent"
+                        >
+                          <template #button-content>
+                            <i class="fas fa-ellipsis-v" />
+                          </template>
+                          <b-dropdown-item
+                            v-if="subscription.state != 'paused'"
+                            href="#"
+                            @click="autoRenewSubscriptionToggle('paused')"
+                          >Pause Subscription</b-dropdown-item
+                          >
+                          <b-dropdown-item
+                            v-else
+                            href="#"
+                            @click="autoRenewSubscriptionToggle('active')"
+                          >Resume Subscription</b-dropdown-item
+                          >
+                          <b-dropdown-divider />
+                          <b-dropdown-item
+                            href="#"
+                            @click="changePlan(subscription)"
+                          >Change Plan</b-dropdown-item
+                          >
+                          <b-dropdown-item
+                            href="#"
+                            @click="makePlanPrimary(subscription)"
+                          >Make This Plan Primary</b-dropdown-item
+                          >
+                          <b-dropdown-item
+                            href="#"
+                            @click="cancelPlan(subscription)"
+                          >Cancel Plan</b-dropdown-item
+                          >
+                        </b-dropdown>
                       </td>
                     </div>
                   </tr>
@@ -966,7 +1004,7 @@ export default {
             title: 'Success',
             variant: 'success'
           })
-          location.reload()
+          //location.reload()
         })
         .catch(e => {
           this.$bvToast.toast('State update failed', {
@@ -1004,7 +1042,7 @@ export default {
               title: 'Success',
               variant: 'success'
             })
-            location.reload()
+            //location.reload()
           })
           .catch(e => {
             this.$bvToast.toast('Member check out failed', {
@@ -1222,4 +1260,6 @@ tr td button.btn {
   margin-top: -15px;
   margin-bottom: -15px;
 }
+</style>
+<style >
 </style>

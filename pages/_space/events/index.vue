@@ -213,7 +213,10 @@ export default {
       this.$bvModal.show('eventModal')
     },
     dateChange({ startDate, endDate }) {
-      startDate = this.$moment(new Date()).format('YYYY-MM-DD')
+      startDate =
+        this.$moment(new Date()).year() > this.$moment(startDate).year()
+          ? this.$moment(startDate).format('YYYY-MM-DD')
+          : this.$moment(new Date()).format('YYYY-MM-DD')
       endDate = this.$moment(endDate).format('YYYY-MM-DD')
 
       this.$event
