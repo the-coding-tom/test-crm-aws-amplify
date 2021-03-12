@@ -1,41 +1,44 @@
 <template>
   <div>
-    <base-header
-      class="pb-6"
+    <base-header 
+      class="pb-6" 
       type="">
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle
           :subtitle="`${meta.total} Profiles`"
-          title="Community Directory"/>
+          title="Community Directory"
+        />
 
         <el-select
           v-model="filter"
           placeholder="Filter by..."
-          @change="filterBy">
+          @change="filterBy"
+        >
           <el-option
             v-for="option in options"
             :key="option.value"
             :label="option.text"
-            :value="option.value"/>
+            :value="option.value"
+          />
         </el-select>
 
-
-        <SearchForm
-          :loading="loading"
+        <SearchForm 
+          :loading="loading" 
           @search="searchMember" />
-        <div><b-button
-          variant="transparent"
-          class="text-primary"
-          @click="toggleModal('add-credit')"
-        >
-          <i class="fas fa-plus"/> Credit
-        </b-button>
+        <div>
+          <b-button
+            variant="transparent"
+            class="text-primary"
+            @click="toggleModal('add-credit')"
+          >
+            <i class="fas fa-plus" /> Credit
+          </b-button>
           <b-button
             variant="transparent"
             class="text-primary"
             @click="toggleModal('add-free-months')"
           >
-            <i class="fas fa-plus"/> Free Months
+            <i class="fas fa-plus" /> Free Months
           </b-button>
         </div>
       </div>
@@ -51,11 +54,10 @@
           :img="member.user_profile.picture"
           :link="member.id"
         />
-
       </div>
 
       <div class="row">
-        <div class="col"/>
+        <div class="col" />
       </div>
     </div>
     <div>
@@ -66,18 +68,25 @@
         align="center"
         @next="next"
         @prev="prev"
+        @input="changePage"
       />
     </div>
     <b-modal
       id="add-credit"
       :static="true"
       title="Add Credit For All Members"
-      hide-footer><AddCreditAll :data="data" /></b-modal>
+      hide-footer
+    ><AddCreditAll 
+      :data="data"
+    /></b-modal>
     <b-modal
       id="add-free-months"
       :static="true"
       title="Add Free Months For All Members"
-      hide-footer><AddFreeMonths :data="data" /></b-modal>
+      hide-footer
+    ><AddFreeMonths 
+      :data="data"
+    /></b-modal>
   </div>
 </template>
 <script>
@@ -147,29 +156,22 @@ export default {
     },
     next() {
       const { next } = this.links
-
       const params = getQueryParams(next)
 
       this.$router.push(params)
-
-      this.$membership.getAllMemberships(
-        `${next}&filter[status]=accepted&include=profile,primaryPlan&filter[prefix_type]=${
-          this.filter
-        }`
-      )
+      location.href = location.origin + this.$route.path + params
     },
     prev() {
       const { prev } = this.links
-
       const params = getQueryParams(prev)
 
       this.$router.push(params)
-
-      this.$membership.getAllMemberships(
-        `${prev}&filter[status]=accepted&include=profile,primaryPlan&filter[prefix_type]=${
-          this.filter
-        }`
-      )
+      location.href = location.origin + this.$route.path + params
+    },
+    changePage(pageNumber) {
+      const params = `?page=${pageNumber}`
+      this.$router.push(params)
+      location.href = location.origin + this.$route.path + params
     },
     searchMember(query) {
       this.loading = !this.loading

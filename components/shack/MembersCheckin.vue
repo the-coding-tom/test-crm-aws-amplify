@@ -1,57 +1,81 @@
 <template>
   <div class="card">
-
     <el-table
-      :data="checkins"
+      :data="checkedInMembers"
       class="table table-hover table-striped table-responsive"
-      header-row-class-name="thead-light">
-
-      <el-table-column
-        label="Name  /  Company"
-        prop="name"
+      header-row-class-name="thead-light"
+    >
+      <el-table-column 
+        label="Name  /  Company" 
+        prop="name" 
         sortable>
-        <template v-slot="{row}">
-          <div class="sh-vflex">
-            <div v-if="row.membership"><nuxt-link :to="{name: 'space-directory-id', params: {id: row.membership}}" >
-                
-              {{ row.first_name + " "+ row.last_name }}<b-badge 
-                v-if="row.member.prefix_type === '0'"
-                pill 
-                variant="secondary"> <i 
-                  class="fa fa-star" 
-                  style=""/></b-badge></nuxt-link> <br> {{ row.company }}
+        <template v-slot="{ row }">
+          <div 
+            v-if="row.status == 'checkin'" 
+            class="sh-vflex">
+            <div v-if="row.membership">
+              <nuxt-link
+                :to="{
+                  name: 'space-directory-id',
+                  params: { id: row.membership },
+                }"
+              >
+                {{ row.first_name + ' ' + row.last_name
+                }}<b-badge
+                  v-if="row.member.prefix_type === '0'"
+                  pill
+                  variant="secondary"
+                >
+                  <i 
+                    class="fa fa-star" 
+                    style="" /></b-badge
+              ></nuxt-link>
+              <br >
+              {{ row.company }}
             </div>
             <div v-else>
-              {{ row.first_name + " "+ row.last_name }} <br> {{ row.company }}
+              {{ row.first_name + ' ' + row.last_name }} <br >
+              {{ row.company }}
             </div>
           </div>
         </template>
       </el-table-column>
 
-      <el-table-column
-        label="Type"
-        prop="type"
-        sortable />
-
-      <el-table-column
-        label="For"
-        prop="member_id"
+      <el-table-column 
+        label="Type" 
+        prop="type" 
         sortable>
-        <template v-slot="{row}">
-          <div
-            v-if="row.type == 'guest'"
-            class="float-left">{{ `${row.member.first_name} ${row.member.last_name}` }}</div>
+        <template v-slot="{ row }">
+          <div v-if="row.status == 'checkin'">
+            {{ row.type }}
+          </div>
         </template>
       </el-table-column>
 
-      <el-table-column
-        label="Meeting Guest"
-        prop="meeting_guest"
+      <el-table-column 
+        label="For" 
+        prop="member_id" 
         sortable>
-        <template v-slot="{row}">
+        <template v-slot="{ row }">
+          <div
+            v-if="row.type == 'guest' && row.status == 'checkin'"
+            class="float-left"
+          >
+            {{ `${row.member.first_name} ${row.member.last_name}` }}
+          </div>
+        </template>
+      </el-table-column>
+
+      <el-table-column 
+        label="Meeting Guest" 
+        prop="meeting_guest" 
+        sortable>
+        <template v-slot="{ row }">
           <b-badge
-            v-if="row.meeting_guest"
-            variant="primary">Yes</b-badge>
+            v-if="row.meeting_guest && row.status == 'checkin'"
+            variant="primary"
+          >Yes</b-badge
+          >
         </template>
       </el-table-column>
 
@@ -59,25 +83,30 @@
         label="Timestamp: Check-in / Check-out"
         min-width="100px"
         prop="method"
-        sortable>
-        <template v-slot="{row}">
-          <span>{{ row.checkin_timestamp }} / {{ row.checkout_timestamp }}</span>
+        sortable
+      >
+        <template v-slot="{ row }">
+          <span 
+            v-if="row.status == 'checkin'"
+          >{{ row.checkin_timestamp }} / {{ row.checkout_timestamp }}</span
+          >
         </template>
       </el-table-column>
 
-      <el-table-column
-        label="Check"
-        prop="status"
+      <el-table-column 
+        label="Check" 
+        prop="status" 
         sortable>
-        <template v-slot="{row}">
+        <template v-slot="{ row }">
           <b-button
             v-if="row.status == 'checkin'"
             :disabled="loading"
             variant="orange"
-            @click="checkout(row)">Check-Out</b-button>
+            @click="checkout(row)"
+          >Check-Out</b-button
+          >
         </template>
       </el-table-column>
-
     </el-table>
   </div>
 </template>
@@ -141,6 +170,9 @@ export default {
     //   })
     //   return type
     // }
+    checkedInMembers: function() {
+      return this.checkins
+    }
   },
   methods: {
     checkout(d) {
@@ -160,7 +192,8 @@ export default {
             title: 'Success',
             variant: 'success'
           })
-          location.reload()
+          //location.reload()
+          //this.checkins
         })
         .catch(e => {
           this.toggleLoading()

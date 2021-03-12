@@ -128,10 +128,38 @@
             <b-button
               variant="transparent"
               class="text-danger float-right"
-              @click="deleteEvent"
+              @click="showConfirmationAlert"
             >
               <i class="fa fa-times" /> Cancel Event
             </b-button>
+          </div>
+        </template>
+      </b-modal>
+      <b-modal 
+        id="deleteConfirmationModal" 
+        size="sm">
+        <template v-slot:modal-title>
+          <b-row>
+            <b-col md="12">
+              <h1>Confirm delete</h1>
+            </b-col>
+          </b-row>
+        </template>
+        <p>Are you sure you want to delete this event?</p>
+        <template v-slot:modal-footer>
+          <div class="w-100">
+            <b-button
+              class="float-left"
+              variant="primary"
+              @click="$bvModal.hide('deleteConfirmationModal')"
+            >No, don't delete</b-button
+            >
+            <b-button
+              class="text-danger float-left"
+              variant="transparent"
+              @click="deleteEvent"
+            >Yes, Delete</b-button
+            >
           </div>
         </template>
       </b-modal>
@@ -213,7 +241,10 @@ export default {
       this.$bvModal.show('eventModal')
     },
     dateChange({ startDate, endDate }) {
-      startDate = this.$moment(new Date()).format('YYYY-MM-DD')
+      startDate =
+        this.$moment(new Date()).year() > this.$moment(startDate).year()
+          ? this.$moment(startDate).format('YYYY-MM-DD')
+          : this.$moment(new Date()).format('YYYY-MM-DD')
       endDate = this.$moment(endDate).format('YYYY-MM-DD')
 
       this.$event
@@ -229,14 +260,16 @@ export default {
           })
         })
     },
+    showConfirmationAlert() {
+      this.$bvModal.show('deleteConfirmationModal')
+    },
     deleteEvent() {
-      if (!confirm('Are you sure?')) return
-
       const eventId = this.currentEvent.id
       this.$event
         .deleteEvent(eventId)
         .then(res => {
           this.$store.commit('events/removeEvent', eventId)
+          this.$bvModal.hide('deleteConfirmationModal')
           this.$bvModal.hide('eventModal')
         })
         .catch(({ response }) => {
