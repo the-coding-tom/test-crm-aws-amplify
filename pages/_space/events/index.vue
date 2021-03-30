@@ -199,17 +199,17 @@ export default {
     SectionTitle
   },
   async asyncData({ store, params, $event, error }) {
-    await $event
-      .getEvents()
-      .then(({ data }) => {
-        store.commit('events/setEvents', data)
-      })
-      .catch(err => {
-        const message = err.response
-          ? JSON.stringify(err.response.data.errros)
-          : err.message
-        error({ statusCode: 404, message: message })
-      })
+    // await $event
+    //   .getEvents()
+    //   .then(({ data }) => {
+    //     store.commit('events/setEvents', data)
+    //   })
+    //   .catch(err => {
+    //     const message = err.response
+    //       ? JSON.stringify(err.response.data.errros)
+    //       : err.message
+    //     error({ statusCode: 404, message: message })
+    //   })
   },
   data() {
     return {
