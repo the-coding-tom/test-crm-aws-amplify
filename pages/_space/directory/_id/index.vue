@@ -822,13 +822,17 @@ export default {
             }
           )
 
+          //Filter for deleted events [ !temporary fix till it's fixed from the backend ]
+
           const events = _.map(data.events_attended, o => {
             return {
-              name: o.event.name,
+              name: o.event ? o.event.name : '(event deleted)', // fix was applied here
               ticket: o.number_of_tickets + ' tickets',
               price:
                 store.state.space.currentSpace.currency_symbol + o.total_amount,
-              start: $moment(o.event.start_time).format('MMM DD, YY')
+              start: o.event
+                ? $moment(o.event.start_time).format('MMM DD, YY')
+                : '(event deleted)'
             }
           })
 
