@@ -24,6 +24,7 @@
               :right="calendarPlugin"
               @eventClick="showEvent"
               @dateChange="dateChange"
+              @viewSwitched="viewSwitched"
             />
           </client-only>
         </card>
@@ -145,7 +146,20 @@
             </b-col>
           </b-row>
         </template>
-        <p>Are you sure you want to delete this event?</p>
+        <template v-if="currentEvent.extendedProps">
+          <p
+            v-if="
+              currentEvent.extendedProps.attendees_count > 0 &&
+                currentEvent.extendedProps.attendees_count > 0
+            "
+          >
+            This event has
+            {{ currentEvent.extendedProps.attendees_count }} attendees. If you
+            choose to proceed with this event cancellation, a refund will be
+            made to all attendees.
+          </p>
+          <p v-else>Are you sure you want to delete this event?</p>
+        </template>
         <template v-slot:modal-footer>
           <div class="w-100">
             <b-button
@@ -185,17 +199,17 @@ export default {
     SectionTitle
   },
   async asyncData({ store, params, $event, error }) {
-    await $event
-      .getEvents()
-      .then(({ data }) => {
-        store.commit('events/setEvents', data)
-      })
-      .catch(err => {
-        const message = err.response
-          ? JSON.stringify(err.response.data.errros)
-          : err.message
-        error({ statusCode: 404, message: message })
-      })
+    // await $event
+    //   .getEvents()
+    //   .then(({ data }) => {
+    //     store.commit('events/setEvents', data)
+    //   })
+    //   .catch(err => {
+    //     const message = err.response
+    //       ? JSON.stringify(err.response.data.errros)
+    //       : err.message
+    //     error({ statusCode: 404, message: message })
+    //   })
   },
   data() {
     return {
@@ -205,7 +219,8 @@ export default {
         classic: false,
         notice: false,
         form: false
-      }
+      },
+      currentViewType: 'listYear'
     }
   },
   computed: {
@@ -242,9 +257,11 @@ export default {
     },
     dateChange({ startDate, endDate }) {
       startDate =
-        this.$moment(new Date()).year() > this.$moment(startDate).year()
+        this.currentViewType != 'listYear'
           ? this.$moment(startDate).format('YYYY-MM-DD')
-          : this.$moment(new Date()).format('YYYY-MM-DD')
+          : this.$moment(new Date()).year() > this.$moment(startDate).year()
+            ? this.$moment(startDate).format('YYYY-MM-DD')
+            : this.$moment(new Date()).format('YYYY-MM-DD')
       endDate = this.$moment(endDate).format('YYYY-MM-DD')
 
       this.$event
@@ -279,6 +296,9 @@ export default {
             solid: true
           })
         })
+    },
+    viewSwitched(eventData) {
+      this.currentViewType = eventData.viewType
     }
   }
 }

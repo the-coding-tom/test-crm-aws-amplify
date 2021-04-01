@@ -11,6 +11,7 @@
     :default-view="defaultView"
     :dates-render="datesRender"
     :time-zone="timeZone"
+    :event-render="viewChanged"
     @dateClick="dateClick"
     @eventClick="eventClick"
   />
@@ -62,7 +63,8 @@ export default {
         interactionPlugin,
         listPlugin,
         momentTimezonePlugin
-      ]
+      ],
+      viewType: ''
     }
   },
   methods: {
@@ -77,6 +79,12 @@ export default {
     },
     dateClick(event) {
       this.$emit('dateClick', event)
+    },
+    viewChanged(options) {
+      if (this.viewType !== options.view.type) {
+        this.viewType = options.view.type
+        this.$emit('viewSwitched', { viewType: options.view.type })
+      }
     }
   }
 }

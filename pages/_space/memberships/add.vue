@@ -1,18 +1,19 @@
 <template>
   <div>
     <b-form @submit.prevent="addNewMembership">
-      <base-header
-        class="pb-6"
+      <base-header 
+        class="pb-6" 
         type="">
         <div class="d-flex justify-content-between align-items-center py-4">
-          <MainTitle
-            title="Members"
-            subtitle="Recently Active"/>
-          <b-button
-            :disabled="loading"
-            type="submit"
+          <MainTitle 
+            title="Members" 
+            subtitle="Recently Active" />
+          <b-button 
+            :disabled="loading" 
+            type="submit" 
             variant="primary"
-          >Add Member</b-button>
+          >Add Member</b-button
+          >
         </div>
       </base-header>
       <div class="container-fluid mt--6">
@@ -29,7 +30,8 @@
                           id="firstName"
                           v-model="membership.first_name"
                           placeholder="First Name"
-                          required/>
+                          required
+                        />
                       </b-form-group>
 
                       <b-form-group label="Last Name">
@@ -37,7 +39,8 @@
                           id="lastName"
                           v-model="membership.last_name"
                           placeholder="Last Name"
-                          required/>
+                          required
+                        />
                       </b-form-group>
 
                       <b-form-group label="Email">
@@ -47,7 +50,8 @@
                           type="email"
                           autocomplete="Email"
                           placeholder="you@somemail.com"
-                          required />
+                          required
+                        />
                       </b-form-group>
 
                       <base-input
@@ -56,25 +60,26 @@
                         :required="false"
                         type="url"
                         label="Linkedin"
-                        placeholder="https://linkedin.com/in/someone"/>
+                        placeholder="https://linkedin.com/in/someone"
+                      />
 
                       <b-form-group label="Source of Invitation">
-
                         <b-form-select
                           id="invitationSource"
                           :options="options"
-                          v-model="membership.extras[0].type"/>
+                          v-model="membership.extras[0].type"
+                        />
                       </b-form-group>
 
                       <b-form-group label="Comments">
                         <b-form-textarea
                           id="comments"
                           v-model="membership.extras[0].comment"
-                          placeholder="Comments to save on this member"/>
+                          placeholder="Comments to save on this member"
+                        />
                       </b-form-group>
-
                     </div>
-                    <div class="col-md-1"/>
+                    <div class="col-md-1" />
                     <div class="col-md-5">
                       <h3 class="mb-4">Membership Details</h3>
 
@@ -82,18 +87,19 @@
                         <b-form-select
                           id="memberType"
                           v-model="membership.prefix_type"
-                          :options="prefix_type" />
+                          :options="prefix_type"
+                        />
                       </b-form-group>
 
                       <b-form-group label="Region">
                         <b-form-select
                           id="region"
                           v-model="membership.prefix_locality"
-                          :options="prefix_locality" />
+                          :options="prefix_locality"
+                        />
                       </b-form-group>
 
-                      <b-form-group
-                        label="Assigned Admin">
+                      <b-form-group label="Assigned Admin">
                         <el-select
                           id="chooseAdmin"
                           v-model="membership.assigned_admin"
@@ -108,7 +114,8 @@
                             v-for="option in admins"
                             :key="option.id"
                             :label="option.name"
-                            :value="option.id"/>
+                            :value="option.id"
+                          />
                         </el-select>
                       </b-form-group>
 
@@ -129,25 +136,26 @@
                         </client-only>
                       </b-form-group>
 
-                      <b-form-group label="On Trial">
+                      <!-- <b-form-group label="On Trial">
                         <b-form-checkbox
                           id="isOnTrial"
                           v-model="membership.trial"
                           :value="true"
                           :unchecked-value="false">Yes</b-form-checkbox>
-                      </b-form-group>
-
+                      </b-form-group> -->
 
                       <b-form-group
                         v-if="membership.trial"
                         label="Trial Days"
-                        description="Number of days before member is charged">
+                        description="Number of days before member is charged"
+                      >
                         <b-form-input
                           id="trialDays"
                           v-model="membership.trial_days"
                           min="0"
                           type="number"
-                          required/>
+                          required
+                        />
                       </b-form-group>
 
                       <b-form-group label="Paid for">
@@ -155,11 +163,13 @@
                           id="isPaidFor"
                           v-model="membership.paid_for"
                           :value="true"
-                          :unchecked-value="false">Yes</b-form-checkbox>
+                          :unchecked-value="false"
+                        >Yes</b-form-checkbox
+                        >
                       </b-form-group>
 
-                      <b-form-group
-                        v-if="membership.paid_for"
+                      <b-form-group 
+                        v-if="membership.paid_for" 
                         label="Paid by">
                         <el-select
                           v-model="membership.paid_by"
@@ -174,12 +184,12 @@
                             v-for="option in data"
                             :key="option.id"
                             :label="option.first_name + ' ' + option.last_name"
-                            :value="option.id"/>
+                            :value="option.id"
+                          />
                         </el-select>
                       </b-form-group>
-
                     </div>
-                    <div class="col-md-1"/>
+                    <div class="col-md-1" />
                   </div>
                 </div>
 
@@ -188,7 +198,8 @@
                   <MembershipPlans
                     id="plan"
                     :plans="plans"
-                    v-model="membership.plan_id" />
+                    v-model="membership.plan_id"
+                  />
                   <div class="mr-t-20">
                     <base-pagination
                       :total="meta.total"
