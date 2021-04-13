@@ -12,14 +12,20 @@
             path: `/${subdomain}`,
           }"
         />
-        <sidebar-item :link="{ name: 'Manage', icon: 'fa fa-tasks' }">
-          <sidebar-item :link="{ name: 'Memberships' }">
-            <sidebar-item
-              :link="{ name: 'Invited', path: `/${subdomain}/memberships` }"
-            />
+        <sidebar-item :link="{ name: 'Memberships', icon: 'fa fa-tasks' }">
+          <sidebar-item
+            :link="{ name: 'Directory', path: `/${subdomain}/directory` }"
+          />
+          <sidebar-item :link="{ name: 'Onboarding' }">
             <sidebar-item
               :link="{
                 name: 'Pending',
+                path: `/${subdomain}/memberships`,
+              }"
+            />
+            <sidebar-item
+              :link="{
+                name: 'Invited',
                 path: `/${subdomain}/memberships/uninvited`,
               }"
             />
@@ -27,10 +33,7 @@
           <sidebar-item
             :link="{ name: 'Members Due', path: `/${subdomain}/members-due` }"
           />
-          <sidebar-item
-            :link="{ name: 'Directory', path: `/${subdomain}/directory` }"
-          />
-          <sidebar-item
+          <!-- <sidebar-item
             :link="{
               name: 'Community',
               icon: 'fa fa-users',
@@ -42,7 +45,7 @@
           />
           <sidebar-item
             :link="{ name: 'Invoice', path: `/${subdomain}/invoice` }"
-          />
+          /> -->
         </sidebar-item>
         <sidebar-item
           :link="{

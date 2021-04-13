@@ -1,18 +1,11 @@
 <template>
   <div>
     <b-form @submit.prevent="addNewMembership">
-      <base-header 
-        class="pb-6" 
-        type="">
+      <base-header class="pb-6" type="">
         <div class="d-flex justify-content-between align-items-center py-4">
-          <MainTitle 
-            title="Members" 
-            subtitle="Recently Active" />
-          <b-button 
-            :disabled="loading" 
-            type="submit" 
-            variant="primary"
-          >Add Member</b-button
+          <MainTitle title="Members" subtitle="Recently Active" />
+          <b-button :disabled="loading" type="submit" variant="primary"
+            >Add Member</b-button
           >
         </div>
       </base-header>
@@ -136,13 +129,15 @@
                         </client-only>
                       </b-form-group>
 
-                      <!-- <b-form-group label="On Trial">
+                      <b-form-group label="On Trial">
                         <b-form-checkbox
                           id="isOnTrial"
                           v-model="membership.trial"
                           :value="true"
-                          :unchecked-value="false">Yes</b-form-checkbox>
-                      </b-form-group> -->
+                          :unchecked-value="false"
+                          >Yes</b-form-checkbox
+                        >
+                      </b-form-group>
 
                       <b-form-group
                         v-if="membership.trial"
@@ -164,13 +159,11 @@
                           v-model="membership.paid_for"
                           :value="true"
                           :unchecked-value="false"
-                        >Yes</b-form-checkbox
+                          >Yes</b-form-checkbox
                         >
                       </b-form-group>
 
-                      <b-form-group 
-                        v-if="membership.paid_for" 
-                        label="Paid by">
+                      <b-form-group v-if="membership.paid_for" label="Paid by">
                         <el-select
                           v-model="membership.paid_by"
                           :remote-method="searchMembers"
@@ -233,7 +226,7 @@ export default {
     MembershipPlans,
     SectionTitle,
     [Select.name]: Select,
-    [Option.name]: Option
+    [Option.name]: Option,
   },
   async asyncData({ $plan, error }) {
     return await $plan
@@ -242,15 +235,15 @@ export default {
         return {
           plans: data,
           links,
-          meta
+          meta,
         }
       })
-      .catch(e => {
+      .catch((e) => {
         error({
           statusCode: e.statusCode,
           message: e.response
             ? JSON.stringify(e.response.data.errors)
-            : e.message
+            : e.message,
         })
       })
   },
@@ -263,43 +256,43 @@ export default {
       searching: false,
       options: [
         { text: 'Referral', value: 'referral' },
-        { text: 'Application', value: 'application' }
+        { text: 'Application', value: 'application' },
       ],
       prefix_type: [
         {
           text: 'Founding Member',
-          value: '0'
+          value: '0',
         },
         {
           text: 'Fast Track',
-          value: '1'
+          value: '1',
         },
         {
           text: 'Early Invite',
-          value: '2'
+          value: '2',
         },
         {
           text: 'General Member',
-          value: '3'
-        }
+          value: '3',
+        },
       ],
       prefix_locality: [
         {
           text: 'Bay Area',
-          value: 'A'
+          value: 'A',
         },
         {
           text: 'US outside of the Bay',
-          value: 'B'
+          value: 'B',
         },
         {
           text: 'EMEA',
-          value: 'C'
+          value: 'C',
         },
         {
           text: 'APAC',
-          value: 'D'
-        }
+          value: 'D',
+        },
       ],
       membership: {
         first_name: '',
@@ -316,14 +309,14 @@ export default {
         prefix_locality: 'A',
         paid_by: null,
         assigned_admin: null,
-        trial_ends_at: null
-      }
+        trial_ends_at: null,
+      },
     }
   },
   computed: {
     ...mapState({
-      space: state => state.space.currentSpace
-    })
+      space: (state) => state.space.currentSpace,
+    }),
   },
   mounted() {
     this.membership.start_time = this.$moment().format('YYYY-MM-DD')
@@ -341,12 +334,12 @@ export default {
           this.links = links
           this.meta = meta
         })
-        .catch(e => {
+        .catch((e) => {
           this.$bvToast.toast(
             e.response ? JSON.stringify(e.response.data.errors) : e.message,
             {
               title: 'Error',
-              variant: 'danger'
+              variant: 'danger',
             }
           )
         })
@@ -360,12 +353,12 @@ export default {
           this.links = links
           this.meta = meta
         })
-        .catch(e => {
+        .catch((e) => {
           this.$bvToast.toast(
             e.response ? JSON.stringify(e.response.data.errors) : e.message,
             {
               title: 'Error',
-              variant: 'danger'
+              variant: 'danger',
             }
           )
         })
@@ -380,18 +373,18 @@ export default {
 
       this.$membership
         .addMembership(membership)
-        .then(res => {
+        .then((res) => {
           this.$bvToast.toast(
             'Membership created successfully. Proceed to invite member',
             {
               title: 'Membership Creation',
-              variant: 'success'
+              variant: 'success',
             }
           )
 
           this.$router.push({ name: 'space-memberships-uninvited' })
         })
-        .catch(e => {
+        .catch((e) => {
           this.loading = !this.loading
 
           const message = e.response
@@ -402,7 +395,7 @@ export default {
 
           this.$bvToast.toast(message, {
             title: 'Error',
-            variant: 'danger'
+            variant: 'danger',
           })
         })
     },
@@ -425,10 +418,10 @@ export default {
 
       this.$admin
         .getAllAdmins(link)
-        .then(res => {
+        .then((res) => {
           this.admins = res.data
         })
-        .catch(escape => {
+        .catch((escape) => {
           const message = e.response
             ? `${e.response.data.message} ~ ${JSON.stringify(
                 e.response.data.errors
@@ -436,23 +429,23 @@ export default {
             : e.message
           error({
             statusCode: err.status || 404,
-            message
+            message,
           })
         })
     },
     getCards(e) {
       this.$membership
         .getPaymentMethods(e)
-        .then(res => {
+        .then((res) => {
           // this.cards = res.data
-          _.each(res.data, o => {
+          _.each(res.data, (o) => {
             this.cards.push({
               text: `${o.card_brand} - **** ${o.last_4}`,
-              value: o.id
+              value: o.id,
             })
           })
         })
-        .catch(e => {
+        .catch((e) => {
           const message = e.response
             ? `${e.response.data.message} ~ ${JSON.stringify(
                 e.response.data.errors
@@ -460,10 +453,10 @@ export default {
             : e.message
           this.$bvToast.toast(message, {
             variant: 'danger',
-            title: 'Error'
+            title: 'Error',
           })
         })
-    }
-  }
+    },
+  },
 }
 </script>

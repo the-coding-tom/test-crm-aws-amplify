@@ -1,38 +1,39 @@
 <template>
   <div>
-    <base-header
-      class="pb-6"
+    <base-header 
+      class="pb-6" 
       type="">
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle
-          title="Members"
-          subtitle="Invited"/>
-        <SearchForm
-          v-model="searchTerm"
-          :loading="loading"
-          @search="search"
-        />
+        <MainTitle 
+          title="Members" 
+          subtitle="Pending" />
+        <SearchForm 
+          v-model="searchTerm" 
+          :loading="loading" 
+          @search="search" />
         <div>
           <b-button
             variant="transparent"
             class="text-primary"
-            @click="exportData"><i class="fa fa-file-export"/> Export</b-button>
-          <b-button
+            @click="exportData"
+          ><i class="fa fa-file-export" /> Export</b-button
+          >
+          <!-- <b-button
             :to="{ name: 'space-memberships-messages'}"
             variant="transparent"
-            class="text-primary"><i class="fa fa-envelope"/> Send Message</b-button>
-          <b-button
-            :to="{name: 'space-memberships-add'}"
+            class="text-primary"><i class="fa fa-envelope"/> Send Message</b-button> -->
+          <b-button 
+            :to="{ name: 'space-memberships-add' }" 
             variant="primary"
-          >Add Member</b-button>
+          >Add Member</b-button
+          >
         </div>
       </div>
     </base-header>
     <div class="container-fluid mt--6">
       <div class="row">
         <div class="col">
-          <MembersTable
-            :members="members" />
+          <MembersTable :members="members" />
         </div>
       </div>
       <div>

@@ -6,23 +6,25 @@
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle 
           title="Members" 
-          subtitle="Pending Invitation" />
-        <SearchForm 
-          v-model="searchTerm" 
-          :loading="loading" 
-          @search="search" />
+          subtitle="Uninvited" />
+
         <div>
-          <b-button
+          <!-- <b-button
             :to="{ name: 'space-memberships-messages' }"
             variant="transparent"
             class="text-primary"
           ><i class="fa fa-envelope" /> Send Message</b-button
-          >
-          <b-button 
+          > -->
+          <SearchForm
+            v-model="searchTerm"
+            :loading="loading"
+            @search="search"
+          />
+          <!-- <b-button 
             :to="{ name: 'space-memberships-add' }" 
             variant="primary"
           >Add Member</b-button
-          >
+          > -->
         </div>
       </div>
     </base-header>
@@ -42,7 +44,7 @@
                   class="btn-purple"
                   style="margin-top: 0px; margin-bottom: 0px"
                   @click="confirmMember(slotProps)"
-                >Confirm</b-button
+                >Send Invitation</b-button
                 >
                 <b-button
                   variant="transparent"
