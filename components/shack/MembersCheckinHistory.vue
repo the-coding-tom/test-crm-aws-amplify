@@ -20,7 +20,7 @@
               >
                 {{ row.first_name + '  ' + row.last_name
                 }}<b-badge
-                  v-if="row.member.prefix_type === '0'"
+                  v-if="row.member != null && row.member.prefix_type === '0'"
                   pill
                   variant="secondary"
                 >
@@ -58,7 +58,11 @@
           <div 
             v-if="row.type == 'guest'" 
             class="float-left">
-            {{ `${row.member.first_name} ${row.member.last_name}` }}
+            {{
+              row.member
+                ? `${row.member.first_name} ${row.member.last_name}`
+                : 'deleted member'
+            }}
           </div>
         </template>
       </el-table-column>
