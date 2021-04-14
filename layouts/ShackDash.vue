@@ -47,13 +47,20 @@
             :link="{ name: 'Invoice', path: `/${subdomain}/invoice` }"
           /> -->
         </sidebar-item>
-        <sidebar-item
-          :link="{
-            name: 'Checkins',
-            icon: 'fa fa-user-check',
-            path: `/${subdomain}/checkins`,
-          }"
-        />
+        <sidebar-item :link="{ name: 'Checkins', icon: 'fa fa-user-check' }">
+          <sidebar-item
+            :link="{
+              name: 'Current Checkins',
+              path: `/${subdomain}/checkins`,
+            }"
+          />
+          <sidebar-item
+            :link="{
+              name: 'History',
+              path: `/${subdomain}/checkins/history`,
+            }"
+          />
+        </sidebar-item>
         <sidebar-item :link="{ name: 'Bookings', icon: 'ni ni-shop' }">
           <sidebar-item
             :link="{

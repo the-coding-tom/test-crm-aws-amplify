@@ -6,8 +6,8 @@
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle 
           title="Members" 
-          subtitle="Check-in" />
-        <div>
+          subtitle="Checkin History" />
+        <div style="visibility: hidden">
           <b-button
             :to="{ name: 'space-checkins-settings' }"
             variant="transparent"
@@ -195,6 +195,7 @@
         align="center"
         @next="next"
         @prev="prev"
+        @input="changePage"
       />
     </div>
   </div>
@@ -202,13 +203,14 @@
 <script>
 import { Table, TableColumn } from 'element-ui'
 import RouteBreadCrumb from '@/components/argon-core/Breadcrumb/RouteBreadcrumb'
-import MembersCheckin from '~/components/shack/MembersCheckin.vue'
+import MembersCheckin from '~/components/shack/MembersCheckinHistory.vue'
 import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
 import SearchForm from '~/components/shack/SearchForm.vue'
 import { Select, Option } from 'element-ui'
 import { displayError } from '../../../util/errors'
 import { mapState } from 'vuex'
+import { getQueryParams } from '../../../util/url'
 
 export default {
   name: 'Checkin',
@@ -223,16 +225,12 @@ export default {
     [Option.name]: Option,
     QrcodeStream: () => import('@/components/qrscanner/qrscanner.vue')
   },
-  async asyncData({ $membership, $checkin, error }) {
+  async asyncData({ $membership, $checkin, error, route }) {
     try {
       const moment = require('moment')
 
-      const link = 'filter[status]=accepted&include=profile'
-      const checkinFilter = `?filter[status]=checkin&filter[created_at]=${moment().format(
-        'YYYY-MM-DD'
-      )},${moment()
-        .add(1, 'days')
-        .format('YYYY-MM-DD')}`
+      const link = `filter[status]=accepted&include=profile`
+      const checkinFilter = `?page=${route.query.page}`
 
       let imeta, ilinks
 
@@ -315,11 +313,22 @@ export default {
     },
     next() {
       const { next } = this.links
-      this.$checkin.checkins(`${next}`)
+      const params = getQueryParams(next)
+
+      this.$router.push(params)
+      location.href = location.origin + this.$route.path + params
     },
     prev() {
       const { prev } = this.links
-      this.$checkin.checkins(`${prev}`)
+      const params = getQueryParams(prev)
+
+      this.$router.push(params)
+      location.href = location.origin + this.$route.path + params
+    },
+    changePage(pageNumber) {
+      const params = `?page=${pageNumber}`
+      this.$router.push(params)
+      location.href = location.origin + this.$route.path + params
     },
     searchMembers(query) {
       const link = `filter[search]=${query}&filter[status]=accepted`

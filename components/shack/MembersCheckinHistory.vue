@@ -1,0 +1,211 @@
+<template>
+  <div class="card">
+    <el-table
+      :data="checkedInMembers"
+      class="table table-hover table-striped table-responsive"
+      header-row-class-name="thead-light"
+    >
+      <el-table-column 
+        label="Name  /  Company" 
+        prop="name" 
+        sortable>
+        <template v-slot="{ row }">
+          <div class="sh-vflex">
+            <div v-if="row.membership">
+              <nuxt-link
+                :to="{
+                  name: 'space-directory-id',
+                  params: { id: row.membership },
+                }"
+              >
+                {{ row.first_name + '  ' + row.last_name
+                }}<b-badge
+                  v-if="row.member.prefix_type === '0'"
+                  pill
+                  variant="secondary"
+                >
+                  <i 
+                    class="fa fa-star" 
+                    style="" /></b-badge
+              ></nuxt-link>
+              <br >
+              {{ row.company }}
+            </div>
+            <div v-else>
+              {{ row.first_name + '  ' + row.last_name }}<br >
+              {{ row.company }}
+            </div>
+          </div>
+        </template>
+      </el-table-column>
+
+      <el-table-column 
+        label="Type" 
+        prop="type" 
+        sortable>
+        <template v-slot="{ row }">
+          <div>
+            {{ row.type }}
+          </div>
+        </template>
+      </el-table-column>
+
+      <el-table-column 
+        label="For" 
+        prop="member_id" 
+        sortable>
+        <template v-slot="{ row }">
+          <div 
+            v-if="row.type == 'guest'" 
+            class="float-left">
+            {{ `${row.member.first_name} ${row.member.last_name}` }}
+          </div>
+        </template>
+      </el-table-column>
+
+      <el-table-column 
+        label="Meeting Guest" 
+        prop="meeting_guest" 
+        sortable>
+        <template v-slot="{ row }">
+          <b-badge 
+            v-if="row.meeting_guest" 
+            variant="primary">Yes</b-badge>
+          <b-badge 
+            v-else 
+            variant="primary">No</b-badge>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="Timestamp: Check-in"
+        min-width="100px"
+        prop="method"
+        sortable
+      >
+        <template v-slot="{ row }">
+          <span>{{ row.checkin_timestamp }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column 
+        label="Check-out Time" 
+        prop="status" 
+        sortable>
+        <template v-slot="{ row }">
+          <span>{{ row.checkout_timestamp }}</span>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
+</template>
+<script>
+import { Table, TableColumn } from 'element-ui'
+import { displayError } from '../../util/errors'
+
+export default {
+  components: {
+    [Table.name]: Table,
+    [TableColumn.name]: TableColumn
+  },
+  props: {
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    itemLimit: {
+      type: Number,
+      default: 9
+    },
+    showModal: {
+      type: Boolean,
+      default: false
+    },
+    checkins: {
+      type: Array,
+      default: () => []
+    },
+    toggleLoading: {
+      type: Function,
+      default: () => {}
+    },
+    status: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  data() {
+    return {
+      modals: {
+        classic: false,
+        notice: false,
+        form: false
+      },
+      prefix_type: [
+        {
+          text: 'Founding Member',
+          value: '0'
+        }
+      ]
+    }
+  },
+  computed: {
+    // getMembershipType() {
+    //   let type = null
+    //   _.each(this.prefix_type, o => {
+    //     if (o.value == this.member.status.prefix_type) {
+    //       type = o.text
+    //     }
+    //   })
+    //   return type
+    // }
+    checkedInMembers: function() {
+      return this.checkins
+    }
+  },
+  methods: {
+    checkout(d) {
+      this.toggleLoading()
+
+      this.$checkin
+        .checkout(d.id)
+        .then(({ data }) => {
+          const message =
+            d.type == 'guest'
+              ? 'Guest checked out successfully'
+              : 'Member checked out successfully'
+          const i = _.findIndex(this.checkins, d)
+          this.checkins[i] = data
+          this.toggleLoading()
+          this.$bvToast.toast(message, {
+            title: 'Success',
+            variant: 'success'
+          })
+          //location.reload()
+          //this.checkins
+        })
+        .catch(e => {
+          this.toggleLoading()
+          this.$bvToast.toast('Checkout failed. Try again', {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
+    },
+    guestOf(data) {
+      // if (data.item.)
+      console.log('------------------------------------')
+      console.log(data)
+      console.log('------------------------------------')
+      return this.$membership
+        .getAMembership(data.value)
+        .then(res => {
+          return res.data.first_name
+        })
+        .catch(e => {
+          displayError(e)
+        })
+    }
+  }
+}
+</script>
