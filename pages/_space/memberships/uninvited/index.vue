@@ -6,8 +6,11 @@
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle 
           title="Members" 
-          subtitle="Uninvited" />
-
+          subtitle="Pending" />
+        <SearchForm 
+          v-model="searchTerm" 
+          :loading="loading" 
+          @search="search" />
         <div>
           <!-- <b-button
             :to="{ name: 'space-memberships-messages' }"
@@ -15,16 +18,11 @@
             class="text-primary"
           ><i class="fa fa-envelope" /> Send Message</b-button
           > -->
-          <SearchForm
-            v-model="searchTerm"
-            :loading="loading"
-            @search="search"
-          />
-          <!-- <b-button 
-            :to="{ name: 'space-memberships-add' }" 
-            variant="primary"
-          >Add Member</b-button
-          > -->
+          <b-button 
+            variant="primary" 
+            @click="inviteAllPendingMembers"
+          >Invite All</b-button
+          >
         </div>
       </div>
     </base-header>
@@ -193,6 +191,28 @@ export default {
             }
           )
         })
+    },
+    inviteAllPendingMembers() {
+      this.$membership
+        .inviteAllPendingMembers()
+        .then(res => {
+          this.$bvToast.toast('Members invited successfully', {
+            variant: 'success'
+          })
+          setTimeout(() => {
+            location.reload()
+          }, 5000)
+        })
+        .catch(e => {
+          this.$bvToast.toast(
+            e.response ? JSON.stringify(e.response.data.errors) : e.message,
+            {
+              title: 'Error',
+              variant: 'danger'
+            }
+          )
+        })
+      console.log('invite all')
     },
     cancelMember(e) {
       if (!confirm('Are you sure')) return

@@ -136,7 +136,7 @@
                         </client-only>
                       </b-form-group>
 
-                      <b-form-group label="On Trial">
+                      <!-- <b-form-group label="On Trial">
                         <b-form-checkbox
                           id="isOnTrial"
                           v-model="membership.trial"
@@ -144,7 +144,7 @@
                           :unchecked-value="false"
                         >Yes</b-form-checkbox
                         >
-                      </b-form-group>
+                      </b-form-group> -->
 
                       <b-form-group
                         v-if="membership.trial"

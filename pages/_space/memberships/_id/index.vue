@@ -156,7 +156,7 @@
                   </client-only>
                 </b-form-group>
 
-                <b-form-group
+                <!-- <b-form-group
                   class="col-md-6"
                   label="Trial Days"
                   description="Number of days before member is charged"
@@ -167,7 +167,7 @@
                     type="number"
                     required
                   />
-                </b-form-group>
+                </b-form-group> -->
                 <div
                   v-if="data.subscriptions && data.subscriptions.length > 0"
                   style="width: 100%; display: flex"

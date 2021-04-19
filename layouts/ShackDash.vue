@@ -19,13 +19,13 @@
           <sidebar-item :link="{ name: 'Onboarding' }">
             <sidebar-item
               :link="{
-                name: 'Pending',
+                name: 'Invited',
                 path: `/${subdomain}/memberships`,
               }"
             />
             <sidebar-item
               :link="{
-                name: 'Invited',
+                name: 'Pending',
                 path: `/${subdomain}/memberships/uninvited`,
               }"
             />

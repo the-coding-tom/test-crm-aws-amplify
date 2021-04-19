@@ -128,6 +128,9 @@ export default function(ctx, inject) {
     inviteMember: id => {
       return ctx.$axios.$post(`/${subdomain()}/memberships/${id}/invitation`)
     },
+    inviteAllPendingMembers: () => {
+      return ctx.$axios.$post(`/${subdomain()}/memberships/pending/invite-all`)
+    },
     deleteMembership: id => {
       return ctx.$axios.$delete(`/${subdomain()}/memberships/${id}`)
       // .catch(e => {
