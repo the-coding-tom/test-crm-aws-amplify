@@ -126,6 +126,7 @@ export default {
     card: null,
     cards: [],
     perPage: 10,
+    items: [],
     currentPage: 1,
     dropdown: 30,
     days: [30, 15, 5],
@@ -210,9 +211,9 @@ export default {
     renewSubscription(id, payload) {
       this.$membership
         .renewSubscription(id, payload)
-        .then(function(res) {
+        .then(res => {
           if (res) {
-            this.items.splice(e.index, 1)
+            this.items.splice(this.data.index, 1)
             this.$bvToast.toast(
               `${res.data.first_name} ${
                 res.data.last_name
@@ -222,6 +223,7 @@ export default {
                 title: 'Success'
               }
             )
+            this.$bvModal.hide('renew')
           }
         })
         .catch(e => {
