@@ -1,12 +1,12 @@
 <template>
   <div>
-    <base-header
-      class="pb-6"
+    <base-header 
+      class="pb-6" 
       type="">
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle
-          title="Bookings"
-          subtitle="Calendar"/>
+        <MainTitle 
+          title="Bookings" 
+          subtitle="Calendar" />
           <!-- <b-button
           v-b-modal.new-booking-modal
           id="modal-btn"
@@ -21,7 +21,8 @@
             v-if="showmodal"
             id="booking-modal"
             :title="modalText"
-            hide-footer>
+            hide-footer
+          >
             <booking-modal
               :ifrom="bookdata.from"
               :ito="bookdata.to"
@@ -30,16 +31,17 @@
               :iroom_id="bookdata.room_id"
               :disableddates="disabledates"
               @details="submitBooking"
-              @deleteBooking="cancelBook" />
+              @deleteBooking="cancelBook"
+            />
           </b-modal>
-          <b-modal
-            id="new-booking-modal"
-            hide-footer
+          <b-modal 
+            id="new-booking-modal" 
+            hide-footer 
             title="Add New Booking">
             <b-form @submit.prevent="addBooking">
               <b-row>
-                <b-form-group
-                  class="col-md-12"
+                <b-form-group 
+                  class="col-md-12" 
                   label="Member">
                   <el-select
                     v-model="newBooking.membership_id"
@@ -49,16 +51,19 @@
                     filterable
                     remote
                     reserve-keyword
-                    placeholder="Choose a member">
+                    placeholder="Choose a member"
+                    @change="valueChange"
+                  >
                     <el-option
                       v-for="option in data"
                       :key="option.id"
                       :label="option.first_name + ' ' + option.last_name"
-                      :value="option.id"/>
+                      :value="option.id"
+                    />
                   </el-select>
                 </b-form-group>
-                <b-form-group
-                  class="col-md-12"
+                <b-form-group 
+                  class="col-md-12" 
                   label="Resource to book">
                   <el-select
                     v-model="newBooking.room_id"
@@ -74,29 +79,33 @@
                       v-for="option in allRooms"
                       :key="option.id"
                       :label="option.name"
-                      :value="option.id"/>
+                      :value="option.id"
+                    />
                   </el-select>
                 </b-form-group>
-                <b-form-group
-                  class="col-md-12"
+                <b-form-group 
+                  class="col-md-12" 
                   label="Choose payment type">
                   <el-select
                     v-model="newBooking.source"
                     :disabled="!newBooking.membership_id"
                     required
                     placeholder="Choose payment type"
-                    @change="getPaymentMethods">
+                    @change="getPaymentMethods"
+                  >
                     <el-option
                       v-for="option in paymenttype"
                       :key="option.id"
                       :label="option.name"
-                      :value="option.name"/>
+                      :value="option.name"
+                    />
                   </el-select>
                 </b-form-group>
                 <b-form-group
                   v-if="newBooking.source == 'card'"
                   class="col-md-12"
-                  label="Choose card">
+                  label="Choose card"
+                >
                   <el-select
                     v-model="newBooking.payment_method"
                     required
@@ -106,11 +115,12 @@
                       v-for="option in payCards"
                       :key="option.id"
                       :label="option.card_brand"
-                      :value="option.id"/>
+                      :value="option.id"
+                    />
                   </el-select>
                 </b-form-group>
-                <b-form-group
-                  label="From"
+                <b-form-group 
+                  label="From" 
                   class="col-md-6">
                   <client-only>
                     <date-picker
@@ -129,8 +139,8 @@
                     />
                   </client-only>
                 </b-form-group>
-                <b-form-group
-                  label="To"
+                <b-form-group 
+                  label="To" 
                   class="col-md-6">
                   <client-only>
                     <date-picker
@@ -149,18 +159,22 @@
                     />
                   </client-only>
                 </b-form-group>
-                <b-form-group
-                  class="col-md-12"
-                  label="Title for Booking"><b-form-input
-                    v-model="newBooking.title"
-                    type="text"
-                    placeholder="Title for booking"
-                    required/></b-form-group>
+                <b-form-group 
+                  class="col-md-12" 
+                  label="Title for Booking"
+                ><b-form-input
+                  v-model="newBooking.title"
+                  type="text"
+                  placeholder="Title for booking"
+                  required
+                /></b-form-group>
               </b-row>
-              <b-button
-                :disabled="processing"
-                type="submit"
-                variant="primary">Book</b-button>
+              <b-button 
+                :disabled="processing" 
+                type="submit" 
+                variant="primary"
+              >Book</b-button
+              >
             </b-form>
           </b-modal>
           <client-only>
@@ -178,7 +192,6 @@
       </div>
     </div>
   </div>
-
 </template>
 <script>
 // Components
@@ -253,7 +266,7 @@ export default {
       showmodal: true,
       modalUpdate: false,
       disabledates: [],
-      paymenttype: [{ id: 1, name: 'card' }, { id: 2, name: 'credit' }],
+      paymenttype: [{ id: 1, name: 'card' }, { id: 2, name: 'take cash' }],
       payCards: []
     }
   },
@@ -280,6 +293,9 @@ export default {
     })
   },
   methods: {
+    valueChange(value) {
+      this.newBooking.source = null
+    },
     searchMembers(query) {
       const link = `filter[search]=${query}`
 

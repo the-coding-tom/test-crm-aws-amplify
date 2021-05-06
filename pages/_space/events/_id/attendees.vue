@@ -1,17 +1,20 @@
 <template>
   <div>
-    <base-header
-      class="pb-6"
+    <base-header 
+      class="pb-6" 
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Attendees" />
         <SearchForm
           :loading="loading"
           :required="false"
-          @search="searchAttendees" />
-        <b-button
-          v-b-modal.appreciation
-          variant="primary">Send Appreciation</b-button>
+          @search="searchAttendees"
+        />
+        <b-button 
+          v-b-modal.appreciation 
+          variant="primary"
+        >Send Appreciation</b-button
+        >
       </div>
     </base-header>
 
@@ -35,27 +38,29 @@
                   />
                 </el-select>
               </div>
-              <div
-                v-if="attendee"
+              <div 
+                v-if="attendee" 
                 class="form-group col-md-2">
                 <label for="source">Payment Source</label>
                 <el-select
                   v-model="source"
                   placeholder="Choose a source"
-                  @change="getCards" >
+                  @change="getCards"
+                >
                   <el-option
                     v-for="source in sources"
                     :key="source.text"
                     :label="source.value"
-                    :value="source.value"/>
+                    :value="source.value"
+                  />
                 </el-select>
               </div>
-              <div
-                v-if="source === 'card'"
+              <div 
+                v-if="source === 'card'" 
                 class="form-group col-md-2">
                 <label>Payment Method</label>
-                <el-select
-                  v-model="payment_method"
+                <el-select 
+                  v-model="payment_method" 
                   placeholder="Choose a card">
                   <el-option
                     v-for="card in cards"
@@ -82,13 +87,13 @@
                   outline
                   class="sh-dashbtn"
                   @click="adminPurchaseTicket"
-                >Add To Attendee List</b-button>
+                >Add To Attendee List</b-button
+                >
               </div>
             </b-row>
 
             <div class="mr-tb-80">
               <div class="m-n25">
-
                 <table class="table table-hover table-striped sh-border-head">
                   <thead>
                     <tr>
@@ -99,17 +104,30 @@
                   </thead>
                   <tbody>
                     <tr
-                      v-for="(attendee, i) in attendees"
-                      :key="i">
-                      <td>{{ attendee.membership.first_name + ' ' + attendee.membership.last_name }}</td>
+                      v-for="(attendee, i) in attendees.filter(
+                        (item) => item.membership != null
+                      )"
+                      :key="i"
+                    >
+                      <td>
+                        {{
+                          attendee.membership.first_name +
+                            ' ' +
+                            attendee.membership.last_name
+                        }}
+                      </td>
                       <td>{{ attendee.number_of_tickets }}</td>
                       <td>
                         <b-button
-                          :disabled="attendee.membership.last_checkin[0] && attendee.membership.last_checkin[0].status === 'checkin'"
+                          :disabled="
+                            attendee.membership.last_checkin[0] &&
+                              attendee.membership.last_checkin[0].status ===
+                              'checkin'
+                          "
                           variant="info"
                           @click="checkinToggle(attendee)"
                         >
-                          <i class="fas fa-check-square"/>
+                          <i class="fas fa-check-square" />
                           <span>Checkin</span>
                         </b-button>
                         <b-button
@@ -141,7 +159,7 @@
         </div>
       </div>
 
-      <appreciation-modal/>
+      <appreciation-modal />
     </div>
   </div>
 </template>

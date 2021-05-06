@@ -37,7 +37,6 @@
                 <base-input
                   id="email"
                   v-model="data.email"
-                  :disabled="true"
                   type="text"
                   class="col-md-6"
                   label="Email"

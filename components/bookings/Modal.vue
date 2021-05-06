@@ -2,30 +2,32 @@
   <div>
     <b-form @submit.prevent="submitDetails">
       <b-row>
-        <b-form-group
-          class="col-md-12"
+        <b-form-group 
+          class="col-md-12" 
           label="Member">
           <b-form-select
             :options="members"
             v-model="membership_id"
             :value="membership_id"
-            required />
+            required
+          />
         </b-form-group>
       </b-row>
       <b-row>
-        <b-form-group
-          class="col-md-12"
+        <b-form-group 
+          class="col-md-12" 
           label="Room">
           <b-form-select
             :options="rooms"
             v-model="room_id"
             :value="room_id"
-            required />
+            required
+          />
         </b-form-group>
       </b-row>
       <b-row>
-        <b-form-group
-          class="col-md-6"
+        <b-form-group 
+          class="col-md-6" 
           label="From">
           <client-only>
             <date-picker
@@ -44,8 +46,8 @@
             />
           </client-only>
         </b-form-group>
-        <b-form-group
-          class="col-md-6"
+        <b-form-group 
+          class="col-md-6" 
           label="To">
           <client-only>
             <date-picker
@@ -65,26 +67,28 @@
         </b-form-group>
       </b-row>
       <b-row>
-        <b-form-group
-          class="col-md-12"
+        <b-form-group 
+          class="col-md-12" 
           label="Title">
           <b-form-input
             v-model="title"
             placeholder="Reason for booking"
-            required/>
+            required
+          />
         </b-form-group>
       </b-row>
       <b-row>
         <b-form-group class="col-md-12">
-          <b-button
-            type="submit"
+          <b-button 
+            type="submit" 
             variant="primary">Save</b-button>
           <b-button
             type="button"
             class="float-right"
             variant="default"
-            @click="cancelBooking">Cancel Booking</b-button>
-
+            @click="cancelBooking"
+          >Cancel Booking</b-button
+          >
         </b-form-group>
       </b-row>
     </b-form>
