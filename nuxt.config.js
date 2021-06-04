@@ -87,6 +87,7 @@ module.exports = {
     '~/plugins/services/event',
     '~/plugins/services/images',
     '~/plugins/services/plans',
+    '~/plugins/services/promotions',
     '~/plugins/services/resource',
     '~/plugins/services/membership',
     '~/plugins/services/community',

@@ -143,6 +143,9 @@
           <sidebar-item
             :link="{ name: 'Plans', path: `/${subdomain}/plans` }"
           />
+          <sidebar-item
+            :link="{ name: 'Promotions', path: `/${subdomain}/promotions` }"
+          />
           <sidebar-item :link="{ name: 'Tags', path: `/${subdomain}/tags` }" />
           <sidebar-item
             :link="{ name: 'Adminstrators', path: `/${subdomain}/admins` }"

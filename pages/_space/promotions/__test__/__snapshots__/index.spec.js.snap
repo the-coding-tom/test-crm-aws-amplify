@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page: /:space/plans/ | Plans Index Page renders properly 1`] = `
+<div>
+  <div class="header pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="d-flex justify-content-between align-items-center py-4">
+          <h1 class="page-title"><span>Plans</span> <b>•</b> All</h1> <a href="#/_space/plans/add" class="btn text-white btn-primary rounded-0" target="_self">Add New Plan</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid mt--6">
+    <div class="card-deck flex-column flex-xl-row">
+      <div class="card">
+        <div class="el-table table-responsive align-items-center table-flush table-striped el-table--fit el-table--scrollable-x el-table--enable-row-hover">
+          <div class="hidden-columns">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="el-table__header-wrapper">
+            <table cellspacing="0" cellpadding="0" border="0" class="el-table__header" style="width: 630px;">
+              <colgroup>
+                <col name="el-table_1_column_1" width="310">
+                <col name="el-table_1_column_2" width="140">
+                <col name="el-table_1_column_3" width="180">
+              </colgroup>
+              <thead class="">
+                <tr class="thead-light">
+                  <th colspan="1" rowspan="1" class="el-table_1_column_1     is-leaf is-sortable">
+                    <div class="cell">Plan<span class="caret-wrapper"><i class="sort-caret ascending"></i><i class="sort-caret descending"></i></span></div>
+                  </th>
+                  <th colspan="1" rowspan="1" class="el-table_1_column_2     is-leaf">
+                    <div class="cell">Subscription</div>
+                  </th>
+                  <th colspan="1" rowspan="1" class="el-table_1_column_3  is-center   is-leaf">
+                    <div class="cell"></div>
+                  </th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="el-table__body-wrapper is-scrolling-left">
+            <table cellspacing="0" cellpadding="0" border="0" class="el-table__body" style="width: 630px;">
+              <colgroup>
+                <col name="el-table_1_column_1" width="310">
+                <col name="el-table_1_column_2" width="140">
+                <col name="el-table_1_column_3" width="180">
+              </colgroup>
+              <tbody>
+                <!---->
+              </tbody>
+            </table>
+            <div class="el-table__empty-block" style="height: 100%; width: 630px;"><span class="el-table__empty-text">暂无数据</span></div>
+            <!---->
+          </div>
+          <!---->
+          <!---->
+          <!---->
+          <!---->
+          <div class="el-table__column-resize-proxy" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ul class="pagination justify-content-center">
+      <li class="page-item prev-page disabled"><a aria-label="Previous" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-left"></i></span></a></li>
+      <li class="page-item active"><a class="page-link">1</a></li>
+      <li class="page-item next-page disabled"><a aria-label="Next" class="page-link"><span aria-hidden="true"><i aria-hidden="true" class="fa fa-angle-right"></i></span></a></li>
+    </ul>
+  </div>
+</div>
+`;

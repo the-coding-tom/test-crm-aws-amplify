@@ -1,0 +1,11 @@
+{
+  "data": {
+    "data": {
+      "name": "Executive Plans",
+      "description": "For top officials in an org",
+      "price_per_cycle": 200,
+      "cycle_duration": 1,
+      "hidden": false
+    }
+  }
+}
