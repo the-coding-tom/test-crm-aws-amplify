@@ -34,7 +34,7 @@ export const state = () => ({
     min_booking_duration: null,
     max_booking_duration: null,
     price_per_hour: null,
-    can_book: null,
+    can_book: true,
     photo: null,
     category: null,
     room_category_id: null,
@@ -42,7 +42,8 @@ export const state = () => ({
     room_availability: null,
     available_room: null,
     zoom_room_id: null,
-    access_point_id: null
+    access_point_id: null,
+    membership_ids: []
   }
 })
 
@@ -129,7 +130,10 @@ export const actions = {
       const data = state.addRoom.available_room
       const roomAvailability = helper.parseRoomdate(data, this)
       commit('setRoomAvailabilty', roomAvailability)
-      await this.$resource.createRoom(state.addRoom)
+      const roomDetails = { ...state.addRoom }
+      roomDetails.room_access_users = JSON.stringify(roomDetails.membership_ids)
+      roomDetails.can_book = !!roomDetails.can_book
+      await this.$resource.createRoom(roomDetails)
       this._vm.$bvToast.toast(`Room created successfully`, helper.notify.sucess)
       commit('resetForms', 'addRoom')
       this.$router.go(-1)

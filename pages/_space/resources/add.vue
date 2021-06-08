@@ -1,15 +1,14 @@
 <template>
   <div>
     <b-form @submit.prevent="addNewRoom">
-      <base-header
-        class="pb-6"
+      <base-header 
+        class="pb-6" 
         type="">
         <div class="d-flex justify-content-between py-4">
-          <MainTitle
-            title="Add New Resource"/>
-          <b-button
-            :disabled="loading"
-            type="submit"
+          <MainTitle title="Add New Resource" />
+          <b-button 
+            :disabled="loading" 
+            type="submit" 
             variant="primary">
             Save Resource
           </b-button>
@@ -30,19 +29,22 @@
                     class="col-md-6"
                     label="Name"
                     required
-                    placeholder="Name of Resource"/>
+                    placeholder="Name of Resource"
+                  />
                   <div class="form-group col-md-6">
                     <label>Category</label>
                     <el-select
                       id="category"
                       v-model="category"
                       name="category"
-                      required>
+                      required
+                    >
                       <el-option
                         v-for="item in categories"
                         :key="item.id"
                         :label="item.name"
-                        :value="item.id"/>
+                        :value="item.id"
+                      />
                     </el-select>
                   </div>
                   <base-input
@@ -53,7 +55,8 @@
                     type="number"
                     step="0.01"
                     required
-                    placeholder="0.00"/>
+                    placeholder="0.00"
+                  />
                   <div class="col-md-6">
                     <base-input
                       id="capacity"
@@ -61,8 +64,12 @@
                       label="Number of Units"
                       type="number"
                       required
-                      placeholder="0" />
-                    <b-form-text>How many people can book this at the same time</b-form-text>
+                      placeholder="0"
+                    />
+                    <b-form-text
+                    >How many people can book this at the same
+                    time</b-form-text
+                    >
                   </div>
                   <div class="form-group col-md-12">
                     <label>Description</label>
@@ -73,7 +80,8 @@
                       rows="4"
                       max-rows="6"
                       required
-                      class="form-control"/>
+                      class="form-control"
+                    />
                   </div>
 
                   <base-input
@@ -84,7 +92,8 @@
                     type="number"
                     min="0"
                     required
-                    placeholder="0">
+                    placeholder="0"
+                  >
                     <div slot="append">min</div>
                   </base-input>
 
@@ -95,7 +104,8 @@
                     label="Maximum Booking Duration"
                     type="number"
                     required
-                    placeholder="0">
+                    placeholder="0"
+                  >
                     <div slot="append">max</div>
                   </base-input>
                 </div>
@@ -108,8 +118,13 @@
                     class="col-md-12"
                     label="Available Booking Time"
                     required
-                    placeholder="0" />
-                  <b-form-text class="col-md-12">You can enter multiple time frames separated by comma, e.g. e.g. mo-fr 9-17, sa 10-3.</b-form-text>
+                    placeholder="0"
+                  />
+                  <b-form-text 
+                    class="col-md-12"
+                  >You can enter multiple time frames separated by comma, e.g.
+                  e.g. mo-fr 9-17, sa 10-3.</b-form-text
+                  >
 
                   <div class="col-md-12 form-group">
                     <label>Amenities</label>
@@ -117,13 +132,13 @@
                       id="amenities"
                       v-model="amenities"
                       type="Text"
-                      required />
+                      required
+                    />
                   </div>
 
-                  <b-form-group
-                    class="col-md-12"
-                    label="Zoom Rooms"
-                  >
+                  <b-form-group 
+                    class="col-md-12" 
+                    label="Zoom Rooms">
                     <b-form-select
                       id="zoomRoomId"
                       v-model="zoom_room_id"
@@ -135,8 +150,8 @@
                     </b-form-select>
                   </b-form-group>
 
-                  <b-form-group
-                    class="col-md-12"
+                  <b-form-group 
+                    class="col-md-12" 
                     label="Brivo Access Point">
                     <b-form-select
                       id="accessPointId"
@@ -145,14 +160,49 @@
                       value-field="id"
                       text-field="name"
                     >
-                    <option :value="null">Choose a zoom room</option></b-form-select>
+                      <option :value="null">
+                        Choose a zoom room
+                    </option></b-form-select
+                    >
                   </b-form-group>
 
-                  <div class="form-group col-md-12">
+                  <div 
+                    class="form-group col-md-12" 
+                    style="margin-bottom: 16px">
                     <label>Resource Settings</label>
-                    <b-form-checkbox 
-                      id="canBook" 
-                      v-model="can_book">Room is bookable</b-form-checkbox>
+                    <b-form-checkbox
+                      id="canBook"
+                      v-model="can_book"
+                      :value="true"
+                      :unchecked-value="false"
+                    >Room is bookable</b-form-checkbox
+                    >
+                  </div>
+                  <div 
+                    v-if="!can_book" 
+                    class="form-group col-md-12">
+                    <b-form-group
+                      :label="'Select Member(s) With Access To ' + name"
+                    >
+                      <el-select
+                        v-model="membership_ids"
+                        :remote-method="searchMembers"
+                        :loading="searching"
+                        required
+                        filterable
+                        multiple="true"
+                        remote
+                        reserve-keyword
+                        placeholder="Choose a member"
+                      >
+                        <el-option
+                          v-for="option in data"
+                          :key="option.id"
+                          :label="option.first_name + ' ' + option.last_name"
+                          :value="option.id"
+                        />
+                      </el-select>
+                    </b-form-group>
                   </div>
                 </div>
               </div>
@@ -162,8 +212,9 @@
             <UploadButton
               v-model="banner_url"
               service="resources"
-              label="Upload File (<500KB & size 1125x582)" />
-              <!-- </div> -->
+              label="Upload File (<500KB & size 1125x582)"
+            />
+            <!-- </div> -->
           </card>
         </div>
       </div>
@@ -205,7 +256,8 @@ export default {
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      searching: false
     }
   },
   computed: {
@@ -226,12 +278,27 @@ export default {
       banner_url: 'resources.addRoom.photo',
       amenities: 'resources.addRoom.amenities',
       zoom_room_id: 'resources.addRoom.zoom_room_id',
-      access_point_id: 'resources.addRoom.access_point_id'
+      access_point_id: 'resources.addRoom.access_point_id',
+      membership_ids: 'resources.addRoom.membership_ids'
     })
   },
   methods: {
     addNewRoom() {
       this.$store.dispatch('resources/createRoom')
+    },
+    searchMembers(query) {
+      const link = `filter[search]=${query}&filter[status]=accepted`
+
+      this.searching = !this.searching
+
+      const _self = this
+
+      _.debounce(() => {
+        _self.$membership.getAllMemberships(link).then(({ data }) => {
+          _self.searching = !_self.searching
+          _self.data = data
+        })
+      }, 350)()
     }
   }
 }
