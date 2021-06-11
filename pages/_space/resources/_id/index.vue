@@ -155,15 +155,43 @@
                     >
                   </b-form-group>
 
-                  <div class="form-group col-md-12">
+                  <div 
+                    class="form-group col-md-12" 
+                    style="margin-bottom: 16px">
                     <label>Resource Settings</label>
                     <b-form-checkbox
                       id="canBook"
                       v-model="can_book"
+                      :value="true"
                       :unchecked-value="false"
-                      :checked="true"
                     >Room is bookable</b-form-checkbox
                     >
+                  </div>
+                  <div 
+                    v-if="!can_book" 
+                    class="form-group col-md-12">
+                    <b-form-group
+                      :label="'Select Member(s) With Access To ' + name"
+                    >
+                      <el-select
+                        v-model="membership_ids"
+                        :remote-method="searchMembers"
+                        :loading="searching"
+                        required
+                        filterable
+                        multiple="true"
+                        remote
+                        reserve-keyword
+                        placeholder="Choose a member"
+                      >
+                        <el-option
+                          v-for="option in data"
+                          :key="option.id"
+                          :label="option.first_name + ' ' + option.last_name"
+                          :value="option.id"
+                        />
+                      </el-select>
+                    </b-form-group>
                   </div>
                 </div>
               </div>
@@ -220,7 +248,7 @@ export default {
       }
     })
   },
-  data: () => ({}),
+  data: () => ({ searching: false }),
   computed: {
     ...mapState({
       categories: state => state.resources.categories.data
@@ -241,7 +269,8 @@ export default {
       category: 'resources.addRoom.room_category_id',
       amenities: 'resources.addRoom.amenities',
       zoom_room_id: 'resources.addRoom.zoom_room_id',
-      access_point_id: 'resources.addRoom.access_point_id'
+      access_point_id: 'resources.addRoom.access_point_id',
+      membership_ids: 'resources.addRoom.membership_ids'
     })
   },
   methods: {
@@ -250,6 +279,20 @@ export default {
     },
     updateRoom() {
       this.$store.dispatch('resources/updateRoom')
+    },
+    searchMembers(query) {
+      const link = `filter[search]=${query}&filter[status]=accepted`
+
+      this.searching = !this.searching
+
+      const _self = this
+
+      _.debounce(() => {
+        _self.$membership.getAllMemberships(link).then(({ data }) => {
+          _self.searching = !_self.searching
+          _self.data = data
+        })
+      }, 350)()
     }
   }
 }

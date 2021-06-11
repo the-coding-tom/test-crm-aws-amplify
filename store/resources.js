@@ -67,6 +67,7 @@ export const mutations = {
     state.addRoom.room_availability = room.room_availability
     state.addRoom.zoom_room_id = room.zoom_room_id
     state.addRoom.access_point_id = room.access_point_id
+    state.addRoom.membership_ids = JSON.parse(room.room_access_users)
   },
   setCategories(state, categories) {
     state.categories = categories
@@ -152,8 +153,12 @@ export const actions = {
     const payload = state.addRoom
     const roomAvailability = helper.parseRoomdate(payload.available_room, this)
     commit('setRoomAvailabilty', roomAvailability)
+
+    const roomDetails = { ...state.addRoom }
+    roomDetails.room_access_users = JSON.stringify(roomDetails.membership_ids)
+    roomDetails.can_book = !!roomDetails.can_book
     try {
-      await this.$resource.updateRoom(payload.id, payload)
+      await this.$resource.updateRoom(payload.id, roomDetails)
       this._vm.$bvToast.toast(`Room updated successfully`, helper.notify.sucess)
       commit('resetForms', 'addRoom')
       this.$router.go(-1)

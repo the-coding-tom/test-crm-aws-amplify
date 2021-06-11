@@ -1,11 +1,11 @@
 <template>
   <b-form @submit.prevent="search">
-
     <base-input
       input-group-classes="input-group-merge sh-search"
       group
-      class="mb-0">
-      <template slot="prepend"><i class="fa fa-search"/></template>
+      class="mb-0"
+    >
+      <template slot="prepend"><i class="fa fa-search" /></template>
       <input
         v-model="searchTerm"
         :required="required"
@@ -19,9 +19,14 @@
           id="button-addon2"
           :disabled="loading"
           class="btn btn-default"
-          type="submit"><i
-            v-if="loading"
-            class="fa fa-spinner fa-spin"/><span v-else> Search</span></button>
+          type="submit"
+        >
+          <i 
+            v-if="loading" 
+            class="fa fa-spinner fa-spin" /><span v-else>
+              Search</span
+              >
+        </button>
       </div>
     </base-input>
   </b-form>

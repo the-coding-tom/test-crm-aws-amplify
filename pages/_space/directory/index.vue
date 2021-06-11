@@ -9,7 +9,7 @@
           title="Community Directory"
         />
 
-        <el-select
+        <!-- <el-select
           v-model="filter"
           placeholder="Filter by..."
           @change="filterBy"
@@ -20,7 +20,7 @@
             :label="option.text"
             :value="option.value"
           />
-        </el-select>
+        </el-select> -->
 
         <SearchForm 
           :loading="loading" 
@@ -183,9 +183,8 @@ export default {
         .getAllMemberships(link)
         .then(({ data, meta, links }) => {
           this.data = data
-          this.meta = meta
+          // this.meta = meta
           this.links = links
-
           this.loading = !this.loading
         })
         .catch(e => {
