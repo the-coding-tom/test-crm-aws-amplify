@@ -40,6 +40,12 @@
           >
             <i class="fas fa-plus" /> Free Months
           </b-button>
+          <b-button
+            :to="{ name: 'space-directory-add' }"
+            variant="transparent"
+            class="text-primary"
+          ><i class="fas fa-plus" /> Add Member</b-button
+          >
         </div>
       </div>
     </base-header>
