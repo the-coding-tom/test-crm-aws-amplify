@@ -88,15 +88,15 @@
                     href="#"
                     variant="danger"
                   >
-                    <i class="fa fa-exclamation-triangle" /> Covid declaration
-                    form not completed</b-badge
+                    <i class="fa fa-exclamation-triangle" /> Covid vaccination
+                    card not uploaded</b-badge
                     >
                   <b-badge 
                     v-else 
                     href="#" 
                     variant="success">
-                    <i class="fa fa-check" /> Covid declaration form
-                    completed</b-badge
+                    <i class="fa fa-check" /> Covid vaccination card
+                    uploaded</b-badge
                     >
                 </div>
               </div>
