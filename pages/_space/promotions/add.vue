@@ -241,10 +241,10 @@ export default {
     },
     orderingFoodAndDrinksSelected(value) {
       if (value) {
-        this.promotion.allowed_usage_areas.push('food_ordering')
+        this.promotion.allowed_usage_areas.push('food_and_drinks_ordering')
       } else {
         const index = this.promotion.allowed_usage_areas.indexOf(
-          'food_ordering'
+          'food_and_drinks_ordering'
         )
         this.promotion.allowed_usage_areas.splice(index, 1)
       }
