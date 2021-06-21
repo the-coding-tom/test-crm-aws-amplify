@@ -52,7 +52,7 @@ export default {
     },
     timeZone: {
       type: String,
-      default: 'UTC'
+      default: 'GMT'
     }
   },
   data() {
@@ -78,7 +78,11 @@ export default {
       this.$emit('eventClick', event)
     },
     dateClick(event) {
-      this.$emit('dateClick', event)
+      console.log(event.dateStr.replaceAll('Z', '').replaceAll('T', ' '))
+      this.$emit(
+        'dateClick',
+        event.dateStr.replaceAll('Z', '').replaceAll('T', ' ')
+      )
     },
     viewChanged(options) {
       if (this.viewType !== options.view.type) {

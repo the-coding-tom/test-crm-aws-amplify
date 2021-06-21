@@ -11,6 +11,20 @@
           />
 
           <div>
+            <input
+              id="testing-code"
+              :value="
+                'https://member.shack15.com/?invitation=' + data.invitation_code
+              "
+              type="hidden"
+            >
+            <b-button
+              variant="transparent"
+              class="text-primary"
+              @click="copyToClipBoard"
+            >
+              <i class="fas fa-copy" /> Copy Invitation Link
+            </b-button>
             <b-button
               variant="transparent"
               class="text-primary"
@@ -521,6 +535,27 @@ export default {
         .catch(e => {
           displayError(e, this)
         })
+    },
+    copyToClipBoard() {
+      let testingCodeToCopy = document.querySelector('#testing-code')
+      testingCodeToCopy.setAttribute('type', 'text') // 不是 hidden 才能複製
+      testingCodeToCopy.select()
+
+      try {
+        var successful = document.execCommand('copy')
+        if (successful) {
+          this.$bvToast.toast('Invitation link copied', {
+            title: 'Copied',
+            variant: 'success'
+          })
+        }
+      } catch (err) {
+        alert('Oops, unable to copy')
+      }
+
+      /* unselect the range */
+      testingCodeToCopy.setAttribute('type', 'hidden')
+      window.getSelection().removeAllRanges()
     }
   }
 }

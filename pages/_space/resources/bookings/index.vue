@@ -266,7 +266,7 @@ export default {
       showmodal: true,
       modalUpdate: false,
       disabledates: [],
-      paymenttype: [{ id: 1, name: 'card' }, { id: 2, name: 'take cash' }],
+      paymenttype: [{ id: 1, name: 'card' }, { id: 2, name: 'credit' }],
       payCards: []
     }
   },
@@ -329,8 +329,8 @@ export default {
       this.$bvModal.show('booking-modal')
     },
     bookDate(e) {
-      this.newBooking.from = this.$moment(e.date).format('YYYY-MM-DD HH:mm')
-      this.newBooking.to = this.$moment(e.date)
+      this.newBooking.from = this.$moment(e).format('YYYY-MM-DD HH:mm')
+      this.newBooking.to = this.$moment(e)
         .add(1, 'hour')
         .format('YYYY-MM-DD HH:mm')
       this.$bvModal.show('new-booking-modal')
