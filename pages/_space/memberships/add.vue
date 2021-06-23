@@ -379,6 +379,7 @@ export default {
       this.loading = !this.loading
 
       const { membership } = this
+      membership.email = membership.email.toLowerCase()
 
       this.$membership
         .addMembership(membership)

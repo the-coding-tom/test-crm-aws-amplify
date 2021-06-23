@@ -406,10 +406,14 @@ export default {
 
       // Fixed bug using this line
       if (this.data.assigned_admin) {
-        this.data.assigned_admin = this.selectedAdmin
-          ? this.selectedAdmin
-          : this.data.assigned_admin.uuid
+        this.data.assigned_admin =
+          this.selectedAdmin ?? this.data.assigned_admin.uuid
+      } else {
+        this.data.assigned_admin =
+          this.selectedAdmin ?? this.data.assigned_admin.uuid
       }
+
+      console.log(this.data.assignedAdmin)
 
       this.$membership
         .updateMembership(id, this.data)

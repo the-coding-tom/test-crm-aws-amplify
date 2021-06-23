@@ -380,6 +380,7 @@ export default {
 
       const { membership } = this
       membership.added_directly_into_directory = true
+      membership.email = membership.email.toLowerCase()
 
       this.$membership
         .addMembership(membership)
