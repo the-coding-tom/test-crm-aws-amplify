@@ -210,6 +210,16 @@ export default function(ctx, inject) {
     updateMembership: (id, payload) => {
       return ctx.$axios.$patch(`/${subdomain()}/memberships/${id}`, payload)
     },
+    updateProfile: payload => {
+      return ctx.$axios
+        .$post(`/onboarding/update-profile`, payload)
+        .catch(e => {
+          ctx.error({
+            statusCode: e.statusCode,
+            message: e.response.data.message
+          })
+        })
+    },
     getPaidFor: id => {
       return ctx.$axios.$get(`/${subdomain()}/memberships/${id}/paid-for`)
     },

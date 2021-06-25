@@ -418,6 +418,29 @@ export default {
       this.$membership
         .updateMembership(id, this.data)
         .then(res => {
+          //this.loading = !this.loading
+          // this.$bvToast.toast('Membership updated succesfully', {
+          //   title: 'Success',
+          //   variant: 'success'
+          // })
+          //this.$router.go(-1)
+        })
+        .catch(e => {
+          this.loading = !this.loading
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+          this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
+        })
+
+      this.$membership
+        .updateProfile({
+          user_id: this.data.user_id,
+          ...this.data.user_profile
+        })
+        .then(res => {
           this.loading = !this.loading
           this.$bvToast.toast('Membership updated succesfully', {
             title: 'Success',
