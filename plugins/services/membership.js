@@ -29,6 +29,17 @@ export default function(ctx, inject) {
         getError(e)
       })
     },
+    getAllMembers: (filter, link = null) => {
+      if (!link) {
+        return ctx.$axios.$get(`/${subdomain()}/all-members`).catch(e => {
+          getError(e)
+        })
+      }
+
+      return ctx.$axios.$get(link).catch(e => {
+        getError(e)
+      })
+    },
     getMemberships: link => {
       return ctx.$axios.$get(link)
     },

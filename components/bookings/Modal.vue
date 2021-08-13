@@ -148,6 +148,7 @@ export default {
           .format('YYYY-MM-DD HH:mm')
     this.title = this.ititle && this.ititle
     this.membership_id = this.imembership_id && this.imembership_id
+    console.log(this.membership_id)
     this.room_id = this.iroom_id && this.iroom_id
 
     this.getConnectedMembers()
@@ -156,11 +157,12 @@ export default {
   methods: {
     getConnectedMembers() {
       const url = 'filter[status]=accepted&include=profile'
-      this.$membership.getAllMemberships(url).then(({ data }) => {
+      this.$membership.getAllMembers(url).then(data => {
+        console.log(data)
         this.members = _.map(data, o => {
           return {
-            text: `${o.user_profile.full_name}`,
-            value: o.id
+            text: `${o.first_name} ${o.last_name}`,
+            value: o.uuid
           }
         })
       })

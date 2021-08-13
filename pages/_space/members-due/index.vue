@@ -21,6 +21,10 @@
           >
           <b-dropdown-item @click="handleClick(1)">Today</b-dropdown-item>
           <b-dropdown-item @click="handleClick(-1)">Expired</b-dropdown-item>
+          <b-dropdown-item 
+            @click="handleClick(-2)"
+          >Do Not Renew</b-dropdown-item
+          >
           <b-dropdown-divider />
         </b-dropdown>
       </div>
@@ -100,6 +104,8 @@ export default {
             slug: o.slug,
             start_date: o.starts_at,
             end_date: o.ends_at,
+            renewal:
+              o.state == 'manual-active' ? 'Do not auto renew' : 'auto renew',
             membership_id: o.user.uuid
           }
         })
@@ -130,7 +136,14 @@ export default {
     currentPage: 1,
     dropdown: 30,
     days: [30, 15, 5],
-    fields: ['full_name', 'plan', 'start_date', 'end_date', 'options']
+    fields: [
+      'full_name',
+      'plan',
+      'start_date',
+      'end_date',
+      'renewal',
+      'options'
+    ]
   }),
   computed: {
     rows() {
@@ -157,6 +170,8 @@ export default {
               slug: o.slug,
               start_date: o.starts_at,
               end_date: o.ends_at,
+              renewal:
+                o.state == 'manual-active' ? 'Do not auto renew' : 'auto renew',
               membership_id: o.user.uuid
             }
           })

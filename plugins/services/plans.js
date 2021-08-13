@@ -15,6 +15,7 @@ export default function(ctx, inject) {
       return ctx.$axios.post(`/${subdomain()}/plans`, payload)
     },
     getPlan(planId) {
+      console.log(planId + '---')
       return ctx.$axios.get(`/${subdomain()}/plans/${planId}`)
     },
     removePlan(planId) {

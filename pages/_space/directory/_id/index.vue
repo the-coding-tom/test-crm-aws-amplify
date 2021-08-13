@@ -299,51 +299,76 @@
             <div class="m-n25">
               <table class="table table-hover table-striped">
                 <tbody>
-                  <tr
-                    v-for="subscription in data.subscriptions"
-                    :key="subscription.id"
-                  >
-                    <div v-if="!subscription.canceled_at">
+                  <tr>
+                    <div style="display: flex">
                       <td id="balance">
                         <div
                           style="display: inline-block"
-                          @click="disabled = false"
-                          @change="disabled = true"
+                          @click="
+                            booking_edit_disabled =
+                              data.room_booking_credit_expiration_date != null
+                                ? false
+                                : true
+                          "
+                          @change="booking_edit_disabled = true"
                         >
                           <input
-                            v-model="data.credits"
-                            :disabled="disabled ? 'disabled' : none"
+                            v-model="data.room_booking_credit_amount"
+                            :disabled="
+                              booking_edit_disabled ? 'disabled' : none
+                            "
                             type="number"
                           >
                         </div>
-                        <b-popover
+                        <!-- <b-popover
                           target="balance"
                           placement="top"
                           content="Click on the amount to edit"
                           triggers="hover focus"
-                        />
+                        /> -->
                       </td>
-                      <td>Last updated {{ getSubDetails(subscription) }}</td>
+                      <td
+                        style="flex-grow: 1; flex-basis: 80px; text-align: left"
+                      >
+                        Expiration date:
+                        {{
+                          getExpDetails(
+                            data.room_booking_credit_expiration_date
+                          )
+                        }}
+                      </td>
                       <td>
-                        <b-button
-                          v-if="data.credits !== previousCreditBalance"
+                        <b-badge 
+                          href="#" 
+                          variant="primary"> Rooms</b-badge>
+                          <!-- <b-button
+                          v-if="
+                            data.room_booking_credit_amount !==
+                              previousRoomCreditBalance
+                          "
                           id="save-credit"
                           size="sm"
                           variant="transparent"
                           class="text-primary"
-                          @click="saveChanges"
+                          @click="saveChanges('room-booking')"
                         ><i 
                           class="fa fa-save"
                         /></b-button>
                         <b-popover
-                          v-if="data.credits !== previousCreditBalance"
+                          v-if="
+                            data.room_booking_credit_amount !==
+                              previousRoomCreditBalance
+                          "
                           target="save-credit"
                           placement="top"
                           content="Save changes"
                           triggers="hover focus"
                         />
                         <b-button
-                          v-if="data.credits === previousCreditBalance"
+                          v-if="
+                            data.room_booking_credit_amount ===
+                              previousRoomCreditBalance
+                          "
                           id="edit-credit"
                           size="sm"
                           variant="transparent"
@@ -353,12 +378,195 @@
                           class="fa fa-edit"
                         /></b-button>
                         <b-popover
-                          v-if="data.credits === previousCreditBalance"
+                          v-if="
+                            data.room_booking_credit_amount ===
+                              previousRoomCreditBalance
+                          "
                           target="edit-credit"
                           placement="top"
                           content="Edit credit"
                           triggers="hover focus"
+                        /> -->
+                      </td>
+                    </div>
+                  </tr>
+                  <tr>
+                    <div style="display: flex">
+                      <td id="balance">
+                        <div
+                          style="display: inline-block"
+                          @click="
+                            food_edit_disabled =
+                              data.food_ordering_credit_expiration_date != null
+                                ? false
+                                : true
+                          "
+                          @change="food_edit_disabled = true"
+                        >
+                          <input
+                            v-model="data.food_ordering_credit_amount"
+                            :disabled="food_edit_disabled ? 'disabled' : none"
+                            type="number"
+                          >
+                        </div>
+                        <!-- <b-popover
+                          target="balance"
+                          placement="top"
+                          content="Click on the amount to edit"
+                          triggers="hover focus"
+                        /> -->
+                      </td>
+                      <td
+                        style="flex-grow: 1; flex-basis: 80px; text-align: left"
+                      >
+                        Expiration date:
+                        {{
+                          getExpDetails(
+                            data.food_ordering_credit_expiration_date
+                          )
+                        }}
+                      </td>
+                      <td>
+                        <b-badge 
+                          href="#" 
+                          variant="primary">
+                          Food & Drinks</b-badge
+                          >
+                          <!-- <b-button
+                          v-if="
+                            data.food_ordering_credit_amount !==
+                              previousFoodCreditBalance
+                          "
+                          id="save-credit"
+                          size="sm"
+                          variant="transparent"
+                          class="text-primary"
+                          @click="saveChanges('food-ordering')"
+                        ><i 
+                          class="fa fa-save"
+                        /></b-button>
+                        <b-popover
+                          v-if="
+                            data.food_ordering_credit_amount !==
+                              previousFoodCreditBalance
+                          "
+                          target="save-credit"
+                          placement="top"
+                          content="Save changes"
+                          triggers="hover focus"
                         />
+                        <b-button
+                          v-if="
+                            data.food_ordering_credit_amount ===
+                              previousFoodCreditBalance
+                          "
+                          id="edit-credit"
+                          size="sm"
+                          variant="transparent"
+                          class="text-danger"
+                          @click="disabled = false"
+                        ><i 
+                          class="fa fa-edit"
+                        /></b-button>
+                        <b-popover
+                          v-if="
+                            data.food_ordering_credit_amount ===
+                              previousFoodCreditBalance
+                          "
+                          target="edit-credit"
+                          placement="top"
+                          content="Edit credit"
+                          triggers="hover focus"
+                        /> -->
+                      </td>
+                    </div>
+                  </tr>
+                  <tr>
+                    <div style="display: flex">
+                      <td id="balance">
+                        <div
+                          style="display: inline-block"
+                          @click="
+                            event_edit_disabled =
+                              data.event_booking_credit_expiration_date != null
+                                ? false
+                                : true
+                          "
+                          @change="event_edit_disabled = true"
+                        >
+                          <input
+                            v-model="data.event_booking_credit_amount"
+                            :disabled="event_edit_disabled ? 'disabled' : none"
+                            type="number"
+                          >
+                        </div>
+                        <!-- <b-popover
+                          target="balance"
+                          placement="top"
+                          content="Click on the amount to edit"
+                          triggers="hover focus"
+                        /> -->
+                      </td>
+                      <td
+                        style="flex-grow: 1; flex-basis: 80px; text-align: left"
+                      >
+                        Expiration date:
+                        {{
+                          getExpDetails(
+                            data.event_booking_credit_expiration_date
+                          )
+                        }}
+                      </td>
+                      <td>
+                        <b-badge 
+                          href="#" 
+                          variant="primary"> Events</b-badge>
+                          <!-- <b-button
+                          v-if="
+                            data.event_booking_credit_amount !==
+                              previousEventCreditBalance
+                          "
+                          id="save-credit"
+                          size="sm"
+                          variant="transparent"
+                          class="text-primary"
+                          @click="saveChanges('event-booking')"
+                        ><i 
+                          class="fa fa-save"
+                        /></b-button>
+                        <b-popover
+                          v-if="
+                            data.event_booking_credit_amount !==
+                              previousEventCreditBalance
+                          "
+                          target="save-credit"
+                          placement="top"
+                          content="Save changes"
+                          triggers="hover focus"
+                        />
+                        <b-button
+                          v-if="
+                            data.event_booking_credit_amount ===
+                              previousEventCreditBalance
+                          "
+                          id="edit-credit"
+                          size="sm"
+                          variant="transparent"
+                          class="text-danger"
+                          @click="disabled = false"
+                        ><i 
+                          class="fa fa-edit"
+                        /></b-button>
+                        <b-popover
+                          v-if="
+                            data.event_booking_credit_amount ===
+                              previousEventCreditBalance
+                          "
+                          target="edit-credit"
+                          placement="top"
+                          content="Edit credit"
+                          triggers="hover focus"
+                        /> -->
                       </td>
                     </div>
                   </tr>
@@ -841,7 +1049,9 @@ export default {
           return {
             checkin: data.checkin.length > 0 ? data.checkin[0] : {},
             data,
-            previousCreditBalance: data.credits,
+            previousRoomCreditBalance: data.room_booking_credit_amount,
+            previousFoodCreditBalance: data.food_ordering_credit_amount,
+            previousEventCreditBalance: data.event_booking_credit_amount,
             cards,
             events,
             subscriptions,
@@ -890,6 +1100,9 @@ export default {
       drawer: false,
       direction: 'rtl',
       previousCreditBalance: 500.0,
+      booking_edit_disabled: true,
+      event_edit_disabled: true,
+      food_edit_disabled: true,
       disabled: true,
       guestsDisabled: true,
       customCharges: [],
@@ -925,12 +1138,23 @@ export default {
       this.selctedItemData = this.customCharges[index]
       this.$bvModal.show('edit-custom-charge')
     },
-    saveChanges() {
+    saveChanges(purpose) {
+      if (purpose == 'event-booking') {
+        this.credit.purpose = purpose
+        this.credit.amount = this.data.event_booking_credit_amount
+      } else if (purpose == 'room-booking') {
+        this.credit.purpose = purpose
+        this.credit.amount = this.data.room_booking_credit_amount
+      } else if (purpose == 'food-ordering') {
+        this.credit.purpose = purpose
+        this.credit.amount = this.data.food_ordering_credit_amount
+      }
+
       this.loading = !this.loading
 
       this.credit.description = 'Credit bonus for member'
       this.credit.membership_id = this.data.id
-      this.credit.amount = this.data.credits
+
       this.$membership
         .editCredit(this.credit)
         .then(res => {
@@ -938,7 +1162,13 @@ export default {
             title: 'Success',
             variant: 'success'
           })
-          this.previousCreditBalance = this.data.credits
+          if (purpose == 'event-booking') {
+            this.previousEventCreditBalance = this.data.event_booking_credit_amount
+          } else if (purpose == 'room-booking') {
+            this.previousRoomCreditBalance = this.data.room_booking_credit_amount
+          } else if (purpose == 'food-ordering') {
+            this.previousFoodCreditBalance = this.data.food_ordering_credit_amount
+          }
           location.reload()
         })
         .catch(e => {
@@ -1104,6 +1334,12 @@ export default {
         : subscription.trial_ends_at
 
       return this.$moment(ends_at).format('DD MMM, YYYY')
+    },
+    getExpDetails(date) {
+      if (!date) {
+        return 'Not set'
+      }
+      return this.$moment(date).format('DD MMM, YYYY')
     },
     addCard(paymentMethod) {
       this.$membership

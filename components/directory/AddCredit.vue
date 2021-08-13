@@ -2,12 +2,12 @@
   <div>
     <b-form @submit.prevent="addCredit">
       <b-row>
-
         <b-form-group
           id="selectPlan"
           class="col-md-12"
           label="Enter the amount"
-          description="">
+          description=""
+        >
           <el-input
             v-model="credit.amount"
             :loading="loading"
@@ -15,15 +15,66 @@
             filterable
             remote
             reserve-keyword
-            placeholder="$0.00"/>
+            placeholder="$0.00"
+            required
+          />
         </b-form-group>
-
+      </b-row>
+      <b-row>
+        <b-form-group
+          id="selectPlan"
+          class="col-md-12"
+          label="Expiration date"
+          description=""
+        >
+          <el-input
+            v-model="credit.expirationDate"
+            :loading="loading"
+            type="date"
+            filterable
+            required
+            remote
+            reserve-keyword
+          />
+        </b-form-group>
+      </b-row>
+      <b-row>
+        <b-form-group
+          id="selectPlan"
+          class="col-md-12"
+          label="Purpose"
+          description=""
+        >
+          <b-form-radio
+            v-model="credit.purpose"
+            :aria-describedby="ariaDescribedby"
+            name="some-radios"
+            value="room-booking"
+          >Room Booking</b-form-radio
+          >
+          <b-form-radio
+            v-model="credit.purpose"
+            :aria-describedby="ariaDescribedby"
+            name="some-radios"
+            value="event-booking"
+          >Event Tickets</b-form-radio
+          >
+          <b-form-radio
+            v-model="credit.purpose"
+            :aria-describedby="ariaDescribedby"
+            name="some-radios"
+            value="food-ordering"
+          >Food & Drinks</b-form-radio
+          >
+        </b-form-group>
       </b-row>
       <b-button
         :disabled="loading"
         class="float-right"
         type="submit"
-        variant="primary">Add Credit</b-button>
+        variant="primary"
+      >Add Credit</b-button
+      >
     </b-form>
   </div>
 </template>
@@ -50,7 +101,9 @@ export default {
     credit: {
       amount: null,
       description: null,
-      membership_id: null
+      membership_id: null,
+      purpose: 'room-booking',
+      expirationDate: null
     }
   }),
   mounted() {},

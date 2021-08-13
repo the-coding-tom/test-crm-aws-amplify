@@ -44,6 +44,7 @@
           align="center"
           @next="next"
           @prev="prev"
+          @input="changePage"
         />
       </div>
     </div>
@@ -117,59 +118,22 @@ export default {
     },
     next() {
       const { next } = this.links
-
       const params = getQueryParams(next)
 
       this.$router.push(params)
-
-      let link = `${next}&filter[status]=invited&include=profile,primaryPlan&filter[search]=${
-        this.searchTerm
-      }`
-
-      this.$membership
-        .getMemberships(link)
-        .then(({ data, links, meta }) => {
-          this.members = data
-          this.links = links
-          this.meta = meta
-        })
-        .catch(e => {
-          this.$bvToast.toast(
-            e.response ? JSON.stringify(e.response.data.errors) : e.message,
-            {
-              title: 'Error',
-              variant: 'danger'
-            }
-          )
-        })
+      location.href = location.origin + this.$route.path + params
     },
     prev() {
       const { prev } = this.links
-
       const params = getQueryParams(prev)
 
       this.$router.push(params)
-
-      let link = `${prev}&filter[status]=invited&include=profile,primaryPlan&filter[search]=${
-        this.searchTerm
-      }`
-
-      this.$membership
-        .getMemberships(link)
-        .then(({ data, links, meta }) => {
-          this.members = data
-          this.links = links
-          this.meta = meta
-        })
-        .catch(e => {
-          this.$bvToast.toast(
-            e.response ? JSON.stringify(e.response.data.errors) : e.message,
-            {
-              title: 'Error',
-              variant: 'danger'
-            }
-          )
-        })
+      location.href = location.origin + this.$route.path + params
+    },
+    changePage(pageNumber) {
+      const params = `?page=${pageNumber}`
+      this.$router.push(params)
+      location.href = location.origin + this.$route.path + params
     },
     search() {
       this.loading = !this.loading

@@ -1,15 +1,17 @@
 <template>
   <div>
     <b-form @submit.prevent="editPlan">
-      <base-header
-        class="pb-6"
+      <base-header 
+        class="pb-6" 
         type>
         <div class="d-flex justify-content-between align-items-center py-4">
           <MainTitle title="Update Plan" />
           <b-button
             :disabled="loading"
             class="btn btn-primary text-white"
-            type="submit">Update Plan</b-button>
+            type="submit"
+          >Update Plan</b-button
+          >
         </div>
       </base-header>
 
@@ -30,31 +32,36 @@
                   <b-form-group
                     class="col-md-12"
                     label="Plan Description"
-                    description="Description should not exceed 22 characters">
+                    description="Description should not exceed 22 characters"
+                  >
                     <b-form-input
                       v-model="plan.description"
                       maxlength="22"
                       placeholder="Add details about the plan"
-                      required/>
+                      required
+                    />
                   </b-form-group>
-                  <b-form-group
-                    label="Price per cycle"
+                  <b-form-group 
+                    label="Price per cycle" 
                     class="col-md-6">
                     <b-form-input
-                      v-model="plan.price_per_cycle"
+                      v-model="plan.price"
                       type="number"
                       placeholder="0.00"
-                      required/>
+                      required
+                    />
                   </b-form-group>
                   <b-form-group
                     label="Charge Cycle"
                     description="Charge cycle denotes the number of months before charging"
-                    class="col-md-6">
+                    class="col-md-6"
+                  >
                     <b-form-input
-                      v-model="plan.cycle_duration"
+                      v-model="plan.invoice_period"
                       type="number"
                       label="Charge Cycle"
-                      required/>
+                      required
+                    />
                   </b-form-group>
                 </div>
               </div>
@@ -63,20 +70,25 @@
                 <div class="row pd-l-20">
                   <b-row>
                     <div class="form-group col-md-12">
-                      <label
-                        for="planvisibility"
-                        class="form-control-label">Plan Visibility</label>
+                      <label 
+                        for="planvisibility" 
+                        class="form-control-label"
+                      >Plan Status</label
+                      >
                       <b-row>
                         <b-col md="10">
                           <b-form-checkbox
-                            v-model="plan.hidden"
-                            :value="false"
-                            :unchecked-value="true"
+                            v-model="plan.is_active"
+                            :value="true"
+                            :unchecked-value="false"
                             name="planVisibility"
-                          >Public</b-form-checkbox>
-                          <p
-                            class="text-left mt-2"
-                          >Will be displayed on Apply change and all applicants can see this Membership Plan.</p>
+                          >Active</b-form-checkbox
+                          >
+                          <p class="text-left mt-2">
+                            Will be displayed in plans when inviting a new
+                            member and all applicants can see this Membership
+                            Plan.
+                          </p>
                         </b-col>
                       </b-row>
                     </div>
@@ -89,7 +101,9 @@
         <b-button
           class="text-primary mb-2"
           variant="transparent"
-          @click="$router.go(-1)"><i class="ti-angle-left"/> Back</b-button>
+          @click="$router.go(-1)"
+        ><i class="ti-angle-left" /> Back</b-button
+        >
       </div>
     </b-form>
   </div>
@@ -112,7 +126,7 @@ export default {
 
     return await $plan
       .getPlan(id)
-      .then(({ data: { data } }) => {
+      .then(({ data: data }) => {
         console.log('------------------------------------')
         console.log(data)
         console.log('------------------------------------')

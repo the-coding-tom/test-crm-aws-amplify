@@ -195,6 +195,7 @@
         align="center"
         @next="next"
         @prev="prev"
+        @input="changePage"
       />
     </div>
   </div>
@@ -223,7 +224,7 @@ export default {
     [Option.name]: Option,
     QrcodeStream: () => import('@/components/qrscanner/qrscanner.vue')
   },
-  async asyncData({ $membership, $checkin, error }) {
+  async asyncData({ $membership, $checkin, error, route }) {
     try {
       const moment = require('moment')
 
@@ -232,7 +233,7 @@ export default {
         'YYYY-MM-DD'
       )},${moment()
         .add(1, 'days')
-        .format('YYYY-MM-DD')}`
+        .format('YYYY-MM-DD')}&page=${route.query.page}`
 
       let imeta, ilinks
 
@@ -315,11 +316,22 @@ export default {
     },
     next() {
       const { next } = this.links
-      this.$checkin.checkins(`${next}`)
+      const params = getQueryParams(next)
+
+      this.$router.push(params)
+      location.href = location.origin + this.$route.path + params
     },
     prev() {
       const { prev } = this.links
-      this.$checkin.checkins(`${prev}`)
+      const params = getQueryParams(prev)
+
+      this.$router.push(params)
+      location.href = location.origin + this.$route.path + params
+    },
+    changePage(pageNumber) {
+      const params = `?page=${pageNumber}`
+      this.$router.push(params)
+      location.href = location.origin + this.$route.path + params
     },
     searchMembers(query) {
       const link = `filter[search]=${query}&filter[status]=accepted`

@@ -1,30 +1,33 @@
 <template>
   <div class="card">
-
     <el-table
       :data="plans"
       class="table-responsive align-items-center table-flush table-striped"
       header-row-class-name="thead-light"
     >
-      <el-table-column
-        label="Plan"
-        min-width="310px"
-        prop="name"
+      <el-table-column 
+        label="Plan" 
+        min-width="310px" 
+        prop="name" 
         sortable>
-        <template v-slot="{row}">
-          <h4>{{ row.name }}</h4>
+        <template v-slot="{ row }">
+          <h4>
+            <nuxt-link
+              :to="{ name: 'space-plans-id-edit', params: { id: row.id } }"
+            >{{ row.name }}</nuxt-link
+            >
+          </h4>
         </template>
       </el-table-column>
       <el-table-column
         label="Subscription"
         prop="price_per_cycle"
-        min-width="140px">
-        <template v-slot="{row}">
+        min-width="140px"
+      >
+        <template v-slot="{ row }">
           <span>
             {{ row.price | currency(space.currency_symbol) }} every
-            <span
-              v-if="row.cycle_duration === 12"
-            >year</span>
+            <span v-if="row.cycle_duration === 12">year</span>
             <span v-else>{{ row.invoice_period }} month(s)</span>
           </span>
         </template>
@@ -47,11 +50,11 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column
-        min-width="180px"
+      <el-table-column 
+        min-width="180px" 
         align="center">
-        <template
-          v-slot="{row}"
+        <template 
+          v-slot="{ row }" 
           class="table-actions">
           <b-button
             :disabled="loading"

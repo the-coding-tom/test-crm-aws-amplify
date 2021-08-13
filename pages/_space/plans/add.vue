@@ -1,15 +1,17 @@
 <template>
   <div>
     <b-form @submit.prevent="addPlan">
-      <base-header
-        class="pb-6"
+      <base-header 
+        class="pb-6" 
         type>
         <div class="d-flex justify-content-between align-items-center py-4">
           <MainTitle title="Setup Plan" />
           <b-button
             :disabled="loading"
             class="btn btn-primary text-white"
-            type="submit">Add Plan</b-button>
+            type="submit"
+          >Add Plan</b-button
+          >
         </div>
       </base-header>
 
@@ -31,34 +33,39 @@
                   <b-form-group
                     class="col-md-12"
                     label="Plan Description"
-                    description="Description should not exceed 22 characters">
+                    description="Description should not exceed 22 characters"
+                  >
                     <b-form-input
                       id="description"
                       v-model="description"
                       maxlength="22"
                       placeholder="Add details about the plan"
-                      required/>
+                      required
+                    />
                   </b-form-group>
-                  <b-form-group
-                    label="Price per cycle"
+                  <b-form-group 
+                    label="Price per cycle" 
                     class="col-md-6">
                     <b-form-input
                       id="price_per_cycle"
                       v-model="price_per_cycle"
                       type="number"
                       placeholder="0.00"
-                      required/>
+                      required
+                    />
                   </b-form-group>
                   <b-form-group
                     label="Charge Cycle"
                     description="Charge cycle denotes the number of months before charging"
-                    class="col-md-6">
+                    class="col-md-6"
+                  >
                     <b-form-input
                       id="cycle_duration"
                       v-model="cycle_duration"
                       type="number"
                       label="Charge Cycle"
-                      required/>
+                      required
+                    />
                   </b-form-group>
                 </div>
               </div>
@@ -67,9 +74,11 @@
                 <div class="row pd-l-20">
                   <b-row>
                     <div class="form-group col-md-12">
-                      <label
-                        for="planvisibility"
-                        class="form-control-label">Plan Visibility</label>
+                      <label 
+                        for="planvisibility" 
+                        class="form-control-label"
+                      >Plan Visibility</label
+                      >
                       <b-row>
                         <b-col md="10">
                           <b-form-checkbox
@@ -78,10 +87,12 @@
                             :value="false"
                             :unchecked-value="true"
                             name="planVisibility"
-                          >Public</b-form-checkbox>
-                          <p
-                            class="text-left mt-2"
-                          >Will be displayed on Apply change and all applicants can see this plan.</p>
+                          >Public</b-form-checkbox
+                          >
+                          <p class="text-left mt-2">
+                            Will be displayed on Apply change and all applicants
+                            can see this plan.
+                          </p>
                         </b-col>
                       </b-row>
                     </div>
@@ -94,7 +105,9 @@
         <b-button
           class="text-primary mb-2"
           variant="transparent"
-          @click="$router.go(-1)"><i class="ti-angle-left"/> Back</b-button>
+          @click="$router.go(-1)"
+        ><i class="ti-angle-left" /> Back</b-button
+        >
       </div>
     </b-form>
   </div>

@@ -7,10 +7,12 @@
         <MainTitle 
           title="Bookings" 
           subtitle="Calendar" />
-          <!-- <b-button
-          v-b-modal.new-booking-modal
-          id="modal-btn"
-          variant="primary">Add New Booking</b-button> -->
+        <b-button 
+          v-b-modal.new-booking-modal 
+          id="modal-btn" 
+          variant="primary"
+        >Add New Booking</b-button
+        >
       </div>
     </base-header>
 
@@ -241,7 +243,8 @@ export default {
         room_id: null,
         payment_method: null,
         card: null,
-        source: null
+        source: null,
+        purpose: 'room-booking'
       },
       timePickerOptions: {
         start: '00:00',
