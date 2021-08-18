@@ -8,7 +8,6 @@
           title="Members" 
           subtitle="Pending" />
         <SearchForm 
-          v-model="searchTerm" 
           :loading="loading" 
           @search="search" />
         <div>
@@ -201,17 +200,15 @@ export default {
           )
         })
     },
-    search() {
+    search(query) {
       this.loading = !this.loading
-      const link = `filter[status]=uninvited&include=primaryPlan,profile&filter[search]=${
-        this.searchTerm
-      }`
+      const link = `filter[status]=uninvited&include=primaryPlan,profile&filter[search]=${query}`
       this.$membership
         .getAllMemberships(link)
         .then(({ data, links, meta }) => {
           this.members = data
           this.links = links
-          this.meta = meta
+          //this.meta = meta
 
           this.loading = false
         })

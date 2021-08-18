@@ -8,7 +8,6 @@
           title="Members" 
           subtitle="Invited" />
         <SearchForm 
-          v-model="searchTerm" 
           :loading="loading" 
           @search="search" />
         <div>
@@ -135,17 +134,15 @@ export default {
       this.$router.push(params)
       location.href = location.origin + this.$route.path + params
     },
-    search() {
+    search(query) {
       this.loading = !this.loading
-      const link = `filter[status]=invited&include=primaryPlan,profile&filter[search]=${
-        this.searchTerm
-      }`
+      const link = `filter[status]=invited&include=primaryPlan,profile&filter[search]=${query}`
       this.$membership
         .getAllMemberships(link)
         .then(({ data, links, meta }) => {
           this.members = data
           this.links = links
-          this.meta = meta
+          //this.meta = meta
 
           this.loading = false
         })
