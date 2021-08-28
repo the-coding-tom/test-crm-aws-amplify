@@ -247,7 +247,10 @@ export default function(ctx, inject) {
       return ctx.$axios.$put(`/${subdomain()}/memberships/${id}/onboard-brivo`)
     },
     export: () => {
-      return ctx.$axios.$get(`/${subdomain()}/memberships/export-to-csv`)
+      return ctx.$axios.$get(`/${subdomain()}/file-export-invited`)
+    },
+    exportDirectory: () => {
+      return ctx.$axios.$get(`/${subdomain()}/file-export-directory`)
     },
     makePlanPrimary: (id, data) => {
       return ctx.$axios.$put(

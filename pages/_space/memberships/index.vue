@@ -110,7 +110,7 @@ export default {
         a.innerHTML = 'download me'
         a.href = url
         // Set our custom filename
-        a.download = 'memberships.csv'
+        a.download = 'invited-members.csv'
         // Automatically click the link
         a.click()
       })
