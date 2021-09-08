@@ -336,7 +336,9 @@ export default {
       admins: [],
       options: [
         { text: 'Referral', value: 'referral' },
-        { text: 'Application', value: 'application' }
+        { text: 'Application', value: 'application' },
+        { text: 'Past Events', value: 'past_events' },
+        { text: 'Invite Card', value: 'invite_card' }
       ],
       paid_by: null,
       prefix_type: [

@@ -265,7 +265,9 @@ export default {
       searching: false,
       options: [
         { text: 'Referral', value: 'referral' },
-        { text: 'Application', value: 'application' }
+        { text: 'Application', value: 'application' },
+        { text: 'Past Events', value: 'past_events' },
+        { text: 'Invite Card', value: 'invite_card' }
       ],
       prefix_type: [
         {
