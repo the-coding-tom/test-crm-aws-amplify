@@ -1,23 +1,45 @@
 <template>
   <div class="col-md-3 sh-thumb">
     <card>
-      <span
-        v-show="getMembershipType"
+      <span 
+        v-show="getMembershipType" 
         class="label label-default">
-        <template>
-          <i class="fa fa-star" /> {{ getMembershipType }}
-        </template>
+        <template> <i class="fa fa-star" /> {{ getMembershipType }} </template>
       </span>
       <div class="d-flex mr-tb-10">
         <img
           :src="img ? img : '/img/placeholder.jpg'"
-          class="mr-r-10 rounded-circle avatar" >
+          class="mr-r-10 rounded-circle avatar"
+        >
         <div>
           <h3>
-            <nuxt-link :to="{name:'space-directory-id', params: {id: link}}">{{ name }}</nuxt-link>
+            <nuxt-link
+              :to="{ name: 'space-directory-id', params: { id: link } }"
+            >{{ name }}</nuxt-link
+            >
           </h3>
           {{ company }}
         </div>
+      </div>
+      <div
+        style="
+          display: table;
+          background-color: #f4f4f4;
+          margin-top: 20px;
+          padding: 5px 10px 5px;
+        "
+      >
+        <h6
+          v-if="$moment('2021-07-21 14:28:12').isSame(referral)"
+          style="display: table-cell; vertical-align: middle"
+        >
+          returning member
+        </h6>
+        <h6 
+          v-else 
+          style="display: table-cell; vertical-align: middle">
+          Invited member
+        </h6>
       </div>
     </card>
   </div>
@@ -47,6 +69,10 @@ export default {
       default: null
     },
     img: {
+      type: String,
+      default: null
+    },
+    referral: {
       type: String,
       default: null
     }
