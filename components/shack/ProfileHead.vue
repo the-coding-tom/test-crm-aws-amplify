@@ -3,7 +3,7 @@
     <span
       v-show="getMembershipType"
       class="label label-default sh-label"
-      style="margin-right: 140px"
+      style="margin-right: 115px"
     >
       <template>
         <i 
