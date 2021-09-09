@@ -21,25 +21,16 @@
           {{ company }}
         </div>
       </div>
-      <div
-        style="
-          display: table;
-          background-color: #f4f4f4;
-          margin-top: 20px;
-          padding: 5px 10px 5px;
-        "
-      >
+      <div class="referral-container">
         <h6
           v-if="$moment('2021-07-21 14:28:12').isSame(referral)"
-          style="display: table-cell; vertical-align: middle"
+          class="referral-text"
         >
           returning member
         </h6>
         <h6 
           v-else 
-          style="display: table-cell; vertical-align: middle">
-          Invited member
-        </h6>
+          class="referral-text">Invited member</h6>
       </div>
     </card>
   </div>
@@ -99,3 +90,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.referral-container {
+  display: table;
+  background-color: #f4f4f4;
+  margin-top: 20px;
+  padding: 5px 10px 5px;
+}
+.referral-text {
+  display: table-cell;
+  vertical-align: middle;
+}
+</style>
