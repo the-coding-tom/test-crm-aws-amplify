@@ -207,7 +207,7 @@ export default {
     },
     searchMember(query) {
       this.loading = !this.loading
-      const link = `filter[status]=accepted&include=profile&filter[search]=${query}&filter[prefix_type]=${
+      const link = `filter[status]=accepted&include=profile,subscriptions,primaryPlan&filter[search]=${query}&filter[prefix_type]=${
         this.filter
       }`
 
