@@ -1,13 +1,25 @@
 <template>
   <div class="sh-p-header">
-    <span 
-      v-show="getMembershipType" 
-      class="label label-default sh-label">
+    <span
+      v-show="getMembershipType"
+      class="label label-default sh-label"
+      style="right: 130px"
+    >
       <template>
         <i 
           v-show="getMembershipType == 'Founding Member'" 
           class="fa fa-star" />
         {{ getMembershipType }}
+      </template>
+    </span>
+    <span class="label label-default sh-label">
+      <template v-if="$moment('2021-07-21 14:28:12').isSame(referral)">
+        <i class="fa fa-user" />
+        returning member /></template
+        >
+      <template v-else>
+        <i class="fa fa-user" />
+        Invited member
       </template>
     </span>
     <div class="d-flex align-items-center pd-20 mr-5 mr-tb-20">
@@ -43,7 +55,7 @@
           />
         </div>
       </div>
-      <div>
+      <div style="margin-left: 10px">
         <h1>{{ name }}</h1>
         <h3 class="mr-b-10">{{ company }}</h3>
         <i class="ti-location-pin" />
@@ -99,6 +111,10 @@ export default {
     extras: {
       type: Array,
       default: () => []
+    },
+    referral: {
+      type: String,
+      default: null
     }
   },
   data: () => ({

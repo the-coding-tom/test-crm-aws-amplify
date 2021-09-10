@@ -114,7 +114,7 @@ export default {
   name: 'Directory',
   layout: 'ShackDash',
   async asyncData({ store, $membership, route }) {
-    const link = `filter[status]=accepted&include=profile,primaryPlan&page=${
+    const link = `filter[status]=accepted&include=profile,subscriptions,primaryPlan&page=${
       route.query.page
     }`
     return await $membership
@@ -229,7 +229,7 @@ export default {
     },
     filterBy() {
       this.loading = !this.loading
-      const link = `filter[status]=accepted&include=profile,primaryPlan&filter[prefix_type]=${
+      const link = `filter[status]=accepted&include=profile,subscriptions,primaryPlan&filter[prefix_type]=${
         this.filter
       }`
       this.$membership

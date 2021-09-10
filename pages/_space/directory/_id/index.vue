@@ -176,7 +176,7 @@
               </div>
               <div class="sh-dls">
                 <span> Joined on:</span>
-                {{ $moment(data.member_since).format('MMMM DD, YYYY') }}
+                {{ $moment(data.created_at).format('MMMM DD, YYYY') }}
               </div>
 
               <div class="sh-dls">
