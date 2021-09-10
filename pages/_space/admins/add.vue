@@ -1,74 +1,77 @@
 <template>
   <div>
     <b-form @submit.prevent="addAdmin">
-      <base-header
-        class="pb-6"
+      <base-header 
+        class="pb-6" 
         type>
         <div class="d-flex justify-content-between align-items-center py-4">
-          <MainTitle
-            title="Adminstrators"
+          <MainTitle 
+            title="Adminstrators" 
             subtitle="Add Admin" />
           <b-button
             :disabled="loading"
             class="btn btn-primary text-white"
             type="submit"
-          >Add Adminstrator</b-button>
+          >Add Adminstrator</b-button
+          >
         </div>
       </base-header>
 
-
-
       <div class="container-fluid mt--6">
-
         <div class="row">
           <div class="col-md-6">
             <card>
               <div class="d-flex align-items-center mr-b-20">
                 <img
                   :src="url ? url : '/img/placeholder.jpg'"
-                  class="mr-r-20 rounded-circle avatar-xl">
+                  class="mr-r-20 rounded-circle avatar-xl"
+                >
                 <div>
                   <div class="upload-btn-wrapper">
-                    <button class="btn btn-outline-primary sh-btn-outline"> UPLOAD PHOTO </button>
-                    <input
-                      type="file"
-                      @change="onFileChange">
+                    <button class="btn btn-outline-primary sh-btn-outline">
+                      UPLOAD PHOTO
+                    </button>
+                    <input 
+                      type="file" 
+                      @change="onFileChange" >
                   </div>
                 </div>
               </div>
               <div class="row">
-
                 <base-input
                   id="firstName"
                   v-model="first_name"
                   class="col-md-6"
                   label="First Name"
-                  placeholder="First Name"/>
+                  placeholder="First Name"
+                />
                 <base-input
                   id="lastName"
                   v-model="last_name"
                   class="col-md-6"
                   label="Last Name"
-                  placeholder="Last Name"/>
+                  placeholder="Last Name"
+                />
                 <base-input
                   id="email"
                   v-model="email"
                   class="col-md-6"
                   label="Email"
                   placeholder="Email"
-                  type="email"/>
+                  type="email"
+                />
                 <base-input
                   id="password"
                   v-model="password"
                   type="password"
                   class="col-md-6"
                   label="Password"
-                  placeholder="********"/>
+                  placeholder="********"
+                />
               </div>
             </card>
           </div>
         </div>
-
       </div>
     </b-form>
   </div>
@@ -90,7 +93,7 @@ export default {
       loading: false,
       first_name: '',
       last_name: '',
-      picture: '',
+      picture: '#',
       email: '',
       password: '',
       service: 'images'

@@ -237,6 +237,11 @@ export default function(ctx, inject) {
     expiringSubscriptions: day => {
       return ctx.$axios.$get(`/${subdomain()}/expiring-subscriptions/${day}`)
     },
+    subscribedToPlan: plan_id => {
+      return ctx.$axios.$get(
+        `/${subdomain()}/expiring-subscriptions/0?plan=${plan_id}`
+      )
+    },
     renewSubscription: (id, data) => {
       return ctx.$axios.$post(
         `/${subdomain()}/memberships/${id}/renew-subscription`,

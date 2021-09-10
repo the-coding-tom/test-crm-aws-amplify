@@ -20,9 +20,28 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="Subscription"
+        label="Members Subscribed"
+        min-width="250"
+        prop="subscriptions"
+        sortable
+      >
+        <template v-slot="{ row }">
+          <h4>
+            <nuxt-link
+              :to="{
+                name: 'space-members-subscribed',
+                params: { id: row.id },
+                query: { plan: row.id, name: row.name },
+              }"
+            >{{ row.subscriptions.length }}</nuxt-link
+            >
+          </h4>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="Subscription Type"
         prop="price_per_cycle"
-        min-width="140px"
+        min-width="180px"
       >
         <template v-slot="{ row }">
           <span>
@@ -32,15 +51,15 @@
           </span>
         </template>
       </el-table-column>
-      <!-- <el-table-column
-        min-width="180px"
+      <el-table-column 
+        min-width="140px" 
         align="center">
-        <template
-          v-slot="{row}"
+        <template 
+          v-slot="{ row }" 
           class="table-actions">
           <b-button
             :disabled="loading"
-            :to="{name:'space-plans-id-edit', params: { id: row.id}}"
+            :to="{ name: 'space-plans-id-edit', params: { id: row.id } }"
             type="submit"
             variant="transparent"
             class="text-primary"
@@ -48,10 +67,10 @@
             <i class="fa fa-pen" /> Edit
           </b-button>
         </template>
-      </el-table-column> -->
+      </el-table-column>
 
       <el-table-column 
-        min-width="180px" 
+        min-width="140px" 
         align="center">
         <template 
           v-slot="{ row }" 
