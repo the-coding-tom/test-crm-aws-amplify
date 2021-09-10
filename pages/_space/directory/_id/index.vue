@@ -73,13 +73,14 @@
               :company="data.user_profile ? data.user_profile.company : null"
               :address="data.user_profile ? data.user_profile.addresses : null"
               :date="data.user_profile ? data.user_profile.date_of_birth : null"
+              :user-profile="data.user_profile"
+              :user-id="data.user_id"
             />
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6">
                   <i class="fa fa-envelope" /> {{ data.email }}
                 </div>
-
                 <div 
                   class="col-md-6" 
                   style="color: red">
@@ -1077,6 +1078,7 @@ export default {
       member_guests: 3,
       autoRenewStatus: false,
       currentPage: 1,
+      profilePic: '',
       selctedItemData: {},
       customChargesList: [],
       perPage: 5,
@@ -1133,6 +1135,31 @@ export default {
     }
   },
   methods: {
+    imageUploaded(url) {
+      this.data.user_profile.picture = url
+      this.$membership
+        .updateProfile({
+          user_id: this.data.user_id,
+          ...this.data.user_profile
+        })
+        .then(res => {
+          this.loading = !this.loading
+          this.$bvToast.toast('Photo updated succesfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+          //this.$router.go(-1)
+        })
+        .catch(e => {
+          this.loading = !this.loading
+          const message = e.response
+            ? `${e.response.data.message} ~ ${JSON.stringify(
+                e.response.data.errors
+              )}`
+            : e.message
+          this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
+        })
+    },
     rowClicked(item, index, event) {
       // open modal here
       this.selctedItemData = this.customCharges[index]

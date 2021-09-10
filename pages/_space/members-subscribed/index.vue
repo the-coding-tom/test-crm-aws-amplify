@@ -6,11 +6,7 @@
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle
           :subtitle="
-            viewing_plan_susbcriptions
-              ? plan_name
-              : dropdown > 0
-                ? `${dropdown} days left`
-                : 'Expired'
+            viewing_plan_susbcriptions ? plan_name : 'Expiring Memberships'
           "
           :title="
             viewing_plan_susbcriptions
@@ -24,6 +20,7 @@
           class="m-md-2"
           @click="handleClick"
         >
+          <b-dropdown-item @click="handleClick(-2)">All</b-dropdown-item>
           <b-dropdown-item
             v-for="(day, i) in days"
             :key="i"
@@ -113,7 +110,7 @@ export default {
     perPage: 10,
     items: [],
     currentPage: 1,
-    dropdown: 30,
+    dropdown: 'All',
     days: [30, 15, 5],
     fields: [
       'full_name',

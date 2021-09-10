@@ -167,9 +167,7 @@
                     >Room is bookable</b-form-checkbox
                     >
                   </div>
-                  <div 
-                    v-if="!can_book" 
-                    class="form-group col-md-12">
+                  <div class="form-group col-md-12">
                     <b-form-group
                       :label="'Select Member(s) With Access To ' + name"
                     >

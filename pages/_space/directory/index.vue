@@ -29,6 +29,12 @@
           <b-button
             variant="transparent"
             class="text-primary"
+            @click="exportData"
+          ><i class="fa fa-file-export" /> Export</b-button
+          >
+          <b-button
+            variant="transparent"
+            class="text-primary"
             @click="toggleModal('add-credit')"
           >
             <i class="fas fa-plus" /> Credit
@@ -157,6 +163,25 @@ export default {
     ]
   }),
   methods: {
+    exportData() {
+      this.$membership.exportDirectory().then(res => {
+        console.log(res)
+        let blob = new Blob([res], { type: 'text/csv' })
+        // window.location.href = URL.createObjectURL(blob)
+
+        const a = document.createElement('a')
+        const url = URL.createObjectURL(blob)
+
+        // Put the link somewhere in the body
+        document.body.appendChild(a)
+        a.innerHTML = 'download me'
+        a.href = url
+        // Set our custom filename
+        a.download = 'directory-members.csv'
+        // Automatically click the link
+        a.click()
+      })
+    },
     toggleModal(type) {
       this.$bvModal.show(type)
     },

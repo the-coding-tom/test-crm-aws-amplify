@@ -237,6 +237,11 @@ export default function(ctx, inject) {
     expiringSubscriptions: day => {
       return ctx.$axios.$get(`/${subdomain()}/expiring-subscriptions/${day}`)
     },
+    subscribedToPlan: plan_id => {
+      return ctx.$axios.$get(
+        `/${subdomain()}/expiring-subscriptions/0?plan=${plan_id}`
+      )
+    },
     renewSubscription: (id, data) => {
       return ctx.$axios.$post(
         `/${subdomain()}/memberships/${id}/renew-subscription`,
@@ -247,7 +252,10 @@ export default function(ctx, inject) {
       return ctx.$axios.$put(`/${subdomain()}/memberships/${id}/onboard-brivo`)
     },
     export: () => {
-      return ctx.$axios.$get(`/${subdomain()}/memberships/export-to-csv`)
+      return ctx.$axios.$get(`/${subdomain()}/file-export-invited`)
+    },
+    exportDirectory: () => {
+      return ctx.$axios.$get(`/${subdomain()}/file-export-directory`)
     },
     makePlanPrimary: (id, data) => {
       return ctx.$axios.$put(
