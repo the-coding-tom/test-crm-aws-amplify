@@ -23,7 +23,7 @@
       </div>
       <div class="referral-container">
         <h6
-          v-if="$moment('2021-07-21 14:28:12').isSame(referral)"
+          v-if="$moment('2022-04-15 00:00:00').isSame(referral)"
           class="referral-text"
         >
           returning member

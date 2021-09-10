@@ -75,6 +75,7 @@
               :date="data.user_profile ? data.user_profile.date_of_birth : null"
               :user-profile="data.user_profile"
               :user-id="data.user_id"
+              :referral="data.subscriptions[0].ends_at"
             />
             <div class="card-body">
               <div class="row">

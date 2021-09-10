@@ -65,6 +65,7 @@
           :company="member.user_profile.company"
           :img="member.user_profile.picture"
           :link="member.id"
+          :referral="member.subscriptions[0].ends_at"
         />
       </div>
 
