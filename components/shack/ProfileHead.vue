@@ -13,7 +13,7 @@
       </template>
     </span>
     <span class="label label-default sh-label">
-      <template v-if="$moment('2021-07-21 14:28:12').isSame(referral)">
+      <template v-if="$moment('2022-04-15 00:00:00').isSame(referral)">
         <i class="fa fa-user" />
         returning member /></template
         >
