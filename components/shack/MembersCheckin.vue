@@ -17,7 +17,7 @@
               <nuxt-link
                 :to="{
                   name: 'space-directory-id',
-                  params: { id: row.membership },
+                  params: { id: row.member.id },
                 }"
               >
                 {{ row.first_name + ' ' + row.last_name
