@@ -1,14 +1,18 @@
 <template>
   <div>
-    <base-header class="pb-6" type>
+    <base-header 
+      class="pb-6" 
+      type>
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle title="Plans" subtitle="All" />
+        <MainTitle 
+          title="Plans" 
+          subtitle="All" />
         <b-button
           :to="{ name: 'space-plans-add' }"
           squared
           variant="primary"
           class="text-white"
-          >Add New Plan</b-button
+        >Add New Plan</b-button
         >
       </div>
     </base-header>
@@ -42,7 +46,7 @@ export default {
   components: {
     BaseHeader,
     MainTitle,
-    Table,
+    Table
   },
   async asyncData({ store, $plan, error }) {
     await $plan
@@ -50,21 +54,21 @@ export default {
       .then(({ data }) => {
         store.commit('plans/setPlans', data)
       })
-      .catch((err) => {
+      .catch(err => {
         error({
           statusCode: err.statusCode,
           message: err.response
             ? JSON.stringify(err.response.data.errors)
-            : err.message,
+            : err.message
         })
       })
   },
   computed: {
     ...mapState({
-      plans: (state) => state.plans.plans.data,
-      meta: (state) => state.plans.plans.meta,
-      links: (state) => state.plans.plans.links,
-    }),
+      plans: state => state.plans.plans.data,
+      meta: state => state.plans.plans.meta,
+      links: state => state.plans.plans.links
+    })
   },
   methods: {
     next() {
@@ -74,7 +78,7 @@ export default {
         .then(({ data }) => {
           this.$store.commit('plans/setPlans', data)
         })
-        .catch((err) => {
+        .catch(err => {
           const message = err.response
             ? JSON.stringify(err.response.data.errors)
             : err.message
@@ -82,7 +86,7 @@ export default {
           this.$bvToast.toast(message, {
             title: 'Error',
             variant: 'danger',
-            solid: true,
+            solid: true
           })
         })
     },
@@ -93,7 +97,7 @@ export default {
         .then(({ data }) => {
           this.$store.commit('plans/setPlans', data)
         })
-        .catch((err) => {
+        .catch(err => {
           const message = err.response
             ? JSON.stringify(err.response.data.errors)
             : err.message
@@ -101,10 +105,10 @@ export default {
           this.$bvToast.toast(message, {
             title: 'Error',
             variant: 'danger',
-            solid: true,
+            solid: true
           })
         })
-    },
-  },
+    }
+  }
 }
 </script>
