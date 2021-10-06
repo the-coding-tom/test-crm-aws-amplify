@@ -13,7 +13,6 @@ console.log(baseURL)
 console.log('------------------------------------')
 
 module.exports = {
-  target: 'static',
   mode: 'universal',
   router: {
     middleware: ['auth'],
