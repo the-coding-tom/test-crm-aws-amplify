@@ -2823,7 +2823,7 @@ async function setContext(app, context) {
   // If context not defined, create it
   if (!app.context) {
     app.context = {
-      isStatic: false,
+      isStatic: true,
       isDev: false,
       isHMR: false,
       app,
@@ -2894,7 +2894,7 @@ async function setContext(app, context) {
         "rvm_prefix": "/Users/tom",
         "npm_package_devDependencies_jest_serializer_vue": "^2.0.2",
         "npm_package_dependencies_bootstrap_vue": "^2.0.0-beta",
-        "PATH": "/var/folders/69/jk711s112g55g97fk0q3smjm0000gn/T/yarn--1634837820935-0.18027421392651766:/Users/tom/Documents/shack15/shack15-crm/node_modules/.bin:/Users/tom/.config/yarn/link/node_modules/.bin:/usr/local/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/bin/node_modules/npm/bin/node-gyp-bin:/usr/local/Cellar/php@7.4/7.4.24/bin:/usr/local/opt/php@7.4/sbin:/usr/local/opt/php@7.4/bin:/usr/local/opt/php@7.4/sbin:/usr/local/opt/php@7.4/bin:/usr/local/opt/php@7.2/sbin:/usr/local/opt/php@7.2/sbin:/usr/local/opt/php@7.2/bin:/usr/local/opt/php@7.4/sbin:/usr/local/opt/php@7.4/bin:/usr/local/opt/php@7.2/sbin:/usr/local/opt/php@7.2/bin:/usr/local/opt/openjdk/bin:/Users/tom/fvm/default/bin:/usr/local/Cellar/php@7.4/7.4.24/bin:/Users/tom/.gem/ruby/2.6.0/bin:/usr/local/Cellar/php@7.4/7.4.24/bin:/usr/local/Cellar/ruby/2.4.1_1/bin:/usr/local/Cellar/python@3.8/3.8.6/bin/:/usr/local/Cellar/php/7.4.11/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/anaconda3/bin:/Users/tom/fvm/default/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Users/tom/Library/Android/sdk/platform-tools:/usr/local/Cellar/php@7.4/7.4.24/bin:/usr/local/opt/php@7.4/sbin:/usr/local/opt/php@7.4/bin:/usr/local/opt/php@7.2/sbin:/usr/local/opt/php@7.2/bin:/usr/local/opt/openjdk/bin:/Users/tom/.gem/ruby/2.6.0/bin:/usr/local/Cellar/ruby/2.4.1_1/bin:/Users/tom/.rvm/bin:/Users/tom/.rvm/bin",
+        "PATH": "/var/folders/69/jk711s112g55g97fk0q3smjm0000gn/T/yarn--1634858192008-0.7306049314454086:/Users/tom/Documents/shack15/shack15-crm/node_modules/.bin:/Users/tom/.config/yarn/link/node_modules/.bin:/usr/local/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/bin/node_modules/npm/bin/node-gyp-bin:/usr/local/Cellar/php@7.4/7.4.24/bin:/usr/local/opt/php@7.4/sbin:/usr/local/opt/php@7.4/bin:/usr/local/opt/php@7.4/sbin:/usr/local/opt/php@7.4/bin:/usr/local/opt/php@7.2/sbin:/usr/local/opt/php@7.2/sbin:/usr/local/opt/php@7.2/bin:/usr/local/opt/php@7.4/sbin:/usr/local/opt/php@7.4/bin:/usr/local/opt/php@7.2/sbin:/usr/local/opt/php@7.2/bin:/usr/local/opt/openjdk/bin:/Users/tom/fvm/default/bin:/usr/local/Cellar/php@7.4/7.4.24/bin:/Users/tom/.gem/ruby/2.6.0/bin:/usr/local/Cellar/php@7.4/7.4.24/bin:/usr/local/Cellar/ruby/2.4.1_1/bin:/usr/local/Cellar/python@3.8/3.8.6/bin/:/usr/local/Cellar/php/7.4.11/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/anaconda3/bin:/Users/tom/fvm/default/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Users/tom/Library/Android/sdk/platform-tools:/usr/local/Cellar/php@7.4/7.4.24/bin:/usr/local/opt/php@7.4/sbin:/usr/local/opt/php@7.4/bin:/usr/local/opt/php@7.2/sbin:/usr/local/opt/php@7.2/bin:/usr/local/opt/openjdk/bin:/Users/tom/.gem/ruby/2.6.0/bin:/usr/local/Cellar/ruby/2.4.1_1/bin:/Users/tom/.rvm/bin:/Users/tom/.rvm/bin",
         "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"build\"],\"original\":[\"build\"]}",
         "_": "/Users/tom/Documents/shack15/shack15-crm/node_modules/.bin/nuxt",
         "__CFBundleIdentifier": "com.microsoft.VSCode",
@@ -2975,13 +2975,9 @@ async function setContext(app, context) {
       }
     }; // Only set once
 
-    if ( true && context.req) {
-      app.context.req = context.req;
-    }
+    if (false) {}
 
-    if ( true && context.res) {
-      app.context.res = context.res;
-    }
+    if (false) {}
 
     if (context.ssrContext) {
       app.context.ssrContext = context.ssrContext;
@@ -5324,6 +5320,16 @@ const layouts = {
 
   async mounted() {
     this.$loading = this.$refs.loading;
+
+    if (this.isPreview) {
+      if (this.$store && this.$store._actions.nuxtServerInit) {
+        this.$loading.start();
+        await this.$store.dispatch('nuxtServerInit', this.context);
+      }
+
+      await this.refresh();
+      this.$loading.finish();
+    }
   },
 
   watch: {
@@ -5336,6 +5342,10 @@ const layouts = {
 
     isFetching() {
       return this.nbFetching > 0;
+    },
+
+    isPreview() {
+      return Boolean(this.$options.previewData);
     }
 
   },
@@ -5428,6 +5438,34 @@ const layouts = {
       }
 
       return Promise.resolve(layouts['_' + layout]);
+    },
+
+    setPagePayload(payload) {
+      this._pagePayload = payload;
+      this._payloadFetchIndex = 0;
+    },
+
+    async fetchPayload(route) {
+      const {
+        staticAssetsBase
+      } = window.__NUXT__;
+      const base = (this.$router.options.base || '').replace(/\/+$/, '');
+
+      if (base && route.startsWith(base)) {
+        route = route.substr(base.length);
+      }
+
+      route = (route.replace(/\/+$/, '') || '/').split('?')[0].split('#')[0];
+      const src = urlJoin(base, staticAssetsBase, route, 'payload.js');
+
+      try {
+        const payload = await window.__NUXT_IMPORT__(decodeURI(route), encodeURI(src));
+        this.setPagePayload(payload);
+        return payload;
+      } catch (err) {
+        this.setPagePayload(false);
+        throw err;
+      }
     }
 
   },
@@ -6858,7 +6896,7 @@ external_vue_default.a.directive('click-outside', click_outside);
 var popover = __webpack_require__(75);
 
 // EXTERNAL MODULE: ./node_modules/element-ui/lib/theme-chalk/base.css
-var base = __webpack_require__(20);
+var theme_chalk_base = __webpack_require__(20);
 
 // EXTERNAL MODULE: external "element-ui/lib/popover"
 var popover_ = __webpack_require__(38);
@@ -11016,7 +11054,9 @@ const createNext = ssrContext => opts => {
     routePath: ''
   }; // Remove query from url is static target
 
-  if (false) {} // Public runtime config
+  if ( true && ssrContext.url) {
+    ssrContext.url = ssrContext.url.split('?')[0];
+  } // Public runtime config
 
 
   ssrContext.nuxt.config = ssrContext.runtimeConfig.public; // Create the app definition and the instance (created for each request)
@@ -11047,7 +11087,9 @@ const createNext = ssrContext => opts => {
 
     ssrContext.rendered = () => {
       // Add the state from the vuex store
-      ssrContext.nuxt.state = store.state;
+      ssrContext.nuxt.state = store.state; // Stop recording store mutations
+
+      ssrContext.unsetMutationObserver();
     };
   };
 
@@ -11129,11 +11171,16 @@ const createNext = ssrContext => opts => {
 
   if (ssrContext.nuxt.error) {
     return renderErrorPage();
-  }
+  } // Record store mutations for full-static after nuxtServerInit and Middleware
+
+
+  ssrContext.nuxt.mutations = [];
+  ssrContext.unsetMutationObserver = store.subscribe(m => {
+    ssrContext.nuxt.mutations.push([m.type, m.payload]);
+  });
   /*
   ** Set layout
   */
-
 
   let layout = Components.length ? Components[0].options.layout : nuxt_error.layout;
 
