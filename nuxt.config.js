@@ -14,9 +14,8 @@ console.log('------------------------------------')
 
 module.exports = {
   target: 'static',
-  mode: 'universal',
   router: {
-    middleware: ['auth'],
+    //middleware: ['auth'],
     linkExactActiveClass: 'active'
   },
   /*
