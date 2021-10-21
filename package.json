@@ -14,7 +14,8 @@
     "heroku-postbuild": "yarn build",
     "aws-eb:prod": "node -e \"console.log('aws-eb:prod');\"",
     "test": "jest",
-    "test:coverage": "jest --no-cache --coverage"
+    "test:coverage": "jest --no-cache --coverage",
+    "deploy": "yarn build && yarn start"
   },
   "engines": {
     "node": "x.x",
