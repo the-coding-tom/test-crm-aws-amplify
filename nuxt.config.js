@@ -4,7 +4,7 @@ const config = require('dotenv').config()
 
 let baseURL = config.parsed.base_url
 
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV == 'development') {
   baseURL = config.parsed.staging_base_url
 }
 
@@ -13,9 +13,9 @@ console.log(baseURL)
 console.log('------------------------------------')
 
 module.exports = {
-  target: 'static',
+  mode: 'universal',
   router: {
-    //middleware: ['auth'],
+    middleware: ['auth'],
     linkExactActiveClass: 'active'
   },
   /*
