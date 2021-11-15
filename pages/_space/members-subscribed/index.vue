@@ -55,6 +55,13 @@
               @click="showForm(data)"
             ><i class="fas fa-undo-alt" /> Renew</b-button
             >
+            <b-button 
+              class="btn btn-primary" 
+              style="color:white"
+              @click="upgradeForMember(data)"
+            >
+              Upgrade
+            </b-button>
           </template>
         </b-table>
 
@@ -91,16 +98,29 @@
         </b-form-group>
       </b-form>
     </b-modal>
+
+    <b-modal 
+      id="change-plan" 
+      title="Change Current Plan" 
+      hide-footer
+      @hidden="onChangePlanModalClosed"
+    >
+      <ChangePlan 
+        :plan_id="plan_id"
+      />
+    </b-modal>
   </div>
 </template>
 
 <script>
 import MainTitle from '~/components/shack/MainTitle.vue'
+import ChangePlan from '~/components/directory/ChangePlan'
 
 export default {
   layout: 'ShackDash',
   components: {
-    MainTitle
+    MainTitle,
+    ChangePlan
   },
   data: () => ({
     loading: false,
@@ -112,6 +132,7 @@ export default {
     currentPage: 1,
     dropdown: 'All',
     days: [30, 15, 5],
+    plan_id: null,
     fields: [
       'full_name',
       'plan',
@@ -127,7 +148,11 @@ export default {
     }
   },
   watch: {
-    '$route.query': '$fetch'
+    $route(route, oldRoute) {
+      if (!route.query.membership_id && oldRoute.query.membership_id) {
+        this.plan_id = null
+      }
+    }
   },
   async asyncData({ error, $membership, route }) {
     if (route.query.plan) {
@@ -298,6 +323,32 @@ export default {
             title: 'Error'
           })
         })
+    },
+    upgradeForMember(data) {
+      const query = { ...this.$route.query }
+      const { membership_id, plan_id } = data.item
+
+      this.$router.push(
+        {
+          query: {
+            ...query,
+            membership_id
+          }
+        },
+        () => {
+          this.plan_id = `${plan_id}`
+          this.$bvModal.show('change-plan')
+        }
+      )
+    },
+    onChangePlanModalClosed() {
+      const query = { ...this.$route.query }
+      delete query.membership_id
+
+      this.$router.push({
+        query
+      })
+      this.plan_id = null
     }
   }
 }

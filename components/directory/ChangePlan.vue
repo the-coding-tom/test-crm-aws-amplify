@@ -92,17 +92,34 @@ export default {
     changePlan() {
       this.loading = !this.loading
 
-      const { id } = this.$route.params
+      let id
+
+      if (this.$route.path.includes('/members-subscribed')) {
+        id = this.$route.query.membership_id
+      } else {
+        id = this.$route.params.id
+      }
+
       const { new_plan_id, plan_id } = this
 
       this.$membership
         .changePlan(id, { subscription_id: plan_id, new_plan_id })
         .then(({ data }) => {
-          this.$bvToast.toast('Plan changed successfully', {
-            title: 'Success',
-            variant: 'success'
-          })
-          location.reload()
+          if (this.$route.path.includes('/members-subscribed')) {
+            const query = { ...this.$route.query }
+            delete query.membership_id
+
+            this.$router.push(
+              {
+                query
+              },
+              () => {
+                this.onPlanChangedSuccessfully()
+              }
+            )
+            return
+          }
+          this.onPlanChangedSuccessfully()
         })
         .catch(e => {
           this.loading = !this.loading
@@ -114,6 +131,13 @@ export default {
 
           this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
         })
+    },
+    onPlanChangedSuccessfully() {
+      this.$bvToast.toast('Plan changed successfully', {
+        title: 'Success',
+        variant: 'success'
+      })
+      location.reload()
     }
   }
 }
