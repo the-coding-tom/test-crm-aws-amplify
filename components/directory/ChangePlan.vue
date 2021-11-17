@@ -22,9 +22,36 @@
               :value="plan.id"
             />
           </el-select>
+          
         </b-form-group>
-      </b-row>
+        <b-form-group
+          class="col-md-6"
+          label="Change instantly">
+          <b-form-checkbox
+            v-model="change.changeInstantly"
+            :value="true"
+            :unchecked-value="false">Yes</b-form-checkbox>
+        </b-form-group>
+        <b-form-group
+          v-if="!change.changeInstantly"
+          id="selectPlan"
+          class="col-md-12"
+          label="Change on"
+          description="">
+          <el-input
+            v-model="change.dueDate"
+            :remote-method="getPlans"
+            :loading="loading"
+            type="date"
+            filterable
+            remote
+            reserve-keyword
+            required
+            placeholder="Due Date"/>
+        </b-form-group>
 
+      </b-row>
+     
       <b-button
         :disabled="loading"
         class="float-right"
@@ -45,15 +72,19 @@ export default {
   },
   props: {
     plan_id: {
-      type: String,
-      default: ''
+      type: Object,
+      default: () => {}
     }
   },
   data: () => ({
     loading: false,
     search: '',
     plans: [],
-    new_plan_id: ''
+    new_plan_id: '',
+    change: {
+      dueDate: null,
+      changeInstantly: true
+    }
   }),
   mounted() {
     this.loading = !this.loading
