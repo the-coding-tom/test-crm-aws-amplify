@@ -111,7 +111,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAllRooms({ commit }, link = null) {
+  async getAllRooms({ commit }, link) {
     try {
       const { data } = await this.$resource.getAllRooms(link)
       commit('setRooms', data)
