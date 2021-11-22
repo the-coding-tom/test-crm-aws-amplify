@@ -66,6 +66,9 @@
           :img="member.user_profile.picture"
           :link="member.id"
           :referral="member.subscriptions[0].ends_at"
+          :paused="member.subscriptions[0].state"
+          :resume_at="member.subscriptions[0].resume_on"
+          :paused_at="member.subscriptions[0].paused_at"
         />
       </div>
 

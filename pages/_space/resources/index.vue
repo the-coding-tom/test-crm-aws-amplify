@@ -79,6 +79,7 @@
         align="center"
         @next="next"
         @prev="prev"
+        @input="changePage"
       />
     </div>
   </div>
@@ -87,6 +88,7 @@
 import { mapState } from 'vuex'
 import MainTitle from '~/components/shack/MainTitle.vue'
 import SectionTitle from '~/components/shack/SectionTitle.vue'
+import { getQueryParams } from '../../../util/url'
 
 export default {
   layout: 'ShackDash',
@@ -94,8 +96,9 @@ export default {
     SectionTitle,
     MainTitle
   },
-  async asyncData({ store }) {
-    await store.dispatch('resources/getAllRooms')
+  async asyncData({ store, route }) {
+    const link = `?page=${route.query.page}`
+    await store.dispatch('resources/getAllRooms', link)
   },
   data() {
     return {
@@ -122,13 +125,26 @@ export default {
       if (!confirm('Are you sure?')) return
       this.$store.dispatch('resources/deleteRoom', room_id)
     },
+
     next() {
       const { next } = this.links
-      this.$store.dispatch('resources/getAllRooms', next)
+      const params = getQueryParams(next)
+
+      this.$router.push(params)
+      location.href = location.origin + this.$route.path + params
     },
     prev() {
       const { prev } = this.links
-      this.$store.dispatch('resources/getAllRooms', prev)
+      const params = getQueryParams(prev)
+
+      this.$router.push(params)
+      location.href = location.origin + this.$route.path + params
+    },
+
+    changePage(pageNumber) {
+      const params = `?page=${pageNumber}`
+      this.$router.push(params)
+      location.href = location.origin + this.$route.path + params
     }
   }
 }

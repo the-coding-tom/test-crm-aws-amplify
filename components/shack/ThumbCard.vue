@@ -1,12 +1,53 @@
 <template>
   <div class="col-md-3 sh-thumb">
     <card>
-      <span 
-        v-show="getMembershipType" 
-        class="label label-default">
-        <template> <i class="fa fa-star" /> {{ getMembershipType }} </template>
+      <span
+        v-if="paused === 'paused' && resume_at == null"
+        style="position: absolute; top: 10px; right: 10px"
+      ><b-badge 
+        pill 
+        variant="danger">{{ 'Paused Membership' }}</b-badge>
       </span>
-      <div class="d-flex mr-tb-10">
+      <span
+        v-else-if="paused_at != null && paused != 'paused'"
+        style="position: absolute; top: 10px; right: 10px"
+      ><b-badge 
+        pill 
+        variant="danger"
+      >{{ 'Auto-pause on: '
+      }}<span style="color: black">{{
+        $moment(paused_at).format('MMM Do YYYY')
+      }}</span></b-badge
+      >
+      </span>
+      <span
+        v-else-if="resume_at != null && paused == 'paused'"
+        style="position: absolute; top: 10px; right: 10px"
+      ><b-badge 
+        pill 
+        variant="primary"
+      >{{ 'Auto-resume on: '
+      }}<span style="color: black">{{
+        $moment(resume_at).format('MMM Do YYYY')
+      }}</span></b-badge
+      >
+      </span>
+      <template v-else>
+        <span
+          v-if="$moment('2022-04-15 00:00:00').isSame(referral)"
+          class="label label-default"
+        >
+          <template> <i class="fa fa-star" /> Returning Member </template>
+        </span>
+        <span 
+          v-else 
+          class="label label-default">
+          <template> Invited Member </template>
+        </span>
+      </template>
+      <div 
+        class="d-flex mr-tb-10" 
+        style="margin-top: 16px">
         <img
           :src="img ? img : '/img/placeholder.jpg'"
           class="mr-r-10 rounded-circle avatar"
@@ -20,17 +61,6 @@
           </h3>
           {{ company }}
         </div>
-      </div>
-      <div class="referral-container">
-        <h6
-          v-if="$moment('2022-04-15 00:00:00').isSame(referral)"
-          class="referral-text"
-        >
-          returning member
-        </h6>
-        <h6 
-          v-else 
-          class="referral-text">Invited member</h6>
       </div>
     </card>
   </div>
@@ -66,6 +96,18 @@ export default {
     referral: {
       type: String,
       default: null
+    },
+    paused: {
+      type: String,
+      default: null
+    },
+    paused_at: {
+      type: String,
+      default: null
+    },
+    resume_at: {
+      type: String,
+      default: null
     }
   },
   data: () => ({
@@ -93,10 +135,7 @@ export default {
 
 <style scoped>
 .referral-container {
-  display: table;
-  background-color: #f4f4f4;
   margin-top: 20px;
-  padding: 5px 10px 5px;
 }
 .referral-text {
   display: table-cell;

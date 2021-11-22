@@ -2,54 +2,55 @@
   <div>
     <b-form @submit.prevent="changePlan">
       <b-row>
-        <b-form-group 
-          class="col-md-12" 
-          label="New Plan" 
-          description="">
-          <el-select
-            v-model="new_plan_id"
-            :remote-method="getPlans"
-            :loading="loading"
-            filterable
-            remote
-            reserve-keyword
-            placeholder="Choose New Plan"
-          >
-            <el-option
-              v-for="plan in plans"
-              :key="plan.id"
-              :label="plan.name"
-              :value="plan.id"
-            />
-          </el-select>
-        </b-form-group>
-        <b-form-group 
-          class="col-md-6" 
-          label="Change instantly">
+        <b-form-group class="col-md-6">
           <b-form-checkbox
             v-model="change.changeInstantly"
             :value="true"
             :unchecked-value="false"
-          >Yes</b-form-checkbox
+          >Pause now and unpause later.</b-form-checkbox
           >
         </b-form-group>
         <b-form-group
           v-if="!change.changeInstantly"
           id="selectPlan"
           class="col-md-12"
-          label="Change on"
+          label="Pause on"
           description=""
         >
           <el-input
-            v-model="change.dueDate"
-            :remote-method="getPlans"
-            :loading="loading"
+            v-model="change.subscriptionPauseDate"
             type="date"
             filterable
             remote
             reserve-keyword
             required
-            placeholder="Due Date"
+            placeholder="Pause Date"
+          />
+        </b-form-group>
+        <b-form-group 
+          v-if="!change.changeInstantly" 
+          class="col-md-12">
+          <b-form-checkbox
+            v-model="change.manuallyUnpause"
+            :value="true"
+            :unchecked-value="false"
+          >Manually resume later.</b-form-checkbox
+          >
+        </b-form-group>
+        <b-form-group
+          v-if="!change.changeInstantly && !change.manuallyUnpause"
+          class="col-md-12"
+          label="Resume on"
+          description="Don't set the resume date if you intend to manually unpause."
+        >
+          <el-input
+            v-model="change.subscriptionResumeDate"
+            type="date"
+            filterable
+            remote
+            reserve-keyword
+            required
+            placeholder="Resume Date"
           />
         </b-form-group>
       </b-row>
@@ -59,7 +60,7 @@
         class="float-right"
         type="submit"
         variant="primary"
-      >Update Plan</b-button
+      >Save Update</b-button
       >
     </b-form>
   </div>
@@ -69,13 +70,13 @@
 import { Select, Option } from 'element-ui'
 
 export default {
-  name: 'ChangePlan',
+  name: 'PauseSubscription',
   components: {
     [Select.name]: Select,
     [Option.name]: Option
   },
   props: {
-    plan_id: Number,
+    data: Object,
     membership_id: {
       type: String,
       default: ''
@@ -87,8 +88,10 @@ export default {
     plans: [],
     new_plan_id: '',
     change: {
-      dueDate: null,
-      changeInstantly: true
+      subscriptionPauseDate: null,
+      subscriptionResumeDate: null,
+      changeInstantly: true,
+      manuallyUnpause: true
     }
   }),
   mounted() {
@@ -127,35 +130,32 @@ export default {
     },
     changePlan() {
       this.loading = !this.loading
-
-      let id
-
-      if (this.membership_id) {
-        id = this.membership_id
-      } else {
-        id = this.$route.params.id
-      }
-
-      const { new_plan_id, plan_id, change } = this
-
+      //
       this.$membership
-        .changePlan(id, {
-          subscription_id: plan_id,
-          new_plan_id,
-          due_date: change.dueDate
+        .changeSubscriptionRenewalState(this.$route.params.id, {
+          id: this.data.id,
+          spaceId: this.data.space_id,
+          subscriptionState: 'paused',
+          subscriptionResumeDate: this.change.manuallyUnpause
+            ? null
+            : this.change.subscriptionResumeDate,
+          subscriptionPauseDate: this.change.changeInstantly
+            ? null
+            : this.change.subscriptionPauseDate
         })
         .then(({ data }) => {
-          this.onPlanChangedSuccessfully()
+          this.$bvToast.toast('Pause was successful', {
+            title: 'Success',
+            variant: 'success'
+          })
+          location.reload()
         })
         .catch(e => {
           this.loading = !this.loading
-          const message = e.response
-            ? `${e.response.data.message} ~ ${JSON.stringify(
-                e.response.data.errors
-              )}`
-            : e.message
-
-          this.$bvToast.toast(message, { title: 'Error', variant: 'danger' })
+          this.$bvToast.toast('Pause  failed', {
+            title: 'Error',
+            variant: 'danger'
+          })
         })
     },
     onPlanChangedSuccessfully() {

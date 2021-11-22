@@ -646,17 +646,51 @@
               <div class="txt-upper">
                 <span>MEMBERSHIP PLAN</span>
                 <b-badge
-                  v-if="data.subscriptions[0].state === 'paused'"
+                  v-if="
+                    data.subscriptions[0].state === 'paused' &&
+                      data.subscriptions[0].resume_on == null
+                  "
                   pill
                   style="margin-left: 20px"
                   variant="danger"
                 >{{ 'Paused' }}</b-badge
+                >
+                <b-badge
+                  v-if="
+                    data.subscriptions[0].resume_on != null &&
+                      data.subscriptions[0].state === 'paused'
+                  "
+                  pill
+                  style="margin-left: 20px"
+                  variant="primary"
+                >{{ 'Auto-resume on: '
+                }}<span style="color: black">{{
+                  $moment(data.subscriptions[0].resume_on).format(
+                    'MMM Do YYYY'
+                  )
+                }}</span></b-badge
+                >
+                <b-badge
+                  v-if="
+                    data.subscriptions[0].paused_at != null &&
+                      data.subscriptions[0].state != 'paused'
+                  "
+                  pill
+                  style="margin-left: 20px"
+                  variant="danger"
+                >{{ 'Auto-pause on: '
+                }}<span style="color: black">{{
+                  $moment(data.subscriptions[0].paused_at).format(
+                    'MMM Do YYYY'
+                  )
+                }}</span></b-badge
                 >
               </div>
               <b-button
                 id="addPlanBtn"
                 variant="transparent"
                 class="text-primary"
+                style="visibility: hidden"
                 @click="toggleModal('add-plan')"
               >
                 <i class="fa fa-plus" /> Add New Plan
@@ -671,7 +705,7 @@
                   >
                     <div v-if="!subscription.canceled_at">
                       <td>{{ getSubName(subscription)['name'] }}</td>
-                      <td>Until {{ getSubDetails(subscription) }}</td>
+                      <td>Exp. {{ getSubDetails(subscription) }}</td>
                       <td>
                         <!-- <b-button
                           v-if="subscription.state != 'paused'"
@@ -758,15 +792,27 @@
                             <i class="fas fa-ellipsis-v" />
                           </template>
                           <b-dropdown-item
-                            v-if="subscription.state != 'paused'"
+                            v-if="
+                              subscription.state != 'paused' &&
+                                subscription.paused_at == null
+                            "
                             href="#"
-                            @click="autoRenewSubscriptionToggle('paused')"
+                            @click="pauseMembership()"
                           >Pause Subscription</b-dropdown-item
+                          >
+                          <b-dropdown-item
+                            v-else-if="
+                              subscription.state != 'paused' &&
+                                subscription.paused_at != null
+                            "
+                            href="#"
+                            @click="resumeMembership()"
+                          >Cancel Auto-Pause</b-dropdown-item
                           >
                           <b-dropdown-item
                             v-else
                             href="#"
-                            @click="autoRenewSubscriptionToggle('active')"
+                            @click="resumeMembership()"
                           >Resume Subscription</b-dropdown-item
                           >
                           <b-dropdown-divider />
@@ -915,6 +961,14 @@
       :plan_id="plan_id"
     /></b-modal>
     <b-modal 
+      id="pause-membership" 
+      title="Pause Membership" 
+      hide-footer
+    ><PauseMembership 
+      :plan_id="plan_id" 
+      :data="data"
+    /></b-modal>
+    <b-modal 
       id="add-plan" 
       :static="true" 
       title="Add New Plan" 
@@ -966,6 +1020,7 @@ import MainTitle from '~/components/shack/MainTitle.vue'
 import ProfileHead from '~/components/shack/ProfileHead.vue'
 import MembershipNotes from '~/components/shack/MembershipNotes.vue'
 import ChangePlan from '~/components/directory/ChangePlan'
+import PauseMembership from '~/components/directory/PauseSubscription'
 import AddPlan from '~/components/directory/AddPlan'
 import AddCredit from '~/components/directory/AddCredit'
 import AddCard from '~/components/directory/AddCard'
@@ -983,6 +1038,7 @@ export default {
     MainTitle,
     ProfileHead,
     ChangePlan,
+    PauseMembership,
     AddCredit,
     AddPlan,
     AddCustomCharge,
@@ -1266,7 +1322,7 @@ export default {
             title: 'Success',
             variant: 'success'
           })
-          //location.reload()
+          location.reload()
         })
         .catch(e => {
           this.$bvToast.toast('State update failed', {
@@ -1417,6 +1473,40 @@ export default {
         }
       })
       this.toggleModal('change-plan')
+    },
+    pauseMembership(subscription) {
+      // let plan = null
+
+      // const _self = this
+
+      // _.each(this.data.plans, function(o) {
+      //   if (o.id == subscription.plan_id) {
+      //     _self.plan_id = subscription.id
+      //   }
+      // })
+      this.toggleModal('pause-membership')
+    },
+    resumeMembership() {
+      //
+      this.$membership
+        .changeSubscriptionRenewalState(this.$route.params.id, {
+          id: this.data.id,
+          spaceId: this.data.space_id,
+          subscriptionState: 'active'
+        })
+        .then(({ data }) => {
+          this.$bvToast.toast('State updated successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+          location.reload()
+        })
+        .catch(e => {
+          this.$bvToast.toast('State update failed', {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
     },
     cancelPlan(subscription) {
       if (!confirm('Are you sure?')) return

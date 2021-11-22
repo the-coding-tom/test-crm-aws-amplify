@@ -8,11 +8,7 @@
           :subtitle="
             viewing_plan_susbcriptions ? plan_name : 'Expiring Memberships'
           "
-          :title="
-            viewing_plan_susbcriptions
-              ? 'Subscriptions'
-              : 'Expiring Memberships'
-          "
+          :title="viewing_plan_susbcriptions ? 'Plans' : 'Expiring Memberships'"
         />
         <b-dropdown
           id="dropdown-1"
@@ -47,7 +43,30 @@
           striped
           hover
         >
-          <template v-slot:cell(options)="data">
+          <template v-slot:cell(_)="row">
+            <nuxt-link
+              :to="{
+                name: 'space-directory-id',
+                params: { id: row.item.membership_id },
+              }"
+              style="color: red"
+            >
+              <b-form-checkbox 
+                :value="true" 
+                :unchecked-value="false"
+            /></nuxt-link>
+          </template>
+          <template v-slot:cell(full_name)="row">
+            <nuxt-link
+              :to="{
+                name: 'space-directory-id',
+                params: { id: row.item.membership_id },
+              }"
+            >
+              {{ row.item.full_name }}</nuxt-link
+              >
+          </template>
+          <template v-slot:cell(__)="data">
             <b-button
               variant="transparent"
               class="text-primary"
@@ -55,6 +74,13 @@
               @click="showForm(data)"
             ><i class="fas fa-undo-alt" /> Renew</b-button
             >
+            <b-button
+              class="btn btn-primary"
+              style="color: white"
+              @click="upgradeForMember(data)"
+            >
+              Upgrade
+            </b-button>
           </template>
         </b-table>
 
@@ -91,16 +117,29 @@
         </b-form-group>
       </b-form>
     </b-modal>
+
+    <b-modal
+      id="change-plan"
+      title="Change Current Plan"
+      hide-footer
+      @hidden="onChangePlanModalClosed"
+    >
+      <ChangePlan 
+        :plan_id="plan_id" 
+        :membership_id="membership_id" />
+    </b-modal>
   </div>
 </template>
 
 <script>
 import MainTitle from '~/components/shack/MainTitle.vue'
+import ChangePlan from '~/components/directory/ChangePlan'
 
 export default {
   layout: 'ShackDash',
   components: {
-    MainTitle
+    MainTitle,
+    ChangePlan
   },
   data: () => ({
     loading: false,
@@ -112,13 +151,17 @@ export default {
     currentPage: 1,
     dropdown: 'All',
     days: [30, 15, 5],
+    plan_id: null,
+    membership_id: null,
+    id: null,
     fields: [
+      '_',
       'full_name',
       'plan',
       'start_date',
       'end_date',
       'renewal',
-      'options'
+      '__'
     ]
   }),
   computed: {
@@ -127,7 +170,11 @@ export default {
     }
   },
   watch: {
-    '$route.query': '$fetch'
+    $route(route, oldRoute) {
+      if (!route.query.membership_id && oldRoute.query.membership_id) {
+        this.plan_id = null
+      }
+    }
   },
   async asyncData({ error, $membership, route }) {
     if (route.query.plan) {
@@ -298,6 +345,23 @@ export default {
             title: 'Error'
           })
         })
+    },
+    upgradeForMember(data) {
+      const query = { ...this.$route.query }
+      const { membership_id, id } = data.item
+
+      this.plan_id = id
+      this.membership_id = membership_id
+      this.$bvModal.show('change-plan')
+    },
+    onChangePlanModalClosed() {
+      const query = { ...this.$route.query }
+      delete query.membership_id
+
+      this.$router.push({
+        query
+      })
+      this.plan_id = null
     }
   }
 }
