@@ -1,6 +1,6 @@
 <template>
   <div class="sh-p-header">
-    <span
+    <!-- <span
       v-show="getMembershipType"
       class="label label-default sh-label"
       style="right: 130px"
@@ -11,7 +11,7 @@
           class="fa fa-star" />
         {{ getMembershipType }}
       </template>
-    </span>
+    </span> -->
     <span class="label label-default sh-label">
       <template v-if="$moment('2022-04-15 00:00:00').isSame(referral)">
         <i class="fa fa-user" />
