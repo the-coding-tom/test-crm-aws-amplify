@@ -147,17 +147,29 @@
           </b-row>
         </template>
         <template v-if="currentEvent.extendedProps">
-          <p
+          <template
             v-if="
               currentEvent.extendedProps.attendees_count > 0 &&
                 currentEvent.extendedProps.attendees_count > 0
             "
           >
-            This event has
-            {{ currentEvent.extendedProps.attendees_count }} attendees. If you
-            choose to proceed with this event cancellation, a refund will be
-            made to all attendees.
-          </p>
+            <p>
+              This event has
+              {{ currentEvent.extendedProps.attendees_count }} attendees. If you
+              choose to proceed with this event cancellation, a refund will be
+              made to all attendees.
+            </p>
+            <b-form-group 
+              class="col-md-6" 
+              label="Auto refund attendess?">
+              <b-form-checkbox
+                v-model="currentEvent.autoRefund"
+                :value="true"
+                :unchecked-value="false"
+              >Yes</b-form-checkbox
+              >
+            </b-form-group>
+          </template>
           <p v-else>Are you sure you want to delete this event?</p>
         </template>
         <template v-slot:modal-footer>

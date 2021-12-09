@@ -183,6 +183,12 @@ export default function(ctx, inject) {
         payload
       )
     },
+    changePlanBulk: payload => {
+      return ctx.$axios.$patch(
+        `/${subdomain()}/memberships/changeplan-bulk`,
+        payload
+      )
+    },
     editGuests: (id, payload) => {
       return ctx.$axios
         .$patch(`/${subdomain()}/memberships/${id}/guests`, payload)

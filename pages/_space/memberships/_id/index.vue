@@ -405,6 +405,7 @@ export default {
       }
 
       this.data.paid_by = this.paid_by
+      this.data.trial_days = '0'
 
       // Fixed bug using this line
       if (this.data.assigned_admin) {

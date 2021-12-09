@@ -12,22 +12,22 @@
         />
         <b-dropdown
           id="dropdown-1"
-          :text="`${dropdown} days`"
+          :text="`More options`"
           class="m-md-2"
           @click="handleClick"
         >
-          <b-dropdown-item @click="handleClick(-2)">All</b-dropdown-item>
           <b-dropdown-item
-            v-for="(day, i) in days"
-            :key="i"
-            @click="handleClick(day)"
-          >{{ day }} days</b-dropdown-item
+            :disabled="selectedRows.length > 0 ? false : true"
+            @click="upgradeBulkMembers()"
+          >change plan</b-dropdown-item
           >
-          <b-dropdown-item @click="handleClick(1)">Today</b-dropdown-item>
-          <b-dropdown-item @click="handleClick(-1)">Expired</b-dropdown-item>
           <b-dropdown-item 
-            @click="handleClick(-2)"
-          >Do Not Renew</b-dropdown-item
+            :disabled="selectedRows.length > 0 ? false : true"
+          >renew</b-dropdown-item
+          >
+          <b-dropdown-item 
+            :disabled="selectedRows.length > 0 ? false : true"
+          >delete</b-dropdown-item
           >
           <b-dropdown-divider />
         </b-dropdown>
@@ -44,17 +44,12 @@
           hover
         >
           <template v-slot:cell(_)="row">
-            <nuxt-link
-              :to="{
-                name: 'space-directory-id',
-                params: { id: row.item.membership_id },
-              }"
-              style="color: red"
-            >
-              <b-form-checkbox 
-                :value="true" 
-                :unchecked-value="false"
-            /></nuxt-link>
+            <b-form-checkbox
+              v-model="row.rowSelected"
+              :value="true"
+              :unchecked-value="false"
+              @change="onMemberSelected($event, row)"
+            />
           </template>
           <template v-slot:cell(full_name)="row">
             <nuxt-link
@@ -79,7 +74,7 @@
               style="color: white"
               @click="upgradeForMember(data)"
             >
-              Upgrade
+              Change Plan
             </b-button>
           </template>
         </b-table>
@@ -128,18 +123,28 @@
         :plan_id="plan_id" 
         :membership_id="membership_id" />
     </b-modal>
+    <b-modal
+      id="change-plan-for-bulk"
+      title="Change Current Plan"
+      hide-footer
+      @hidden="onChangePlanModalClosed"
+    >
+      <ChangePlanBulk :subscriber_data="selectedRows" />
+    </b-modal>
   </div>
 </template>
 
 <script>
 import MainTitle from '~/components/shack/MainTitle.vue'
 import ChangePlan from '~/components/directory/ChangePlan'
+import ChangePlanBulk from '~/components/directory/ChangePlanForBulkMembership'
 
 export default {
   layout: 'ShackDash',
   components: {
     MainTitle,
-    ChangePlan
+    ChangePlan,
+    ChangePlanBulk
   },
   data: () => ({
     loading: false,
@@ -154,6 +159,7 @@ export default {
     plan_id: null,
     membership_id: null,
     id: null,
+    selectedRows: [],
     fields: [
       '_',
       'full_name',
@@ -350,7 +356,7 @@ export default {
       const query = { ...this.$route.query }
       const { membership_id, id } = data.item
 
-      this.plan_id = id
+      this.plan_id = id //subscription id
       this.membership_id = membership_id
       this.$bvModal.show('change-plan')
     },
@@ -362,6 +368,24 @@ export default {
         query
       })
       this.plan_id = null
+    },
+    onMemberSelected(state, data) {
+      const { membership_id, id } = data.item
+
+      const subscriberData = {
+        membership_id: membership_id,
+        subscription_id: id
+      }
+      if (state) {
+        this.selectedRows.push(subscriberData)
+      } else {
+        // INFO - delete from array
+        const currentIndex = this.selectedRows.indexOf(subscriberData)
+        this.selectedRows.splice(currentIndex, 1)
+      }
+    },
+    upgradeBulkMembers(data) {
+      this.$bvModal.show('change-plan-for-bulk')
     }
   }
 }
