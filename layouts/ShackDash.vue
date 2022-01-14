@@ -33,14 +33,14 @@
           <sidebar-item
             :link="{ name: 'Members Due', path: `/${subdomain}/members-due` }"
           />
-          <!-- <sidebar-item
+          <sidebar-item
             :link="{
               name: 'Community',
               icon: 'fa fa-users',
               path: `/${subdomain}/community`,
             }"
           />
-          <sidebar-item
+          <!-- <sidebar-item
             :link="{ name: 'Corporate', path: `/${subdomain}/corporates` }"
           />
           <sidebar-item

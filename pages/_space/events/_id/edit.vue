@@ -46,7 +46,7 @@
                     id="capacity"
                     v-model="event.total_tickets"
                     class="col-md-6"
-                    label="Capacity"
+                    label="Capacity (Total Tickets)"
                     type="number"
                     placeholder="0"
                   />

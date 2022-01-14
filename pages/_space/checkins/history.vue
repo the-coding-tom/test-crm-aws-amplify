@@ -230,7 +230,7 @@ export default {
       const moment = require('moment')
 
       const link = `filter[status]=accepted&include=profile`
-      const checkinFilter = `?page=${route.query.page}`
+      const checkinFilter = `?page=${route.query.page}&sort=-id`
 
       let imeta, ilinks
 

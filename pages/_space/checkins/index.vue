@@ -233,7 +233,7 @@ export default {
         'YYYY-MM-DD'
       )},${moment()
         .add(1, 'days')
-        .format('YYYY-MM-DD')}&page=${route.query.page}`
+        .format('YYYY-MM-DD')}&page=${route.query.page}&sort=-id`
 
       let imeta, ilinks
 

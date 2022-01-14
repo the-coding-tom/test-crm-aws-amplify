@@ -251,7 +251,8 @@ export default {
         step: '00:15',
         end: '23:30'
       },
-      calendarPlugin: 'dayGridMonth,timeGridWeek',
+      calendarPlugin: 'dayGridMonth,timeGridWeek,listDay',
+      currentViewType: 'listYear',
       views: {
         listWeek: {
           noEventsMessage: 'No bookings to display'

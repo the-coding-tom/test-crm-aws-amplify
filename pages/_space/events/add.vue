@@ -38,7 +38,7 @@
                   id="capacity"
                   v-model="capacity"
                   class="col-md-6"
-                  label="Capacity"
+                  label="Capacity (Total Tickets)"
                   type="number"
                 />
                 <div class="form-group col-md-12">

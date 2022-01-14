@@ -5,8 +5,8 @@
       type="">
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle 
-          title="Members" 
-          subtitle="Invited" />
+          :subtitle="`${meta.total} Invites`" 
+          title="Members" />
         <SearchForm 
           :loading="loading" 
           @search="search" />
