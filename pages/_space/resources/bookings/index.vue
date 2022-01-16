@@ -184,6 +184,7 @@
               :events="bookings"
               :views="views"
               :right="calendarPlugin"
+              :default-view="'listWeek'"
               @eventClick="eventClick"
               @dateClick="bookDate"
               @dateChange="dateChange"
@@ -427,7 +428,8 @@ export default {
       }
     },
     viewSwitched(eventData) {
-      this.currentViewType = eventData.viewType
+      //this.currentViewType =
+      //eventData.viewType == 'listYear' ? 'listWeek' : eventData.viewType
     }
   }
 }
