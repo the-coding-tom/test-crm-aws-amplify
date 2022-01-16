@@ -184,10 +184,10 @@
               :events="bookings"
               :views="views"
               :right="calendarPlugin"
-              default-view="timeGridWeek"
               @eventClick="eventClick"
               @dateClick="bookDate"
               @dateChange="dateChange"
+              @viewSwitched="viewSwitched"
             />
           </client-only>
         </card>
@@ -251,8 +251,8 @@ export default {
         step: '00:15',
         end: '23:30'
       },
-      calendarPlugin: 'dayGridMonth,timeGridWeek,listDay',
-      currentViewType: 'listYear',
+      calendarPlugin: 'dayGridMonth,timeGridWeek,listWeek',
+      currentViewType: 'listWeek',
       views: {
         listWeek: {
           noEventsMessage: 'No bookings to display'
@@ -425,6 +425,9 @@ export default {
         )
         this.payCards = result.data
       }
+    },
+    viewSwitched(eventData) {
+      this.currentViewType = eventData.viewType
     }
   }
 }

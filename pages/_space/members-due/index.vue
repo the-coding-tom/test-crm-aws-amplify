@@ -21,6 +21,7 @@
         <b-dropdown
           id="dropdown-1"
           :text="`${dropdown} days`"
+          right="false"
           class="m-md-2"
           @click="handleClick"
         >
@@ -36,6 +37,10 @@
             @click="handleClick(-2)"
           >Do Not Renew</b-dropdown-item
           >
+          <b-dropdown-item 
+            @click="handleClick(-3)"
+          >Payment Declined</b-dropdown-item
+          >
           <b-dropdown-divider />
         </b-dropdown>
       </div>
@@ -50,6 +55,16 @@
           striped
           hover
         >
+          <template v-slot:cell(full_name)="data">
+            <nuxt-link
+              :to="{
+                name: 'space-directory-id',
+                params: { id: data.item.membership_id },
+              }"
+            >
+              {{ data.item.full_name }}</nuxt-link
+              >
+          </template>
           <template v-slot:cell(options)="data">
             <b-button
               variant="transparent"
@@ -115,14 +130,7 @@ export default {
     currentPage: 1,
     dropdown: 30,
     days: [30, 15, 5],
-    fields: [
-      'full_name',
-      'plan',
-      'start_date',
-      'end_date',
-      'renewal',
-      'options'
-    ]
+    fields: ['full_name', 'plan', 'start_date', 'end_date', 'status', 'options']
   }),
   computed: {
     rows() {
@@ -146,8 +154,12 @@ export default {
               slug: o.slug,
               start_date: o.starts_at,
               end_date: o.ends_at,
-              renewal:
-                o.state == 'manual-active' ? 'Do not auto renew' : 'auto renew',
+              status:
+                o.state == 'manual-active'
+                  ? 'Do not auto renew'
+                  : o.state == 'active'
+                    ? 'Auto-renewal'
+                    : 'payment declined',
               membership_id: o.user.uuid
             }
           })
@@ -179,8 +191,12 @@ export default {
             slug: o.slug,
             start_date: o.starts_at,
             end_date: o.ends_at,
-            renewal:
-              o.state == 'manual-active' ? 'Do not auto renew' : 'auto renew',
+            status:
+              o.state == 'manual-active'
+                ? 'Do not auto renew'
+                : o.state == 'active'
+                  ? 'Auto-renewal'
+                  : 'payment declined',
             membership_id: o.user.uuid
           }
         })
@@ -218,8 +234,12 @@ export default {
               slug: o.slug,
               start_date: o.starts_at,
               end_date: o.ends_at,
-              renewal:
-                o.state == 'manual-active' ? 'Do not auto renew' : 'auto renew',
+              status:
+                o.state == 'manual-active'
+                  ? 'Do not auto renew'
+                  : o.state == 'active'
+                    ? 'Auto-renewal'
+                    : 'payment declined',
               membership_id: o.user.uuid
             }
           })
