@@ -73,7 +73,7 @@
                       <label 
                         for="planvisibility" 
                         class="form-control-label"
-                      >Plan Status</label
+                      >Allow Auto-Renew</label
                       >
                       <b-row>
                         <b-col md="10">
@@ -82,7 +82,7 @@
                             :value="true"
                             :unchecked-value="false"
                             name="planVisibility"
-                          >Active</b-form-checkbox
+                          >Yes</b-form-checkbox
                           >
                           <p class="text-left mt-2">
                             Will be displayed in plans when inviting a new
