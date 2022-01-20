@@ -6,11 +6,7 @@
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle
           :subtitle="
-            viewing_plan_susbcriptions
-              ? plan_name
-              : dropdown > 0
-                ? `${dropdown} days left (${items.length})`
-                : `Expired (${items.length})`
+            viewing_plan_susbcriptions ? plan_name : `${items.length} profiles`
           "
           :title="
             viewing_plan_susbcriptions
