@@ -9,8 +9,8 @@
             viewing_plan_susbcriptions
               ? plan_name
               : dropdown > 0
-                ? `${dropdown} days left`
-                : 'Expired'
+                ? `${dropdown} days left (${items.length})`
+                : `Expired (${items.length})`
           "
           :title="
             viewing_plan_susbcriptions
@@ -18,6 +18,32 @@
               : 'Expiring Memberships'
           "
         />
+        <!-- <SearchFilter
+          :loading="loading"
+          :search-term="query"
+          @search="search"
+        /> -->
+
+        <template>
+          <base-input
+            input-group-classes="input-group-merge sh-search"
+            group
+            class="mb-0"
+            style="margin-left: auto"
+          >
+            <template slot="prepend"><i class="fa fa-search" /></template>
+            <input
+              v-model="query"
+              :required="required"
+              style="border-right: 0"
+              type="text"
+              class="form-control"
+              placeholder="Looking for ..."
+              aria-describedby="button-addon2"
+            >
+          </base-input>
+        </template>
+
         <b-dropdown
           id="dropdown-1"
           :text="`${dropdown} days`"
@@ -49,7 +75,7 @@
       <card>
         <b-table
           :busy="loading"
-          :items="items"
+          :items="filterMembersByName"
           :fields="fields"
           show-empty
           striped
@@ -114,11 +140,13 @@
 
 <script>
 import MainTitle from '~/components/shack/MainTitle.vue'
+import SearchFilter from '~/components/shack/SearchFilter.vue'
 
 export default {
   layout: 'ShackDash',
   components: {
-    MainTitle
+    MainTitle,
+    SearchFilter
   },
   data: () => ({
     loading: false,
@@ -127,6 +155,7 @@ export default {
     cards: [],
     perPage: 10,
     items: [],
+    query: '',
     currentPage: 1,
     dropdown: 30,
     days: [30, 15, 5],
@@ -135,6 +164,11 @@ export default {
   computed: {
     rows() {
       return this.items.length
+    },
+    filterMembersByName: function() {
+      return this.items.filter(item =>
+        item.full_name.match(new RegExp(this.query, 'i'))
+      )
     }
   },
   watch: {
@@ -321,6 +355,37 @@ export default {
             title: 'Error'
           })
         })
+    },
+    search(query) {
+      this.loading = !this.loading
+
+      this.items = this.items.filter(item =>
+        item.full_name.match(new RegExp(query, 'i'))
+      )
+      console.log(this.items)
+
+      this.loading = false
+
+      //const link = `filter[status]=invited&include=primaryPlan,profile&filter[search]=${query}`
+      // this.$membership
+      //   .getAllMemberships(link)
+      //   .then(({ data, links, meta }) => {
+      //     this.members = data
+      //     this.links = links
+      //     //this.meta = meta
+
+      //     this.loading = false
+      //   })
+      //   .catch(e => {
+      //     this.loading = !this.loading
+      //     this.$bvToast.toast(
+      //       e.response ? JSON.stringify(e.response.data.errors) : e.message,
+      //       {
+      //         title: 'Error',
+      //         variant: 'danger'
+      //       }
+      //     )
+      //   })
     }
   }
 }
