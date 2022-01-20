@@ -269,7 +269,9 @@ export default {
                   ? 'Do not auto renew'
                   : o.state == 'active'
                     ? 'Auto-renewal'
-                    : 'payment declined',
+                    : o.state == 'payment-declined'
+                      ? 'payment declined'
+                      : 'expired',
               membership_id: o.user.uuid
             }
           })
