@@ -9,7 +9,8 @@
         :key="room.id"
         v-model="selectedRoom"
         name="room"
-      >{{ room.name }}</b-form-radio>
+      >{{ room.name }}</b-form-radio
+      >
     </b-form-group>
     <div>
       <base-pagination
@@ -19,6 +20,7 @@
         size="sm"
         @next="next"
         @prev="prev"
+        @input="changePage"
       />
     </div>
   </div>
@@ -76,6 +78,10 @@ export default {
     prev() {
       const { prev } = this.links
       this.getRooms(prev)
+    },
+    changePage(pageNumber) {
+      const link = `${this.meta.path}?page=${pageNumber}`
+      this.getRooms(link)
     },
     getRooms(link) {
       this.$resource
