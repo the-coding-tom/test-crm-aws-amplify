@@ -2,10 +2,9 @@
   <card>
     <div
       slot="header"
-      class="d-flex align-items-center justify-content-between">
-      <div class="txt-upper">
-        CheckIn
-      </div>
+      class="d-flex align-items-center justify-content-between"
+    >
+      <div class="txt-upper">CheckIn</div>
       <div style="width: 200px">
         <no-ssr>
           <date-picker
@@ -32,10 +31,11 @@
         show-empty
         striped
         responsive="sm"
-        hover/>
+        hover
+      />
     </div>
-    <div
-      slot="footer"
+    <div 
+      slot="footer" 
       class="">
       <base-pagination
         :total="meta.total"
@@ -83,7 +83,7 @@ export default {
     getCheckInData() {
       const filter = `?filter[by_member]=${
         this.$route.params.id
-      }&filter[created_at]=${this.date[0]},${this.date[1]}`
+      }&filter[checkin_timestamp]=${this.date[0]},${this.date[1]}`
       this.$checkin
         .checkins(filter)
         .then(res => {
