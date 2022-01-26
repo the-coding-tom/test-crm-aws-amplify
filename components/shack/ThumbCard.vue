@@ -2,7 +2,16 @@
   <div class="col-md-3 sh-thumb">
     <card>
       <span
-        v-if="paused === 'paused' && resume_at == null"
+        v-if="paused === 'payment-declined'"
+        style="position: absolute; top: 10px; right: 10px"
+      ><b-badge 
+        pill 
+        variant="danger">{{
+          'Payment Failed ~ (Expired)'
+        }}</b-badge>
+      </span>
+      <span
+        v-else-if="paused === 'paused' && resume_at == null"
         style="position: absolute; top: 10px; right: 10px"
       ><b-badge 
         pill 

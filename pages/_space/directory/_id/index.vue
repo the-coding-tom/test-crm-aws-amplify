@@ -104,8 +104,8 @@
               </div>
               <div class="row mt-2">
                 <div class="col-md-6">
-                  <i class="fa fa-venus-mars" />
-                  {{ data.user_profile && data.user_profile.gender }}
+                  <i class="fa fa-phone" />
+                  {{ data.user_profile && data.user_profile.phone }}
                 </div>
                 <div class="col-md-6">
                   <i class="fa fa-globe" />
@@ -113,42 +113,32 @@
                 </div>
               </div>
               <div class="row mt-2">
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <i class="fa fa-user" />
                   {{ data.user_profile && data.user_profile.ethnicity }}
-                </div>
+                </div> -->
                 <div class="col-md-6">
-                  <i class="fa fa-phone" />
-                  {{ data.user_profile && data.user_profile.phone }}
+                  <i class="fa fa-venus-mars" />
+                  {{ data.user_profile && data.user_profile.gender }}
                 </div>
               </div>
               <div class="mt-4">
-                <div class="text-muted">Profile</div>
+                <!-- <div class="text-muted">Bio</div>
                 <p>
                   {{ data.user_profile && data.user_profile.bio }}
-                </p>
+                </p> -->
                 <div v-if="data.user_profile">
-                  <div class="text-muted">Cities</div>
-                  <badge
-                    v-for="(city, i) in data.user_profile.cities"
-                    :key="`${city}-${i}`"
-                    class="mr-1"
-                  >{{ city }}</badge
-                  >
-                  <div class="text-muted">Interests</div>
-                  <badge
-                    v-for="(interest, i) in data.user_profile.interests"
-                    :key="`${interest}-${i}`"
-                    class="mr-1"
-                  >{{ interest }}</badge
-                  >
-                  <div class="text-muted mt-2">Offers</div>
+                  <div class="text-muted">Company</div>
+                  <p class="mr-1 mb-2">{{ data.user_profile.company }}</p>
+                  <div class="text-muted">Position</div>
+                  <p class="mr-1 mb-2">{{ data.user_profile.profession }}</p>
+                  <!-- <div class="text-muted mt-2">Offers</div>
                   <badge
                     v-for="(offer, i) in data.user_profile.offers"
                     :key="`${offer}-${i}`"
                     class="mr-1"
                   >{{ offer }}</badge
-                  >
+                  > -->
                   <div class="text-muted mt-2">Skills</div>
                   <badge
                     v-for="(skill, i) in data.user_profile.skills"
@@ -157,6 +147,10 @@
                   >{{ skill }}</badge
                   >
                 </div>
+                <div class="text-muted mt-3">Bio</div>
+                <p>
+                  {{ data.user_profile && data.user_profile.bio }}
+                </p>
               </div>
               <div class="mt-4">
                 <p>
@@ -653,7 +647,12 @@
                   pill
                   style="margin-left: 20px"
                   variant="danger"
-                >{{ 'Paused' }}</b-badge
+                >{{ 'Paused on: '
+                }}<span style="color: black">{{
+                  $moment(data.subscriptions[0].paused_at).format(
+                    'MMM Do YYYY'
+                  )
+                }}</span></b-badge
                 >
                 <b-badge
                   v-if="
