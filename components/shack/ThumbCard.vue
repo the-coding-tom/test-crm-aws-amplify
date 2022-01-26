@@ -15,7 +15,7 @@
         style="position: absolute; top: 10px; right: 10px"
       ><b-badge 
         pill 
-        variant="danger">{{ 'Paused Membership' }}</b-badge>
+        variant="danger">{{ 'Paused membership' }}</b-badge>
       </span>
       <span
         v-else-if="paused_at != null && paused != 'paused'"
