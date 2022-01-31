@@ -19,7 +19,7 @@ export default function(ctx, inject) {
       if (!link) {
         return ctx.$axios.get(`${baseUrl()}`)
       }
-      // return ctx.$axios.get(`${baseUrl()}${link}`)
+      // return ctx.$axios.
       return ctx.$axios.get(`${link}`)
     },
     getARoom: id => {
