@@ -85,7 +85,7 @@ export default {
     },
     getRooms(link) {
       this.$resource
-        .getAllRooms(link)
+        .getRoomResources(link)
         .then(({ data }) => {
           this.meta = data.meta
           this.links = data.links

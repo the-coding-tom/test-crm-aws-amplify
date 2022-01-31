@@ -12,6 +12,13 @@ export default function(ctx, inject) {
       if (!link) {
         return ctx.$axios.get(`${baseUrl()}`)
       }
+      return ctx.$axios.get(`${baseUrl()}${link}`)
+      // return ctx.$axios.get(`${link}`)
+    },
+    getRoomResources: (link = null) => {
+      if (!link) {
+        return ctx.$axios.get(`${baseUrl()}`)
+      }
       // return ctx.$axios.get(`${baseUrl()}${link}`)
       return ctx.$axios.get(`${link}`)
     },

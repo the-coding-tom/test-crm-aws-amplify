@@ -89,16 +89,22 @@
                     v-if="!data.covid_declaration_completed"
                     href="#"
                     variant="danger"
+                    @click="toggleCovidCardStatus(true)"
                   >
-                    <i class="fa fa-exclamation-triangle" /> Covid vaccination
-                    ID not uploaded</b-badge
+                    <i
+                      class="fa fa-square"
+                      style="color: white; margin-right: 4px"
+                    />
+                    Covid vaccination ID not verfied</b-badge
                     >
-                  <b-badge 
-                    v-else 
-                    href="#" 
-                    variant="success">
+                  <b-badge
+                    v-else
+                    href="#"
+                    variant="success"
+                    @click="toggleCovidCardStatus(false)"
+                  >
                     <i class="fa fa-check" /> Covid vaccination ID
-                    uploaded</b-badge
+                    verfied</b-badge
                     >
                 </div>
               </div>
@@ -1560,6 +1566,28 @@ export default {
           this.loading = !this.loading
           displayError(e, this)
         })
+    },
+    toggleCovidCardStatus(state) {
+      console.log(state)
+      this.data.covid_declaration_completed = state
+      // this.loading = !this.loading
+
+      // this.$membership
+      //   .makePlanPrimary(this.$route.params.id, {
+      //     plan_id: state.plan_id
+      //   })
+      //   .then(res => {
+      //     this.loading = !this.loading
+
+      //     this.$bvToast.toast('Plan made primary', {
+      //       title: 'Success',
+      //       variant: 'success'
+      //     })
+      //   })
+      //   .catch(e => {
+      //     this.loading = !this.loading
+      //     displayError(e, this)
+      //   })
     }
   }
 }
