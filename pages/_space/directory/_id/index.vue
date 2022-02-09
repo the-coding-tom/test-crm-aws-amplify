@@ -1563,7 +1563,7 @@ export default {
           location.reload()
         })
         .catch(e => {
-          this.$bvToast.toast('Cancel failed', {
+          this.$bvToast.toast('Cancel failed ~ Try again', {
             title: 'Error',
             variant: 'danger'
           })
