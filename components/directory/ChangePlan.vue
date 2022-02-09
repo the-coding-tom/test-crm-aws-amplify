@@ -137,12 +137,15 @@ export default {
       }
 
       const { new_plan_id, plan_id, change } = this
+      const moment = require('moment')
 
       this.$membership
         .changePlan(id, {
           subscription_id: plan_id,
           new_plan_id,
-          due_date: change.dueDate
+          due_date: change.dueDate ?? moment(),
+          scheduled: !this.change.changeInstantly,
+          new_plan_name: ''
         })
         .then(({ data }) => {
           this.onPlanChangedSuccessfully()

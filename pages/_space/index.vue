@@ -1,11 +1,11 @@
 <template>
   <div>
-    <base-header
-      class="pb-6"
+    <base-header 
+      class="pb-6" 
       type>
       <div class="d-flex justify-content-between py-4">
-        <MainTitle
-          title="Dashboard"
+        <MainTitle 
+          title="Dashboard" 
           subtitle="This Month" />
       </div>
 
@@ -42,13 +42,14 @@
     <div class="container-fluid mt--6">
       <div class="card-deck flex-column flex-xl-row">
         <card>
-          <div
-            slot="header"
+          <div 
+            slot="header" 
             class="row align-items-center">
             <div class="col">
               <SectionTitle
                 title="Activity Feed"
-                subtitle="Usage Stream on Mobile Platform" />
+                subtitle="Usage Stream on Mobile Platform"
+              />
             </div>
           </div>
           <div class="m-n25 sh-activity">
@@ -57,7 +58,7 @@
                 <EmptyActivity v-if="activities.length === 0" />
                 <template v-else>
                   <Activity
-                    v-for="(activity) in activities"
+                    v-for="activity in activities"
                     :key="activity.id"
                     :date="getTimestamp(activity)"
                   >
@@ -69,18 +70,21 @@
           </div>
           <nuxt-link
             slot="footer"
-            :to="{name:'space-activities'}"
-            class="mr-t-10">See More</nuxt-link>
+            :to="{ name: 'space-activities' }"
+            class="mr-t-10"
+          >See More</nuxt-link
+          >
         </card>
 
         <card header-classes="bg-transparent">
-          <div
-            slot="header"
+          <div 
+            slot="header" 
             class="row align-items-center">
             <div class="col">
               <SectionTitle
                 title="Bookings"
-                subtitle="Space, Events, Meals, and Resources" />
+                subtitle="Space, Events, Meals, and Resources"
+              />
             </div>
           </div>
           <div class="m-n25 sh-activity sh-bookings">
@@ -91,9 +95,18 @@
                   <Booking
                     v-for="(booking, index) in bookings"
                     :key="index"
-                    :title="booking.title + ' ' + $moment(booking.start_timestamp).format('dddd MMM Do') + ' ' + booking.from + ' - ' + booking.to"
+                    :title="
+                      booking.title +
+                        ' ' +
+                        $moment(booking.start_timestamp).format('dddd MMM Do') +
+                        ' ' +
+                        booking.from +
+                        ' - ' +
+                        booking.to
+                    "
                     :img="booking.room.photo"
-                  >Room: {{ booking.room.name }}</Booking>
+                  >Room: {{ booking.room.name }}</Booking
+                  >
                 </template>
               </tbody>
             </table>
@@ -144,7 +157,11 @@ export default {
       const bookings = await $resource.getBookingByDate(payload)
       store.commit('activity/setActivityBookings', bookings.data)
 
-      const summaries = await $activity.getSummary()
+      const query = `?from=${$moment().format('YYYY-MM-DD')}&to=${$moment()
+        .add(1, 'days')
+        .format('YYYY-MM-DD')}`
+
+      const summaries = await $activity.getSummary(query)
       const data = {
         checkins: summaries['check-ins'].toString(),
         events: summaries['events'].toString(),

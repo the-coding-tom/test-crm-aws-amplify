@@ -644,52 +644,66 @@
               class="d-flex justify-content-between align-items-center"
             >
               <div class="txt-upper">
-                <span>MEMBERSHIP PLAN</span>
-                <b-badge
-                  v-if="
-                    data.subscriptions[0].state === 'paused' &&
-                      data.subscriptions[0].resume_on == null
-                  "
-                  pill
-                  style="margin-left: 20px"
-                  variant="danger"
-                >{{ 'Paused on: '
-                }}<span style="color: black">{{
-                  $moment(data.subscriptions[0].paused_at).format(
-                    'MMM Do YYYY'
-                  )
-                }}</span></b-badge
-                >
-                <b-badge
-                  v-if="
-                    data.subscriptions[0].resume_on != null &&
-                      data.subscriptions[0].state === 'paused'
-                  "
-                  pill
-                  style="margin-left: 20px"
-                  variant="primary"
-                >{{ 'Auto-resume on: '
-                }}<span style="color: black">{{
-                  $moment(data.subscriptions[0].resume_on).format(
-                    'MMM Do YYYY'
-                  )
-                }}</span></b-badge
-                >
-                <b-badge
-                  v-if="
-                    data.subscriptions[0].paused_at != null &&
-                      data.subscriptions[0].state != 'paused'
-                  "
-                  pill
-                  style="margin-left: 20px"
-                  variant="danger"
-                >{{ 'Auto-pause on: '
-                }}<span style="color: black">{{
-                  $moment(data.subscriptions[0].paused_at).format(
-                    'MMM Do YYYY'
-                  )
-                }}</span></b-badge
-                >
+                <span>MEMBERSHIP PLAN </span>
+                <div style="display: inline-flex; flex-direction: column">
+                  <badge
+                    v-if="scheduledSubscription.length > 0"
+                    style="margin-left: 20px; margin-bottom: 2px"
+                  >change to
+                    {{ scheduledSubscription[0]['subscription_name'] }}
+                    /
+                    {{
+                      $moment(
+                        scheduledSubscription[0]['subscription_start_date']
+                      ).format('MMM Do YYYY')
+                    }}</badge
+                    >
+                  <b-badge
+                    v-if="
+                      data.subscriptions[0].state === 'paused' &&
+                        data.subscriptions[0].resume_on == null
+                    "
+                    pill
+                    style="margin-left: 20px"
+                    variant="danger"
+                  >{{ 'Paused on: '
+                  }}<span style="color: black">{{
+                    $moment(data.subscriptions[0].paused_at).format(
+                      'MMM Do YYYY'
+                    )
+                  }}</span></b-badge
+                  >
+                  <b-badge
+                    v-if="
+                      data.subscriptions[0].resume_on != null &&
+                        data.subscriptions[0].state === 'paused'
+                    "
+                    pill
+                    style="margin-left: 20px"
+                    variant="primary"
+                  >{{ 'Auto-resume on: '
+                  }}<span style="color: black">{{
+                    $moment(data.subscriptions[0].resume_on).format(
+                      'MMM Do YYYY'
+                    )
+                  }}</span></b-badge
+                  >
+                  <b-badge
+                    v-if="
+                      data.subscriptions[0].paused_at != null &&
+                        data.subscriptions[0].state != 'paused'
+                    "
+                    pill
+                    style="margin-left: 20px"
+                    variant="danger"
+                  >{{ 'Auto-pause on: '
+                  }}<span style="color: black">{{
+                    $moment(data.subscriptions[0].paused_at).format(
+                      'MMM Do YYYY'
+                    )
+                  }}</span></b-badge
+                  >
+                </div>
               </div>
               <b-button
                 id="addPlanBtn"
@@ -797,7 +811,13 @@
                             <i class="fas fa-ellipsis-v" />
                           </template>
                           <b-dropdown-item
-                            v-if="
+                            v-if="scheduledSubscription.length > 0"
+                            href="#"
+                            @click="cancelScheduledPlanChange()"
+                          >Cancel Auto-change Plan</b-dropdown-item
+                          >
+                          <b-dropdown-item
+                            v-else-if="
                               subscription.state != 'paused' &&
                                 subscription.paused_at == null
                             "
@@ -844,7 +864,9 @@
               </table>
             </div>
           </card>
-          <card>
+          <!-- Subscription Change History -->
+          <subscription-history />
+          <!-- <card>
             <div
               slot="header"
               class="d-flex justify-content-between align-items-center"
@@ -871,7 +893,6 @@
                     responsive="sm"
                     @row-clicked="rowClicked"
                   >
-                    <!-- A custom formatted column -->
                     <template #cell(description)="data">
                       <div
                         style="
@@ -920,7 +941,7 @@
                 />
               </div>
             </template>
-          </card>
+          </card> -->
           <card>
             <div 
               slot="header" 
@@ -1032,6 +1053,7 @@ import AddCard from '~/components/directory/AddCard'
 import AddCustomCharge from '~/components/directory/AddCustomCharge'
 import EditCustomCharge from '~/components/directory/EditCustomCharge'
 import CheckIn from '~/components/shack/CheckIn'
+import SubscriptionHistory from '~/components/shack/SubscriptionHistory'
 import { mapState } from 'vuex'
 import { Drawer } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -1040,6 +1062,7 @@ export default {
   name: 'DirectoryProfile',
   layout: 'ShackDash',
   components: {
+    SubscriptionHistory,
     MainTitle,
     ProfileHead,
     ChangePlan,
@@ -1070,6 +1093,16 @@ export default {
       const paid_for = await $membership.getPaidFor(params.id).then(res => {
         return res.data
       })
+
+      const filter = `${
+        params.id
+      }/subscription/history?filter[scheduled_subscription]=true`
+
+      const scheduledSubscription = await $membership
+        .getSubscriptionHistory(filter)
+        .then(res => {
+          return res.data
+        })
 
       return await $membership
         .getAMembership(params.id)
@@ -1118,6 +1151,7 @@ export default {
             cards,
             events,
             subscriptions,
+            scheduledSubscription,
             customCharges: customCharges.returnedData,
             customChargesList,
             paid_for,
@@ -1508,6 +1542,28 @@ export default {
         })
         .catch(e => {
           this.$bvToast.toast('State update failed', {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
+    },
+    cancelScheduledPlanChange() {
+      //
+      this.$membership
+        .cancelScheduledPlanChange(this.$route.params.id, {
+          id: this.data.id,
+          spaceId: this.data.space_id,
+          state: 'inactive'
+        })
+        .then(({ data }) => {
+          this.$bvToast.toast('Cancelled successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+          location.reload()
+        })
+        .catch(e => {
+          this.$bvToast.toast('Cancel failed', {
             title: 'Error',
             variant: 'danger'
           })

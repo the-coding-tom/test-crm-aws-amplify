@@ -2,8 +2,8 @@ export default function(ctx, inject) {
   const subdomain = () => ctx.route.params.space
 
   const Activity = {
-    getSummary() {
-      return ctx.$axios.$get(`${subdomain()}/summary`)
+    getSummary(query) {
+      return ctx.$axios.$get(`${subdomain()}/summary${query}`)
     },
     getAllActivities() {
       return ctx.$axios.$get(`${subdomain()}/activities?sort=-created_at`)

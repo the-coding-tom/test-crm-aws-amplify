@@ -29,6 +29,11 @@ export default function(ctx, inject) {
         getError(e)
       })
     },
+    getSubscriptionHistory: link => {
+      return ctx.$axios.$get(`/${subdomain()}/memberships/${link}`).catch(e => {
+        getError(e)
+      })
+    },
     getAllMembers: (filter, link = null) => {
       if (!link) {
         return ctx.$axios.$get(`/${subdomain()}/all-members`).catch(e => {
@@ -151,6 +156,16 @@ export default function(ctx, inject) {
     getSubscriptions: id => {
       return ctx.$axios
         .$get(`/${subdomain()}/memberships/${id}/get-subscriptions`)
+        .catch(e => {
+          getError(e)
+        })
+    },
+    cancelScheduledPlanChange: (id, payload) => {
+      return ctx.$axios
+        .$post(
+          `/${subdomain()}/memberships/${id}/cancel-scheduled-plan-change`,
+          payload
+        )
         .catch(e => {
           getError(e)
         })
