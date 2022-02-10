@@ -169,6 +169,11 @@ export default {
         unpaidInvoices: summaries['unpaid-invoices']
       }
       store.commit('activity/setSummary', data)
+
+      return {
+        summary: data,
+        bookings: []
+      }
     } catch (err) {
       error({
         statusCode: err.status || 404,
@@ -181,9 +186,9 @@ export default {
   computed: {
     ...mapState({
       space: state => state.space.currentSpace,
-      summary: state => state.activity.summary,
-      activities: state => state.activity.activities.data,
-      bookings: state => state.activity.bookings.data
+      // summary: state => state.activity.summary,
+      activities: state => state.activity.activities.data
+      // bookings: state => state.activity.bookings.data
     })
   },
   methods: {
