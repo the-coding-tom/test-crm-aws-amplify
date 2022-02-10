@@ -142,8 +142,9 @@ export default {
   },
   async asyncData({ error, $activity, $resource, store, $moment }) {
     try {
-      const activities = await $activity.getAllActivities()
-      store.commit('activity/setActivities', activities)
+      const query = `?from=${$moment().format('YYYY-MM-DD')}&to=${$moment()
+        .add(1, 'days')
+        .format('YYYY-MM-DD')}`
 
       const payload = {
         from: $moment()
@@ -154,19 +155,18 @@ export default {
           .format('YYYY-MM-DD')
       }
 
+      const activities = await $activity.getAllActivities()
+      store.commit('activity/setActivities', activities)
+
       const bookings = await $resource.getBookingByDate(payload)
       store.commit('activity/setActivityBookings', bookings.data)
 
-      const query = `?from=${$moment().format('YYYY-MM-DD')}&to=${$moment()
-        .add(1, 'days')
-        .format('YYYY-MM-DD')}`
-
       const summaries = await $activity.getSummary(query)
       const data = {
-        checkins: summaries['check-ins'].toString(),
-        events: summaries['events'].toString(),
-        bookings: summaries['bookings'].toString(),
-        unpaidInvoices: summaries['unpaid-invoices'].toString()
+        checkins: summaries['check-ins'],
+        events: summaries['events'],
+        bookings: summaries['bookings'],
+        unpaidInvoices: summaries['unpaid-invoices']
       }
       store.commit('activity/setSummary', data)
     } catch (err) {
