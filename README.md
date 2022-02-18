@@ -23,9 +23,10 @@ $ yarn run test
 $ yarn run test:coverage
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+For a detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
 
 ## Deployment
+
 Refer to (AWS EBS CLI)[https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html] for the cli setup
 
 To deploy...Access the save configurations .elasticbeanstalk (shack15-cdn/configs/CRM)
