@@ -4,9 +4,9 @@ const config = require('dotenv').config()
 
 let baseURL = config.parsed.base_url
 
-// if (process.env.NODE_ENV == 'development') {
-//   baseURL = config.parsed.staging_base_url
-// }
+if (process.env.NODE_ENV == 'development') {
+  baseURL = config.parsed.staging_base_url
+}
 
 console.log('------------------------------------')
 console.log(baseURL)

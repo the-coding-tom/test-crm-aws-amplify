@@ -235,11 +235,11 @@ export default {
   methods: {
     next() {
       const { next } = this.links
-      this.$events.getAttendees(null, next)
+      this.$event.getAttendees(null, next)
     },
     prev() {
       const { prev } = this.links
-      this.$events.getAttendees(null, prev)
+      this.$event.getAttendees(null, prev)
     },
     getCards(source) {
       if (source !== 'card') return
