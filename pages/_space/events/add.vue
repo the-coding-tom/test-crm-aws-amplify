@@ -177,7 +177,7 @@
           <UploadButton
             v-model="hostLogo"
             service="event"
-            label="Upload Host Logo (<500KB & size 50x500)"
+            label="Upload Host Logo (<500KB & size 500x500)"
           />
         </card>
       </div>
