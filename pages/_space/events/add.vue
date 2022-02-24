@@ -1,6 +1,8 @@
 <template>
   <div>
-    <base-header class="pb-6" type>
+    <base-header 
+      class="pb-6" 
+      type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Add New Event" />
         <div>
@@ -8,10 +10,12 @@
             variant="transparent"
             class="text-danger"
             @click="addEvent('draft')"
-            ><i class="fa fa-save" /> Save As Draft & Close</b-button
+          ><i class="fa fa-save" /> Save As Draft & Close</b-button
           >
-          <b-button class="btn btn-primary text-white" @click="addEvent"
-            >Add Event</b-button
+          <b-button 
+            class="btn btn-primary text-white" 
+            @click="addEvent"
+          >Add Event</b-button
           >
         </div>
       </div>
@@ -45,7 +49,9 @@
                     placeholder="Add details about the event"
                   />
                 </div>
-                <b-form-group label="Start Date" class="col-md-6">
+                <b-form-group 
+                  label="Start Date" 
+                  class="col-md-6">
                   <client-only>
                     <date-picker
                       id="startTime"
@@ -67,7 +73,9 @@
                     />
                   </client-only>
                 </b-form-group>
-                <b-form-group label="End Date" class="col-md-6">
+                <b-form-group 
+                  label="End Date" 
+                  class="col-md-6">
                   <client-only>
                     <date-picker
                       id="endTime"
@@ -108,7 +116,9 @@
               <div class="row pd-l-20">
                 <div class="form-group col-md-12">
                   <label>Event Category:</label>
-                  <el-select v-model="category" placeholder="Select Category">
+                  <el-select 
+                    v-model="category" 
+                    placeholder="Select Category">
                     <el-option
                       v-for="category in categories"
                       :key="category.id"
@@ -135,18 +145,22 @@
                     required
                   />
                 </div>
-                <room v-if="!external" v-model="selectedRoom" />
+                <room 
+                  v-if="!external" 
+                  v-model="selectedRoom" />
 
                 <div class="form-group col-md-12">
                   <b-form-checkbox
                     id="sendMailCheckbox"
                     v-model="sendMail"
                     value="true"
-                    >Send email to attendees</b-form-checkbox
+                  >Send email to attendees</b-form-checkbox
                   >
                 </div>
 
-                <div v-if="sendMail" class="form-group col-md-12">
+                <div 
+                  v-if="sendMail" 
+                  class="form-group col-md-12">
                   <base-input
                     id="emailSubject"
                     v-model="emailSubject"
@@ -207,7 +221,7 @@ export default {
     HtmlEditor,
     [Select.name]: Select,
     [Option.name]: Option,
-    Room,
+    Room
   },
   async asyncData({ store, $event }) {
     await $event
@@ -215,7 +229,7 @@ export default {
       .then(({ data }) => {
         store.commit('events/setCategories', data)
       })
-      .catch((err) => {
+      .catch(err => {
         error({ statusCode: 404, message: 'Server Error. Try Again !!!' })
       })
   },
@@ -237,14 +251,14 @@ export default {
       max_ticket_per_person: null, //3,
       external: false,
       external_location: null,
-      banner_image: '',
+      banner_image: ''
     }
   },
   computed: {
     ...mapState({
-      categories: (state) => state.events.categories,
-      space: (state) => state.space.currentSpace.subdomain,
-    }),
+      categories: state => state.events.categories,
+      space: state => state.space.currentSpace.subdomain
+    })
   },
   mounted() {
     this.startTime = this.$moment().format('YYYY-MM-DD HH:00:00')
@@ -295,7 +309,7 @@ export default {
         email_subject: this.emailSubject,
         email_message: emailMessage,
         external_location: this.external_location,
-        banner_image: this.banner_image,
+        banner_image: this.banner_image
       }
 
       if (state === 'draft') eventDetails.is_drafted = true
@@ -306,7 +320,7 @@ export default {
           this.$bvToast.toast(`Event added successfully`, {
             title: 'Success',
             variant: 'success',
-            solid: true,
+            solid: true
           })
 
           if (state === 'draft')
@@ -317,10 +331,10 @@ export default {
           this.$bvToast.toast(JSON.stringify(response.data.errors), {
             title: 'Error',
             variant: 'danger',
-            solid: true,
+            solid: true
           })
         })
-    },
-  },
+    }
+  }
 }
 </script>

@@ -153,6 +153,7 @@
                 align="center"
                 @next="next"
                 @prev="prev"
+                @input="changePage"
               />
             </div>
           </card>
@@ -235,11 +236,21 @@ export default {
   methods: {
     next() {
       const { next } = this.links
-      this.$event.getAttendees(null, next)
+      this.$event.getAttendees(null, next).then(({ data }) => {
+        this.$store.commit('events/setAttendees', data)
+      })
     },
     prev() {
       const { prev } = this.links
-      this.$event.getAttendees(null, prev)
+      this.$event.getAttendees(null, prev).then(({ data }) => {
+        this.$store.commit('events/setAttendees', data)
+      })
+    },
+    changePage(pageNumber) {
+      const link = `${this.meta.path}?page=${pageNumber}`
+      this.$event.getAttendees(null, link).then(({ data }) => {
+        this.$store.commit('events/setAttendees', data)
+      })
     },
     getCards(source) {
       if (source !== 'card') return
