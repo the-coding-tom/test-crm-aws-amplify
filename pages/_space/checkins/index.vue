@@ -211,6 +211,8 @@ import { Select, Option } from 'element-ui'
 import { displayError } from '../../../util/errors'
 import { mapState } from 'vuex'
 
+const moment = require('moment')
+
 export default {
   name: 'Checkin',
   layout: 'ShackDash',
@@ -226,8 +228,6 @@ export default {
   },
   async asyncData({ $membership, $checkin, error, route }) {
     try {
-      const moment = require('moment')
-
       const link = 'filter[status]=accepted&include=profile'
       const checkinFilter = `?filter[status]=checkin&filter[checkin_timestamp]=${moment().format(
         'YYYY-MM-DD'

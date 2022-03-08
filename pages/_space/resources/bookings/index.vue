@@ -323,8 +323,17 @@ export default {
       this.searching = !this.searching
     },
     eventClick(e) {
-      this.bookdata.from = this.$moment(e.start).format('YYYY-MM-DD HH:mm')
-      this.bookdata.to = this.$moment(e.end).format('YYYY-MM-DD HH:mm')
+      console.log(
+        this.$moment(e.start)
+          .utc()
+          .format()
+      )
+      this.bookdata.from = this.$moment(e.start)
+        .utc()
+        .format('YYYY-MM-DD HH:mm')
+      this.bookdata.to = this.$moment(e.end)
+        .utc()
+        .format('YYYY-MM-DD HH:mm')
       this.bookdata.title = e.title
       this.bookdata.membership_id = e.extendedProps.extendProps.membership.id
       this.bookdata.room_id = e.extendedProps.extendProps.room.id

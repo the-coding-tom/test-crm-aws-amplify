@@ -303,7 +303,10 @@ export const actions = {
       const { data } = await this.$resource.getAllBookings()
       const calendarBookings = _.map(data.data, o => {
         return {
-          title: o.title,
+          title: `${o.room.name} // ${o.membership.first_name} ${
+            o.membership.last_name
+          } (${o.room.capacity} People)`,
+          // title: o.title,
           start: o.start_timestamp,
           end: o.end_timestamp,
           backgroundColor: o.room && `${o.room.category.color}2A`,
@@ -326,7 +329,9 @@ export const actions = {
       const { data } = await this.$resource.getBookingByDate(payload)
       const calendarBookings = _.map(data.data, o => {
         return {
-          title: o.title,
+          title: `${o.room.name} // ${o.membership.first_name} ${
+            o.membership.last_name
+          } (${o.room.capacity} People)`,
           start: o.start_timestamp,
           end: o.end_timestamp,
           backgroundColor: o.room && `${o.room.category.color}2A`,
@@ -351,7 +356,9 @@ export const actions = {
       const { data } = await this.$resource.getBookingByDate(payload)
       const calendarBookings = _.map(data.data, o => {
         return {
-          title: o.title,
+          title: `${o.room.name} // ${o.membership.first_name} ${
+            o.membership.last_name
+          } (${o.room.capacity} People)`,
           start: o.start_timestamp,
           end: o.end_timestamp,
           backgroundColor: o.room && `${o.room.category.color}2A`,
