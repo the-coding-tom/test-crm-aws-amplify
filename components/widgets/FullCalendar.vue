@@ -78,7 +78,6 @@ export default {
       this.$emit('eventClick', event)
     },
     dateClick(event) {
-      console.log(event.dateStr.replaceAll('Z', '').replaceAll('T', ' '))
       this.$emit(
         'dateClick',
         event.dateStr.replaceAll('Z', '').replaceAll('T', ' ')
