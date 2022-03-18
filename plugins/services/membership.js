@@ -180,6 +180,16 @@ export default function(ctx, inject) {
           getError(e)
         })
     },
+    changeFreeRenewalState: (id, payload) => {
+      return ctx.$axios
+        .$post(
+          `/${subdomain()}/memberships/${id}/change-free-renewal-state`,
+          payload
+        )
+        .catch(e => {
+          getError(e)
+        })
+    },
     cancelSubscription: (id, plan) => {
       return ctx.$axios.$delete(
         `/${subdomain()}/memberships/${id}/cancelplan`,

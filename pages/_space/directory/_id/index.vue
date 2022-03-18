@@ -332,7 +332,7 @@
                       <td
                         style="flex-grow: 1; flex-basis: 80px; text-align: left"
                       >
-                        Expiration date:
+                        expires on:
                         {{
                           getExpDetails(
                             data.room_booking_credit_expiration_date
@@ -398,97 +398,6 @@
                         <div
                           style="display: inline-block"
                           @click="
-                            food_edit_disabled =
-                              data.food_ordering_credit_expiration_date != null
-                                ? false
-                                : true
-                          "
-                          @change="food_edit_disabled = true"
-                        >
-                          <input
-                            v-model="data.food_ordering_credit_amount"
-                            :disabled="food_edit_disabled ? 'disabled' : none"
-                            type="number"
-                          >
-                        </div>
-                        <!-- <b-popover
-                          target="balance"
-                          placement="top"
-                          content="Click on the amount to edit"
-                          triggers="hover focus"
-                        /> -->
-                      </td>
-                      <td
-                        style="flex-grow: 1; flex-basis: 80px; text-align: left"
-                      >
-                        Expiration date:
-                        {{
-                          getExpDetails(
-                            data.food_ordering_credit_expiration_date
-                          )
-                        }}
-                      </td>
-                      <td>
-                        <b-badge 
-                          href="#" 
-                          variant="primary">
-                          Food & Drinks</b-badge
-                          >
-                          <!-- <b-button
-                          v-if="
-                            data.food_ordering_credit_amount !==
-                              previousFoodCreditBalance
-                          "
-                          id="save-credit"
-                          size="sm"
-                          variant="transparent"
-                          class="text-primary"
-                          @click="saveChanges('food-ordering')"
-                        ><i 
-                          class="fa fa-save"
-                        /></b-button>
-                        <b-popover
-                          v-if="
-                            data.food_ordering_credit_amount !==
-                              previousFoodCreditBalance
-                          "
-                          target="save-credit"
-                          placement="top"
-                          content="Save changes"
-                          triggers="hover focus"
-                        />
-                        <b-button
-                          v-if="
-                            data.food_ordering_credit_amount ===
-                              previousFoodCreditBalance
-                          "
-                          id="edit-credit"
-                          size="sm"
-                          variant="transparent"
-                          class="text-danger"
-                          @click="disabled = false"
-                        ><i 
-                          class="fa fa-edit"
-                        /></b-button>
-                        <b-popover
-                          v-if="
-                            data.food_ordering_credit_amount ===
-                              previousFoodCreditBalance
-                          "
-                          target="edit-credit"
-                          placement="top"
-                          content="Edit credit"
-                          triggers="hover focus"
-                        /> -->
-                      </td>
-                    </div>
-                  </tr>
-                  <tr>
-                    <div style="display: flex">
-                      <td id="balance">
-                        <div
-                          style="display: inline-block"
-                          @click="
                             event_edit_disabled =
                               data.event_booking_credit_expiration_date != null
                                 ? false
@@ -512,7 +421,7 @@
                       <td
                         style="flex-grow: 1; flex-basis: 80px; text-align: left"
                       >
-                        Expiration date:
+                        expires on:
                         {{
                           getExpDetails(
                             data.event_booking_credit_expiration_date
@@ -715,7 +624,9 @@
                 <i class="fa fa-plus" /> Add New Plan
               </b-button>
             </div>
-            <div class="m-n25">
+            <div 
+              class="m-n25" 
+              style="overflow-x: scroll">
               <table class="table table-hover table-striped">
                 <tbody>
                   <tr
@@ -776,30 +687,65 @@
                         ><i 
                           class="fa fa-trash"
                         /></b-button> -->
-                        <div style="display: inline-block">Auto Renew</div>
-                        <div style="display: inline-block">
-                          <b-form-checkbox
-                            v-model="subscription.state"
-                            switch
-                            value="active"
-                            unchecked-value="manual-active"
-                            size="lg"
-                            variant="success"
-                            @change="autoRenewSubscriptionToggle"
-                          >
-                            <span
-                              v-if="subscription.state == 'active'"
-                              style="visibility: hidden"
-                              class="text-success"
-                            >A</span
-                            >
-                            <span
-                              v-else
-                              style="visibility: hidden"
-                              class="text-muted"
-                            >M</span
-                            >
-                          </b-form-checkbox>
+                        <div
+                          style="display: inline-flex; flex-direction: column"
+                        >
+                          <div>
+                            <div style="display: inline-block">Auto Renew</div>
+                            <div style="display: inline-block">
+                              <b-form-checkbox
+                                v-model="subscription.state"
+                                switch
+                                value="active"
+                                unchecked-value="manual-active"
+                                size="lg"
+                                variant="success"
+                                @change="autoRenewSubscriptionToggle"
+                              >
+                                <span
+                                  v-if="subscription.state == 'active'"
+                                  style="visibility: hidden"
+                                  class="text-success"
+                                >A</span
+                                >
+                                <span
+                                  v-else
+                                  style="visibility: hidden"
+                                  class="text-muted"
+                                >M</span
+                                >
+                              </b-form-checkbox>
+                            </div>
+                          </div>
+                          <div class="mt-2">
+                            <div style="display: inline-block">
+                              Free Membership
+                            </div>
+                            <div style="display: inline-block">
+                              <b-form-checkbox
+                                v-model="data.renew_for_free"
+                                switch
+                                value="true"
+                                unchecked-value="false"
+                                size="lg"
+                                variant="success"
+                                @change="freeSubscriptionToggle"
+                              >
+                                <span
+                                  v-if="data.renew_for_free"
+                                  style="visibility: hidden"
+                                  class="text-success"
+                                >A</span
+                                >
+                                <span
+                                  v-else
+                                  style="visibility: hidden"
+                                  class="text-muted"
+                                >M</span
+                                >
+                              </b-form-checkbox>
+                            </div>
+                          </div>
                         </div>
                         <b-dropdown
                           right
@@ -1356,6 +1302,28 @@ export default {
           id: this.data.id,
           spaceId: this.data.space_id,
           subscriptionState: state
+        })
+        .then(({ data }) => {
+          this.$bvToast.toast('State updated successfully', {
+            title: 'Success',
+            variant: 'success'
+          })
+          location.reload()
+        })
+        .catch(e => {
+          this.$bvToast.toast('State update failed', {
+            title: 'Error',
+            variant: 'danger'
+          })
+        })
+    },
+    freeSubscriptionToggle(state) {
+      //
+      this.$membership
+        .changeFreeRenewalState(this.$route.params.id, {
+          id: this.data.id,
+          spaceId: this.data.space_id,
+          renew_for_free: state
         })
         .then(({ data }) => {
           this.$bvToast.toast('State updated successfully', {

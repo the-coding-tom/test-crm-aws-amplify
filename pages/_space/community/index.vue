@@ -1,19 +1,18 @@
 <template>
   <div>
-    <TopAlert
-      v-if="postMessage.show"
-      :type=" postMessage.type">
+    <TopAlert 
+      v-if="postMessage.show" 
+      :type="postMessage.type">
       <i :class="postMessage.icon" /> {{ postMessage.text }}
     </TopAlert>
-    <base-header
-      class="pb-6"
+    <base-header 
+      class="pb-6" 
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle title="Community" />
       </div>
     </base-header>
-    <b-form @submit.prevent="postFeed">
-
+    <b-form @submit.prevent="showPreview">
       <div class="container-fluid mt--6 sh_community-post">
         <div class="row">
           <div class="col-md-5">
@@ -36,43 +35,173 @@
               </div>
               <div
                 v-if="addFeed.attachment_url"
-                class="d-flex sh_modal-resource justify-content-between align-items-center bdr-b pd-b-10 mr-b-10"
+                class="
+                  d-flex
+                  sh_modal-resource
+                  justify-content-between
+                  align-items-center
+                  bdr-b
+                  pd-b-10
+                  mr-b-10
+                "
               >
                 <div class="d-flex align-items-center">
                   <img
                     :src="addFeed.attachment_url"
                     class="avatar mr-r-10"
-                    alt="">
+                    alt=""
+                  >
                   <div>
-                    <strong v-if="addFeed.attachment_text">{{ addFeed.attachment_text }}</strong> <br >
-                    <span
-                      v-if="addFeed.start_time"
-                      class="text-muted">{{ $moment(addFeed.start_time).format('MMM Do YY, h:mm') }} - {{ $moment(addFeed.end_time).format('MMM Do YY, h:mm') }} | {{ addFeed.category }}</span>
+                    <strong v-if="addFeed.attachment_text">{{
+                      addFeed.attachment_text
+                    }}</strong>
+                    <br >
+                    <span 
+                      v-if="addFeed.start_time" 
+                      class="text-muted"
+                    >{{
+                      $moment(addFeed.start_time).format('MMM Do YY, h:mm')
+                    }}
+                      -
+                      {{ $moment(addFeed.end_time).format('MMM Do YY, h:mm') }}
+                      | {{ addFeed.category }}</span
+                      >
                   </div>
                 </div>
                 <a
                   href="javascript:void(0)"
                   class="align-self-start"
-                  @click="removeAttach"><i class="fa fa-times"/></a>
+                  @click="removeAttach"
+                ><i 
+                  class="fa fa-times"
+                /></a>
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <AttachButton />
                 <button
                   :disabled="isLoading"
                   type="submit"
-                  class="btn btn-default">SHARE
-              </button></div>
+                  class="btn btn-default"
+                >
+                  SHARE
+                </button>
+              </div>
             </card>
+
+            <b-modal 
+              id="previewModal" 
+              size="lg">
+              <template v-slot:modal-title>
+                <b-row>
+                  <b-col md="12">
+                    <p class="d-flex align-items-center text-muted">
+                      {{ $moment().format('MMMM DD YYYY') }},
+                      {{ $moment().format('HH:mm') }}
+                      <i 
+                        class="fa fa-circle mx-2" 
+                        style="font-size: 5px" />
+                    </p>
+                  </b-col>
+                </b-row>
+              </template>
+              <!-- <b-row>
+                <b-col md="12">
+                  <p class="d-flex align-items-center text-muted">
+                    {{ this.$moment().format('MMMM DD YYYY') }},
+                    {{ this.$moment().format('HH:mm') }}
+                    <i 
+                      class="fa fa-circle mx-2" 
+                      style="font-size: 5px" />
+                  </p>
+                </b-col>
+              </b-row> -->
+              <!-- <b-row> -->
+              <!-- <b-col md="12"> -->
+              <span>{{ feed_text }}</span>
+              <!-- </b-col> -->
+              <!-- </b-row> -->
+              <!-- <b-row class="mt-2 text-muted">
+                <b-col md="12">
+                  <p>
+                    published by:
+                    {{ 'Admin Name' }}
+                  </p>
+                </b-col>
+              </b-row> -->
+              <b-row>
+                <b-col md="12">
+                  <!-- <badge type="info">{{ 'ALL MEMBERS' }}</badge> -->
+                </b-col>
+              </b-row>
+              <template v-slot:modal-footer>
+                <div class="w-100">
+                  <template>
+                    <b-button
+                      class="float-left"
+                      variant="primary"
+                      @click="postFeed"
+                    >Publish Post</b-button
+                    >
+                    Send to:
+                    <b-form-select
+                      v-model="recipientTypeCode"
+                      :options="options"
+                      style="max-width: 200px"
+                    />
+                    <!-- <b-button
+                      class="text-primary float-left"
+                      variant="transparent"
+                    ><i class="fa fa-pen" /> Edit Post</b-button
+                    > -->
+                  </template>
+                  <!-- <b-button
+                    :to="{
+                      name: 'space-events-id-edit',
+                      params: { id: currentEvent.id },
+                    }"
+                    class="float-left"
+                    variant="primary"
+                  >Edit Event</b-button
+                  > -->
+                  <!-- <b-button
+                    :to="{
+                      name: 'space-events-id',
+                      params: { id: currentEvent.id },
+                    }"
+                    variant="transparent"
+                    class="text-primary float-left"
+                  ><i class="fa fa-eye" /> Preview</b-button
+                  >
+                  <b-button
+                    :to="{
+                      name: 'space-events-id-attendees',
+                      params: { id: currentEvent.id },
+                    }"
+                    variant="transparent"
+                    class="text-primary float-left"
+                  ><i class="fa fa-copy" /> View Attendees</b-button
+                  > -->
+                  <!-- <b-button
+                    variant="transparent"
+                    class="text-danger float-right"
+                    @click="showConfirmationAlert"
+                  >
+                    <i class="fa fa-times" /> Cancel
+                  </b-button> -->
+                </div>
+              </template>
+            </b-modal>
 
             <a
               href="javascript:void(0)"
               class="text-muted mr-b-30 block"
-              @click="modals.classic = true">
+              @click="modals.classic = true"
+            >
               <i class="fa fa-question-circle" /> What can I attach to a post?
             </a>
             <modal :show.sync="modals.classic">
-              <h3
-                slot="header"
+              <h3 
+                slot="header" 
                 class="mr-tb-20">
                 <i class="fa fa-question-circle" /> What can I attach to a post?
               </h3>
@@ -80,9 +209,7 @@
                 This space is where members find answers, recommendations or
                 meetups by submitting a request to the SHACK15 Community.
               </p>
-              <h3 class="u-line mr-b-10">
-                WHAT TO ATTACH
-              </h3>
+              <h3 class="u-line mr-b-10">WHAT TO ATTACH</h3>
               <ul class="pd-l-10">
                 <li>Events which have been created</li>
                 <li>Image on events happening within space</li>
@@ -90,8 +217,8 @@
               </ul>
             </modal>
 
-            <card
-              v-for="feed in feeds"
+            <card 
+              v-for="feed in feeds" 
               :key="feed.id">
               <div class="d-flex justify-content-between">
                 <div class="d-flex align-items-center">
@@ -108,8 +235,8 @@
                     </div>
                   </div>
                 </div>
-                <b-dropdown
-                  no-caret
+                <b-dropdown 
+                  no-caret 
                   class="sh_postdd">
                   <template v-slot:button-content>
                     <!-- <i class="ti-pin-alt" />Pinned Post -->
@@ -123,7 +250,8 @@
                   <button
                     type="button"
                     class="dropdown-item text-danger"
-                    @click="deleteFeed(feed.id)">
+                    @click="deleteFeed(feed.id)"
+                  >
                     <i class="ti-trash" /> Delete Post
                   </button>
                 </b-dropdown>
@@ -135,37 +263,80 @@
 
               <!-- <AttachButton class="mr-t-20 mr-b-10 bdr-b" /> -->
 
-              <div
+              <!-- <div
                 v-if="feed.attachments.length > 0"
-                class="d-flex align-items-center">
+                class="d-flex align-items-center"
+              >
                 <div v-if="feed.attachments[0].type == 'wellness'">
                   <img
                     :src="feed.attachments[0].wellness.banner_url"
                     class="avatar mr-r-10 mt-1"
-                    alt="">
+                    alt=""
+                  >
                   <div class="mt-1">
-                    <p><strong>{{ feed.attachments[0].wellness.name }}</strong> </p>
-                    <span class="text-muted">{{ $moment(feed.attachments[0].wellness.start_date).format('MMM Do YY, h:mm') }} - {{ $moment(feed.attachments[0].wellness.end_date).format('MMM Do YY, h:mm') }} | <b-badge>{{ feed.attachments[0].wellness.wellness_category.name }}</b-badge>  </span>
+                    <p>
+                      <strong>{{ feed.attachments[0].wellness.name }}</strong>
+                    </p>
+                    <span 
+                      class="text-muted"
+                    >{{
+                      $moment(feed.attachments[0].wellness.start_date).format(
+                        'MMM Do YY, h:mm'
+                      )
+                    }}
+                      -
+                      {{
+                        $moment(feed.attachments[0].wellness.end_date).format(
+                          'MMM Do YY, h:mm'
+                        )
+                      }}
+                      |
+                      <b-badge>{{
+                        feed.attachments[0].wellness.wellness_category.name
+                      }}</b-badge>
+                    </span>
                   </div>
                 </div>
                 <div v-if="feed.attachments[0].type == 'event'">
                   <img
                     :src="feed.attachments[0].event.banner_url"
                     class="avatar mr-r-10 mt-1"
-                    alt="">
+                    alt=""
+                  >
                   <div class="mt-1">
-                    <p><strong>{{ feed.attachments[0].event.name }}</strong> </p>
-                    <span class="text-muted">{{ $moment(feed.attachments[0].event.start_time).format('MMM Do YY, h:mm') }} - {{ $moment(feed.attachments[0].event.end_time).format('MMM Do YY, h:mm') }} | <b-badge> {{ feed.attachments[0].event.event_category.name }}</b-badge></span>
+                    <p>
+                      <strong>{{ feed.attachments[0].event.name }}</strong>
+                    </p>
+                    <span 
+                      class="text-muted"
+                    >{{
+                      $moment(feed.attachments[0].event.start_time).format(
+                        'MMM Do YY, h:mm'
+                      )
+                    }}
+                      -
+                      {{
+                        $moment(feed.attachments[0].event.end_time).format(
+                          'MMM Do YY, h:mm'
+                        )
+                      }}
+                      |
+                      <b-badge>
+                        {{
+                          feed.attachments[0].event.event_category.name
+                        }}</b-badge
+                    ></span
+                    >
                   </div>
                 </div>
                 <div v-if="feed.attachments[0].type == 'image'">
                   <img
                     :src="feed.attachments[0].attachment_url"
                     class="avatar mr-r-10"
-                    alt="">
+                    alt=""
+                  >
                 </div>
-
-              </div>
+              </div> -->
             </card>
           </div>
         </div>
@@ -198,7 +369,12 @@ export default {
     return {
       modals: {
         classic: false
-      }
+      },
+      currentEvent: {},
+      options: [
+        { value: 0, text: 'All members' },
+        { value: 1, text: 'Only Checked-in Members' }
+      ]
     }
   },
   computed: {
@@ -209,11 +385,19 @@ export default {
       postMessage: state => state.community.postMessage
     }),
     ...mapFields({
-      feed_text: 'community.addFeed.feed_text'
+      feed_text: 'community.addFeed.feed_text',
+      recipientTypeCode: 'community.addFeed.recipientTypeCode'
     })
   },
   methods: {
+    showPreview(message) {
+      // this.currentEvent = event
+      // console.log(event)
+      this.$bvModal.show('previewModal')
+    },
     postFeed() {
+      this.$bvModal.hide('previewModal')
+
       this.$store.commit('community/setIsLoading')
       this.$store.dispatch('community/createFeed')
     },

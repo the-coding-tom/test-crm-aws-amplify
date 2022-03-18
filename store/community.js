@@ -9,7 +9,8 @@ export const state = () => ({
     attachment_text: null,
     start_time: null,
     end_time: null,
-    category: null
+    category: null,
+    recipientTypeCode: 0
   },
   isLoading: false,
   postMessage: {
