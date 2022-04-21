@@ -339,6 +339,7 @@ export default {
               }
             )
             this.$bvModal.hide('renew')
+            location.reload()
           }
         })
         .catch(e => {

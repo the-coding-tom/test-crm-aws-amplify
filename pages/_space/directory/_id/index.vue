@@ -1,10 +1,14 @@
 <template>
   <div>
-    <base-header class="pb-6" type="">
+    <base-header 
+      class="pb-6" 
+      type="">
       <div class="row py-4">
         <div class="col-md-6">
           <div class="d-flex justify-content-between">
-            <MainTitle title="Directory" subtitle="Profile" />
+            <MainTitle 
+              title="Directory" 
+              subtitle="Profile" />
             <div class="d-flex align-items-center">
               <b-form-checkbox
                 v-model="checkin.status"
@@ -15,10 +19,14 @@
                 variant="success"
                 @change="checkinToggle"
               >
-                <span v-if="checkin.status == 'checkin'" class="text-success"
-                  >Checked in</span
+                <span 
+                  v-if="checkin.status == 'checkin'" 
+                  class="text-success"
+                >Checked in</span
                 >
-                <span v-else class="text-muted">Checked Out</span>
+                <span 
+                  v-else 
+                  class="text-muted">Checked Out</span>
               </b-form-checkbox>
             </div>
           </div>
@@ -74,7 +82,9 @@
                 <div class="col-md-6">
                   <i class="fa fa-envelope" /> {{ data.email }}
                 </div>
-                <div class="col-md-6" style="color: red">
+                <div 
+                  class="col-md-6" 
+                  style="color: red">
                   <b-badge
                     v-if="!data.covid_declaration_completed"
                     href="#"
@@ -86,7 +96,7 @@
                       style="color: white; margin-right: 4px"
                     />
                     Covid vaccination ID not verfied</b-badge
-                  >
+                    >
                   <b-badge
                     v-else
                     href="#"
@@ -95,7 +105,7 @@
                   >
                     <i class="fa fa-check" /> Covid vaccination ID
                     verfied</b-badge
-                  >
+                    >
                 </div>
               </div>
               <div class="row mt-2">
@@ -140,7 +150,7 @@
                     v-for="(skill, i) in data.user_profile.skills"
                     :key="`${skill}-${i}`"
                     class="mr-1"
-                    >{{ skill }}</badge
+                  >{{ skill }}</badge
                   >
                 </div>
                 <div class="text-muted mt-3">Bio</div>
@@ -177,13 +187,15 @@
                 <span>Last Checkin Timestamp:</span>
                 {{
                   data.last_checkin[0] &&
-                  $moment(data.last_checkin[0].checkin_timestamp).format(
-                    'MMMM DD, YYYY HH:mm:ss'
-                  )
+                    $moment(data.last_checkin[0].checkin_timestamp).format(
+                      'MMMM DD, YYYY HH:mm:ss'
+                    )
                 }}
               </div>
 
-              <hr class="w-25 bg-dark3 text-default" align="left" />
+              <hr 
+                class="w-25 bg-dark3 text-default" 
+                align="left" >
 
               <span v-html="getExtras(data.extras)" />
 
@@ -194,20 +206,22 @@
                     name: 'space-memberships-id',
                     params: { id: data.paid_by },
                   }"
-                  >{{ data.payee_name }}</nuxt-link
+                >{{ data.payee_name }}</nuxt-link
                 >
               </div>
               <div class="sh-dls">
                 <span> Paying for:</span>
-                <span v-for="paid in paid_for" :key="paid.id"
-                  ><nuxt-link
-                    v-if="paid_for.length > 0"
-                    :to="{
-                      name: 'space-memberships-id',
-                      params: { id: paid.id },
-                    }"
-                    >{{ paid.first_name }} {{ paid.last_name }}</nuxt-link
-                  >,
+                <span 
+                  v-for="paid in paid_for" 
+                  :key="paid.id"
+                ><nuxt-link
+                  v-if="paid_for.length > 0"
+                  :to="{
+                    name: 'space-memberships-id',
+                    params: { id: paid.id },
+                  }"
+                >{{ paid.first_name }} {{ paid.last_name }}</nuxt-link
+                >,
                 </span>
               </div>
             </div>
@@ -241,7 +255,9 @@
               <div class="m-n25">
                 <table class="table table-hover table-striped">
                   <tbody>
-                    <tr v-for="(card, i) in cards" :key="card.id">
+                    <tr 
+                      v-for="(card, i) in cards" 
+                      :key="card.id">
                       <td>
                         {{ card.card_brand }}
                       </td>
@@ -257,7 +273,8 @@
                           variant="transparent"
                           class="text-danger"
                           @click="removeMemberSource(i)"
-                          ><i class="fa fa-trash"
+                        ><i 
+                          class="fa fa-trash"
                         /></b-button>
                       </td>
                     </tr>
@@ -303,7 +320,7 @@
                               booking_edit_disabled ? 'disabled' : none
                             "
                             type="number"
-                          />
+                          >
                         </div>
                         <!-- <b-popover
                           target="balance"
@@ -323,8 +340,10 @@
                         }}
                       </td>
                       <td>
-                        <b-badge href="#" variant="primary"> Rooms</b-badge>
-                        <!-- <b-button
+                        <b-badge 
+                          href="#" 
+                          variant="primary"> Rooms</b-badge>
+                          <!-- <b-button
                           v-if="
                             data.room_booking_credit_amount !==
                               previousRoomCreditBalance
@@ -390,7 +409,7 @@
                             v-model="data.event_booking_credit_amount"
                             :disabled="event_edit_disabled ? 'disabled' : none"
                             type="number"
-                          />
+                          >
                         </div>
                         <!-- <b-popover
                           target="balance"
@@ -410,8 +429,10 @@
                         }}
                       </td>
                       <td>
-                        <b-badge href="#" variant="primary"> Events</b-badge>
-                        <!-- <b-button
+                        <b-badge 
+                          href="#" 
+                          variant="primary"> Events</b-badge>
+                          <!-- <b-button
                           v-if="
                             data.event_booking_credit_amount !==
                               previousEventCreditBalance
@@ -487,7 +508,7 @@
                             v-model="member_guests"
                             :disabled="guestsDisabled ? 'disabled' : none"
                             type="number"
-                          />
+                          >
                         </div>
                         <b-popover
                           target="member_guests"
@@ -502,7 +523,7 @@
                           variant="transparent"
                           class="text-danger"
                           @click="guestsDisabled = false"
-                          ><i class="fa fa-edit" />
+                        ><i class="fa fa-edit" />
                         </b-button>
                         <b-button
                           id="save-member_guests"
@@ -510,7 +531,7 @@
                           variant="transparent"
                           class="text-primary"
                           @click="saveMemberGuests"
-                          ><i class="fa fa-save" />
+                        ><i class="fa fa-save" />
                         </b-button>
                         <b-popover
                           target="edit-guests"
@@ -537,7 +558,7 @@
                   <badge
                     v-if="scheduledSubscription.length > 0"
                     style="margin-left: 20px; margin-bottom: 2px"
-                    >change to
+                  >change to
                     {{ scheduledSubscription[0]['subscription_name'] }}
                     /
                     {{
@@ -545,51 +566,51 @@
                         scheduledSubscription[0]['subscription_start_date']
                       ).format('MMM Do YYYY')
                     }}</badge
-                  >
+                    >
                   <b-badge
                     v-if="
                       data.subscriptions[0].state === 'paused' &&
-                      data.subscriptions[0].resume_on == null
+                        data.subscriptions[0].resume_on == null
                     "
                     pill
                     style="margin-left: 20px"
                     variant="danger"
-                    >{{ 'Paused on: '
-                    }}<span style="color: black">{{
-                      $moment(data.subscriptions[0].paused_at).format(
-                        'MMM Do YYYY'
-                      )
-                    }}</span></b-badge
+                  >{{ 'Paused on: '
+                  }}<span style="color: black">{{
+                    $moment(data.subscriptions[0].paused_at).format(
+                      'MMM Do YYYY'
+                    )
+                  }}</span></b-badge
                   >
                   <b-badge
                     v-if="
                       data.subscriptions[0].resume_on != null &&
-                      data.subscriptions[0].state === 'paused'
+                        data.subscriptions[0].state === 'paused'
                     "
                     pill
                     style="margin-left: 20px"
                     variant="primary"
-                    >{{ 'Auto-resume on: '
-                    }}<span style="color: black">{{
-                      $moment(data.subscriptions[0].resume_on).format(
-                        'MMM Do YYYY'
-                      )
-                    }}</span></b-badge
+                  >{{ 'Auto-resume on: '
+                  }}<span style="color: black">{{
+                    $moment(data.subscriptions[0].resume_on).format(
+                      'MMM Do YYYY'
+                    )
+                  }}</span></b-badge
                   >
                   <b-badge
                     v-if="
                       data.subscriptions[0].paused_at != null &&
-                      data.subscriptions[0].state != 'paused'
+                        data.subscriptions[0].state != 'paused'
                     "
                     pill
                     style="margin-left: 20px"
                     variant="danger"
-                    >{{ 'Auto-pause on: '
-                    }}<span style="color: black">{{
-                      $moment(data.subscriptions[0].paused_at).format(
-                        'MMM Do YYYY'
-                      )
-                    }}</span></b-badge
+                  >{{ 'Auto-pause on: '
+                  }}<span style="color: black">{{
+                    $moment(data.subscriptions[0].paused_at).format(
+                      'MMM Do YYYY'
+                    )
+                  }}</span></b-badge
                   >
                 </div>
               </div>
@@ -711,47 +732,47 @@
                             v-if="scheduledSubscription.length > 0"
                             href="#"
                             @click="cancelScheduledPlanChange()"
-                            >Cancel Auto-change Plan</b-dropdown-item
+                          >Cancel Auto-change Plan</b-dropdown-item
                           >
                           <b-dropdown-item
                             v-else-if="
                               subscription.state != 'paused' &&
-                              subscription.paused_at == null
+                                subscription.paused_at == null
                             "
                             href="#"
                             @click="pauseMembership()"
-                            >Pause Subscription</b-dropdown-item
+                          >Pause Subscription</b-dropdown-item
                           >
                           <b-dropdown-item
                             v-else-if="
                               subscription.state != 'paused' &&
-                              subscription.paused_at != null
+                                subscription.paused_at != null
                             "
                             href="#"
                             @click="resumeMembership()"
-                            >Cancel Auto-Pause</b-dropdown-item
+                          >Cancel Auto-Pause</b-dropdown-item
                           >
                           <b-dropdown-item
                             v-else
                             href="#"
                             @click="resumeMembership()"
-                            >Resume Subscription</b-dropdown-item
+                          >Resume Subscription</b-dropdown-item
                           >
                           <b-dropdown-divider />
                           <b-dropdown-item
                             href="#"
                             @click="changePlan(subscription)"
-                            >Change Plan</b-dropdown-item
+                          >Change Plan</b-dropdown-item
                           >
                           <b-dropdown-item
                             href="#"
                             @click="makePlanPrimary(subscription)"
-                            >Make This Plan Primary</b-dropdown-item
+                          >Make This Plan Primary</b-dropdown-item
                           >
                           <b-dropdown-item
                             href="#"
                             @click="cancelPlan(subscription)"
-                            >Cancel Plan</b-dropdown-item
+                          >Cancel Plan</b-dropdown-item
                           >
                           <div class="dropdown-item">
                             <div style="display: inline-block">Auto Renew</div>
@@ -769,13 +790,13 @@
                                   v-if="subscription.state == 'active'"
                                   style="visibility: hidden"
                                   class="text-success"
-                                  >A</span
+                                >A</span
                                 >
                                 <span
                                   v-else
                                   style="visibility: hidden"
                                   class="text-muted"
-                                  >M</span
+                                >M</span
                                 >
                               </b-form-checkbox>
                             </div>
@@ -798,13 +819,13 @@
                                   v-if="data.renew_for_free"
                                   style="visibility: hidden"
                                   class="text-success"
-                                  >A</span
+                                >A</span
                                 >
                                 <span
                                   v-else
                                   style="visibility: hidden"
                                   class="text-muted"
-                                  >M</span
+                                >M</span
                                 >
                               </b-form-checkbox>
                             </div>
@@ -896,7 +917,9 @@
             </template>
           </card> -->
           <card>
-            <div slot="header" class="d-flex justify-content-between">
+            <div 
+              slot="header" 
+              class="d-flex justify-content-between">
               <div class="txt-upper">Events</div>
             </div>
             <template>
@@ -914,7 +937,9 @@
                   />
                 </div>
               </div>
-              <div slot="footer" class="">
+              <div 
+                slot="footer" 
+                class="">
                 <b-pagination
                   :per-page="perPage"
                   v-model="currentPage"
@@ -928,31 +953,64 @@
         </div>
       </div>
     </div>
-    <b-modal id="change-plan" title="Change Current Plan" hide-footer
-      ><ChangePlan :plan_id="plan_id"
+    <b-modal 
+      id="change-plan" 
+      title="Change Current Plan" 
+      hide-footer
+    ><ChangePlan 
+      :plan_id="plan_id"
     /></b-modal>
-    <b-modal id="pause-membership" title="Pause Membership" hide-footer
-      ><PauseMembership :plan_id="plan_id" :data="data"
+    <b-modal 
+      id="pause-membership" 
+      title="Pause Membership" 
+      hide-footer
+    ><PauseMembership 
+      :plan_id="plan_id" 
+      :data="data"
     /></b-modal>
-    <b-modal id="add-plan" :static="true" title="Add New Plan" hide-footer
-      ><AddPlan :cards="cards"
+    <b-modal 
+      id="add-plan" 
+      :static="true" 
+      title="Add New Plan" 
+      hide-footer
+    ><AddPlan 
+      :cards="cards"
     /></b-modal>
-    <b-modal id="add-credit" :static="true" title="Add Credit" hide-footer
-      ><AddCredit :data="data"
+    <b-modal 
+      id="add-credit" 
+      :static="true" 
+      title="Add Credit" 
+      hide-footer
+    ><AddCredit 
+      :data="data"
     /></b-modal>
-    <b-modal id="add-card" title="Add New Card" hide-footer
-      ><AddCard
-        :toggle-loading="toggleLoading"
-        :loading="loading"
-        @addCard="addCard"
+    <b-modal 
+      id="add-card" 
+      title="Add New Card" 
+      hide-footer
+    ><AddCard
+      :toggle-loading="toggleLoading"
+      :loading="loading"
+      @addCard="addCard"
     /></b-modal>
-    <b-modal id="add-custom-charge" title="Add Custom Charge" hide-footer>
-      <AddCustomCharge :data="data"
+    <b-modal 
+      id="add-custom-charge" 
+      title="Add Custom Charge" 
+      hide-footer>
+      <AddCustomCharge 
+        :data="data"
     /></b-modal>
-    <b-modal id="edit-custom-charge" title="Edit Charge" hide-footer
-      ><EditCustomCharge :data="selctedItemData"
+    <b-modal 
+      id="edit-custom-charge" 
+      title="Edit Charge" 
+      hide-footer
+    ><EditCustomCharge 
+      :data="selctedItemData"
     /></b-modal>
-    <el-drawer :visible.sync="drawer" :direction="direction" title="Notes">
+    <el-drawer 
+      :visible.sync="drawer" 
+      :direction="direction" 
+      title="Notes">
       <MembershipNotes :membership_id="data.id" />
     </el-drawer>
   </div>
@@ -990,7 +1048,7 @@ export default {
     AddCard,
     [Drawer.name]: Drawer,
     MembershipNotes,
-    CheckIn,
+    CheckIn
   },
   async asyncData({ store, params, $membership, error, $moment }) {
     try {
@@ -1006,15 +1064,17 @@ export default {
           return data
         })
 
-      const paid_for = await $membership.getPaidFor(params.id).then((res) => {
+      const paid_for = await $membership.getPaidFor(params.id).then(res => {
         return res.data
       })
 
-      const filter = `${params.id}/subscription/history?filter[scheduled_subscription]=true`
+      const filter = `${
+        params.id
+      }/subscription/history?filter[scheduled_subscription]=true`
 
       const scheduledSubscription = await $membership
         .getSubscriptionHistory(filter)
-        .then((res) => {
+        .then(res => {
           return res.data
         })
 
@@ -1024,17 +1084,17 @@ export default {
           const member_guests = data.guests_allowed
           const customCharges = await $membership
             .getCustomCharges({ spaceId: 1, user_id: data.user_id })
-            .then((data) => {
+            .then(data => {
               return data
             })
 
           const customChargesList = customCharges.returnedData.map(
-            (customCharge) => {
+            customCharge => {
               return {
                 description: customCharge.description,
                 charge: customCharge.amount,
                 due_date: customCharge.due_date.split(' ')[0],
-                current_status: customCharge.state,
+                current_status: customCharge.state
               }
               return customCharge
             }
@@ -1042,7 +1102,7 @@ export default {
 
           //Filter for deleted events [ !temporary fix till it's fixed from the backend ]
 
-          const events = _.map(data.events_attended, (o) => {
+          const events = _.map(data.events_attended, o => {
             return {
               name: o.event ? o.event.name : '(event deleted)', // fix was applied here
               ticket: o.number_of_tickets + ' tickets',
@@ -1050,7 +1110,7 @@ export default {
                 store.state.space.currentSpace.currency_symbol + o.total_amount,
               start: o.event
                 ? $moment(o.event.start_time).format('MMM DD, YY')
-                : '(event deleted)',
+                : '(event deleted)'
             }
           })
 
@@ -1069,13 +1129,13 @@ export default {
             customCharges: customCharges.returnedData,
             customChargesList,
             paid_for,
-            member_guests,
+            member_guests
           }
         })
     } catch (e) {
       error({
         statusCode: e.statusCode,
-        message: e.response ? e.response.data.message : e.message,
+        message: e.response ? e.response.data.message : e.message
       })
     }
   },
@@ -1100,15 +1160,15 @@ export default {
           charge: '500',
           due_date: '2020-02-22',
           current_status: 'Settled',
-          _: '',
+          _: ''
         },
         {
           description: 'Requested for extra chairs',
           charge: '500',
           due_date: '2020-02-22',
           current_status: 'Unsettled',
-          _: '',
-        },
+          _: ''
+        }
       ],
       drawer: false,
       direction: 'rtl',
@@ -1122,18 +1182,18 @@ export default {
       credit: {
         amount: null,
         description: null,
-        membership_id: null,
-      },
+        membership_id: null
+      }
     }
   },
   computed: {
     ...mapState({
-      space: (state) => state.space.currentSpace,
+      space: state => state.space.currentSpace
     }),
     getSubscription() {
       let renewal = null
-      _.each(this.data.plans, (v) => {
-        _.each(this.data.subscriptions, (o) => {
+      _.each(this.data.plans, v => {
+        _.each(this.data.subscriptions, o => {
           if (o.plan_id == v.id && o.canceled_at == null) {
             renewal = o.ends_at ? o.ends_at : o.trial_ends_at
           }
@@ -1143,7 +1203,7 @@ export default {
     },
     rows() {
       return this.data.events_attended.length
-    },
+    }
   },
   methods: {
     imageUploaded(url) {
@@ -1151,17 +1211,17 @@ export default {
       this.$membership
         .updateProfile({
           user_id: this.data.user_id,
-          ...this.data.user_profile,
+          ...this.data.user_profile
         })
-        .then((res) => {
+        .then(res => {
           this.loading = !this.loading
           this.$bvToast.toast('Photo updated succesfully', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
           //this.$router.go(-1)
         })
-        .catch((e) => {
+        .catch(e => {
           this.loading = !this.loading
           const message = e.response
             ? `${e.response.data.message} ~ ${JSON.stringify(
@@ -1195,24 +1255,21 @@ export default {
 
       this.$membership
         .editCredit(this.credit)
-        .then((res) => {
+        .then(res => {
           this.$bvToast.toast('Credit assigned to member successfully', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
           if (purpose == 'event-booking') {
-            this.previousEventCreditBalance =
-              this.data.event_booking_credit_amount
+            this.previousEventCreditBalance = this.data.event_booking_credit_amount
           } else if (purpose == 'room-booking') {
-            this.previousRoomCreditBalance =
-              this.data.room_booking_credit_amount
+            this.previousRoomCreditBalance = this.data.room_booking_credit_amount
           } else if (purpose == 'food-ordering') {
-            this.previousFoodCreditBalance =
-              this.data.food_ordering_credit_amount
+            this.previousFoodCreditBalance = this.data.food_ordering_credit_amount
           }
           location.reload()
         })
-        .catch((e) => {
+        .catch(e => {
           this.loading = !this.loading
           const message = e.response
             ? `${e.response.data.message} ${JSON.stringify(
@@ -1230,16 +1287,16 @@ export default {
       this.$membership
         .editGuests(this.data.id, {
           member_guests: this.member_guests,
-          space_id: this.data.space.id,
+          space_id: this.data.space.id
         })
-        .then((res) => {
+        .then(res => {
           this.$bvToast.toast('Number of guests updated successfully', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
           // location.reload()
         })
-        .catch((e) => {
+        .catch(e => {
           this.loading = !this.loading
           const message = e.response
             ? `${e.response.data.message} ${JSON.stringify(
@@ -1257,7 +1314,7 @@ export default {
     },
     getSubName(subscription) {
       let name, price
-      _.each(this.data.plans, function (o) {
+      _.each(this.data.plans, function(o) {
         if (o.id == subscription.plan_id) {
           name = o.name
           price = o.price
@@ -1272,19 +1329,19 @@ export default {
         .changeSubscriptionRenewalState(this.$route.params.id, {
           id: this.data.id,
           spaceId: this.data.space_id,
-          subscriptionState: state,
+          subscriptionState: state
         })
         .then(({ data }) => {
           this.$bvToast.toast('State updated successfully', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
           location.reload()
         })
-        .catch((e) => {
+        .catch(e => {
           this.$bvToast.toast('State update failed', {
             title: 'Error',
-            variant: 'danger',
+            variant: 'danger'
           })
         })
     },
@@ -1294,19 +1351,19 @@ export default {
         .changeFreeRenewalState(this.$route.params.id, {
           id: this.data.id,
           spaceId: this.data.space_id,
-          renew_for_free: state,
+          renew_for_free: state
         })
         .then(({ data }) => {
           this.$bvToast.toast('State updated successfully', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
           location.reload()
         })
-        .catch((e) => {
+        .catch(e => {
           this.$bvToast.toast('State update failed', {
             title: 'Error',
-            variant: 'danger',
+            variant: 'danger'
           })
         })
     },
@@ -1315,20 +1372,20 @@ export default {
         this.$checkin
           .checkin({
             type: 'member',
-            membership_id: this.data.id,
+            membership_id: this.data.id
           })
           .then(({ data }) => {
             this.$bvToast.toast('Member checked in successfully', {
               title: 'Success',
-              variant: 'success',
+              variant: 'success'
             })
 
             this.checkin = data
           })
-          .catch((e) => {
+          .catch(e => {
             this.$bvToast.toast('Member checkin failed', {
               title: 'Error',
-              variant: 'danger',
+              variant: 'danger'
             })
           })
       } else {
@@ -1337,14 +1394,14 @@ export default {
           .then(({ data }) => {
             this.$bvToast.toast('Member checked out successfully', {
               title: 'Success',
-              variant: 'success',
+              variant: 'success'
             })
             //location.reload()
           })
-          .catch((e) => {
+          .catch(e => {
             this.$bvToast.toast('Member check out failed', {
               title: 'Error',
-              variant: 'danger',
+              variant: 'danger'
             })
           })
       }
@@ -1367,23 +1424,23 @@ export default {
 
       this.$membership
         .deletePaymentMethod(this.$route.params.id, {
-          card_nonce: this.cards[i].id,
+          card_nonce: this.cards[i].id
         })
-        .then((res) => {
+        .then(res => {
           this.cards.splice(i, 1)
 
           this.toggleLoading()
 
           this.$bvToast.toast('Card source removed successfully', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
         })
-        .catch((e) => {
+        .catch(e => {
           const message = e.response ? e.response.data.message : e.message
           this.$bvToast.toast(message, {
             title: 'Error',
-            variant: 'danger',
+            variant: 'danger'
           })
         })
     },
@@ -1410,7 +1467,7 @@ export default {
         .then(({ data }) => {
           this.$bvToast.toast('Card added successfully', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
           location.reload()
         })
@@ -1425,19 +1482,19 @@ export default {
         .then(({ data }) => {
           this.$bvToast.toast('Member deleted successfully', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
 
           this.$router.go(-1)
         })
-        .catch((e) => {
+        .catch(e => {
           this.loading = !this.loading
 
           const message = e.response ? e.response.data.message : e.message
 
           this.$bvToast.toast(message, {
             title: 'Error',
-            variant: 'danger',
+            variant: 'danger'
           })
         })
     },
@@ -1446,7 +1503,7 @@ export default {
 
       const _self = this
 
-      _.each(this.data.plans, function (o) {
+      _.each(this.data.plans, function(o) {
         if (o.id == subscription.plan_id) {
           _self.plan_id = subscription.id
         }
@@ -1471,19 +1528,19 @@ export default {
         .changeSubscriptionRenewalState(this.$route.params.id, {
           id: this.data.id,
           spaceId: this.data.space_id,
-          subscriptionState: 'active',
+          subscriptionState: 'active'
         })
         .then(({ data }) => {
           this.$bvToast.toast('State updated successfully', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
           location.reload()
         })
-        .catch((e) => {
+        .catch(e => {
           this.$bvToast.toast('State update failed', {
             title: 'Error',
-            variant: 'danger',
+            variant: 'danger'
           })
         })
     },
@@ -1493,19 +1550,19 @@ export default {
         .cancelScheduledPlanChange(this.$route.params.id, {
           id: this.data.id,
           spaceId: this.data.space_id,
-          state: 'inactive',
+          state: 'inactive'
         })
         .then(({ data }) => {
           this.$bvToast.toast('Cancelled successfully', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
           location.reload()
         })
-        .catch((e) => {
+        .catch(e => {
           this.$bvToast.toast('Cancel failed', {
             title: 'Error',
-            variant: 'danger',
+            variant: 'danger'
           })
         })
     },
@@ -1518,17 +1575,17 @@ export default {
         .cancelSubscription(this.$route.params.id, {
           plan_id: subscription.plan_id,
           slug: subscription.slug,
-          immediate: true,
+          immediate: true
         })
-        .then((res) => {
+        .then(res => {
           this.$bvToast.toast('Plan canceled succesfully', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
 
           location.reload()
         })
-        .catch((e) => {
+        .catch(e => {
           this.loading = !this.loading
 
           const message = e.response
@@ -1539,7 +1596,7 @@ export default {
 
           this.$bvToast.toast(message, {
             title: 'Error',
-            variant: 'danger',
+            variant: 'danger'
           })
         })
     },
@@ -1548,17 +1605,17 @@ export default {
 
       this.$membership
         .makePlanPrimary(this.$route.params.id, {
-          plan_id: subscription.plan_id,
+          plan_id: subscription.plan_id
         })
-        .then((res) => {
+        .then(res => {
           this.loading = !this.loading
 
           this.$bvToast.toast('Plan made primary', {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
         })
-        .catch((e) => {
+        .catch(e => {
           this.loading = !this.loading
           displayError(e, this)
         })
@@ -1584,8 +1641,8 @@ export default {
       //     this.loading = !this.loading
       //     displayError(e, this)
       //   })
-    },
-  },
+    }
+  }
 }
 </script>
 
