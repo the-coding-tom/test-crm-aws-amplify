@@ -2,9 +2,7 @@
   <div class="wrapper">
     <notifications />
     <side-bar>
-      <template 
-        slot-scope="props" 
-        slot="links">
+      <template slot-scope="props" slot="links">
         <sidebar-item
           :link="{
             name: 'Dashboard',
@@ -27,6 +25,12 @@
               :link="{
                 name: 'Pending',
                 path: `/${subdomain}/memberships/uninvited`,
+              }"
+            />
+            <sidebar-item
+              :link="{
+                name: 'Archived / Bin',
+                path: `/${subdomain}/memberships/archived`,
               }"
             />
           </sidebar-item>
@@ -194,12 +198,12 @@ export default {
   components: {
     DashboardNavbar,
     ContentFooter,
-    DashboardContent
+    DashboardContent,
   },
   computed: {
     ...mapState({
-      subdomain: state => state.space.currentSpace.subdomain
-    })
+      subdomain: (state) => state.space.currentSpace.subdomain,
+    }),
   },
   mounted() {
     this.initScrollbar()
@@ -210,8 +214,8 @@ export default {
       if (isWindows) {
         initScrollbar('scrollbar-inner')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">

@@ -59,7 +59,7 @@
             >Expired Manual-Renew Members</b-dropdown-item
           >
           <b-dropdown-item @click="handleClick(-2)"
-            >Do Not Renew</b-dropdown-item
+            >Upcoming Manual Renewals</b-dropdown-item
           >
           <b-dropdown-item @click="handleClick(-3)"
             >Payment Declined</b-dropdown-item
@@ -99,14 +99,14 @@
           </template>
         </b-table>
 
-        <b-pagination
+        <!-- <b-pagination
           v-model="currentPage"
           :total-rows="rows"
           :per-page="perPage"
           align="center"
           class="text-center"
           aria-controls="my-table"
-        />
+        /> -->
       </card>
     </div>
     <b-modal id="renew" title="Renew Subscription" hide-footer>

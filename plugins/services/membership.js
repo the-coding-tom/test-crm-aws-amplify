@@ -153,9 +153,22 @@ export default function(ctx, inject) {
       //   getError(e)
       // })
     },
+    deleteArchivedInvite: id => {
+      return ctx.$axios.$delete(`/${subdomain()}/archives/${id}`)
+      // .catch(e => {
+      //   getError(e)
+      // })
+    },
     getSubscriptions: id => {
       return ctx.$axios
         .$get(`/${subdomain()}/memberships/${id}/get-subscriptions`)
+        .catch(e => {
+          getError(e)
+        })
+    },
+    getArchivedInvites: filter => {
+      return ctx.$axios
+        .$get(`/${subdomain()}/invitations/archived?${filter}`)
         .catch(e => {
           getError(e)
         })
