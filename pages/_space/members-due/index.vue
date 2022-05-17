@@ -59,7 +59,7 @@
             >Expired Manual-Renew Members</b-dropdown-item
           >
           <b-dropdown-item @click="handleClick(-2)"
-            >Upcoming Manual Renewals</b-dropdown-item
+            >Unexpired Manual Renewals</b-dropdown-item
           >
           <b-dropdown-item @click="handleClick(-3)"
             >Payment Declined</b-dropdown-item
@@ -246,7 +246,23 @@ export default {
   },
   methods: {
     handleClick(day) {
-      this.dropdown = day
+      switch (day) {
+        case -1:
+          this.dropdown = '(Expired Auto-Renewals) 0'
+          break
+        case -2:
+          this.dropdown = '(Unexpired Manual-Renewals) 0'
+          break
+        case -3:
+          this.dropdown = '(Payment Declined) 0'
+          break
+        case -4:
+          this.dropdown = '(Expired Manual-Renewals) 0'
+          break
+        default:
+          this.dropdown = day
+          break
+      }
 
       this.loading = !this.loading
 
