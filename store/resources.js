@@ -355,7 +355,10 @@ export const actions = {
   async getBookingsByDate({ commit }, payload) {
     try {
       const { data } = await this.$resource.getBookingByDate(payload)
-      const calendarBookings = _.map(data.data, o => {
+      const cleanData = _.filter(data.data, data => {
+        return data.membership != null
+      })
+      const calendarBookings = _.map(cleanData, o => {
         return {
           // title: `${o.room.name} // ${o.membership.first_name} ${
           //   o.membership.last_name
@@ -370,8 +373,11 @@ export const actions = {
           membership: o.membership
         }
       })
+      //clean up the list -> remove bookings with null memberships
+      console.log(calendarBookings)
       commit('setBookingsForDate', calendarBookings)
     } catch (error) {
+      console.log(error)
       this._vm.$bvToast.toast({
         statusCode: error.statusCode,
         message: error.response
