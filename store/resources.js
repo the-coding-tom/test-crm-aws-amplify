@@ -309,6 +309,7 @@ export const actions = {
           title: o.title,
           start: o.start_timestamp,
           end: o.end_timestamp,
+          resourceId: o.resourceId,
           backgroundColor: o.room && `${o.room.category.color}2A`,
           borderColor: o.room && `${o.room.category.color}2A`,
           extendProps: o
@@ -335,6 +336,7 @@ export const actions = {
           title: o.title,
           start: o.start_timestamp,
           end: o.end_timestamp,
+          resourceId: o.resourceId,
           backgroundColor: o.room && `${o.room.category.color}2A`,
           borderColor: o.room && `${o.room.category.color}2A`,
           extendProps: o,
@@ -366,6 +368,7 @@ export const actions = {
           title: o.title,
           start: o.start_timestamp,
           end: o.end_timestamp,
+          resourceId: o.resourceId,
           backgroundColor: o.room && `${o.room.category.color}2A`,
           borderColor: o.room && `${o.room.category.color}2A`,
           extendProps: o,

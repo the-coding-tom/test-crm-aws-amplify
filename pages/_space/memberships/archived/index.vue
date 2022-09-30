@@ -1,9 +1,15 @@
 <template>
   <div>
-    <base-header class="pb-6" type="">
+    <base-header 
+      class="pb-6" 
+      type="">
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle title="Members" subtitle="Deleted Invitations" />
-        <SearchForm :loading="loading" @search="search" />
+        <MainTitle 
+          title="Members" 
+          subtitle="Deleted Invitations" />
+        <SearchForm 
+          :loading="loading" 
+          @search="search" />
         <div>
           <!-- <b-button
             :to="{ name: 'space-memberships-messages' }"
@@ -20,8 +26,13 @@
     <div class="container-fluid mt--6">
       <div class="row">
         <div class="col">
-          <MembersTable :members="members" :view-more="false" show-modal>
-            <template slot-scope="slotProps" slot="action">
+          <MembersTable 
+            :members="members" 
+            :view-more="false" 
+            show-modal>
+            <template 
+              slot-scope="slotProps" 
+              slot="action">
               <b-row>
                 <!-- <b-button
                   variant="primary"
@@ -35,7 +46,7 @@
                   class="ml-2 text-danger"
                   style="margin-top: 0px; margin-bottom: 0px"
                   @click="deleteArchivedInvitation(slotProps)"
-                  ><i class="fa fa-times" /> Delete Permanently</b-button
+                ><i class="fa fa-times" /> Delete Permanently</b-button
                 >
               </b-row>
             </template>
@@ -77,28 +88,28 @@ export default {
           per_page,
           current_page,
           next_page_url,
-          prev_page_url,
+          prev_page_url
         }) => {
           return {
             members: data,
             links: {
               next: next_page_url,
-              prev: prev_page_url,
+              prev: prev_page_url
             },
             meta: {
               total,
               per_page,
-              current_page,
-            },
+              current_page
+            }
           }
         }
       )
-      .catch((e) => {
+      .catch(e => {
         error({
           statusCode: e.statusCode,
           message: e.response
             ? JSON.stringify(e.response.data.errors)
-            : e.messge,
+            : e.messge
         })
       })
   },
@@ -107,11 +118,11 @@ export default {
     SearchForm,
     SectionTitle,
     MembersTable,
-    RouteBreadCrumb,
+    RouteBreadCrumb
   },
   data: () => ({
     searchTerm: '',
-    loading: false,
+    loading: false
   }),
   methods: {
     next() {
@@ -136,20 +147,20 @@ export default {
     confirmMember(e) {
       this.$membership
         .inviteMember(e.id)
-        .then((res) => {
+        .then(res => {
           this.$bvToast.toast('Member invited successfully', {
-            variant: 'success',
+            variant: 'success'
           })
           setTimeout(() => {
             location.reload()
           }, 5000)
         })
-        .catch((e) => {
+        .catch(e => {
           this.$bvToast.toast(
             e.response ? JSON.stringify(e.response.data.errors) : e.message,
             {
               title: 'Error',
-              variant: 'danger',
+              variant: 'danger'
             }
           )
         })
@@ -157,20 +168,20 @@ export default {
     inviteAllPendingMembers() {
       this.$membership
         .inviteAllPendingMembers()
-        .then((res) => {
+        .then(res => {
           this.$bvToast.toast('Members invited successfully', {
-            variant: 'success',
+            variant: 'success'
           })
           setTimeout(() => {
             location.reload()
           }, 5000)
         })
-        .catch((e) => {
+        .catch(e => {
           this.$bvToast.toast(
             e.response ? JSON.stringify(e.response.data.errors) : e.message,
             {
               title: 'Error',
-              variant: 'danger',
+              variant: 'danger'
             }
           )
         })
@@ -181,20 +192,20 @@ export default {
 
       this.$membership
         .deleteMembership(e.id)
-        .then((res) => {
+        .then(res => {
           this.$bvToast.toast('Member deleted successfully', {
-            variant: 'success',
+            variant: 'success'
           })
           setTimeout(() => {
             location.reload()
           }, 5000)
         })
-        .catch((e) => {
+        .catch(e => {
           this.$bvToast.toast(
             e.response ? JSON.stringify(e.response.data.errors) : e.message,
             {
               title: 'Error',
-              variant: 'danger',
+              variant: 'danger'
             }
           )
         })
@@ -204,18 +215,18 @@ export default {
 
       this.$membership
         .deleteArchivedInvite(e.id)
-        .then((res) => {
+        .then(res => {
           this.$bvToast.toast('Invitation deleted successfully', {
-            variant: 'success',
+            variant: 'success'
           })
           location.reload()
         })
-        .catch((e) => {
+        .catch(e => {
           this.$bvToast.toast(
             e.response ? JSON.stringify(e.response.data.errors) : e.message,
             {
               title: 'Error',
-              variant: 'danger',
+              variant: 'danger'
             }
           )
         })
@@ -232,29 +243,29 @@ export default {
             per_page,
             current_page,
             next_page_url,
-            prev_page_url,
+            prev_page_url
           }) => {
             this.members = data
             this.links = {
               next: next_page_url,
-              prev: prev_page_url,
+              prev: prev_page_url
             }
             //this.meta = meta
 
             this.loading = false
           }
         )
-        .catch((e) => {
+        .catch(e => {
           this.loading = !this.loading
           this.$bvToast.toast(
             e.response ? JSON.stringify(e.response.data.errors) : e.message,
             {
               title: 'Error',
-              variant: 'danger',
+              variant: 'danger'
             }
           )
         })
-    },
-  },
+    }
+  }
 }
 </script>

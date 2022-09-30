@@ -183,8 +183,9 @@
             <full-calendar
               :events="bookings"
               :views="views"
+              :resources="fetchResources"
               :right="calendarPlugin"
-              :default-view="'listWeek'"
+              :default-view="'resourceTimelineDay'"
               @eventClick="eventClick"
               @dateClick="bookDate"
               @dateChange="dateChange"
@@ -205,6 +206,7 @@ import Modal from '~/components/bookings/Modal'
 import { mapState } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
 import { Select, Option } from 'element-ui'
+import axios from 'axios'
 
 export default {
   layout: 'ShackDash',
@@ -252,7 +254,8 @@ export default {
         step: '00:15',
         end: '23:30'
       },
-      calendarPlugin: 'dayGridMonth,timeGridWeek,listWeek',
+      calendarPlugin:
+        'resourceTimelineMonth,resourceTimelineWeek,listWeek,resourceTimelineDay',
       currentViewType: 'listWeek',
       views: {
         listWeek: {
@@ -298,6 +301,22 @@ export default {
     })
   },
   methods: {
+    fetchResources(fetchInfo, successCallback, failureCallback) {
+      axios({
+        method: 'get',
+        url: 'https://api.shack15.com/api/v1/san-francisco/resources',
+        headers: {
+          authorization:
+            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImJlMWQxMzJjZjJiNThlNDhkYzI2YjRlMGU1MWE4NmQyNTFhOWUyZTkwMDM3NTJlNzY2MDM0MzY4MTkxMjdiY2Q5NTEyN2E5MGZmNGFiNDhmIn0.eyJhdWQiOiIxIiwianRpIjoiYmUxZDEzMmNmMmI1OGU0OGRjMjZiNGUwZTUxYTg2ZDI1MWE5ZTJlOTAwMzc1MmU3NjYwMzQzNjgxOTEyN2JjZDk1MTI3YTkwZmY0YWI0OGYiLCJpYXQiOjE2NDU1OTQ0ODMsIm5iZiI6MTY0NTU5NDQ4MywiZXhwIjoxNjc3MTMwNDgzLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.NsM5cAxvjNpCMh8tQt5988Gkdee47Rv24bXmYiLxD_0eodFFxmqSfDBTSGcSf4FqfP_9UsaSFZ-UJmOpYhQKaqBkmztbhQ9xRUDHlp7sHPG1FKQM5SehwFhWHDCdK_ZLQci8h3yvhxIN_yGwYOJhQgM3m9sCFcqTtSmzb4JVaz2tsNNfojas9k8rkHOX_QGUdnunPGho-okuaGBFqZFnt4jclaeklKeBAwGTBU1V0-kc04wtKdm8jrmIYPZbqI1mNFonOqHzlqMGc6i-EY-TttqKXg0GINt1nGq3ZYAXrfukfpXmu4tcIejZOKVtEuSfjKDPgWpI57QV8hM-AUHNUoCB0uBY4-DdPsZrhJRH3sIMdg-Lt51QEu1utqbeTMYfRFX7w_R9tNFpeKQQ-shSEvJFKGiUJ5Zr-TuFvLQRgdH3MlSgF4Lpr0XSDfILimxap_Fa8zK7m5aCmjRNdPXOiNJ4AmxoMIOXUfVFfqtQzGVsJ4RM8TUqo5f2z22QFtpDHFitg4GYM2GqI8pSdZHHfA2HGgOI5ZpbEgJkmt31tbyVfKYXIhX9hr1-cXfcrkWMQxiYl0i0DOLG_LxHp6tdIf-ANK1pNkSFyFz_4GBWLH2zV7KDCL9Mv8PKl9gNUJIPiJk95dXfreX5lMODteZ9Mr8anLzknl4eAECYToh03ak'
+        }
+      })
+        .then(({ data: { data } }) => {
+          successCallback(data)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
     valueChange(value) {
       this.newBooking.source = null
     },

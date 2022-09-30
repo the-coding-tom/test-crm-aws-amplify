@@ -12,6 +12,7 @@
     :dates-render="datesRender"
     :time-zone="timeZone"
     :event-render="viewChanged"
+    :resources="resources"
     @dateClick="dateClick"
     @eventClick="eventClick"
   />
@@ -24,6 +25,9 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import momentTimezonePlugin from '@fullcalendar/moment-timezone'
+import { Calendar } from '@fullcalendar/core'
+import timelinePlugin from '@fullcalendar/timeline'
+import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
 
 export default {
   components: {
@@ -40,7 +44,7 @@ export default {
     },
     right: {
       type: String,
-      default: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      default: 'dayGridMonth,timeGridWeek,timeGridDay,listYear'
     },
     views: {
       type: Object,
@@ -53,6 +57,13 @@ export default {
     timeZone: {
       type: String,
       default: 'GMT'
+    },
+    resources: {
+      type: Function,
+      default: () => [
+        { title: 'resource a', id: 'a' },
+        { title: 'resource b', id: 'b' }
+      ]
     }
   },
   data() {
@@ -61,10 +72,20 @@ export default {
         dayGridPlugin,
         timeGridPlugin,
         interactionPlugin,
+        timelinePlugin,
+        resourceTimelinePlugin,
         listPlugin,
         momentTimezonePlugin
       ],
-      viewType: ''
+      viewType: '',
+      calendarResources: [
+        { title: 'resource a', id: 'a' },
+        { title: 'resource b', id: 'b' }
+      ],
+      calendarEvents: [
+        // initial event data
+        { title: 'Event Now', start: new Date(), resourceId: 'a' }
+      ]
     }
   },
   methods: {
@@ -104,5 +125,7 @@ export default {
 @import '@fullcalendar/daygrid/main.css';
 @import '@fullcalendar/timegrid/main.css';
 @import '@fullcalendar/list/main.css';
+@import '@fullcalendar/timeline/main.css';
+@import '@fullcalendar/resource-timeline/main.css';
 @import '~/assets/sass/core/vendors/_fullcalendar.scss';
 </style>

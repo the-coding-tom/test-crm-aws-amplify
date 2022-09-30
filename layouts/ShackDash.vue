@@ -2,7 +2,9 @@
   <div class="wrapper">
     <notifications />
     <side-bar>
-      <template slot-scope="props" slot="links">
+      <template 
+        slot-scope="props" 
+        slot="links">
         <sidebar-item
           :link="{
             name: 'Dashboard',
@@ -198,12 +200,12 @@ export default {
   components: {
     DashboardNavbar,
     ContentFooter,
-    DashboardContent,
+    DashboardContent
   },
   computed: {
     ...mapState({
-      subdomain: (state) => state.space.currentSpace.subdomain,
-    }),
+      subdomain: state => state.space.currentSpace.subdomain
+    })
   },
   mounted() {
     this.initScrollbar()
@@ -214,8 +216,8 @@ export default {
       if (isWindows) {
         initScrollbar('scrollbar-inner')
       }
-    },
-  },
+    }
+  }
 }
 </script>
 <style lang="scss">

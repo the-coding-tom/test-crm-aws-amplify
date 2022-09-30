@@ -10,11 +10,19 @@
           :required="false"
           @search="searchAttendees"
         />
-        <b-button 
-          v-b-modal.appreciation 
-          variant="primary"
-        >Send Appreciation</b-button
-        >
+        <div>
+          <b-button
+            variant="transparent"
+            class="text-primary"
+            @click="exportData"
+          ><i class="fa fa-file-export" /> Export
+          </b-button>
+          <b-button 
+            v-b-modal.appreciation 
+            variant="primary"
+          >Send Appreciation</b-button
+          >
+        </div>
       </div>
     </base-header>
 
@@ -234,6 +242,25 @@ export default {
     })
   },
   methods: {
+    exportData() {
+      this.$event.exportAttendees(this.id).then(res => {
+        console.log(res)
+        let blob = new Blob([res], { type: 'text/csv' })
+        // window.location.href = URL.createObjectURL(blob)
+
+        const a = document.createElement('a')
+        const url = URL.createObjectURL(blob)
+
+        // Put the link somewhere in the body
+        document.body.appendChild(a)
+        a.innerHTML = 'download me'
+        a.href = url
+        // Set our custom filename
+        a.download = 'event-attendees.csv'
+        // Automatically click the link
+        a.click()
+      })
+    },
     next() {
       const { next } = this.links
       this.$event.getAttendees(null, next).then(({ data }) => {

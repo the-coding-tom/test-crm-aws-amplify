@@ -1,6 +1,8 @@
 <template>
   <div>
-    <base-header class="pb-6" type="">
+    <base-header 
+      class="pb-6" 
+      type="">
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle
           :subtitle="
@@ -34,7 +36,7 @@
               class="form-control"
               placeholder="Looking for ..."
               aria-describedby="button-addon2"
-            />
+            >
           </base-input>
         </template>
 
@@ -49,20 +51,24 @@
             v-for="(day, i) in days"
             :key="i"
             @click="handleClick(day)"
-            >{{ day }} days</b-dropdown-item
+          >{{ day }} days</b-dropdown-item
           >
           <b-dropdown-item @click="handleClick(1)">Today</b-dropdown-item>
-          <b-dropdown-item @click="handleClick(-1)"
-            >Expired Auto-Renew Members</b-dropdown-item
+          <b-dropdown-item 
+            @click="handleClick(-1)"
+          >Expired Auto-Renew Members</b-dropdown-item
           >
-          <b-dropdown-item @click="handleClick(-4)"
-            >Expired Manual-Renew Members</b-dropdown-item
+          <b-dropdown-item 
+            @click="handleClick(-4)"
+          >Expired Manual-Renew Members</b-dropdown-item
           >
-          <b-dropdown-item @click="handleClick(-2)"
-            >Unexpired Manual Renewals</b-dropdown-item
+          <b-dropdown-item 
+            @click="handleClick(-2)"
+          >Unexpired Manual Renewals</b-dropdown-item
           >
-          <b-dropdown-item @click="handleClick(-3)"
-            >Payment Declined</b-dropdown-item
+          <b-dropdown-item 
+            @click="handleClick(-3)"
+          >Payment Declined</b-dropdown-item
           >
           <b-dropdown-divider />
         </b-dropdown>
@@ -86,7 +92,7 @@
               }"
             >
               {{ data.item.full_name }}</nuxt-link
-            >
+              >
           </template>
           <template v-slot:cell(options)="data">
             <b-button
@@ -94,7 +100,7 @@
               class="text-primary"
               small
               @click="showForm(data)"
-              ><i class="fas fa-undo-alt" /> Renew</b-button
+            ><i class="fas fa-undo-alt" /> Renew</b-button
             >
           </template>
         </b-table>
@@ -109,18 +115,26 @@
         /> -->
       </card>
     </div>
-    <b-modal id="renew" title="Renew Subscription" hide-footer>
+    <b-modal 
+      id="renew" 
+      title="Renew Subscription" 
+      hide-footer>
       <b-form @submit.prevent="beginRenew">
         <b-form-group
           label="Payment Source"
           description="Card to charge for this transaction"
         >
-          <b-form-select :options="cards" v-model="card" required>
+          <b-form-select 
+            :options="cards" 
+            v-model="card" 
+            required>
             <option :value="null">Choose a payment card</option>
           </b-form-select>
         </b-form-group>
         <b-form-group>
-          <b-button type="submit" variant="primary">Renew</b-button>
+          <b-button 
+            type="submit" 
+            variant="primary">Renew</b-button>
         </b-form-group>
       </b-form>
     </b-modal>
@@ -135,7 +149,7 @@ export default {
   layout: 'ShackDash',
   components: {
     MainTitle,
-    SearchFilter,
+    SearchFilter
   },
   data: () => ({
     loading: false,
@@ -148,34 +162,27 @@ export default {
     currentPage: 1,
     dropdown: 30,
     days: [30, 15, 5],
-    fields: [
-      'full_name',
-      'plan',
-      'start_date',
-      'end_date',
-      'status',
-      'options',
-    ],
+    fields: ['full_name', 'plan', 'start_date', 'end_date', 'status', 'options']
   }),
   computed: {
     rows() {
       return this.items.length
     },
-    filterMembersByName: function () {
-      return this.items.filter((item) =>
+    filterMembersByName: function() {
+      return this.items.filter(item =>
         item.full_name.match(new RegExp(this.query, 'i'))
       )
-    },
+    }
   },
   watch: {
-    '$route.query': '$fetch',
+    '$route.query': '$fetch'
   },
   async asyncData({ error, $membership, route }) {
     if (route.query.plan) {
       return await $membership
         .subscribedToPlan(route.query.plan)
-        .then((data) => {
-          let items = _.map(data, (o) => {
+        .then(data => {
+          let items = _.map(data, o => {
             return {
               id: o.id,
               full_name: `${o.user.first_name} ${o.user.last_name}`,
@@ -188,19 +195,19 @@ export default {
                 o.state == 'manual-active'
                   ? 'Do not auto renew'
                   : o.state == 'active'
-                  ? 'Auto-renewal'
-                  : 'payment declined',
-              membership_id: o.user.uuid,
+                    ? 'Auto-renewal'
+                    : 'payment declined',
+              membership_id: o.user.uuid
             }
           })
           return {
             data,
             items,
             viewing_plan_susbcriptions: true,
-            plan_name: route.query.name,
+            plan_name: route.query.name
           }
         })
-        .catch((e) => {
+        .catch(e => {
           const message = e.response
             ? `${e.response.data.message} ~ ${JSON.stringify(
                 e.response.data.errors
@@ -211,8 +218,8 @@ export default {
     }
     return await $membership
       .expiringSubscriptions(30)
-      .then((data) => {
-        let items = _.map(data, (o) => {
+      .then(data => {
+        let items = _.map(data, o => {
           return {
             id: o.id,
             full_name: `${o.user.first_name} ${o.user.last_name}`,
@@ -225,17 +232,17 @@ export default {
               o.state == 'manual-active'
                 ? 'Do not auto renew'
                 : o.state == 'active'
-                ? 'Auto-renewal'
-                : 'payment declined',
-            membership_id: o.user.uuid,
+                  ? 'Auto-renewal'
+                  : 'payment declined',
+            membership_id: o.user.uuid
           }
         })
         return {
           data,
-          items,
+          items
         }
       })
-      .catch((e) => {
+      .catch(e => {
         const message = e.response
           ? `${e.response.data.message} ~ ${JSON.stringify(
               e.response.data.errors
@@ -268,10 +275,10 @@ export default {
 
       this.$membership
         .expiringSubscriptions(day)
-        .then((data) => {
+        .then(data => {
           this.loading = !this.loading
 
-          this.items = _.map(data, (o) => {
+          this.items = _.map(data, o => {
             return {
               id: o.id,
               full_name: `${o.user.first_name} ${o.user.last_name}`,
@@ -284,15 +291,15 @@ export default {
                 o.state == 'manual-active'
                   ? 'Do not auto renew'
                   : o.state == 'active'
-                  ? 'Auto-renewal'
-                  : o.state == 'payment-declined'
-                  ? 'payment declined'
-                  : 'expired',
-              membership_id: o.user.uuid,
+                    ? 'Auto-renewal'
+                    : o.state == 'payment-declined'
+                      ? 'payment declined'
+                      : 'expired',
+              membership_id: o.user.uuid
             }
           })
         })
-        .catch((e) => {
+        .catch(e => {
           this.loading = !this.loading
 
           const message = e.response
@@ -310,14 +317,14 @@ export default {
       this.$membership
         .getPaymentMethods(e.item.membership_id)
         .then(({ data }) => {
-          this.cards = _.map(data, (o) => {
+          this.cards = _.map(data, o => {
             return {
               value: o.id,
-              text: `${o.card_brand} - **** ${o.last_4}`,
+              text: `${o.card_brand} - **** ${o.last_4}`
             }
           })
         })
-        .catch((e) => {
+        .catch(e => {
           const message = e.response
             ? `${e.response.data.message} ~ ${JSON.stringify(
                 e.response.data.errors
@@ -326,7 +333,7 @@ export default {
 
           this.$bvToast.toast(message, {
             variant: 'danger',
-            title: 'Error',
+            title: 'Error'
           })
         })
     },
@@ -334,7 +341,7 @@ export default {
       const payload = {
         plan_id: this.data.item.plan_id,
         card_nonce: this.card,
-        slug: this.data.item.slug,
+        slug: this.data.item.slug
       }
 
       this.renewSubscription(this.data.item.membership_id, payload)
@@ -342,21 +349,23 @@ export default {
     renewSubscription(id, payload) {
       this.$membership
         .renewSubscription(id, payload)
-        .then((res) => {
+        .then(res => {
           if (res) {
             this.items.splice(this.data.index, 1)
             this.$bvToast.toast(
-              `${res.data.first_name} ${res.data.last_name}'s subscription renewed successfully`,
+              `${res.data.first_name} ${
+                res.data.last_name
+              }'s subscription renewed successfully`,
               {
                 variant: 'success',
-                title: 'Success',
+                title: 'Success'
               }
             )
             this.$bvModal.hide('renew')
             location.reload()
           }
         })
-        .catch((e) => {
+        .catch(e => {
           const message = e.response
             ? `${e.response.data.message} ~ ${JSON.stringify(
                 e.response.data.errors
@@ -365,14 +374,14 @@ export default {
 
           this.$bvToast.toast(message, {
             variant: 'danger',
-            title: 'Error',
+            title: 'Error'
           })
         })
     },
     search(query) {
       this.loading = !this.loading
 
-      this.items = this.items.filter((item) =>
+      this.items = this.items.filter(item =>
         item.full_name.match(new RegExp(query, 'i'))
       )
       console.log(this.items)
@@ -399,8 +408,8 @@ export default {
       //       }
       //     )
       //   })
-    },
-  },
+    }
+  }
 }
 </script>
 

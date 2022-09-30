@@ -45,6 +45,11 @@ export default function(ctx, inject) {
 
       return ctx.$axios.get(`/${subdomain()}/events/${eventId}/attendees`)
     },
+    exportAttendees: eventId => {
+      return ctx.$axios.$get(
+        `/${subdomain()}/events/${eventId}/attendee-export-csv`
+      )
+    },
     purchaseTicketByAdmin(eventId, payload) {
       return ctx.$axios.post(
         `/${subdomain()}/events/${eventId}/purchase-ticket`,
