@@ -69,6 +69,9 @@ export default function(ctx, inject) {
     getAllBookings: () => {
       return ctx.$axios.get(`${subdomain()}/rooms/bookings/admin`)
     },
+    getAllBookableResources: () => {
+      return ctx.$axios.get(`${subdomain()}/resources`)
+    },
     getBookingByDate: ({ from, to }) => {
       return ctx.$axios.get(
         `${subdomain()}/rooms/bookings/admin?from=${from}&to=${to}`
