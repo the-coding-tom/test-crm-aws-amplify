@@ -116,7 +116,9 @@
                     <el-option
                       v-for="option in payCards"
                       :key="option.id"
-                      :label="option.card_brand"
+                      :label="
+                        option.card_brand + ' xxxx-xxxx-xxxx-' + option.last_4
+                      "
                       :value="option.id"
                     />
                   </el-select>

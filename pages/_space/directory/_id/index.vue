@@ -260,6 +260,7 @@
                       :key="card.id">
                       <td>
                         {{ card.card_brand }}
+                        {{ 'xxxx-xxxx-xxxx-' + card.last_4 }}
                       </td>
                       <td>
                         {{ $moment(card.exp_month, 'M').format('MMM') }}

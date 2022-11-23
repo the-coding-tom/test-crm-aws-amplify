@@ -45,7 +45,7 @@ module.exports = {
     ],
     script: [
       {
-        src: 'https://js.squareup.com/v2/paymentform',
+        src: 'https://web.squarecdn.com/v1/square.js',
         body: true
       }
     ]

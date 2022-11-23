@@ -1,15 +1,17 @@
 <template>
   <div>
-    <b-form @submit.prevent="updateCard">
+    <b-form 
+      id="payment-form" 
+      @submit.prevent="updateCard">
       <div class="errorbox">
-        <div
-          v-for="error in errors"
-          :key="error.message"
+        <div 
+          v-for="error in errors" 
+          :key="error.message" 
           class="error">
           {{ error }}
         </div>
       </div>
-      <div id="card-tainer">
+      <!-- <div id="card-tainer">
         <div
           :id="id+'-sq-card-number'"
           class="form-group cardfields card-number"/>
@@ -22,12 +24,20 @@
         <div
           :id="id+'-sq-postal-code'"
           class="form-group cardfields postal-code"/>
-      </div>
+      </div> -->
+      <!-- <form 
+        id="payment-form" 
+        @submit.prevent="submitForm"> -->
+      <div id="card-container" />
+      <!-- </form> -->
       <b-button
+        id="card-button"
         :disabled="loading"
         variant="primary"
         type="submit"
-        class="float-right">Save Card</b-button>
+        class="float-right"
+      >Save Card</b-button
+      >
     </b-form>
   </div>
 </template>
@@ -57,114 +67,39 @@ export default {
     let locationId = process.env.square_location
     let applicationId = process.env.square_app_id
     let that = this
-    this.paymentForm = new SqPaymentForm({
-      autoBuild: false,
-      applicationId: applicationId,
-      locationId: locationId,
-      inputClass: 'sq-input',
-      // Initialize the payment form elements
-      // Customize the CSS for SqPaymentForm iframe elements
-      inputStyles: [
-        {
-          backgroundColor: 'transparent',
-          color: '#4c4d4f',
-          fontSize: '14px',
-          fontWeight: '100',
-          padding: '10px',
-          placeholderColor: 'grey'
-        },
-        {
-          mediaMaxWidth: '800px',
-          fontSize: '10px'
-        },
-        {
-          mediaMaxWidth: '800px',
-          mediaMinWidth: '600px',
-          fontSize: '1px',
-          backgroundColor: 'rgba(118,170,233,1)'
-        }
-      ],
-      // Initialize Apple Pay placeholder ID
-      applePay: {
-        elementId: that.id + '-sq-apple-pay'
-      },
-      // Initialize Masterpass placeholder ID
-      masterpass: {
-        elementId: that.id + '-sq-masterpass'
-      },
-      // Initialize the credit card placeholders
-      cardNumber: {
-        elementId: that.id + '-sq-card-number',
-        placeholder: 'Card Number'
-      },
-      cvv: {
-        elementId: that.id + '-sq-cvv',
-        placeholder: 'CVV'
-      },
-      expirationDate: {
-        elementId: that.id + '-sq-expiration-date',
-        placeholder: 'MM / YY'
-      },
-      postalCode: {
-        elementId: that.id + '-sq-postal-code',
-        placeholder: 'Zip Code'
-      },
-      // SqPaymentForm callback functions
-      callbacks: {
-        /*
-           * callback function: methodsSupported
-           * Triggered when: the page is loaded.
-           */
-        methodsSupported: function(methods) {
-          // Only show the button if Apple Pay for Web is enabled
-          // Otherwise, display the wallet not enabled message.
-          that.applePay = methods.applePay
-          that.masterpass = methods.masterpass
-        },
-        /*
-           * Digital Wallet related functions
-           */
-        createPaymentRequest: function() {
-          var paymentRequestJson
-          /* ADD CODE TO SET/CREATE paymentRequestJson */
-          return paymentRequestJson
-        },
-        validateShippingContact: function(contact) {
-          var validationErrorObj
-          /* ADD CODE TO SET validationErrorObj IF ERRORS ARE FOUND */
-          return validationErrorObj
-        },
-        /*
-           * callback function: cardNonceResponseReceived
-           * Triggered when: SqPaymentForm completes a card nonce request
-           */
-        cardNonceResponseReceived: function(errors, nonce, cardData) {
-          if (errors) {
-            errors.forEach(function(error) {
-              that.errors.push(error.message)
-            })
-            return
-          }
 
-          //call function to send to backend
-          that.processInvitation(nonce)
-        },
-        /*
-           * callback function: paymentFormLoaded
-           * Triggered when: SqPaymentForm is fully loaded
-           */
-        paymentFormLoaded: function() {
-          console.log('paymentFormLoaded')
-          /* HANDLE AS DESIRED */
+    async function main() {
+      const payments = Square.payments(applicationId, locationId)
+
+      const card = await payments.card()
+
+      await card.attach('#card-container')
+
+      async function eventHandler(event) {
+        event.preventDefault()
+
+        try {
+          const result = await card.tokenize()
+
+          if (result.status === 'OK') {
+            that.processInvitation(result.token)
+            // console.log(`Payment token is ${result.token}`)
+          }
+        } catch (e) {
+          console.error(e)
         }
       }
-    })
 
-    this.paymentForm.build()
+      const cardButton = document.getElementById('card-button')
+
+      cardButton.addEventListener('click', eventHandler)
+    }
+
+    main()
   },
   methods: {
     updateCard() {
-      this.paymentForm.requestCardNonce()
+      // this.paymentForm.requestCardNonce()
     },
     processInvitation(nonce) {
       this.toggleLoading()

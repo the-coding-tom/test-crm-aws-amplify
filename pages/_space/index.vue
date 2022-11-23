@@ -162,6 +162,13 @@ export default {
         .format('YYYY-MM-DD')}`
 
       const summaries = await $activity.getSummary(query)
+
+      console.log('in async process')
+      console.log(query)
+      console.log(summaries)
+      // when executes on server side time is in GH time or GMT+00
+      // when executes on client side, time is SF
+
       const data = {
         checkins: summaries['check-ins'].toString(),
         events: summaries['events'].toString(),
