@@ -323,28 +323,7 @@
                             type="number"
                           >
                         </div>
-                        <!-- <b-popover
-                          target="balance"
-                          placement="top"
-                          content="Click on the amount to edit"
-                          triggers="hover focus"
-                        /> -->
-                      </td>
-                      <td
-                        style="flex-grow: 1; flex-basis: 80px; text-align: left"
-                      >
-                        expires on:
-                        {{
-                          getExpDetails(
-                            data.room_booking_credit_expiration_date
-                          )
-                        }}
-                      </td>
-                      <td>
-                        <b-badge 
-                          href="#" 
-                          variant="primary"> Rooms</b-badge>
-                          <!-- <b-button
+                        <b-button
                           v-if="
                             data.room_booking_credit_amount !==
                               previousRoomCreditBalance
@@ -367,7 +346,23 @@
                           content="Save changes"
                           triggers="hover focus"
                         />
-                        <b-button
+                      </td>
+                      <td
+                        style="flex-grow: 1; flex-basis: 80px; text-align: left"
+                      >
+                        expires on:
+                        {{
+                          getExpDetails(
+                            data.room_booking_credit_expiration_date
+                          )
+                        }}
+                      </td>
+                      <td>
+                        <b-badge 
+                          href="#" 
+                          variant="primary"> Rooms</b-badge>
+
+                          <!-- <b-button
                           v-if="
                             data.room_booking_credit_amount ===
                               previousRoomCreditBalance
@@ -379,8 +374,8 @@
                           @click="disabled = false"
                         ><i 
                           class="fa fa-edit"
-                        /></b-button>
-                        <b-popover
+                        /></b-button> -->
+                          <!-- <b-popover
                           v-if="
                             data.room_booking_credit_amount ===
                               previousRoomCreditBalance
@@ -393,7 +388,7 @@
                       </td>
                     </div>
                   </tr>
-                  <tr>
+                  <!-- <tr>
                     <div style="display: flex">
                       <td id="balance">
                         <div
@@ -412,12 +407,12 @@
                             type="number"
                           >
                         </div>
-                        <!-- <b-popover
+                        <b-popover
                           target="balance"
                           placement="top"
                           content="Click on the amount to edit"
                           triggers="hover focus"
-                        /> -->
+                        />
                       </td>
                       <td
                         style="flex-grow: 1; flex-basis: 80px; text-align: left"
@@ -433,7 +428,7 @@
                         <b-badge 
                           href="#" 
                           variant="primary"> Events</b-badge>
-                          <!-- <b-button
+                        <b-button
                           v-if="
                             data.event_booking_credit_amount !==
                               previousEventCreditBalance
@@ -478,10 +473,10 @@
                           placement="top"
                           content="Edit credit"
                           triggers="hover focus"
-                        /> -->
+                        />
                       </td>
                     </div>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </div>
