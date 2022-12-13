@@ -4,9 +4,10 @@
       class="pb-6" 
       type="">
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle 
-          title="Members" 
-          subtitle="Check-in" />
+        <MainTitle
+          :subtitle="meta.total + ' ' + 'records found'"
+          title="Checkins"
+        />
         <div>
           <b-button
             :to="{ name: 'space-checkins-settings' }"

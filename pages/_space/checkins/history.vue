@@ -4,25 +4,29 @@
       class="pb-6" 
       type="">
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle 
-          title="Members" 
-          subtitle="Checkin History" />
-        <div style="visibility: hidden">
-          <b-button
-            :to="{ name: 'space-checkins-settings' }"
-            variant="transparent"
-          ><i class="fa fa-cogs" /> Settings</b-button
-          >
-          <b-button 
-            variant="transparent" 
-            @click="toggleModal('scanqrcode')"
-          ><i class="fas fa-qrcode" /> Scan QR Code</b-button
-          >
-          <b-button 
-            v-b-modal.checkin 
-            variant="primary"
-          >Manual Check-in</b-button
-          >
+        <MainTitle
+          :subtitle="meta.total + ' ' + 'records found'"
+          title="Previous Checkins"
+        />
+        <div>
+          <div style="width: 200px">
+            <no-ssr>
+              <date-picker
+                id="time"
+                v-model="date"
+                width="100%"
+                input-class="form-control"
+                lang="en"
+                format="YYYY-MM-DD"
+                value-type="format"
+                confirm
+                range
+                type="date"
+                placeholder="Filter by date"
+                @change="getCheckInData"
+              />
+            </no-ssr>
+          </div>
         </div>
       </div>
     </base-header>
@@ -171,22 +175,6 @@
         >
       </b-tabs>
     </b-modal>
-    <b-modal
-      id="scanqrcode"
-      :title="scanComplete ? 'Please Wait' : 'Show QR Code To The Camera'"
-      hide-footer
-    >
-      <qrcode-stream 
-        v-if="!scanComplete" 
-        @onDecode="onDecode" />
-      <div v-else>
-        <b-spinner 
-          variant="primary" 
-          type="grow" 
-          label="Spinning" />
-        <span>Processing...</span>
-      </div>
-    </b-modal>
     <div>
       <base-pagination
         :total="meta.total"
@@ -230,7 +218,13 @@ export default {
       const moment = require('moment')
 
       const link = `filter[status]=accepted&include=profile`
-      const checkinFilter = `?page=${route.query.page}&sort=-id`
+      let checkinFilter = `?page=${route.query.page}&sort=-id`
+
+      if (route.query.from_date || route.query.to_date) {
+        checkinFilter += `&filter[checkin_timestamp]=${route.query.from_date},${
+          route.query.to_date
+        }`
+      }
 
       let imeta, ilinks
 
@@ -254,6 +248,7 @@ export default {
   data: () => ({
     searching: false,
     type: 0,
+    date: [],
     first_name: '',
     last_name: '',
     email: '',
@@ -265,6 +260,7 @@ export default {
     loading: false,
     scanComplete: false,
     meeting_guest: false,
+    meta: { total: 0 },
     options: [
       {
         value: 'Option1',
@@ -295,15 +291,36 @@ export default {
     })
   },
   mounted() {
-    const data = {
-      from: this.$moment().format('YYYY-MM-DD'),
-      to: this.$moment()
-        .add(1, 'days')
-        .format('YYYY-MM-DD')
+    if (this.$route.query.from_date || this.$route.query.to_date) {
+      this.date = [this.$route.query.from_date, this.$route.query.to_date]
     }
-    this.$store.dispatch('resources/getBookingsByDate', data)
+    // const data = {
+    //   from: this.$moment().format('YYYY-MM-DD'),
+    //   to: this.$moment()
+    //     .add(1, 'days')
+    //     .format('YYYY-MM-DD')
+    // }
+    // this.$store.dispatch('resources/getBookingsByDate', data)
   },
   methods: {
+    getCheckInData() {
+      const params = `?from_date=${this.date[0]}&to_date=${this.date[1]}`
+
+      this.$router.push(params)
+
+      location.href = location.origin + this.$route.path + params
+
+      // this.$checkin
+      //   .checkins(filter)
+      //   .then(res => {
+      //     this.checkins = res.data
+      //     this.meta = res.meta
+      //     this.links = res.links
+      //   })
+      //   .catch(e => {
+      //     displayError(e, this)
+      //   })
+    },
     onDecode(data) {
       if (data) {
         this.scanComplete = true
@@ -313,20 +330,40 @@ export default {
     },
     next() {
       const { next } = this.links
-      const params = getQueryParams(next)
+      let params = getQueryParams(next)
 
+      if (this.$route.query.from_date || this.$route.query.to_date) {
+        params += `&from_date=${this.$route.query.from_date}&to_date=${
+          this.$route.query.to_date
+        }`
+      }
+
+      console.log(params)
       this.$router.push(params)
       location.href = location.origin + this.$route.path + params
     },
     prev() {
       const { prev } = this.links
-      const params = getQueryParams(prev)
+      let params = getQueryParams(prev)
+
+      if (this.$route.query.from_date || this.$route.query.to_date) {
+        params += `&from_date=${this.$route.query.from_date}&to_date=${
+          this.$route.query.to_date
+        }`
+      }
 
       this.$router.push(params)
       location.href = location.origin + this.$route.path + params
     },
     changePage(pageNumber) {
-      const params = `?page=${pageNumber}`
+      let params = `?page=${pageNumber}`
+
+      if (this.$route.query.from_date || this.$route.query.to_date) {
+        params += `&from_date=${this.$route.query.from_date}&to_date=${
+          this.$route.query.to_date
+        }`
+      }
+
       this.$router.push(params)
       location.href = location.origin + this.$route.path + params
     },
