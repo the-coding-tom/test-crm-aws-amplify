@@ -62,7 +62,7 @@
           />
           <sidebar-item
             :link="{
-              name: 'Previous Checkins',
+              name: 'Past Checkins',
               path: `/${subdomain}/checkins/history`,
             }"
           />

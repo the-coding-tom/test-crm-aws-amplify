@@ -1,12 +1,20 @@
 <template>
   <div>
-    <base-header class="pb-6" type="">
+    <base-header 
+      class="pb-6" 
+      type="">
       <div class="d-flex justify-content-between align-items-center py-4">
         <MainTitle
           :subtitle="meta.total + ' ' + 'records found'"
-          title="Previous Checkins"
+          title="Past Checkins"
         />
-        <div>
+        <div style="display: flex; flex-direction: row">
+          <b-button
+            variant="transparent"
+            class="text-primary"
+            @click="exportData"
+          ><i class="fa fa-file-export" /> Export</b-button
+          >
           <div style="width: 200px">
             <no-ssr>
               <date-picker
@@ -39,14 +47,20 @@
         </div>
       </div>
     </div>
-    <b-modal id="checkin" :static="true" title="Checkin" hide-footer>
+    <b-modal 
+      id="checkin" 
+      :static="true" 
+      title="Checkin" 
+      hide-footer>
       <b-tabs
         v-model="type"
         pills
         card
         class="nav-fill flex-column flex-sm-row"
       >
-        <b-tab active title="Member">
+        <b-tab 
+          active 
+          title="Member">
           <b-form
             class="member-checkin-form"
             @submit.prevent="checkinMember('manual')"
@@ -75,92 +89,95 @@
               type="submit"
               class="float-right member-checkin-btn"
               variant="primary"
-              >Checkin</b-button
+            >Checkin</b-button
             >
           </b-form>
         </b-tab>
-        <b-tab title="Guest"
-          ><b-form class="guest-checkin-form" @submit.prevent="checkinGuest">
-            <b-form-group label="Member">
-              <el-select
-                v-model="membership_id"
-                :remote-method="searchMembers"
-                :loading="searching"
-                required
-                filterable
-                remote
-                reserve-keyword
-                placeholder="Choose a member"
-              >
-                <el-option
-                  v-for="option in data"
-                  :key="option.id"
-                  :label="option.first_name + ' ' + option.last_name"
-                  :value="option.id"
-                />
-              </el-select>
-            </b-form-group>
-            <b-form-group label="Bookings">
-              <el-select
-                v-model="booking_info"
-                filterable
-                placeholder="Choose a booking"
-              >
-                <el-option
-                  v-for="option in bookings"
-                  :key="option.id"
-                  :label="option.title"
-                  :value="option.id + ' ' + option.membership.id"
-                />
-              </el-select>
-            </b-form-group>
-            <b-form-group label="First Name">
-              <b-form-input
-                id="firstName"
-                v-model="first_name"
-                placeholder="John"
-                required
+        <b-tab 
+          title="Guest"
+        ><b-form 
+          class="guest-checkin-form" 
+          @submit.prevent="checkinGuest">
+          <b-form-group label="Member">
+            <el-select
+              v-model="membership_id"
+              :remote-method="searchMembers"
+              :loading="searching"
+              required
+              filterable
+              remote
+              reserve-keyword
+              placeholder="Choose a member"
+            >
+              <el-option
+                v-for="option in data"
+                :key="option.id"
+                :label="option.first_name + ' ' + option.last_name"
+                :value="option.id"
               />
-            </b-form-group>
-            <b-form-group label="Last Name">
-              <b-form-input
-                id="lastName"
-                v-model="last_name"
-                placeholder="Doe"
-                required
+            </el-select>
+          </b-form-group>
+          <b-form-group label="Bookings">
+            <el-select
+              v-model="booking_info"
+              filterable
+              placeholder="Choose a booking"
+            >
+              <el-option
+                v-for="option in bookings"
+                :key="option.id"
+                :label="option.title"
+                :value="option.id + ' ' + option.membership.id"
               />
-            </b-form-group>
-            <b-form-group label="Email">
-              <b-form-input
-                id="email"
-                v-model="email"
-                type="email"
-                placeholder="john@doe.com"
-                required
-              />
-            </b-form-group>
-            <b-form-group label="Company">
-              <b-form-input
-                id="company"
-                v-model="company"
-                placeholder="SHACK15"
-                required
-              />
-            </b-form-group>
-            <!-- <b-form-checkbox
+            </el-select>
+          </b-form-group>
+          <b-form-group label="First Name">
+            <b-form-input
+              id="firstName"
+              v-model="first_name"
+              placeholder="John"
+              required
+            />
+          </b-form-group>
+          <b-form-group label="Last Name">
+            <b-form-input
+              id="lastName"
+              v-model="last_name"
+              placeholder="Doe"
+              required
+            />
+          </b-form-group>
+          <b-form-group label="Email">
+            <b-form-input
+              id="email"
+              v-model="email"
+              type="email"
+              placeholder="john@doe.com"
+              required
+            />
+          </b-form-group>
+          <b-form-group label="Company">
+            <b-form-input
+              id="company"
+              v-model="company"
+              placeholder="SHACK15"
+              required
+            />
+          </b-form-group>
+          <!-- <b-form-checkbox
               id="meetingGuest"
               v-model="meeting_guest"
               :value="true"
               :unchecked-value="false"> Is a meeting guest
             </b-form-checkbox> -->
-            <b-button
-              :disabled="loading"
-              type="submit"
-              class="float-right"
-              variant="primary"
-              >Checkin</b-button
-            >
-          </b-form></b-tab
+          <b-button
+            :disabled="loading"
+            type="submit"
+            class="float-right"
+            variant="primary"
+          >Checkin</b-button
+          >
+        </b-form></b-tab
         >
       </b-tabs>
     </b-modal>
@@ -200,7 +217,7 @@ export default {
     RouteBreadCrumb,
     [Select.name]: Select,
     [Option.name]: Option,
-    QrcodeStream: () => import('@/components/qrscanner/qrscanner.vue'),
+    QrcodeStream: () => import('@/components/qrscanner/qrscanner.vue')
   },
   async asyncData({ $membership, $checkin, error, route }) {
     try {
@@ -210,7 +227,9 @@ export default {
       let checkinFilter = `?page=${route.query.page}&sort=-id`
 
       if (route.query.from_date || route.query.to_date) {
-        checkinFilter += `&filter[checkin_timestamp]=${route.query.from_date},${route.query.to_date}`
+        checkinFilter += `&filter[checkin_timestamp]=${route.query.from_date},${
+          route.query.to_date
+        }`
       }
 
       let imeta, ilinks
@@ -251,31 +270,31 @@ export default {
     options: [
       {
         value: 'Option1',
-        label: 'Option1',
+        label: 'Option1'
       },
       {
         value: 'Option2',
-        label: 'Option2',
+        label: 'Option2'
       },
       {
         value: 'Option3',
-        label: 'Option3',
+        label: 'Option3'
       },
       {
         value: 'Option4',
-        label: 'Option4',
+        label: 'Option4'
       },
       {
         value: 'Option5',
-        label: 'Option5',
-      },
+        label: 'Option5'
+      }
     ],
-    value: '',
+    value: ''
   }),
   computed: {
     ...mapState({
-      bookings: (state) => state.resources.bookingsForDate,
-    }),
+      bookings: state => state.resources.bookingsForDate
+    })
   },
   mounted() {
     if (this.$route.query.from_date || this.$route.query.to_date) {
@@ -290,6 +309,33 @@ export default {
     // this.$store.dispatch('resources/getBookingsByDate', data)
   },
   methods: {
+    exportData() {
+      let filter = ''
+
+      if (this.date[0] && this.date[1]) {
+        filter = `?filter[checkin_timestamp]=${this.date[0]},${
+          this.date[1]
+        }&sort=-id`
+      }
+
+      this.$checkin.exportCheckins(filter).then(res => {
+        console.log(res)
+        let blob = new Blob([res], { type: 'text/csv' })
+        // window.location.href = URL.createObjectURL(blob)
+
+        const a = document.createElement('a')
+        const url = URL.createObjectURL(blob)
+
+        // Put the link somewhere in the body
+        document.body.appendChild(a)
+        a.innerHTML = 'download me'
+        a.href = url
+        // Set our custom filename
+        a.download = 'directory-members.csv'
+        // Automatically click the link
+        a.click()
+      })
+    },
     getCheckInData() {
       const params = `?from_date=${this.date[0]}&to_date=${this.date[1]}`
 
@@ -320,7 +366,9 @@ export default {
       let params = getQueryParams(next)
 
       if (this.$route.query.from_date || this.$route.query.to_date) {
-        params += `&from_date=${this.$route.query.from_date}&to_date=${this.$route.query.to_date}`
+        params += `&from_date=${this.$route.query.from_date}&to_date=${
+          this.$route.query.to_date
+        }`
       }
 
       console.log(params)
@@ -332,7 +380,9 @@ export default {
       let params = getQueryParams(prev)
 
       if (this.$route.query.from_date || this.$route.query.to_date) {
-        params += `&from_date=${this.$route.query.from_date}&to_date=${this.$route.query.to_date}`
+        params += `&from_date=${this.$route.query.from_date}&to_date=${
+          this.$route.query.to_date
+        }`
       }
 
       this.$router.push(params)
@@ -342,7 +392,9 @@ export default {
       let params = `?page=${pageNumber}`
 
       if (this.$route.query.from_date || this.$route.query.to_date) {
-        params += `&from_date=${this.$route.query.from_date}&to_date=${this.$route.query.to_date}`
+        params += `&from_date=${this.$route.query.from_date}&to_date=${
+          this.$route.query.to_date
+        }`
       }
 
       this.$router.push(params)
@@ -375,7 +427,7 @@ export default {
         company,
         membership_id,
         booking_id,
-        meeting_guest,
+        meeting_guest
       } = this
       this.$checkin
         .checkin({
@@ -386,20 +438,20 @@ export default {
           company,
           membership_id,
           booking_id,
-          meeting_guest,
+          meeting_guest
         })
         .then(({ data }) => {
           this.loadiing = !this.loading
           // this.checkins.push(data)
           this.$bvToast.toast(`Guest checked in successfully`, {
             title: 'Success',
-            variant: 'success',
+            variant: 'success'
           })
 
           this.$bvModal.hide('checkin')
           location.reload()
         })
-        .catch((e) => {
+        .catch(e => {
           this.loading = !this.loading
           const message = e.response ? e.response.data.message : e.message
           // console.log(e.message)
@@ -407,7 +459,7 @@ export default {
 
           this.$bvToast.toast(`Error - ${message}`, {
             title: 'Error',
-            variant: 'danger',
+            variant: 'danger'
           })
         })
     },
@@ -420,7 +472,7 @@ export default {
             type: 'member',
             checkin_type: source,
             membership_id,
-            membership: membership_id,
+            membership: membership_id
           })
           .then(({ data }) => {
             this.loading = false
@@ -428,7 +480,7 @@ export default {
 
             this.$bvToast.toast('Member checked in successfully', {
               title: 'Success',
-              variant: 'success',
+              variant: 'success'
             })
 
             this.$bvModal.hide('scanqrcode')
@@ -436,7 +488,7 @@ export default {
             this.$bvModal.hide('checkin')
             location.reload()
           })
-          .catch((error) => {
+          .catch(error => {
             this.$bvModal.hide('scanqrcode')
 
             this.loading = !this.loading
@@ -458,7 +510,7 @@ export default {
     toggleModal(id) {
       this.$bvModal.show(id)
       this.scanComplete = false
-    },
-  },
+    }
+  }
 }
 </script>

@@ -11,6 +11,11 @@ export default function(ctx, inject) {
     checkout: (id, payload) => {
       return ctx.$axios.$patch(`${subdomain}/${id}`, payload)
     },
+    exportCheckins: filter => {
+      return ctx.$axios.$get(
+        `/${ctx.route.params.space}/file-export-checkin-history${filter}`
+      )
+    },
     settings: link => {
       return ctx.$axios.$get(link)
     },
