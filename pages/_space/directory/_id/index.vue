@@ -177,7 +177,20 @@
               </div>
               <div class="sh-dls">
                 <span> Joined on:</span>
-                {{ $moment(data.created_at).format('MMMM DD, YYYY') }}
+                <template
+                  v-if="
+                    data.trial_ends_at &&
+                      data.trial_ends_at != '2022-04-15 00:00:00'
+                  "
+                >{{
+                  $moment(data.trial_ends_at || data.member_since).format(
+                    'MMMM DD, YYYY'
+                  )
+                }}</template
+                >
+                <template v-else>{{
+                  $moment(data.member_since).format('MMMM DD, YYYY')
+                }}</template>
               </div>
 
               <div class="sh-dls">
