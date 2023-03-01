@@ -4,7 +4,7 @@
       class="pb-6" 
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle :title="meta.total+' Total Attendees'" />
+        <MainTitle :title="extra.total_tickets_bought+' Total Attendees'" />
         <SearchForm
           :loading="loading"
           :required="false"
@@ -237,6 +237,7 @@ export default {
     ...mapState({
       attendees: state => state.events.attendees.data,
       meta: state => state.events.attendees.meta,
+      extra: state => state.events.attendees.extra,
       links: state => state.events.attendees.links,
       memberships: state => state.events.memberships.data
     })
