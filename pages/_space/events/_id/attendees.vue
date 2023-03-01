@@ -4,7 +4,7 @@
       class="pb-6" 
       type>
       <div class="d-flex justify-content-between align-items-center py-4">
-        <MainTitle title="Attendees" />
+        <MainTitle :title="meta.total+' Total Attendees'" />
         <SearchForm
           :loading="loading"
           :required="false"
