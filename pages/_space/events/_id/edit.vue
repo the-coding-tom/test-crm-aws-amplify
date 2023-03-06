@@ -113,6 +113,14 @@
                     type="number"
                     placeholder="3"
                   />
+                  <base-input
+                    id="mminTicketsPerPerson"
+                    v-model="event.min_tickets_per_person"
+                    class="col-md-6"
+                    label="Minimum Tickets Per Person"
+                    type="number"
+                    placeholder="1"
+                  />
                 </div>
               </div>
 

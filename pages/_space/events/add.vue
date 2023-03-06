@@ -110,6 +110,14 @@
                   label="Max Ticket Per Person"
                   type="number"
                 />
+                <base-input
+                  id="mminTicketsPerPerson"
+                  v-model="min_tickets_per_person"
+                  class="col-md-6"
+                  label="Minimum Tickets Per Person"
+                  type="number"
+                  placeholder="1"
+                />
               </div>
             </div>
             <div class="col-md-6">
@@ -249,6 +257,7 @@ export default {
       emailMessage: '',
       selectedRoom: null,
       max_ticket_per_person: null, //3,
+      min_tickets_per_person: null, //3,
       external: false,
       external_location: null,
       banner_image: ''
@@ -304,6 +313,7 @@ export default {
         room_id: this.selectedRoom,
         event_category_id: this.category,
         max_ticket_per_person: this.max_ticket_per_person,
+        min_tickets_per_person: this.min_tickets_per_person,
         total_tickets: this.capacity,
         send_mail: this.sendMail === 'true' ? true : false,
         email_subject: this.emailSubject,
