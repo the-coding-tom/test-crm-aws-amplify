@@ -212,7 +212,7 @@ import { Select, Option } from 'element-ui'
 import { displayError } from '../../../util/errors'
 import { mapState } from 'vuex'
 
-const moment = require('moment')
+const moment = require('moment-timezone')
 
 export default {
   name: 'Checkin',
@@ -230,7 +230,7 @@ export default {
   async asyncData({ $membership, $checkin, error, route }) {
     try {
       const link = 'filter[status]=accepted&include=profile'
-      const checkinFilter = `?filter[status]=checkin&filter[checkin_timestamp]=${moment().format(
+      const checkinFilter = `?filter[status]=checkin&filter[checkin_timestamp]=${moment().tz("America/Los_Angeles").format(
         'YYYY-MM-DD'
       )},${moment()
         .add(1, 'days')
