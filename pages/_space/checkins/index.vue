@@ -239,6 +239,8 @@ export default {
 
       let imeta, ilinks
 
+      console.log(checkinFilter)
+
       const checkins = await $checkin
         .checkins(checkinFilter)
         .then(({ data, meta, links }) => {
