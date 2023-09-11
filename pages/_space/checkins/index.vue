@@ -234,6 +234,7 @@ export default {
         'YYYY-MM-DD'
       )},${moment()
         .add(1, 'days')
+        .tz("America/Los_Angeles")
         .format('YYYY-MM-DD')}&page=${route.query.page}&sort=-id`
 
       let imeta, ilinks
@@ -300,9 +301,10 @@ export default {
   },
   mounted() {
     const data = {
-      from: this.$moment().format('YYYY-MM-DD'),
+      from: this.$moment().tz("America/Los_Angeles").format('YYYY-MM-DD'),
       to: this.$moment()
         .add(1, 'days')
+        .tz("America/Los_Angeles")
         .format('YYYY-MM-DD')
     }
     this.$store.dispatch('resources/getBookingsByDate', data)
