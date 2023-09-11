@@ -146,11 +146,13 @@ export default {
       store.commit('activity/setActivities', activities)
 
       const payload = {
-        from: $moment()
+        from: $mz()
           .startOf('day')
+          .tz("America/Los_Angeles")
           .format('YYYY-MM-DD'),
-        to: $moment()
+        to: $mz()
           .endOf('day')
+          .tz("America/Los_Angeles")
           .format('YYYY-MM-DD')
       }
 
