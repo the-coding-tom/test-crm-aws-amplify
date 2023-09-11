@@ -159,7 +159,7 @@ export default {
       const bookings = await $resource.getBookingByDate(payload)
       store.commit('activity/setActivityBookings', bookings.data)
 
-      const query = `?from=${$moment().tz("America/Los_Angeles").format('YYYY-MM-DD')}&to=${$moment()
+      const query = `?from=${$mz().tz("America/Los_Angeles").format('YYYY-MM-DD')}&to=${$mz()
         .add(1, 'days')
         .tz("America/Los_Angeles")
         .format('YYYY-MM-DD')}`
