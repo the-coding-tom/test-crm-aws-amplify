@@ -5,6 +5,7 @@
   "author": "Edwin Tsatsu",
   "private": true,
   "scripts": {
+    "postinstall": "yarn install",
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "build": "nuxt build",
     "generate": "nuxt generate",
