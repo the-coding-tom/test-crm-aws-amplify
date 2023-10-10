@@ -1,4 +1,5 @@
 const express = require('express')
+console.log("Node.js version:", process.version);
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
