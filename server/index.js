@@ -1,6 +1,6 @@
 const express = require('express')
-console.log("Node.js version:", process.version);
 const consola = require('consola')
+console.log("Node.js version:", process.version);
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const host = process.env.HOST || '127.0.0.1'
