@@ -8756,7 +8756,7 @@ nuxt-rollbar-module@^1.1.0:
     consola "^2.11.0"
     rollbar "^2.14.4"
 
-nuxt@^2.14.7:
+nuxt@2.14.7:
   version "2.14.7"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.14.7.tgz#041bb3f5c659b1fec80042d974f68a0ed4e93aa9"
   integrity sha512-0pmMDgSqyLacHJ0otGgfFC4cnMIiAfkK5JQ0TU4cHckwt1d0emgABqqWFuO9S45VI5sHHBFADDkbUnJt3JqbLg==
