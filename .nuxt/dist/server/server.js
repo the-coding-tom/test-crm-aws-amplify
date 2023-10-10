@@ -2844,7 +2844,7 @@ async function setContext(app, context) {
   // If context not defined, create it
   if (!app.context) {
     app.context = {
-      isStatic: false,
+      isStatic: true,
       isDev: false,
       isHMR: false,
       app,
@@ -2924,21 +2924,23 @@ async function setContext(app, context) {
         "npm_package_devDependencies_eslint_plugin_prettier": "2.6.2",
         "npm_package_devDependencies_jest_serializer_vue": "^2.0.2",
         "npm_package_dependencies_bootstrap_vue": "^2.0.0-beta",
-        "PATH": "/var/folders/sn/bbg46m4s7d54lf_mmykqs70h0000gn/T/yarn--1696942460961-0.9323922906584103:/Users/tom/Projects/test-crm-aws-amplify/node_modules/.bin:/Users/tom/.config/yarn/link/node_modules/.bin:/Users/tom/.nvm/versions/node/v12.16.1/libexec/lib/node_modules/npm/bin/node-gyp-bin:/Users/tom/.nvm/versions/node/v12.16.1/lib/node_modules/npm/bin/node-gyp-bin:/Users/tom/.nvm/versions/node/v12.16.1/bin/node_modules/npm/bin/node-gyp-bin:/Users/tom/.nvm/versions/node/v12.16.1/bin:/Users/tom/.nvm/versions/node/v10.16.3/bin:/usr/local/opt/php@7.3/sbin:/usr/local/opt/php@7.3/bin:/usr/local/sbin:/usr/local/opt/ruby/bin:/Users/tom/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/tom/opt/anaconda3/bin:/Users/tom/opt/anaconda3/condabin:/Users/tom/.nvm/versions/node/v10.16.3/bin:/usr/local/opt/php@7.3/sbin:/usr/local/opt/php@7.3/bin:/usr/local/sbin:/usr/local/opt/ruby/bin:/Users/tom/.bin:/Users/tom/Developer/flutter/bin:/Users/tom/Developer/flutter/bin",
-        "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"build\"],\"original\":[\"build\"]}",
+        "PATH": "/var/folders/sn/bbg46m4s7d54lf_mmykqs70h0000gn/T/yarn--1696954531025-0.29962649736916735:/Users/tom/Projects/test-crm-aws-amplify/node_modules/.bin:/Users/tom/.config/yarn/link/node_modules/.bin:/Users/tom/.nvm/versions/node/v12.16.1/libexec/lib/node_modules/npm/bin/node-gyp-bin:/Users/tom/.nvm/versions/node/v12.16.1/lib/node_modules/npm/bin/node-gyp-bin:/Users/tom/.nvm/versions/node/v12.16.1/bin/node_modules/npm/bin/node-gyp-bin:/Users/tom/.nvm/versions/node/v12.16.1/bin:/Users/tom/.nvm/versions/node/v10.16.3/bin:/usr/local/opt/php@7.3/sbin:/usr/local/opt/php@7.3/bin:/usr/local/sbin:/usr/local/opt/ruby/bin:/Users/tom/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/tom/opt/anaconda3/bin:/Users/tom/opt/anaconda3/condabin:/Users/tom/.nvm/versions/node/v10.16.3/bin:/usr/local/opt/php@7.3/sbin:/usr/local/opt/php@7.3/bin:/usr/local/sbin:/usr/local/opt/ruby/bin:/Users/tom/.bin:/Users/tom/Developer/flutter/bin:/Users/tom/Developer/flutter/bin",
+        "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"generate\"],\"original\":[\"generate\"]}",
+        "npm_package_scripts_postinstall": "yarn install",
         "_": "/Users/tom/Projects/test-crm-aws-amplify/node_modules/.bin/nuxt",
         "__CFBundleIdentifier": "com.microsoft.VSCode",
         "CONDA_PREFIX": "/Users/tom/opt/anaconda3",
         "USER_ZDOTDIR": "/Users/tom",
         "PWD": "/Users/tom/Projects/test-crm-aws-amplify",
         "npm_package_dependencies_bootstrap": "4.3.1",
-        "npm_lifecycle_event": "build",
+        "npm_lifecycle_event": "generate",
         "npm_package_dependencies_date_fns": "^2.4.1",
         "npm_package_dependencies_cross_env": "^5.2.0",
         "LANG": "en_US.UTF-8",
         "npm_package_name": "shack15new",
         "npm_package_devDependencies__babel_preset_env": "^7.10.4",
         "npm_package_dependencies__toast_ui_vue_editor": "^2.2.0",
+        "npm_package_devDependencies_yarn": "^1.22.11",
         "npm_package_devDependencies__vue_test_utils": "^1.0.3",
         "npm_package_dependencies__fullcalendar_daygrid": "^4.1.0",
         "npm_package_scripts_start": "cross-env NODE_ENV=production node server/index.js",
@@ -2975,7 +2977,7 @@ async function setContext(app, context) {
         "CONDA_PYTHON_EXE": "/Users/tom/opt/anaconda3/bin/python",
         "YARN_WRAP_OUTPUT": "false",
         "npm_package_scripts_test_coverage": "jest --no-cache --coverage",
-        "npm_lifecycle_script": "nuxt build",
+        "npm_lifecycle_script": "nuxt generate",
         "npm_package_dependencies_element_ui": "^2.12.0",
         "npm_package_dependencies__fullcalendar_moment": "^4.4.0",
         "VSCODE_GIT_IPC_HANDLE": "/var/folders/sn/bbg46m4s7d54lf_mmykqs70h0000gn/T/vscode-git-12d060c662.sock",
@@ -2996,6 +2998,7 @@ async function setContext(app, context) {
         "npm_config_init_version": "1.0.0",
         "npm_config_ignore_optional": "",
         "npm_package_devDependencies_node_sass": "^4.14.1",
+        "npm_config_package_manager": "yarn",
         "npm_package_devDependencies_nodemon": "^1.11.0",
         "npm_package_devDependencies_babel_plugin_component": "^1.1.0",
         "npm_package_dependencies_vue2_transitions": "^0.3.0",
@@ -3010,13 +3013,9 @@ async function setContext(app, context) {
       }
     }; // Only set once
 
-    if ( true && context.req) {
-      app.context.req = context.req;
-    }
+    if (false) {}
 
-    if ( true && context.res) {
-      app.context.res = context.res;
-    }
+    if (false) {}
 
     if (context.ssrContext) {
       app.context.ssrContext = context.ssrContext;
@@ -5390,6 +5389,10 @@ const layouts = {
 
     isFetching() {
       return this.nbFetching > 0;
+    },
+
+    isPreview() {
+      return Boolean(this.$options.previewData);
     }
 
   },
@@ -11117,7 +11120,9 @@ const createNext = ssrContext => opts => {
     routePath: ''
   }; // Remove query from url is static target
 
-  if (false) {} // Public runtime config
+  if ( true && ssrContext.url) {
+    ssrContext.url = ssrContext.url.split('?')[0];
+  } // Public runtime config
 
 
   ssrContext.nuxt.config = ssrContext.runtimeConfig.public; // Create the app definition and the instance (created for each request)
