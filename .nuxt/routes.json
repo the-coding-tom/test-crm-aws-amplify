@@ -1,0 +1,555 @@
+[
+  {
+    "name": "user",
+    "path": "/user",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/user/index.vue",
+    "chunkName": "pages/user/index",
+    "_name": "_403fcae4"
+  },
+  {
+    "name": "auth-forgot-password",
+    "path": "/auth/forgot-password",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/auth/forgot-password.vue",
+    "chunkName": "pages/auth/forgot-password",
+    "_name": "_c23452c4"
+  },
+  {
+    "name": "auth-login",
+    "path": "/auth/login",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/auth/login.vue",
+    "chunkName": "pages/auth/login",
+    "_name": "_f898817c"
+  },
+  {
+    "name": "auth-reset-password",
+    "path": "/auth/reset-password",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/auth/reset-password.vue",
+    "chunkName": "pages/auth/reset-password",
+    "_name": "_3d851260"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_2c5e9802"
+  },
+  {
+    "name": "space",
+    "path": "/:space",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/index.vue",
+    "chunkName": "pages/_space/index",
+    "_name": "_6bcca46c"
+  },
+  {
+    "name": "space-activities",
+    "path": "/:space/activities",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/activities/index.vue",
+    "chunkName": "pages/_space/activities/index",
+    "_name": "_402c7768"
+  },
+  {
+    "name": "space-admins",
+    "path": "/:space/admins",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/admins/index.vue",
+    "chunkName": "pages/_space/admins/index",
+    "_name": "_88f97c82"
+  },
+  {
+    "name": "space-checkins",
+    "path": "/:space/checkins",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/checkins/index.vue",
+    "chunkName": "pages/_space/checkins/index",
+    "_name": "_166e93be"
+  },
+  {
+    "name": "space-community",
+    "path": "/:space/community",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/community/index.vue",
+    "chunkName": "pages/_space/community/index",
+    "_name": "_2de3db24"
+  },
+  {
+    "name": "space-corporates",
+    "path": "/:space/corporates",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/corporates/index.vue",
+    "chunkName": "pages/_space/corporates/index",
+    "_name": "_4e59fa2e"
+  },
+  {
+    "name": "space-directory",
+    "path": "/:space/directory",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/directory/index.vue",
+    "chunkName": "pages/_space/directory/index",
+    "_name": "_685974a8"
+  },
+  {
+    "name": "space-edit",
+    "path": "/:space/edit",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/edit.vue",
+    "chunkName": "pages/_space/edit",
+    "_name": "_2db09442"
+  },
+  {
+    "name": "space-events",
+    "path": "/:space/events",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/events/index.vue",
+    "chunkName": "pages/_space/events/index",
+    "_name": "_5b02e594"
+  },
+  {
+    "name": "space-invoice",
+    "path": "/:space/invoice",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/invoice/index.vue",
+    "chunkName": "pages/_space/invoice/index",
+    "_name": "_41d60168"
+  },
+  {
+    "name": "space-members-due",
+    "path": "/:space/members-due",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/members-due/index.vue",
+    "chunkName": "pages/_space/members-due/index",
+    "_name": "_7dbde1bb"
+  },
+  {
+    "name": "space-members-subscribed",
+    "path": "/:space/members-subscribed",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/members-subscribed/index.vue",
+    "chunkName": "pages/_space/members-subscribed/index",
+    "_name": "_61a1bbc9"
+  },
+  {
+    "name": "space-memberships",
+    "path": "/:space/memberships",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/memberships/index.vue",
+    "chunkName": "pages/_space/memberships/index",
+    "_name": "_32740598"
+  },
+  {
+    "name": "space-plans",
+    "path": "/:space/plans",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/plans/index.vue",
+    "chunkName": "pages/_space/plans/index",
+    "_name": "_85446f36"
+  },
+  {
+    "name": "space-promotions",
+    "path": "/:space/promotions",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/promotions/index.vue",
+    "chunkName": "pages/_space/promotions/index",
+    "_name": "_24ab9beb"
+  },
+  {
+    "name": "space-resources",
+    "path": "/:space/resources",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/resources/index.vue",
+    "chunkName": "pages/_space/resources/index",
+    "_name": "_33ebce60"
+  },
+  {
+    "name": "space-settings",
+    "path": "/:space/settings",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/settings/index.vue",
+    "chunkName": "pages/_space/settings/index",
+    "_name": "_29ff541e"
+  },
+  {
+    "name": "space-tags",
+    "path": "/:space/tags",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/tags/index.vue",
+    "chunkName": "pages/_space/tags/index",
+    "_name": "_7171bed8"
+  },
+  {
+    "name": "space-wellness",
+    "path": "/:space/wellness",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/wellness/index.vue",
+    "chunkName": "pages/_space/wellness/index",
+    "_name": "_782bdcc0"
+  },
+  {
+    "name": "space-admins-add",
+    "path": "/:space/admins/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/admins/add.vue",
+    "chunkName": "pages/_space/admins/add",
+    "_name": "_392e3964"
+  },
+  {
+    "name": "space-checkins-history",
+    "path": "/:space/checkins/history",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/checkins/history.vue",
+    "chunkName": "pages/_space/checkins/history",
+    "_name": "_2d60a1ba"
+  },
+  {
+    "name": "space-checkins-settings",
+    "path": "/:space/checkins/settings",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/checkins/settings.vue",
+    "chunkName": "pages/_space/checkins/settings",
+    "_name": "_4fd93bb8"
+  },
+  {
+    "name": "space-corporates-add",
+    "path": "/:space/corporates/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/corporates/add.vue",
+    "chunkName": "pages/_space/corporates/add",
+    "_name": "_692ae6f8"
+  },
+  {
+    "name": "space-directory-add",
+    "path": "/:space/directory/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/directory/add.vue",
+    "chunkName": "pages/_space/directory/add",
+    "_name": "_6a5e8712"
+  },
+  {
+    "name": "space-eatry-categories",
+    "path": "/:space/eatry/categories",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/eatry/categories/index.vue",
+    "chunkName": "pages/_space/eatry/categories/index",
+    "_name": "_60841747"
+  },
+  {
+    "name": "space-eatry-inventory",
+    "path": "/:space/eatry/inventory",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/eatry/inventory/index.vue",
+    "chunkName": "pages/_space/eatry/inventory/index",
+    "_name": "_52938332"
+  },
+  {
+    "name": "space-eatry-orders",
+    "path": "/:space/eatry/orders",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/eatry/orders/index.vue",
+    "chunkName": "pages/_space/eatry/orders/index",
+    "_name": "_7c5294d0"
+  },
+  {
+    "name": "space-events-add",
+    "path": "/:space/events/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/events/add.vue",
+    "chunkName": "pages/_space/events/add",
+    "_name": "_d68d0f3a"
+  },
+  {
+    "name": "space-events-categories",
+    "path": "/:space/events/categories",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/events/categories/index.vue",
+    "chunkName": "pages/_space/events/categories/index",
+    "_name": "_fd088e66"
+  },
+  {
+    "name": "space-events-drafts",
+    "path": "/:space/events/drafts",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/events/drafts/index.vue",
+    "chunkName": "pages/_space/events/drafts/index",
+    "_name": "_948755ba"
+  },
+  {
+    "name": "space-manage-checkins",
+    "path": "/:space/manage/checkins",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/manage/checkins/index.vue",
+    "chunkName": "pages/_space/manage/checkins/index",
+    "_name": "_5e0fec6a"
+  },
+  {
+    "name": "space-manage-directory",
+    "path": "/:space/manage/directory",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/manage/directory/index.vue",
+    "chunkName": "pages/_space/manage/directory/index",
+    "_name": "_1214963e"
+  },
+  {
+    "name": "space-manage-invite",
+    "path": "/:space/manage/invite",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/manage/invite/index.vue",
+    "chunkName": "pages/_space/manage/invite/index",
+    "_name": "_ad0684a4"
+  },
+  {
+    "name": "space-manage-invoices",
+    "path": "/:space/manage/invoices",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/manage/invoices/index.vue",
+    "chunkName": "pages/_space/manage/invoices/index",
+    "_name": "_3d6a926a"
+  },
+  {
+    "name": "space-memberships-add",
+    "path": "/:space/memberships/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/memberships/add.vue",
+    "chunkName": "pages/_space/memberships/add",
+    "_name": "_073ac967"
+  },
+  {
+    "name": "space-memberships-archived",
+    "path": "/:space/memberships/archived",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/memberships/archived/index.vue",
+    "chunkName": "pages/_space/memberships/archived/index",
+    "_name": "_5fb805e2"
+  },
+  {
+    "name": "space-memberships-messages",
+    "path": "/:space/memberships/messages",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/memberships/messages/index.vue",
+    "chunkName": "pages/_space/memberships/messages/index",
+    "_name": "_d69eec0e"
+  },
+  {
+    "name": "space-memberships-uninvited",
+    "path": "/:space/memberships/uninvited",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/memberships/uninvited/index.vue",
+    "chunkName": "pages/_space/memberships/uninvited/index",
+    "_name": "_6655d7ea"
+  },
+  {
+    "name": "space-plans-add",
+    "path": "/:space/plans/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/plans/add.vue",
+    "chunkName": "pages/_space/plans/add",
+    "_name": "_0360db74"
+  },
+  {
+    "name": "space-promotions-add",
+    "path": "/:space/promotions/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/promotions/add.vue",
+    "chunkName": "pages/_space/promotions/add",
+    "_name": "_6cf9d87a"
+  },
+  {
+    "name": "space-resources-add",
+    "path": "/:space/resources/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/resources/add.vue",
+    "chunkName": "pages/_space/resources/add",
+    "_name": "_97c3b7a2"
+  },
+  {
+    "name": "space-resources-bookings",
+    "path": "/:space/resources/bookings",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/resources/bookings/index.vue",
+    "chunkName": "pages/_space/resources/bookings/index",
+    "_name": "_f407dac2"
+  },
+  {
+    "name": "space-resources-categories",
+    "path": "/:space/resources/categories",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/resources/categories/index.vue",
+    "chunkName": "pages/_space/resources/categories/index",
+    "_name": "_b1fccefe"
+  },
+  {
+    "name": "space-settings-rooms",
+    "path": "/:space/settings/rooms",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/settings/rooms.vue",
+    "chunkName": "pages/_space/settings/rooms",
+    "_name": "_1b8d4344"
+  },
+  {
+    "name": "space-tags-add",
+    "path": "/:space/tags/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/tags/add.vue",
+    "chunkName": "pages/_space/tags/add",
+    "_name": "_2ad07363"
+  },
+  {
+    "name": "space-wellness-add",
+    "path": "/:space/wellness/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/wellness/add.vue",
+    "chunkName": "pages/_space/wellness/add",
+    "_name": "_8d579122"
+  },
+  {
+    "name": "space-wellness-bookings",
+    "path": "/:space/wellness/bookings",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/wellness/bookings/index.vue",
+    "chunkName": "pages/_space/wellness/bookings/index",
+    "_name": "_5eb5775f"
+  },
+  {
+    "name": "space-wellness-categories",
+    "path": "/:space/wellness/categories",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/wellness/categories/index.vue",
+    "chunkName": "pages/_space/wellness/categories/index",
+    "_name": "_36f4cd41"
+  },
+  {
+    "name": "space-eatry-categories-add",
+    "path": "/:space/eatry/categories/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/eatry/categories/add.vue",
+    "chunkName": "pages/_space/eatry/categories/add",
+    "_name": "_cf9d0a54"
+  },
+  {
+    "name": "space-eatry-inventory-add",
+    "path": "/:space/eatry/inventory/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/eatry/inventory/add.vue",
+    "chunkName": "pages/_space/eatry/inventory/add",
+    "_name": "_05fa2c14"
+  },
+  {
+    "name": "space-events-categories-add",
+    "path": "/:space/events/categories/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/events/categories/add.vue",
+    "chunkName": "pages/_space/events/categories/add",
+    "_name": "_178fc5dc"
+  },
+  {
+    "name": "space-memberships-messages-create",
+    "path": "/:space/memberships/messages/create",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/memberships/messages/create.vue",
+    "chunkName": "pages/_space/memberships/messages/create",
+    "_name": "_2914ffe5"
+  },
+  {
+    "name": "space-resources-categories-add",
+    "path": "/:space/resources/categories/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/resources/categories/add.vue",
+    "chunkName": "pages/_space/resources/categories/add",
+    "_name": "_069bfae0"
+  },
+  {
+    "name": "space-wellness-categories-add",
+    "path": "/:space/wellness/categories/add",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/wellness/categories/add.vue",
+    "chunkName": "pages/_space/wellness/categories/add",
+    "_name": "_55293160"
+  },
+  {
+    "name": "space-eatry-inventory-id",
+    "path": "/:space/eatry/inventory/:id",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/eatry/inventory/_id/index.vue",
+    "chunkName": "pages/_space/eatry/inventory/_id/index",
+    "_name": "_71ebcdd2"
+  },
+  {
+    "name": "space-invoice-add-id",
+    "path": "/:space/invoice/add/:id",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/invoice/add/_id/index.vue",
+    "chunkName": "pages/_space/invoice/add/_id/index",
+    "_name": "_1a114865"
+  },
+  {
+    "name": "space-invoice-preview-id",
+    "path": "/:space/invoice/preview/:id",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/invoice/preview/_id/index.vue",
+    "chunkName": "pages/_space/invoice/preview/_id/index",
+    "_name": "_2229f44c"
+  },
+  {
+    "name": "space-memberships-messages-id",
+    "path": "/:space/memberships/messages/:id",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/memberships/messages/_id/index.vue",
+    "chunkName": "pages/_space/memberships/messages/_id/index",
+    "_name": "_685bff38"
+  },
+  {
+    "name": "space-wellness-bookings-id",
+    "path": "/:space/wellness/bookings/:id",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/wellness/bookings/_id.vue",
+    "chunkName": "pages/_space/wellness/bookings/_id",
+    "_name": "_0cb074f2"
+  },
+  {
+    "name": "space-eatry-inventory-id-edit",
+    "path": "/:space/eatry/inventory/:id/edit",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/eatry/inventory/_id/edit.vue",
+    "chunkName": "pages/_space/eatry/inventory/_id/edit",
+    "_name": "_2296533a"
+  },
+  {
+    "name": "space-directory-id",
+    "path": "/:space/directory/:id",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/directory/_id/index.vue",
+    "chunkName": "pages/_space/directory/_id/index",
+    "_name": "_7697fb93"
+  },
+  {
+    "name": "space-events-id",
+    "path": "/:space/events/:id",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/events/_id/index.vue",
+    "chunkName": "pages/_space/events/_id/index",
+    "_name": "_2407167f"
+  },
+  {
+    "name": "space-invoice-id",
+    "path": "/:space/invoice/:id",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/invoice/_id/index.vue",
+    "chunkName": "pages/_space/invoice/_id/index",
+    "_name": "_1cffaf5a"
+  },
+  {
+    "name": "space-memberships-id",
+    "path": "/:space/memberships/:id",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/memberships/_id/index.vue",
+    "chunkName": "pages/_space/memberships/_id/index",
+    "_name": "_c3bed6fa"
+  },
+  {
+    "name": "space-resources-id",
+    "path": "/:space/resources/:id",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/resources/_id/index.vue",
+    "chunkName": "pages/_space/resources/_id/index",
+    "_name": "_1976b94b"
+  },
+  {
+    "name": "space-wellness-id",
+    "path": "/:space/wellness/:id",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/wellness/_id/index.vue",
+    "chunkName": "pages/_space/wellness/_id/index",
+    "_name": "_2e215c8b"
+  },
+  {
+    "name": "space-admins-id-edit",
+    "path": "/:space/admins/:id/edit",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/admins/_id/edit.vue",
+    "chunkName": "pages/_space/admins/_id/edit",
+    "_name": "_1fa31e3c"
+  },
+  {
+    "name": "space-corporates-id-edit",
+    "path": "/:space/corporates/:id/edit",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/corporates/_id/edit.vue",
+    "chunkName": "pages/_space/corporates/_id/edit",
+    "_name": "_1763b110"
+  },
+  {
+    "name": "space-directory-id-notes",
+    "path": "/:space/directory/:id/notes",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/directory/_id/notes.vue",
+    "chunkName": "pages/_space/directory/_id/notes",
+    "_name": "_11ec9202"
+  },
+  {
+    "name": "space-events-id-attendees",
+    "path": "/:space/events/:id/attendees",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/events/_id/attendees.vue",
+    "chunkName": "pages/_space/events/_id/attendees",
+    "_name": "_e2038ab4"
+  },
+  {
+    "name": "space-events-id-edit",
+    "path": "/:space/events/:id/edit",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/events/_id/edit.vue",
+    "chunkName": "pages/_space/events/_id/edit",
+    "_name": "_126e7e26"
+  },
+  {
+    "name": "space-plans-id-edit",
+    "path": "/:space/plans/:id/edit",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/plans/_id/edit.vue",
+    "chunkName": "pages/_space/plans/_id/edit",
+    "_name": "_b56cbf08"
+  },
+  {
+    "name": "space-promotions-id-edit",
+    "path": "/:space/promotions/:id/edit",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/promotions/_id/edit.vue",
+    "chunkName": "pages/_space/promotions/_id/edit",
+    "_name": "_3f03d736"
+  },
+  {
+    "name": "space-wellness-id-slots",
+    "path": "/:space/wellness/:id/slots",
+    "component": "/Users/tom/Projects/test-crm-aws-amplify/pages/_space/wellness/_id/slots.vue",
+    "chunkName": "pages/_space/wellness/_id/slots",
+    "_name": "_ef7bbf24"
+  }
+]
