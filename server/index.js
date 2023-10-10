@@ -1,5 +1,7 @@
 const express = require('express')
 const consola = require('consola')
+const { version } = require('nuxt/package.json');
+console.log('Nuxt.js version:', version);
 const { Nuxt, Builder } = require('nuxt')
 console.log("Node.js version:", process.version);
 const app = express()
