@@ -410,10 +410,10 @@ export default {
       // Fixed bug using this line
       if (this.data.assigned_admin) {
         this.data.assigned_admin =
-          this.selectedAdmin ?? this.data.assigned_admin.uuid
+          this.selectedAdmin || this.data.assigned_admin.uuid
       } else {
         this.data.assigned_admin =
-          this.selectedAdmin ?? this.data.assigned_admin.uuid
+          this.selectedAdmin || this.data.assigned_admin.uuid
       }
 
       console.log(this.data.assignedAdmin)

@@ -62,7 +62,7 @@ export default function(ctx, inject) {
       return ctx.$axios.delete(`${subdomain()}/rooms/bookings/${id}`)
     },
     bookRoomForMember: (id, payload) => {
-      payload.payment_method = payload.payment_method ?? 'credit'
+      payload.payment_method = payload.payment_method || 'credit'
       return ctx.$axios.post(`${subdomain()}/rooms/${id}/book/behalf`, payload)
     },
 

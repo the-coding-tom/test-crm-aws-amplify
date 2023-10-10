@@ -143,7 +143,7 @@ export default {
         .changePlan(id, {
           subscription_id: plan_id,
           new_plan_id,
-          due_date: change.dueDate ?? moment(),
+          due_date: change.dueDate || moment(),
           scheduled: !this.change.changeInstantly,
           new_plan_name: ''
         })

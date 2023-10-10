@@ -328,7 +328,7 @@ export default {
       this.loading = !this.loading
 
       const emailMessage = this.convertTextToHtml(
-        this.event.email_content ?? ''
+        this.event.email_content || ''
       )
 
       const converter = new showdown.Converter()
